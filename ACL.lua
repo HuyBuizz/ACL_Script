@@ -1,3 +1,1320 @@
--- This file was protected using Luraph Obfuscator v14.3 [https://lura.ph/]
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+    Name = "Anime Card Clash - HieuHUB",
+    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    LoadingTitle = "Rayfield Interface Suite",
+    LoadingSubtitle = "by DuckHieu",
+    Theme = "DarkBlue", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
-return(function(I,Z,P_,N,G,f,A,Q_,w,b,k,r,B,K,t,L,j,C_,M,F,p,G_,h,a_,W,l,Y_,g,m,U_,J_,J,c,n,O,_)k={};O=nil;local H=32;repeat if H>0X9 then if H==0X52 then O=({});if not(not k[0x2283__])then H=k[0X22__83];else(k)[0X660__6]=(-0X263C7CC1+((n.h(_[0B111],(29)))+_[0B111]+k[0X26b4]~=_[7]and _[0X7]or _[0X5]));(k)[0x5aD]=(-0x1aDe4Feb+(n.L((n.c(_[2]>=_[8]and _[0B111]or H,(n.m("<i8","\31\0\0\0\u{000}\0\0\0"))))+_[0x3])));H=(0X7+(n.v((n.h(_[0B1001],(0XE)))-_[0X4]-_[0x6])));(k)[8835]=H;end;else if not k[9908]then H=(2341460708+(((n.u((n.c(_[0b111],(H))),_[2]))>=_[0x01]and _[0B00111]or _[0B111])-_[0X8]));(k)[0X26b4]=(H);else H=(k[9908]);end;end;else break;end;until false;local U,R,o=pcall;H=44;repeat if H==0X2c then R=(4503599627370496);if not(not k[0X2b28])then H=(k[0x2B28_]);else H=(-0x17a9293d+((n.L(_[0B1]))+k[0x2_28__3]-_[2]-_[0X8]));k[0x2b28]=H;end;continue;else if H~=0x1b_ then else o=(function(...)return(...)[...];end);break;end;end;until false;local T=(Y_.gsub);local C,s;H=(0B110101);while true do if H>47 then if not k[5223]then(k)[1690]=(0B10010+(n.v((n.p(_[0B10]+k[0X6606__],(k[0X228_3])))-H)));H=(0B10000+(n.F((n.L((n.u(_[2]))+_[8])))));(k)[0X01467]=H;else H=(k[5223]);end;else if H>0X10 and H<53 then s=Y_.byte;break;else if H<0x2f then C=Y_.pack;if not k[9521]then H=(-2393430508+((_[0b1]+k[11048]==_[0b100]and _[0B0111__]or _[1])+k[0X6606]+_[0B1001]));k[0X2531]=(H);else H=(k[9521]);end;continue;end;end;end;end;local R_,O_,e_,z,j_=({});H=0x1;while true do if H<0x6c and H>69 then if not k[0X1Af5]then H=-23+((_[0x05]+_[2]<_[0x1]and _[0B1001__]or k[9521])+k[0X6606]+k[0X528B__]);(k)[0X1Af5]=H;else H=(k[0x1af5]);end;elseif H<0X45 then O_=({});e_=(w);if not k[23772]then(k)[0X0528b]=(1183828660+(((n.L((n.u(k[0X002283],_[0B11]))))>=k[8835]and H or k[0X5Ad])-_[0X5]));H=(89+(n.v(k[11048]-k[11048]+_[0x9]<k[0X69a]and _[0X4]or _[0X1])));(k)[0X5_cDc]=H;else H=k[0X5Cdc];end;elseif H>108 then if not k[28624]then H=-3581561170+(n.c((n.p(k[8835]+_[6]+_[0x5__],(k[8835]))),(k[0x2B28])));k[0X6fd0]=(H);else H=k[0x6FD0];end;continue;elseif H<0X7e__ and H>0x5B then z=G_.bxor;if not k[0X66e]then H=(-0X1_48c+((n.v(k[0X1467]))+k[26118]+k[0x146__7__]+_[0B01]));(k)[1646]=(H);else H=(k[1646]);end;else if H>0B1 and H<0B1011011 then j_=(n.O);break;end;end;end;local function y(v,D,Y)local a,e=0X23;while true do if a<38 then if not(v>Y)then else return;end;a=0X26;else if not(a>0X23)then else e=Y-v+0X1;if e>=0X8 then return D[v],D[v+0B1],D[v+0B1_0],D[v+g],D[v+0x4_],D[v+0x5],D[v+0X6],D[v+0B111],y(v+0X8,D,Y);elseif e>=0X7 then return D[v],D[v+0x1],D[v+0B10],D[v+0X3],D[v+0B100],D[v+5],D[v+0X6],y(v+0x7,D,Y);else if e>=0b110 then return D[v],D[v+0x1],D[v+0x2],D[v+3],D[v+0B100],D[v+0X5],y(v+6,D,Y);elseif e>=0X5 then return D[v],D[v+1],D[v+2],D[v+g],D[v+0X4],y(v+p,D,Y);else if e>=4 then return D[v],D[v+0X0_1],D[v+0B10__],D[v+0X3],y(v+0X4,D,Y);elseif e>=0X3 then return D[v],D[v+0X1],D[v+C_],y(v+0B11,D,Y);else if e>=0B10 then return D[v],D[v+M],y(v+0X2,D,Y);else return D[v],y(v+M,D,Y);end;end;end;end;break;end;end;end;end;local F_,p_,M_,B_,D=error;H=(0B1010010);while true do if H<82 then B_=(function(Y,a,p)Y=(Y or 1);a=(a or#p);if not((a-Y+0X1)>7997)then return A(p,Y,a);else return y(Y,p,a);end;end);D=(nil);break;elseif H>0B1001 then M_=(M);if not(not k[0B11101111])then H=k[0B11101111];else H=-4294967190+((n.L(k[0X69A]-k[1690]>k[0x528b]and k[21131]or k[11048]))-k[28624]);k[0XEf]=(H);end;end;end;local P,y;H=(0B10011_11);while true do if H>0X4F then y=n.R;break;else if H<98 then P=(Y_.unpack);if not(not k[0X3982])then H=(k[0X3982]);else H=(-4294967172+(n.L((n.v(k[23772]-k[8835]-k[0X2283])))));k[14722]=(H);end;end;end;end;local a;H=(0X61);while true do if H~=76 then for A=0B0__,0XFF do(O)[A]=a_(A);end;if not(not k[11001])then H=k[0x2Af9__];else(k)[22532]=(-3844189765+((k[0x5AD]-k[0X002531]<k[0X660_6__]and k[0X00528b]or _[0X3])-k[0XEf_]-k[0X5aD]));k[0X393]=0X45+(((n.G(_[0X6__]-_[3]))==k[1453]and _[0B1__11]or k[0X066E__])-H);H=-3834817738+(k[0X6fD_0]+k[0x69__A]+k[239]-k[0X5ad]+_[0B100]);k[0X2Af9]=(H);end;else a=(function(A)A=T(A,'z','\u{21}!\u{21}\x21\33');return T(A,".\46\.\46.",J({},{__index=function(Y,e)local p,J,T,v,A=s(e,1,0X05);local Q=((A-33)+(v-0x21)*0B10101__01+(T-0x21)*7225+(J-0x21)*614125+(p-0B00100001)*52200625);A=C(">I4",Q);Y[e]=(A);return A;end}));end)(y("LPH#S;71GQj.eS@ps1iQj@ePDKTf*ATF.>/jC-Pz!,t2j\"^bVXF^g^BBl8!'Ecd0Cz!!!\"d\"CcXuAXEX4EcQ)=Qiq87FD.$EB6/3)Qj.2?@<?!mQj.GND.7'sMG=-Oz!13q!Bll-dMWt]ZV#LDos-Nh!QifHb3#;Pp!!%P3aZu3u@W-1$ARTJD\"^bVRDe,7-'ac'++<VdL+<W6f>?_FA+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>,o*-nd&$/hSb//hSb!+<VdL+>,9!/1`8(-mL#b5X6q/+<VdL+<VdL+<VdL+<VdL+<VdL+=J]^+<W3g-mL#a-71uC5X6YB-n$`%0/\"_%-mKr_,9nE]-nd&\"/1`Cr+<VdL/2&Y)-8#WJ+<VdL+<VdL+<VdL+<VdL+<W<e+>+s*5X7S\"5X7R\\/0H&f-mh2E5UIg)-71')5X7S\"5UI^(.P*2)/hSb//hSV\"5X7R_/g)8f,;'<G+<VdL+<VdL+<VdL+<VdL.PDns-9sg]5X7S\".Nfi^,qL/]+=\\cd-9sg]5X6YB-n6c#+<VdL+<VdL+<VdL+>,2p-mL#d.R66G.Nfi`/.*LB+<VdL+<VdL+<VdL+<Vm[+>5uF5X7S\".Ng2f-m1&f-8-u&0-_bi-9sg]-7C3+5X7S\"5X7S\"5X7RZ.P*2)/hSb-0.&qL5X7S\"5X6_?/gUiI+<VdL+<VdL+<VdL+<VmO+<s-:5X7Ra00gg+/gDYp0.8A(/2&J(0/\"e+/hAY(.R66a5X7S\"5X7S\"5UAZ\\5X7S\"5X7RZ/gEVH5X7S\"-8$De$6UH6+<VdL+<VdL+<Vd[+<W!r5X7S\"5X7R_,sW[t.OHJl-9sg]5U.p/5X7S\"0-qns/1!PH5X7S\"5UA'K5UIm1+<W3d/1rP-+<W-[5X7RZ+=[^@+<VdL+<VdL+<VdO+<W9`5X7S\"5X7S\"5X7Rc-n$B,5X7S\",;()]+<W3^5X6PZ5UIs'/g`hK5X7R]/1r/45X7Rf-9sgB-pU$_-7CMu-mgJf0.[GQ+<VdL+<VdL-nc\\c+=KK%-71#c5X7R]0.\\4s5U.[B5X7Rc+<VdL+<VdL,=\"LI/1*V/+>5uF5X7Rc,pO^$5X7S\"-m0WT+<W.!5X7S\"-7gGh/g)bR+<VdL+<VdL0-DA^0.\\>55X6Y@-nd4u5X7Rf+=09<5UJ`]5U\\6-+<VdX-9sgE/h/M(+<Vsq5Umm!+=09<5X7S\",p4<Q+<VdL-pU$E-n6i%/gVhs$6UH6+<VdL+<W<j00hcL/0H&`-9sg@/0H&X00h05/1Mu35X7RZ-9sgB,:+`d,sWe,+>5uF5X7S\"-8$Dc5X7RZ-9sg]-7's'5X7S\"5UJ$8-n7J8,75P9+<VdL+<VsV/g`h.+>,!+5X6P:00hcf5U@aB5X6YL/g)8Z/2&D\"0.JLq+>,;o5X7S\"5X7S\"5X6kM-7CK\",sX^?.OIDG5U[j*/hSb//1)Sk5VEHe+<VdL+<Vdl,q^Mk+>,!+5X6YG+<VdL0.&qL5X7S\"5X7S\"5X7S\"5X6Y]5U.p1,sX^\\5X7S\"5X7R]/0H&`5X7S\"5X7S\"5X7S\"0.]@R5X7RZ/g`%T+<VdL+<VdL-718i,p4fe.NfiV+>5uF5U\\6-+=np+5X7S\"-8-c#0/\"t'-m1/i5X7S\"5X7S\"5X7S\"5X7R_+<W3^5X7S\"5X7S\"-7g8f5X6YG00gp=$6UH6+<VdL+>+ri,=!Y\"00hcf5U[a)5X7S\"5X6tF+<VdL.O@>F5X7S\"5UJ*75UIU),:jri-9sg]5X7RZ+>+lg,pk8r,=\"LZ5Umm!+=]WA-8-hq.LI:@+<VdL+<VdZ-8-tr5X7S\"5X7Rc+<VdV-9sgB/hA>75UIm1+<VdL/1;f0,pklB5X7S\"5X7R_/h/Cp+>5uF5X7S\"5X7R]/0H&X+<VdQ5X7S\"/hRJR+<VdL+<Vdl.Ng>i5X7S\"5X7S\"-m0WT+<VdL/g)8Z-pU$_5X7S\"5U[`t+<VdL+>,,l,pklB5X7S\"5X7S\"5X6YE/0H&f0.n_>,p4<Q00hcK+>,;S+<VdL+<VdL+<Wp!+>,!+5X7S\"5UJ*++<VdL+<VdL+<VdL/h\\P:5X6eO-9sg]5X7S\"-7g8j.Olu%+<VdL/hAJ#-7CJm5X6P:,sWq&+=ocC,p4``$6UH6+<VdL+<VdL+=8W^00hcf5X7Ra+<VdL+<VdL+<VdL+<VdL+<VdL/gEVH5X7S\"5X6eO,sX^\\5X6_K5X7S\"5X6Y=/0u\\s+<VdL+<W9`5U@O(,75P9+<VdL+<VdL+<VdL0-D`05X7S\",9S*O+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL,sWe0/0bKE+<VdL+<VdL+<VdL+=JW\\/g`hK5X6eA+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<s,u/hA4S+<VdL+<VdL+<VdL+<VdZ-8$Dl-9sg]/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W't-8$ho$6UH6+<VdL+<VdL+<VdL+<VdO/g)bm5X6eA00hcU+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vd[5UJ*7-jh(>+<VdL+<VdL+<VdL+<VdL+<W9i+<Vmo,q^;d5UJ$5,:jr[+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL00hcR/h[PS+<VdL+<VdL+<VdL+<VdL+<VdL+=\\c^+<s,t/g)bh-pU$_5X6VK/0H&X+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+>5uF/1rCZ+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL0/\"Fj,sWe.+=]WA5X7S\"5X6_?-pT(3/g)8Z+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Vmo5V+$+$6UH6+<VdL+<VdL+<VdL+<VdL+<VdL+<VdO.Ng>j5X6PH+=KK?5X6YK.R66a5X7S\"5UA$*.PECs+<VdL+<VdL+<VdL+<VdL+=\\ur,q:Mo5X6kC0+&gE+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<Wp!+>+s*5X6VH+=o/g/jMZe5X7S\"5X7Rc/gWbJ5X7R\\+>,!+5X6eA,=!S./g`h5/1Mbg5X6YK+=[^@+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W<[+=\\^'5X7R\\/0H&X.OZW/5X7R]/g)B(5X7S\".Nfs$5X6V<-pU$I+=o,f+<W=&5X7Ra+=IR>+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL5U.m(/gEVH5X7S\"-7CDt+<VdL+<VdL+<VdL+<VdL+<VdL+<W9f.OZSi5X7S\"5UJ*9-jh(>+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdR-nZVb+>,;n5X7S\"5X7S\"5X7S\"5X7S\"5X7S\"5X7S\"5X7S\"5X7S\"5X6_M+=JWF+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<VdL+<W3[0.JRs+<VdL+<W9h/1`>'/1`>'/hSb/+<VdL+<VdL+<W3g,74c#+<VdL+<Ve4>qIW8$6UH6+<VdL+;Y\"Xz!'lDBz!!!\"VK/IVYs8W-!Qj.YXE+Ns\"Qj.&=DI[*sQj$i(D09Z^#@ChPDId='Qipl9Dfccqz!\"_D_\"^bVFA7UQ'z!!!\"d\"CbeWA/>4Gzn3@ci!!!#W,k!u7z!!\"90Qj7,>F`);;HC+eDDfU^=z!!!\"V!rr<$zQj./@Ec#6,(B=F8!!!!U5aV^^?Y!koM?3bXz!13q/@ps1iQihA?E#/KSz!!(gUQjR2-DIn$+DId='(B=F8!!!!Q6^S!`?Yj;@!ATH<z!!!\"d#'+-rF(KH\\$T][^A1K*53XlF%(B=F8!!!\"<5o0M$!!#9_eNf#'z!!!\"d\"$UEYQj.VCCh7*uQjR2-FDl5BEbTE(QiNKSGS^>[!!$COlTgg<+IE=L@<?!m(B=F8!!!!V5`07Uz!!%lZz!!!#T!13k0F^g^@?XIVkQj7GJDffE0AJY=H!!!#WDa9ZjEJbE^_qG(is8Nl8z!:W4?#@h[pDKKoF(B=F8!!!!a5aVfWz!!!3>z!!!9i(B=F8!!)qh5aV^s@:F%aQipc'AT8Ldz!:W:A#%(_I@;KbI\"E%dqF;FoWz5<tS=FEqh:M@0Caz!14.$?Ys@r@<>peCh8JXqgS2:s8W+d#[^qKDf0&nFI38TDK'#oCR>NCATVd#FCB9\"@VfVC#]t!+FE2)5B:&j0?Z9q-Qj<Zlz!!&ApF(KH1ATV@&@:F%aQj.S>G@tK/M?a+]z!13n!BOPotz!!\"-,(B=F8!!)eT5aV[n@:O)?!@*Jiz!!!\"d\"D2@cA=*^?Ddd0tFE2)5B,:OJz0L2!0F*)G:DJ'acz!)PqnU'6b,!?;.M!ZV7N!ZV7N!WiE3$4R&<!!NE@!h'qZ\"X3^H!=Sr.!!!!$Xj@)J!Y#31!Y#4j!r<9ig'1LX%0?S4+Y>:5!G2Bj!Wa<)!WaT9-!M\\F\"p,58%0B$u!Wkq.*<9[Qj9G_q!\\Kc?Acagk!?F<)!@:/9!@@(=!Y#2_QiUe#2$*e!4TYX1j8oAl!bDE6-\"RE5!_!/?!]:#t!^2>?Ach<\"!Y#24![0-IQiUe#2$*e!4TYX1703K99dO$jU]LT,!`bloAcbsY>ZG(&!G2C=?!J[E+t<XO!ZD,s!s15@,Q\\DV705u#9`b>A<<<1I72dWW2$+Zt4bs,N!WiEH/M3UrAcf%?!Y#2?'j)Is-tWMi'j)Is0P1@q'j)Is3+`4$'j)Is5\\:)!\"p,58!WjMs/XQQN!]:#[*BaH),t.k9,u\"FA,uk!I-!^QQ-,]rg%0@h='I?0L!@7dK&iDh.!G2B7!YR(:-!2I`!<N]32$*dn!Wiu\\/XQQN!]:#[*M`rB%0?tR=</E,Aca9/!G2BZ'j)KP#6G>9!Wl&$AHDlYD#s_aAHE&;D#s_aFTMRiI0'EqD&Ol*704q?2$+Zt4bs,N!WiEH/T_%'!Y#lH*?@[_!Y#lH*?@sg!qZZu%0@h%.8<M_0MNin%jcl8!Y#2?'j)Is=CqUD'j)Is?tKHL'j)L##m(P;*<J_m-'/.>!WiEp/bB/I%0A+-==#Pd!G2Bj!Wa=S\"9K#6,m\\)a,o'N&*=ufa%2Dtc*>iAi%2Dtc*?\\qqX9/M5!^-Sc,t.k9,u\"FA,uk!I-!^QQ-\"R,Y-!^QV!k\\O8%0A*]Acaio!G2Bj'j*$k!Z1u59d!G)75[d@!YR@RL]M)hoE,.(![T]</N\"hV/M3n%Ach$!!Y#2OBP%;T'j)IsE+T0A\"Tf,7!WiulM$!f74TYZt/]7kq%0@>\\;/UDtH@CGHL&m/4NWG:DQ3!ETScPPdV?(-0?)dq.!<rN(!!!!1PKs7T!Y#2V!Y#2V!Y#3_\"6'=jl3RLn%.XW$\"p.;I!<N<\\r<<6%zEKnfNbQ\\+X!mCiM%0A[@Ac`#s#Qge+!Y#4j's\\<9Z3X/QAc`$.#Qh(5!Y#24X9_HF1]e*f4XanD!^-ejKE2,`!Wn#X9-(AB!Y#24U]sIL'ES^FI0'F4K`M5U703N6F`h)(!dt+N7Do3.%0D4a!Wa;C![2]/?tKK$!s/o5!WjNfFTMS<!Wk9&I0'F\\K`M5U<<<4FFdrL7%0CZ[AcdA^!EFgS!Wd0!!<N]3I0'Eq!WjN^D.$rWFTMRiZi^@=!d.m_!dt+N?%i:\\!G)<6+a%p8Achl2!Y#3B4^2K7?tKI_!Wa%K!Wif4I0'F4!WjN^D-1BOD&lhtF^Se_PQ:gp!dt+N9n`TL!F5a.+a)iI!Y#3^\"'%fZ?!(\\?>pW]\\AQWOGPQLsr!gErl%0BNXAc`$6#QfY^!Y#24FA#&&-tWM^<<rYJ!Y#3\"5\\:'l87hp'!W`b;\"Tf,79eBRD<B+Rl<AcX6![:Q+li[A!!aRct!aRB^?\"H!-!bF5HAPF?u!_!//!_lL'!`]:&%:'6O!e^aZ%0C)B7gi#m+!Lb[9,5AL!Y#2o0P1AT!W`a)3+`5N\"Tf,7r!*94!WiE3$5EPQ!Z_=C%4)9l!n7GV%0?Ta!D>$:#6G>9/HPq^2$ddq!Wiu\\U^$r1!WiEs,qU6O!]:#[%6Xu/!\\G<?)Y=48%0?S4&euDuAca7qAcdVj!Y#39!Y#3*-tWM^9aCeo!Y#32-tWM^<<rZM\"9K#6JHJV9'`uS^90K?Z!Y#2?4h^q$2(_ZK<Y62i;I'8&!!!!2Vp>Bk!Y#3Y!Y#24,r;V'/-67^Hia`Y!Wla2,p6e$![S*R\"TfMB/I5qi2%X@$4T]'o/HQglnH8nK2$+J%,mj\\o!WiEp*@1br!Z_>,![RhY!_`Y)!Za]D4VU=+%EnhS%0HAGZ3C>u*^poX!WiE]70Q^`?=Hb3z$F.nX/-67^2%X@$4TYWn_$0rr7>q6K%0?t=Ac`\\QAchK*!\\tel!<P#&%3d8O/J)LqA-*2A2$*e)M$F);4TYZt/M/PFaTJ=>!Y#24!YR@B/R((6!]DVf&7tu,!Wa<m\"TgGJ!Wiulli@.s!WiE92)R6^+Y>9M2%0Nq!];i+R0\"rl>;\\8LAcb*s!>YD7!]!3g!<N]3/-67^dN!i?-,L2q\"VDILz$(B0@9EGY)9EGY)9EGY)iY1ko(:\"VU!]D&F#\\F,a*EX$s*>Ar.!Y#24!Xo\\C!_FCY!+l9Y*EWb%!Y#246:LqT!!!!'ZHiP>!Y#3!!Y#3g*g.NmZ5Q+4%0@7]Ac`taAca8$Acg`g!Y#2?#\\F,I!`o@2&7tth!Y#2W&7ttq+D([43+`4T-tWP6!^0jQ,pFf?%0C&A%1m+Q'gQ@4Muj%i!]<ed!\\Gu]2%9U/.LcYq!Wiff!g*Te1+b@3Acb+LAcahI%m9t<;]TBM%0?S48KB*JAcaP4Acg'X/RC$9!<N]3$URQB/O;iu:+9(Az!\"#@F!Fu6@!b;?A!Wj)m,W#Q3!Y#<8/JJ6q!]0rf!b;?A!q?Bp1)0s5/ctPG!\\u&''Oqje!_6Gr%1!\":*@M'm\"XX;M!Wk+d\"U,SL!Wkq&6imf!l3QA\\6L\"pYz!!AG2!?;.M!ZV7N!ZV7N!WiEJ!YkcG!Wj)E!n%M:##3ePz!!!/%cN--0%0AWn%0AWn%0BN2!DNVq#QiKV!Y#27!Z1t?![@bt#7Vs\\5n,g`KE2,`!]:$LCHV_h1IV@8MZHNR8#$+7!<N]3JHlo9!r2m43>EhA!>U_\"!\\u@/!<N]3_$0rr2$*gl,qT0gRfQaq%0FBfRM@Q?(f^V<9`bAi<<?/t1`QQ+!WW3#!!!!,UX&t\"!<N]3Mu`th!\\FIO!Y$^q'`nFp/KG*k,qT[?!Z_P=/M.fO!]:#[,npCi!WiET,m\"-+-2J&()*Wob*?>h/!Zb-CX8rA3!WiE3&fgsa!Y$.a*HV>l!\\=B^!fR-]%0?Z1#R5h\\z!!odS!Sd\\W%0G;c!Y#2N!Y#2G,oQ4U,pd-5!=^>/,onQTnH9Ra)=[h]/N#Cb!Y#5$\">*(p/M1PE!@9$7/b&rq*$m0_2(\\k22D$L,=Y0\\,;1o\"h!<N]3'dXaf\"=5@*\\H+9.>9tj1+>&6I!Y#5/!<N]3JHGs//bB&F%0?S4$lT0f;4IY$!Y#24!]DY#\"9L>1!qZLd/^+4s%0D+siYZ-n\"onW'!!!!)P0X.9!Z_=D*A7I?!+l96)E/[g#gr`1nd,F#%0?PBz!!_f9!V?Ep%0H/'!Y#2W+D(Za/M7)^=CqU9j8rg;,oC4q/HPqf2'?K4Mu`th!\\H!.2'FOk/L:H!/boJM1+b@CAc`]1/crZd!Y#2o+D(ZV,#]d>-tWN,/L`8/0P1Ac!Y#5$\"9L>I!mC[T2$,WkbQQ,k!Y#2W!Wa%K!Wif4'dZ$F]E/-D![RhY!pfq6*YmH2!Y#2W&7u\")\"!o!/1]e*fapR\\U#FZ.8!s/o5'`nC^'ES^F!Wla2'`nCf'ES^F![TX]\"k3VU%0?S4$jm^LAc`DV'GZi7!Y#2O#\\F,a!Wa#V!X8^j!Zb+2!OMn0%0@gW65:4:!@8E]%0?S4?igK5(]l![Ac`Ym*Zb.Z!Y#2_/R2:U-tWN,<@LpR0P1Ad<Eib1\"9K#6>tAQ/<E1/I,m\"*IbQ.bS!`^(L!aPj.'kIFI:$_ua%0?S4&lhpX:/sPZ0ie,R!Y#2?72.mZ+D([L4^1Vi9b^<%3+`4l4^1nq<>8HW\"Tf,779pU-'jXp9?sPKe79pU5AS>ZWAR/D4j8oAl!Y/+.c2nkaBlQTW_?/-eecL7(z!\"YIF!UL'n%0Gl%!Y#50!MBI*!eg]3\"_Ii+\"9L?<!Wo_EA,QEC!Wi6#r;e)d!jr%1!W<$5!Y#24!al'2J,ohu!<N<rblO=8!Y#5(!VHItjT5;\\J-BNdo`=^d+T2?>!=C\"P1]e*feH+S2AcgchkQGK!jT4iRAch?#p]P11m/b`<.J3^`!Y#3]\"76+Dm/cSTjT-mn!<V?`;7$_L!Wif4blN=sAcg3XblKEueH(I.AcgchO99(rPQCmq!p'HM\"(hW%!MBO,!e:C?!AWsBjT,De!pp#e\"(hVY!<N]3_up,N!kK,8&lXAl\\cST,#GMM&!<N:u!<W3##Qhp[!Y#24!YX;ieH+2$>MT>M\"9L@7!<SJnA'G#U!al)S!N6$2!n@=-\"D._k!K[Fr!p'HM\"D.`&!T=/WYQOP!TEJj.J-5HF1%bS7!<NH,j9#Gm!p'Fa\"p4/mW!$]6J-50>1$o#'!Ta>>m/`.K!Y#4u!Pne4J-4m6jT/TQ!UTol\"D.^c\"76+Dm/ch\\!Y#24!al*%'ES^FjT2\"VAcdJbjT.*t!ON49%0GVl!X8_n!T4&l!e:C?!AWsBjT4HD2=1GB\"Tf,7h#YS\"Ach&pa96)Vm/aHr:OiPC\"Tf,7o`<DBAcdJbo`6f?!UTpT!B'NNg]RZf!WiF2!mLbE!G2D`!PehM!e^^Y%0G&\\eH&n1!V$9o1>Ms4e.H38!SmbX\"p3leVupW5J-4m61$&Gl!Smc\\jT4EG!Y#24m/^)&(>Jrm%0G&\\a8olSr\"%<Y*mF`P\"p,58blIkHXT?rQ!Wg7@blIkM!ji.5%0DJ&!Y#24Pl_9Q&^1ae%0?Ue!E#WsPRdg)!o+1c%0Bg#Ac`uY'O>9@Ace2'!Y#3\"0P1A,72//l!_H*d3+`5^#6G>9*AnNg4XanD*Bb*\"]E\\KI!Z`R$,m\"->/N\"Y_!osRf%0DdqG\\.#J!<PbaV#^Wf6`gBn!G2D@!=39=]`A1)/&_Mj>lk)H!E&b*g^+#k!Y#-A!YkuQ!Z_ha![S[q!e^g\\%0CBCAc`ui'Q%tpAcdBgAca!$'RbZ9BP%;dK`MmA!K@,!Aceb6!Y#4T\"p,58SH>>`+Jf/4!<N:m!ji^E%0H2'eH%+i!hBC`!aFaeV#l/NAch$\"!Y#4%!o3lPo`:lj!WaUL!WiDq!Moi!\"p1V&/QePFr!<E6!j)M*!K@,f!WiD!!WiET]`RO-!Y#24U^Ip>!ji(3%0GntJ-9Hc!pp!o!lPZP%0?UU!AiLF`!$2O!WoJ*$,d5D$3CY<!fRO\\jT1SN!Y#4E!XNB>]`P#3=LA4+$N^b=m/`%E:Tsro!Or5D!rW/8\"(hT9!YXl$!Wj\"j!NZ\\2%0GntVupW5J-50>1$o#'!Ta>dm/buM!Y#4m!QY@T!e:C7!AW[:h#Z=4>NGn9!S%3Th#Yb$ljdCQ!V?d%%0GVlVupW5J-4m61$&Fp$j$k>blIkHV#^YB!=/bn%K[(@K`^`GAcdqnp]G+0!Wj#5!<N<8m/ck\\VupW5J-5HF1%bS7!UTnlo`<8G!Y#5(!T4&l!e:CG!AX6Jr;jtAAcfUT!Y#4u!J(ALYQOP!hudQmJ-5HF1%bSG!U'Vt!Zh4?'`A&k%0?t?h#Z=4>NGn9!S%3Th#[$K!]&R4!lP[\\blN=sr;eYO!<OHDjT40<!X8_f!QY@T!e:C7!AW[:S.5T0!mLbE!G2D`!RLp\\!o3mE\"(hVr!S@Kd!pg?t%0HJ/!Wf+u!rW-*!i-#%%0Ddr!We8]SH8in9`bAJV#g_j'GZl7!Wla2Pl_5'!gNfo3WbQJ#\\F.'![9Z,X:G@A!mL`I!MoeublJ(ON\"uI(!Wquu'pSh%!_J@QPle/kAceM)!_6b5&-<:BSH=cP=HrrQ!WiC^!M'8n!OVq0!\\L5MPRmm*!WiF2!WiEpr;hTRO9K4tr;j/-7>1es!mh'^!f[9&\"(hUo!rW.%K`Zr0hudQmM#rA4!rW.R!Wkl=S.G`2!ob-p#lpD'!mLa%r!JYj!Y#24blKW='N>,C!j)ON\"D._3!j)M<XTGm3YQ\\V?V#n%+'X\\\"U!g!Rt!jiRA%0FKM!W`bT!WiD9!n@>R!K@09&crLDV#n=3'YORe!h]R+!mLef\"(hV2!mLc\\bl[5E!Y#24![5MaoEG@+!mLeK!a*DC`<)\\5Acg3YhudQmV#nmC'[6^(!jr)3`<+![TE/X+Ym/GS3Mcf%!keY;`<+![!W`bT!WiD)!n@>R!K@-^![5Ma`<$)A%F\"qU!OW!Z!WiC^!WiEH`<)8:!Y#24!al(p!WiDI!<N<\\PlfbB!WdH*!<N;@!SmbX\"p3le#\\F.F'ES^Fh#WHM?f_=d%g!1Am/biBAc`&$!=/bV&HWCCm/a^\"Ac`&$!=/ak$N^b=!gNfnbR3tU!Y#24![5eh`;p$1'?pOZ!Q>'@blJ(OblIkHA^ph>!bMMp'`ngGm/[7hAb?)n!bMN$!>6k#!mLaCKEnRo!Y#4U!>6k#h#RQXA`WsV!bMMi!>6k#]G1JW!mL`I!=dQ[!Wg7@h#Rdn!e_9i%0F`j!Y#24r;e^E$KMa\"%0HJ/!_4Jh!WiE$!K@-^!S%4)!WiQ-lk]^4!hBAo!PJN1!WiCV!j)M*!K@-^![4*9SH8in]`Fr2!We8^U_a(A!j)M*!L3]f![4*9SH8in]`Fr2!WePfXTAP)K`\\%e!Y#4U!It8a!WpUI;=k:8(]k-JN<0.^r;i/b!WhB`N<0.c!gNfg!W<%i!WiDq!L3]f\"p4-,!Y#24![4*9blIkH`;p%b!=/bV(BP$Ili@.s!rW-$!Moeur;d0*KEhPf!a!bNYl[@j!n@>-!g*T`!VHJU!BjFWq#S#-T`LA[)3\"a/!NcD0nH&.]R/uCNW<&CgJHP!7r;r5b*HAmrFbKjQ!hBDW!UTrr!Qb@&R0/u^T``78Yle.B!Pnho!O2Y/JH92]!C;hL%G:cQ!R1YA\"-ipF.G4cV!iZ7#\"+?jE0s(Ni'd9CSA`3^L!JLV]d/bNnz/BQ3=49>rn49>rn4Z,e#\"?h;<(Hhi\\\"%tf<!Wif4nf+kA,jH9W!+l96!_a%<!+l96!_a?Q!<N]3/I5qi2$*dnT`bEP4imj/1.;6g;_9j4Acb*s!>U7h!Y#4a!Wk,?![:Ph,pc*e\"XPI!%:fML!q?Bp1*%YHAcaOc!>Y,-!\\uX/!<N]3ZiVgUJHMtT!Y#3^\"TgGJ!Wiul2)St8\">r&#!qZKp%0G#\\!Y#3q\"\"d?;\"oJE'%0A[M8:^jE!]E3c\"!pcp\"2k6B%0A[M8:^k+JHH]Oj9#Gm![TupJHGs:;'ZhW%0A+E)9E(G4_;/)4Z+ZO7@=5o,t/hY77B?g4TY[C4n/XV1+e%Z!\\td\\!s/o5!Wk8C!Z`-Yz$DPlJKEM>c!q?<9\"?F^0\\HW*jeHE,]!]&R7Zj6^B!r3!?3?<qW*<Ht$*@1d_\"<BKCi<1/&(\"<?f%0GJl!]&j@f`hL5m0-)S\"XO6*!<N]3JHiL_,m*<7!]%FiB`^'/!LX,n1<fhC!]&:,d/sG*h#X#J!Y#5,!<P%<\"47;>\"!n$5\"p-RQ\"8N!\"1Aq<V\"9K#6M$*l8r<;-\\!]#H6JH>m.N<Xq=!]$#FR/m@ESHdaK!]$SV_#sfpXTmhf!Y#41\"9L>QM#m`6<I%jr!r2t)3F.jR!Y#4)!Wk-b\"mH'i1;*io!]%^u]ESEH!jr46@KHu?)?KsL1]k2k!]%FlklCi@`<:J2\"=4*X!Y#49!<P%<!KdQf1@5+a\"9L@O!JC^[%0?j,\"XO4IV$/.HTa%V&,m)!d!Y#4Y!MooF!dUmN,m'21XTUYd\"R-$j1:78_!Wif4!WjSJ%0B$=!Wkq.JHm2A!\\=B^!r3\"R\"=4+(!]#`<_#XTmPm$U\\!]$;Lg]ITe!dPe4!mq,k3?<YR*<HuG\"9L>!Ylk+`-/f%01+hPl!Y#41#,MAI!q?>o![Rp,!Wk-b!f7!\\1;*bJ!s16s!k\\[<%0GbrblT0mf`M:2eH57C!]&R5_#aZnjT7FD1@5/0\"Tf,7\\HDsho`?!41Aq9\"K``V&d0,.*3J@Qg#6G>9\\H?Ch!jMh/12V;Z,m(UYFZFUB#QbG:f`V@3blsdE!]&:0&`!U:!aGd9!ndSU1;s@K\"TgI(\"\"=:,eH:p9!]&R6ZiL4;!iZ>)15uBm#*f9:!r2p\"17\\N(\"TgHU\"-E`g19CXE!]%.cq#pgT]`[$o!Y#4Y!Wk-J!LX&l18P\"sXT9^LHia`YE<7mQ\\H)ae4fJG`1.@]7!Y#4)\"oSHJ!eC@R15,dl!<P$9!hf\\t16hp_!Wk-J!fR9a%0D(_!]&j?!Wjt@\"Ru]h\"=4,c\"oSQM!mq2R15,mWN<LU0Yl]mg3K43Y!s16C\"hXp=%0EL2!]#14!]#H1aT2GuN<+S8PlW04`!6>Q!e^[X%0D+r\\c`&>#ljr*!!!\"3]?^MR!<N]3U]CN+!\\FHS,m\"-+/I_a^2&u`!7C3*t%0ABr2(^\\r!>dU^*D!^A,Q\\DV\\H+9%%ClKs*#1'D!FI_F!Wif4MueJ3',=aR%0@!G!]UqE!Wif4iYAHo26m>d!Xo_3\"9L>!JHGs/-):SD%0A[%2(^u%!>dmn'f@jC\\H*L@>ocJH!=])24V\\#!9cX99?).N'%0AC5>9,!k!Aut@%0DIhJHHPpHia`Y'S-?\"%ClKk*\">#]!u!8F!Wif4%0?PFZiU:<!^.i6*@1af4i@@&%0?M0z%ZA[7S-8s'!h9Dq%0CqhAc`#89RZg@!Y#242)DT@X9J_8!Wq]j@o\\'^!]!d/\"9L>anH8nKANU#'!d+KT!WiEsFh@q\\%0CY`Ac`#89Q^DZ;7m-E!Y#24!al)R\"p,58AH6<DAI9mg<<='?>mP$DAH6<DquQp/!`]M<!aPe<!WiEs?\"F\"J!bD]g!`]:?!aQ(D!bD@D!WiEsAShEZ!o*hY%0BN8Acc6<Ac`#89O4_#!Y#2^!Y#3J$7Z*_!ZD,G/Qc$&!Wif4!Wl&,D#e/LD$h`o>lkoG>qK/Yg]7Hc!WiEs'cd9d!Z_Ut!Wifs!WiF2!Y#EI!Yl8Y!iuJ*%0?T21OP,b!Y#3Z/Qd.<(hNht&7ttF!_e#r!<?^5K`MN1!d+P_!dtD'!lP3C%0D4a&7ttF!_e:KN<'#k!pg$k%0Gku!Y#3j!=C:XI0)V7I4\\QDj9,Mn!WiF2!mCfL%0H&&!\\t3\"!+l96!_a@!\"9L>!`!$2O!Wq]n@grJs1IR`6!Y#3Z/Qd.<!+l96!_d`b&7ttF!_e\"DI8TnE'ES^F!Wl%YnH8nK70:[:@l4;h?ioj$!\\uVr!+l:s\"p,58!WkqFJHGs/2;&*61-Ot.!Y#5$\"9L>I!\\@h=I0aEdK`M`s!WiEsK`R\\K!Y#3j!>&iEN<'A9!dt+g!o*q\\%0CqhAc`#89RSL@'R^&<\"\\X:A\"p,58iZH;D/`IHG%5Z34bQ@nU!X'MY+W17[!!!!3&d>l?+A-P85Cfk[3_u>n59=(CR2%FE57f?t[_6LT5FZ;Mo)KQo5;CTJHea235LhjBF_/hY57k?$X/C`U5Oq8!<<teG5Kb*m*?SQr-QF<6`%i`+o2-okmD`\\T!e_2$R%&GoQbGNGOT>S$z!+9c]MTkDds8W-!s,&Lbs8W-!s8Nl8z!-c59cI2ams8W-!Qj;f'.P81hZ^;g41'9bFA8:\\8-H5`5p\"P$B8,sHjX4m^%H+Qj)^6f;X0TjO&2Nm`gru2aSz!$K&nz!9D`s(B=F8!!(fW5aVbR+2Q#pg(s_hzA&&l\\z+Ci2'z!+:5j(B=F8!!%P#^ksN3s8W-!s8Nl8!!!#7f@<-Dae\\t:s8W-!(B=F8!//sj_&!(O!!!#'H,(3rzLu(CS3Of%gs8W-!(B=F8!!$*A5aW)8&D2h1PAL)qY9Br'el!:az\\:MF3z!5NNg(B=F8!!!\"7^mG/'(B=F8!5RjR5aV_]D^&*kMP7'Ms8W-!rtbY8!!!\"lC;:Vcz!'J%5z!8qJ)MI>0<s8W-!rtbY8!!!!aC;:Vcz+GRZJz!2+PO(B=F8!!#i@^_ZtN!!!!AOMDY4z&9u!J!:Bgds8W-!Qk*rMoJP;<02'9<`oLJ`%%%4PRS+-%(B=F8!!%OJ^_ZtN!!!!ADSV-[kl:\\_s8W*8z!11YiMLssis8W-!rtbY8!!!#'Oh_b5zfVq-'\"n,WH>ks`i1jKEW(B=F8!'k5M5`-6Hs8W-!s8SH&?TLA`*6=3&RlC'+I-5\\nYrkP`]oKmq4pt3=XYDlFYL8;hkpYp)q)-3&#`U!-\"hBiP^:@^u+%GfSflo%a%mHs;9ScB\"<L$Tg,I#IG'o\\hY*a\\%Hz!.[eZQnf80\"DM%QFUo5u\"JfQ.$CX^YfE07ci)JY\"9l@SOM'k^OCDA@S\\QAKC\\d*jGBW^Q/(B=F8!!'f]^_ZtN!!!\"DJA;s$z!/J?+z!9esKQj\\f;21O*qFE-+bf8B:Gs8W-!s8Nl8z!+E[1%?\"Yt`q?aFmC6C*DESd9zi,$2r'_'\"%g5Sn)9]E(d4/4b4;ss_0@i#+FzpqIUFz!-,djz!$HL$(B=F8!!%ON^_ZtN!!!#GL;9/fp\"`ET!nJT#T29s#^,nqL(B=F8!!%P$^_ZtN!!!#7;8<tJz:lE,HId6t5s8W-!(B=F8!!&[i5SjD#!!!#7KYSB(zGgntpz!!!SG(B=F8!!#8`^_ZtN!!!\"DKYWs2_Y4nZQW_-0,G[=4nEn`>B5[9j+EAs\"e%ML8S'$Hr5ZF.6\\9/>[026nh+%`2g$Yr;#$C3)*U:5nu4e#7az!-!%q(B=F8!!!R[^mGU@p/'WAFc-sm%W8j\"=-s3jRJk8h\\/,,F!!!#'I_^h9OT5@\\s8W*8z!,.5)(B=F8!!$0R5aW59<Il:Q!IoV:=JClb5lbY\\^/0^Zf`2!Os8W*8z!-!P*(B=F8!.\\t05SjD#!!!!AID?X!!!!\"LbLSopz!91.H(B=F8!!$D;^_ZtN!!!#WLVT8\\RSsU>,o<#<R@0J2\\\\F$FU&Y/ms8W*8z!0DoMMHSI/s8W-!rtbY8!!!\"lJ&$rVLB%;Rs8W*8z!!#^.Qk>qAaXd:^]S&H!p=Jg/UhiaAz!75u+(B=F8!!\"-L^mGJq=)mdLTl#A\\+;Y\"X!!!#GGJG!pz!+!AVz!$H6rMHGQ3s8W-!rtbY8!!!#WBttMbz^fJ7.=nVgps8W-!(B=F8!!#i?^mG4\"MIRG&zJ:54jEln@]s8W-!(B=F8!!%OZ^mGiF\\5^OdN!/t,;r]tB5PW%Vb$c;B(B=F8!!\"^-^krQ@s8W-!s8SGfKIdo>z+D8J+z!&/H/(B=F8!!'XL5aVuu6QF\"1`hk$*jF$BF(B=F8!!)5C^mGLHMH\\\\aM*%CfgdIMG:(P*JB[^b]M\\V5tN?K?R3,h<q'c%H!z^`q,j(B=F8!!#9.^_ZtN!!!!g^-EJ7!!!\"LQd.j`,.<V21JhpM7O3.d\\h\".N''Mc6\"CF<P&n=O7b>\"!'<I^YXzJ5!mHQjcmppXGTWb2,M/=FHPAnfY^t>BC:@#N]@q38PK3(B=F8!!(r(^_ZtN!!!\"L6bnTMnc/Xhs8W*8zJ4[aG(B=F8!!#!4^_ZtN!!!\"L?bdHXzE-T0c&%I!_a%b1XBRh5B++(^:(B=F8!!#%/5SjD#!!!\"Ve3FfMzOG(E,]&E\\hs8W-!(B=F8!5Q1q5SjD#!!!#gHGC<szJ8E#g$JLA>$?Ri'Amk*Ez!!#d0(B=F8!!%O>^mGM\\D3$m>+'#!K>dP:Iz5]\"6'$bs8ZP.P3H'u`KT(B=F8!!)M6^_ZtN!!!!AEkiIkzH.G4sz!!#F&MKnjps8W-!s-NkE2jad^9/mcd?P`\\B!!!!V[QkW/z!)^NJz!!#7!(Rgb[R@0Jb^D?kM!!!!a=MP^Qz7)qQ[\"i%'<LUJ!!z+Fh1o\"Rf`M;j\\:0H&::soa\\?3`Fk#pXkj]O3(Pd0(B=F8!.ZK;5SjD#!!%O;bs3'FzcF?-,#2$&[-EB+`Cr?;Qs8W-!Qj]*a-5bQ\\)An#7PnsE#!!!\"e`^#FQpAb0ms8W*8z!8qV-(B=F8!!!!p^_ZtN!!!\"4O2)P3zJ9o\"g>bM,ss8W-!(B=F8!!#i7^mHBACktcB<L$$W,Hf<Bm>R`<\"W=Nca+R>cY^pgsL3u2M&'$XGz!&/T3(B=F8!!%OP^_ZtN!!!!iOMDY4z?u`suz!-jL=(B=F8!!!!l^mGFEao,V)+mf;[(B=F8!!\"^+^_ZtNz=29^gRfEEfs8W+V3kbRns8W-!(B=F8!!&[0^l$Ris8W-!s8Ru$bl@_Cs8W,T!14!s_uOsadj(4j+90h-P.shiHe\"d`1TNVSz!!#3uMU.Fbs8W-!s-P+#XMc,_AU^t'+fmQ&btRuPcn8B-AM5+q56*JFr)\\56!e5R&(B=F8!!#8_^_ZtN!!!#KOhci`VZ6\\rs8W+d$,6?c%@>,,rXBYDz!-5lB1h_f\\hW%6;T`<6<F\"O0)JKIW&MTd$p&<D75R(=RU!o4XIjtS=nES^Z&#?:j/R!3XPHPZY^!!!!1GJG!pzJ82k9z!5MOKQj4[J8$+W\\/!ptE+*6F_Pi,;s_pn+\"ZY5Xn*gd6SPh%Q$OQr%u(B=F8!.aCi5aVr*3jiOOkrOLE.1m?rzJ7-0M?J,;Xs8W-!(B=F8!!$,[5SjD#!!!\",B#'cA_0h+UY?839S][@f$M#t.3C@6c2Kp!q>1`fSs8W-!(B=F8!!#9'^_ZtN!!#:9d6JKJzOE/,Qz!8rCC(B=F8!!!\"8^mGCJL0^XqoUVbE$,Or0mWTS\"/PHr\\z+G%=q$:;RAj,>Rn`IT0Kz!+9ucMTrm8s8W-!s-OQ,Jo55j,2\\e'YD8f/$=?#58#nKS4;Rtt!!!!AKYWrZ5aOq#a8d\"Vz9trq0z!76;4MPe8js8W-!rtbY8!!!#7<59:Mz!(Xh^B%-e[s8W-!Qj>2R!j<2:!`k16d/X.Gs8W+d\"]-(6ANku]VZ6\\rs8W+d#l'sI\"IB`NUl(W(s8W-!s8Ru>pAb0ms8W+d#bPj]22BS3B,:OJ!!%O#ej,,FXoJG$s8W*8z!3OO3(B=F8!!$DL^_ZtN!!!\"L6,8?rn,NFfs8W*8z!!#*rQj_J]O\"B5tFh\\Vq[#,=Ts8W-!s8Nl8z!,0.az!+9`\\(B=F8!!#8h^_ZtN!!#86fKb=Ra8c2>s8W+V]:8j#s8W-!Qr%!pL@i:c:T&K&eF<<Gm/2Dj;!3u3SlI+3FoVr2?U3=Ag?`L(.B6*>]<dKqQs=VLl;LS%A#<4`(rPMp,UB`Iqb08_<WkuEOt4<RGd8+c!!!#7]@9*'U:C7's8W-!(B=F8!!&[%^mGs7K.cElGGZAu[$hGC)gRFN*bD`T\"4oQ#%$5#)O\\Ys6M/k(!^5D!bs8W-!s8Nl8zi+'P=z^m*D8Qk[Ot:@qWdI\\PO%=\\fQs%%XXM'W7<QOO\\#H.YmM.Ptqc%fiG@d>\"!)BH@+>4]su0qeKW,8d<BsN93EFOG\"WkJ3J&$$?l&eC!!!#WGJG!pz!+s$(`hre9s8W-!Qk\\n3GOGg?A!lI8K[;.[YN1Ar\"u[7t!!!\"L-,`%bz!:Y]XQj3#*Lf<NYME?Xos8W-!rtbY8!!!#7<PXt,JAI-e*`aJP%QR\"'-fW7'+2Q,db>s$-z!8)h;QmL^^!g?qBi*E3/ebN^sP]B7>kMNTRC\"p3XN/S@DDkd1,A\"Z%&z!'k>8(B=F8!.ZNH5SjD#!!!#gGeb*q!!!#7`R-r.k(`p9s8W-!Qk8e,W`-+;s-\\Q!T3_kH-*nBfz+KWAG))efS?36pphmBr_0rTVqN@E<QfB;@mG=@l-k,k0<][I*X4D(rTQk&e8SSMk'rRl-dFfCrL(B=F8!!&[.^mG;;!Lg#7(B=F8!!#X:5`/X`s8W-!s8RuAqu?]rs8W+d';20Co_!#\")2F(TC/RieTi--;MG=$Ks8W-!s-O-CNel8kmDB=FLDKpj!!!#7=25UP!!!\"LMpjqYE'F\\1cg7Y:EQAT4JeGp2.\\ORbA5>98]@l2t?`k$?_#E2cF[gokB5+bdm4Z/b4Rb!DI:I6Db.5W,dj@,5F1cHn:j=GQJ;PD`N*&GtO6B?7C^_HQd!aN;7i]tWM<c8_FRH>NKhB5NL_,+KQC&2$a:?@,I%\"NEP2(.QISUa[zTQ@o9\"hf,[PPl9tz@!'1#z!)RmT(B=F8!!'fC^mG8D+X6rDm,e9Is8W-!MV=U#s8W-!s-O(d&Vh/dW5<![z5X*jdh#WBue,TIJs8W+d%hYspZ]?i'lBmh8VIE+\"(B=F8!!(r,^_ZtN!!!#oK>89'z5Ztm[l]M5Is8W-!(B=F8!!'fD^_ZtN!!!!)K><iVd<._kz!0D08(B=F8!!\"-W^_ZtN!!!#7EkiIkz5^'pZz!%<oD(B=F8!!!!b^l\"ATs8W-!s8SH6+e3<G=nhu$o;h:;EnM-R9AMMZC[?SboJ@X_=YII39-*Xa]FDXmz!5NTi(B=F8!!'fJ^_ZtN!!!!qOMH`BZiC(*s8W*8z!2+,CQmYY09X!J.NOue/#T&23)-aA?X0I$V4U%ujGusKoX#M?G%`!\"IK,4Lf!!!\"TVa)$u!!!#7F43Ajz!:YcZQl.H_Yb741[#H]b)Aa`Jdjrol:GENkYNE`i\"m@nYQaVe4g].<Rs8W+V&![+os8W-!MG]N9s8W-!rtbY8!!!!AA\\])^z5\\.Zt%J-PrV.ekgNZbb`f2%bB=(dBr.WQtpAP,%((B=F8!!#8a^mG<bAQRP3fbXVg!!!!1E57?Kq#CBos8W+VKu!`gs8W-!MV-2Rs8W-!rtbY8!!!!aK\"r0&z5`!2lz!0DZF(B=F8!!\"j;^_ZtN!!!\"lHGGmNMMN]@(B=F8!5Qk15SjD#!!!\"L<59:M!!!\"L*R?tez!&/f9Qj9q@SG`I7gPXACs8W-!s8Nl8zY]IU;_9`/]s8W-!M?ieRs8W-!rtbY8!!!\"L;S\\Y*LD&bLG3ru`(B=F8!!&5/5SjD#z@_e?GnA@?ANDHB@s/;_:Y<'fog'H/@8;_K)s8W-!s8Nl8zTS^H#z!'nanQlGa,i\"!kB)R+4^K\"kYaF'.AJo,#'HD`0$AF;FoWz=MU:7*c4lb4UX+PXW2g0;/\\W7z!,uqn(B=F8!5L8B5SjD#!!!#ahEZr6k5YJ]s8W+VOmrDNs8W-!(B=F8!!#d(5`.Vis8W-!s8Nl8!!!#7nC^&Cz!8rIE(B=F8!!%PY5SjD#zAAFQ@ZY]ng$GL+[nSnJn(B=F8!!'Ni^_ZtN!!!#'Hb^Et!!!\"LIFCHK#00P'/\\!0q-*Z@(QqgUkJ+\"RFp1*mJ<VVZ2?pb*3/.:]*#@S,B\"tr:PIrcD+!!!!abKrKjz!$GadMT>5ds8W-!rtbY8!!!!iK#!6^Z2ak(s8W+VQ(7mSs8W-!(B=F8!!\"-T^_ZtN!!!\"lD8;MD%rK.kbVs\\]z!.\\1eMNe)?s8W-!rtbY8!!!\",C;:VczJ98SaW8[dVs8W-!(B=F8!!$\\_^mGYj6mZ3SZ[S52T6dM-V9G;CF9@RjGJ?\\eW.b)rT0e(6:*pOk=Va>k$f_d`s#38Jh^[20QjC37=M[o5rH/nVzY]ml!z!.\\Ck(B=F8!!!\"*^_ZtN!!!#7A\\])^zcu?dX-BnK0s8W-!(B=F8!!%P&^_ZtN!!!#a\\3Li1zOESF,!_8cJ1Mm*iEIoV;9l@S*K72Va`mSD=V;JA(;[nA4)#*[QodR6E&h]C-4ab]W5\">N!%/e<rML'jRs8W-!rtbY8!!!\",HGC<sz^f%raz!'jo,(B=F8!!\"-V^_ZtN!!!!AFhednz?uEarz!.[YVQj%V0iW6\"pz!;j)f(B=F8!!'6H^mGTO.(WB-\"&W2GouW1,h%p%k!!!\"c[6U)a`nC5fht1fR&@0B4k8ZJ,q_@Z1=/fg,]U/qDh^$u*9mmfXz:isJhz!#U='(B=F8!!'f>^_ZtN!!!!qKtrQeKE(uOs8W+V'=Rr@s8W-!MUp_cs8W-!s-Rc;/<`*kKD4H[RCV0WE;U\\e`i>3+&U/Mj&U<R)2;mJ8l[2b!XM)Or69Ob^AbE@JZ%OIUpQ1X5U;2uuOUpY$j9p7E9dHMPBFr9eU#-FBaLmo18G6u!\"+qgj[k)@(/[\\p+Buf-OH-icVV6$s=z!+9NV(B=F8!!#9)^_ZtN!!!\"LAAAu]zOG:Q<,hO\\Loe#2_!SX=Z@iCVX[=c5<:!oTqQMt5+AuRRO`RiW*cPHQ]!!!!SU-KLpzJ6'H%z^q8DfQj=8P&Lm%GN*;SjS-dUlEDJ[0Mfr&([6m[D:Rgie&,ZM33iA*mB9l\"'z!-!\"pQj#>gXj:Akz!2+;H(B=F8!!!!d^_ZtN!!!!YJA;s$z5`ibtz!!\"jkMA4A9s8W-!rtbY8!!!!1LVO]+z&9>RR%\"DV';/\\Y6adX$_aVOpW!!!\"N[6PN.z#_g']&sU44M<`Z!UdhN2_MYkcS4s3T%N.bol_i(#G0A`A`Dea_#]:Q5?X2;]cPHQ]!!!!qN5-50zcud&>z!)RjS(B=F8!!(qg^_ZtN!!!#GK><icDMr>>_[W`;fl*<3W@V;A(B=F8!!&e+5SjD#!!!#7H,(3rzL;Q7mz!\"aat(B=F8!!#!A^_ZtN!!!\",BYYDa!!!#7b25H#z!+:)f(B=F8!!(Z+^_ZtN!!#8Nh*;bVz!)gV\"&Aie[Hk;Pf7M_r!a1q&[/XS(p;WFY$\"Nll-5gme8F'[WF/>RIdjRbFG!Pp?W(9*/i^\\uV;\\]^+m3n<Vb3>G*!)WQLmWfhhF`p<SpUC0b'5E'HcD.<uFN62mc\"r_\">%dU5jiKV;a6V#?Lh)S&<(H?_>KZt;5z!*-h%/EKMB^C9ooWh>DCd\"[HY-L/-f/LMt4C??MhlHih1&u3Kd6t#cF;@LJ,pm<?M-([hRl[P<6$C.HZ8D6;][lW%IR;I5X]+=qCHeV<R!R5?uQjB<tEjnUDd;g$'zOF\"\\Yz!3gjd(B=F8!!%OH^_ZtN!!!!a?,.6VzJ7lZTQ.c3;s8W-!(B=F8!!%O=^l\")Ds8W-!s8Nl8z!!'eNz!+9WY(B=F8!!!Fi^mGQ?,MY[-$(D^4\\Lh%F(B=F8!!%OY^_ZtN!!!!IJA@$SJH,ZLs8W*8z!!#L((B=F8!!!RQ^_ZtN!!!#oLVO]+z^g=gD%kjI4V$S@[\"BG_s&0r2AQjWGC<M<gsY-'d_Qk8l'9;O*1Y.cXM')Vd+9nO5^z(l^e<Ll_T9s8W-!(B=F8!.\\S+5SjD#!!!\"TLqjf,zn8lA]z!8qq6Qin3%Nb=5uJcGcMs8W*8z!!\"4YQk2??&iQ]+E[bA1i^Jt$g/o-kzOGL[gz!)SEc(B=F8!!#Q@^_ZtN!!%QBa?UOAzJ8`5j-,fQ2++fL%8't?uU7F#Q)8E$QeE;\\sTHEcrU<g*@aWCaGI,g)%f`2!Os8W+d'AufcQ[7EuZtBN=N\"Us0hmf9,(B=F8!!'Na^l!?Ts8W-!s8Nl8z0T*Z'BYONHs8W-!(B=F8!!!!Z^mGkK-BbDP9^AD@07)Co;-qNugEfX)Qj2JI/4d8DMD;F:s8W-!s,'R&s8W-!s8SGp]Zr23o%40E^1r^!(B=F8!!#9,^_ZtN!!%Q9b<QjD!2/SVZgbdIz!76,/(B=F8!!!!K^_ZtN!!!\"LA\\aZE$=CF(=cNIY:9$Xaa6&JZ(B=F8!!!Rg^mGMRlfW``#::ue+,$!a8Jaq#(B=F8!.]_T_&!(O!!'fhcp/BI!!!#7(#2'3Zf(l`s8W-!(B=F8!!&['^mGAH[@_cQRST:TLlWWg*bUj,q3Jf#j/YIg>CmL)%ko+@KOd@g,=U;Deki\"P]k]df'*UIdK\"KOBBIr]6+]Ap>b`%S->rOc=53Kp09;Kq2n/<)Cz!)UHIz!!nb'(B=F8!!%On^_ZtN!!!!a@DEZZ!!!!aB@]<az!.\\[s(B=F8!'jB;5`1nos8W-!s8Rrqf`2!Os8W*8z!5OT0Qn)j44/(%*kYqN*^HEb*_h(q-`*@mjE'i9XA'OR,&Hh2(gd,Fbe&]o*HC+o6Z<q1I:)<m1!!!\"lBu#TJi;`iWs8W+V?Cq2ss8W-!Qi_aj(B=F8!+jF\"_&!(O!!!#eVa-UR_8UZZHl\\RWJB=$.Qn/PUn<WZ-;$BT*@T%\\+I8`(t<JqaVn2;^A\\L78Y^jLc9da]B9+@pYDb5<%U!!!!aD;IMoz!.[n]QjT^A;Kf0E)!!R4Qj%V/^c[5cz!-j76QkX%jr)]KTg3'GqU;ltcY/$3+#'-(N7%sN0(9@?k_:tV>cTP^iH<K8d80>pK#jO]+(B=F8!!$\\d^_ZtN!!!#sg-?GSzk`ETI#A*=pXBLmg(B=F8!!'fH^l%1$s8W-!s8Nl8z>.6a5z!9_BfQprBld&\"_rg\"TsTE#?ZT6-rO*3pimlL@R*fR5,R!5=qmsOrjC?aU=JOBCYEr`$=1`!Tai)^)DdXBcoT[68H\\>=KkWUQj#]`R9=#9z!2+\\SQjY&fO;=e.1Ka(Ca;4gV!!!\"(ej,+-T`>&ls8W*8z!!\"di(B=F8!!$t\\^mG7AX'!:Vz!,e`#MHGu?s8W-!rtbY8!!!\"L<PTCNz^hge&z!2*c9(B=F8!._o(5`-??s8W-!s8SGimq@_Rkna=\"!!!#7?bi$H+7/PYd[WdkD!nop1U]KiBAj!@IWh5kXVUs;!!!#WCVU_dz?spd;&.nCN.IXOW9%TVi<K%hRU_a\"2!!!#oKts&]`>UG^q)6Zl(B=F8!!$,P^_ZtN!!!\"QaZpXBz!&23U%ISuh`kk*d:OVU8WGe.6SMNsHN>ZL98;Xu`A[N<SzTPqU^z^ouQZ(B=F8!!#QQ^_ZtN!!!!a=2:1AJ6.*KlP#M>ja;FfZdEDS4uQSY,Hg\"/4b8t-m!3I@)Q7E.cQeemNp@$Em#b25)Zeq(`G$6PJ%'t%HQSU[li57H(b=;Vz!:mZcQj&#UM]j./$t[A=Vc\\ML754qh7#E=]s8W-!s8Nl8z5\\%SGz!!#!oMJ'R$s8W-!rtbY8!!!!IKYWs$#OcDBoOIa5<o]9lH;5MlI1Yab?\"RCA*$uD$/:6?;g/\"<b;4&@epam+sn\"7:HHPe<j!A:1NKh'%rSeRY70r2Zr(B=F8!!!!u^_ZtNzB>BlFjG*<.,iS-9h1#c^.7ad^z!%a8J(B=F8!!&CI5SjD#!!!\"\\K><iaAj[LuE=g3Gnq/sbiaru,zi/>Aez!+r`+(B=F8!!%)K5SjD#!!!!Db<QjDz=Fe1'z!,.8*(B=F8!!)MF^ks2&s8W-!s8Nl8z^hLS#z!)B@U(B=F8!!'fX^_ZtN!!!#WBY]uJqL;>1cd@\"KD893%\\3bcom/Rq&!!!\"LN5n1\"z!-j@9(B=F8!!)eK^kr`+s8W-!s8Nl8z5[(sj#.0Scprb^c*X^4`*tYaGI#+h'leM:XC_to'%:^`jC+S7>e@&S=[%.0rs8W-!(B=F8!._0.5SjD#!!!!1FMJ[mzn:n^pz!.]+*(B=F8!!\"R5^_ZtNz;ns1L!!!#7V:@hu\"0iO`Qi[T.(B=F8!'j3.5SjD#zDnq_Bmom)c\"-+q1MU.7]s8W-!s-O1dImS[+9&L-!?NM#DzTQ.a`z!18ARMC=&Us8W-!s-O!h-LAU-%i53G!!!\"]^HdZ[\\,ZL.s8W+d\"[k0JgK56l!!!\"L`Qg^bz!):0m(B=F8!!!!)^_ZtN!!#82d6JKJzn8Z72$*4XrYM3e=8>qD4ci=%Fs8W+d$j*n\"qg?n1N,7S4#)XVfs8W-!s8Rs1jT#8[s8W*8z!!\"pm(B=F8!._u)5SjD#!!!#WDSR%gzn9i\"fz!$m]B(B=F8!5R(65SjD#!!!!aB>BlOp`FSKG?YIu'W*AiRJ^B`n(8V9dr7,<(B=F8!!'f;^_ZtN!!!\"\\J%uj#z:l)oS%E%uBof*S1aNF2\"A/'pFRK*<es8W+d%&Yu=a]-ht;=>R3E#/KS!!'gmgcuYUz!$o>rz!!\"F_(B=F8!.`P;5SjD#z<koLOz#a)n=z!!)N'(B=F8!!!!k^_ZtN!!%O.h`qtXzW//5*z!$G^c(B=F8!.a1_5SjD#!!!!1EPN@jzE.5S=z!*mB+(B=F8!!%Oh^_ZtN!!!\"tK#!`\\NM1jrVP#c=2]\\7l!jO\\`=k./@8f%I-!!!#'MSPSb@;jjnci%dN(B=F8!!'6U^l\"oAs8W-!s8Nl8!!!!aak/ipz!5NQh(B=F8!!$DD^mHM`H<brXQEHVVNB]S2_Iu(AY4=rCVL,ELOmC//7!RYGmdf?.EI'4($a0n4(Ts%Z^APr#Qj/:NE<&jS(B=F8!.\\/$5aV]hIaJUBQmXc&>7TlpUAE5=5;q@<VHPG_*0BphP!fIf0)!JZFL`7@%1!c4CmYJB<o+[(;qW<1z!!n1lQjR!0:-$lZq0>+_(B=F8!!$Df^l#r+s8W-!s8RrcYQ+Y&s8W*8z!5O#uMEgq:s8W-!rtbY8z)Sh^F6k1O1Il\\_hz!!\"ah(B=F8!!#8j^mGhfn2@G3Vhubpn;\"jELLO!aO\\/rI#IY5VeU[iEQp?3TcXO6]Y-%lCI9)kPOGN@>;.0jmR2ppK\\gf4]&sXP4R=db3D[tC#9]3/.=_djSA`'MOL^J?LS.IsRY'>hF_Z0Z9s8W*8z!+9<P(B=F8!!\"]l^l$;!s8W-!s8Nl8z!#WKfz!2*`8MBK)%s8W-!rtbY8!!!!aBu$)>).sT7QPTW%!!!\"dKtnK)zJ5!`pz!)RgR(B=F8!.a[Y5aVh%,RKDQPe89/#GK(4L/;lqMRq17s8W-!rtbY8!!!\",Hb^EtzKu-(kz!&/Q2(B=F8!!\"-Y^_ZtN!!!!iKtnK)z?tI+iz^qnSe(B=F8!!!RR^l%KFs8W-!s8Nl8z=KXoV\"3bpnML_Q's8W-!rtbY8!!%Q#fKbf:DE+E:Q5=A,eA?9>a!+KJ3IVbE!!!!a%amV\"an,Q4s8W-!(B=F8!!$DV^_ZtN!!'elh*@>@:*5WV/G!ZASJA3FM%Ub7+E9o=;b^a&(R1WJ!oNrcKkKQPFn5agI8ghg;J:S7KW+P=qa1/k3(9uGi\\Z0</gI`>!V!<CLSQYYp.D[@0[NcV8RRqme.,O3Q<P5kqFG.2T?qr:(B=F8!!(r'^mGc0b1oLA'6rT02'>0\\[K+M1ba8n4!;JMTE9mAofkD3VfbXVg!!!\"l@_e?=r?):jd/9cIR4OJX&W-Pfs8W-!(B=F8!!%O;^_ZtNz?bdHXzTObiqZ)I^&s8W-!(B=F8!!\"O`5SjD#!!#9*gHZPT!!!!aGgo!9TsXk\"s8W-!Qk:E8#fde)Dm*jFmuKN24jc`d#IjB[?aj+OQj+?ADt)!5(B=F8!'pA;5aWjCc0RT;!hWOt6'bQDm;*^&TU9qDLHm^0KlMuu8g[1c+rd),(B=F8!!'fb^_ZtN!!!#gGJK*(UAt8ns8W*8z!'\\4a(B=F8!.\\S'5SjD#!!#90fK^5Qz5ZYZ:zJEGNM(B=F8!!#98^mG:;F<;cF(B=F8!!)M/^mGN166*\\)gnOSl2RA;Xz!8,mg(B=F8!!#iB^_ZtN!!!#GF23Yd_Z0Z9s8W+VRJ-[\\s8W-!MQbt<s8W-!s-O'=EU<BGe=Kj2'[c9YKt:ng;&?=>al5SN=TJl\"\"W%.=!!!\"\\EPN@jzJ4dVE$V44F,h=q[@i%.H(B=F8!!#8\\^mG@ArmDGO2A$`*zA$nQ<z!.]d=QjLNp?C85j+q;bR5`,O@s8W-!(B=F8!!%P!^mG]?FRk6):iub6#ph<:L::6'Qj<(,_Eau^)iA=os8W-!s8Nl8z^g\"Sjz!!$`KQjDT=\\aYUd$>pX[z7$>>%z!/SP.(B=F8!!(B_5SjD#!!'fkfg(o.RWAk^-&QKcs8W-!s8Nl8zY][_tz!#)q/(B=F8!'hR\\5SjD#z3kuO3zi,HK!\"u28$L?JURz!#U:&(B=F8!!#8^^_ZtN!!!#7AAAu]zi,-8s\"rj?sf1u5[z!)S0\\QjS'=\"d04R[3/`6Qk*Xp]e:?KWZq'9FfJ7Pjqe!t!!!\"lFhednzJ4RHlz!-j.3(B=F8!!\"L`5`1E_s8W-!s8SH#3S&c-UZ@@<_o#0\"8:BqFk@0&,(B=F8!!'fI^_ZtN!!!!AI))*S`;r3Jng;Hpz!#WR<Qj;Xh>lHr`GaJaN6.I'!>0ec:z^gthXQj_J8LGe$SJ\"['O[#0Hns8W-!s8Nl8zd#l*[z!'kV@(B=F8!!&[6^_ZtN!!!\"dL;4T*zn8Q11$sGC)JDm=/j6^[GBbpaL!!!#7FMJ[mz!):6Fz!'k,2Qj5:'k-,^]G*iCH;Y)a^z!!%)UQjk*:8\\R.m4:I`^C)^$-E9dK's8W-!(B=F8!!(qc^_ZtN!!!!a@_`c[zJ8N(<z!6Bl0(B=F8!!&+>^mGHf6seb'i?q3+()HrN!!!!IL;4T*zI_%c\\z!18YZMQ,e=s8W-!s-OK8hFRPGe:1JVH*iXuAQ<,+jajEJz!&0&@MRpq0s8W-!rtbY8zZTo<,z!+<SYzJG6lF(B=F8!._Z95SjD#zJ\\W'%zJ8W.=z!!%2X(B=F8!!#9D^_ZtN!!!#7A&+H9(DU`adG^H+B%?=6[p@!\"0YDSqj*Tj-+5:ZLz!.\\:h(B=F8!!%OX^mG;XMi@ai(B=F8!._<#5`3>1s8W-!s8Nl8zd`t+8&#TC,s8W-!(B=F8!!)MA^_ZtNz4hqj6zY]7I9g7&'As8W-!(B=F8!!#u[5SjD#!!!\"L:V[bHz^g4aC!a$!Mz!$GmhMT<4+s8W-!s-O'mj;Ob9KDRlj)kR*0s8W-!MM'abs8W-!s-O@-MW%onn'Y4@9:OZ7PGd=Tz!5N!X(B=F8!!%OT^mG@b8#=l-S\\0i@nGiOgs8W*8z!!$0;(B=F8!!!GV5SjD#!!!#COMI4fDAe*s6GXH<z^ehf_z!.]j?MMTmas8W-!rtbY8!!'g`dQeTKz*0@rPz!&/E.(Gdj'1G^i9^D?kM!!!\"<KYSB(z!&_QZ#Er7:'\\l(W(B=F8!!\"-b^mGZ*b\\i7[kQkCi\"BL,C+)Vkpz@$&/?z!.]%((B=F8!!\"-[^ktX@s8W-!s8Nl8zN8$UT.eNc@s8W-!Qj(]P!Ken\"&6_9ML>fg%hsG(:HjYBf:RD@(c4]\\*\".0ts\"Ru^%<BgRc;TXO]XX2?SHgY?DM`jT<Qm=9QejYTMdqe]K5mfLtmTTA$hj-Ih`\\C,^pT=Q3Bra5pJ4paZzOH70nz!)^KrMR2:As8W-!rtbY8!!!#]h*;bVz=GXb[$;tbc;VR#06]nU?$LE(5eKO*@W7`\"(z!3gFX(B=F8!!#ia5aW@A8e$.A^`8HQDeXf9cS]P1fHLb<MCKDBz!._j$z!2,+_(B=F8!!!\"1^mGeM)Q,NC.Q\\/UQVS-\\%%XXM'W2`Iz0SR:Yz!!$6=MDhsDs8W-!s-O?ZJJp#7h,l0p[d\"otp!?SQz!\"a4eQj3D(<KFmd(B=F8!!$ta^_ZtN!!!\"lJA@$Or;Zfss8W*8z!/Q3A(B=F8!!%])5SjD#!!!#7D8;MPfq]g;U#8QB/pGsLHi$Rr!R5?qz!.[>MQjjPJA1B1)-]CpKC5>fGVWe'[s8W-!(B=F8!!)eR^_ZtN!!!\",JA@O\"OO\\5sjnnM'FU+p8\"5CF:cTFe:H>qaX?rl#nG1t'<rHEK!bD2c-z!18PW(B=F8!'iF!5SjD#!!!!1H,(3rz\\;A\"Y,(opqs8W-!(B=F8!!'fY^_ZtN!!!#=Z9T3+zpkup(z!8q8#MX[2:s8W-!rtbY8!!!\"tKYSB(zE.,M<z!:YEP(B=F8!!()p^_ZtN!!!#'LVSeoZiC(*s8W*8z!!!_K(B=F8!!%O9^_ZtN!!!#OK\"r0&zi+Kim&(qQZYAoRng@'h&K,jW((B=F8!.^KZ5SjD#!!!#WGeb*qzS<1OR+?\\n/8C=VF*@o\\tk#*Zk\\LjNma_(gM$Ii#8\\D4gkT,.J-z8\\g5MX8i5\"s8W*8z!4LcMQj\"mOrQOC?z!%=#G(B=F8!5R%85SjD#!!%NZ`^#mmp(J5Bz!(F[>z!\"aUp(B=F8!!%OQ^kte=s8W-!s8Nl8z#bjR#z!%<K8(B=F8!!!\"6^_ZtN!!!#7I)$Nuz!(anm$b>rOSkK,9ZX[M3MU\\p2s8W-!rtbY8!!!!QJ%uj#z.\"]5Nz!5OE+(B=F8!!&+C^_ZtN!!(@YA&/r]z5]=FSz5[)l,MC-FEs8W-!s-O#I*@\"M3r\"f>5!!%PBh`qtXz+DeiNonreLs8W-!(B=F8!!#QB^mGQtb9uN%8`5KNBF,Pu(B=F8!!)57^_ZtN!!!!aBY]uH4l-_n=30USq+X]np`gX.(B=F8!!(B%^_ZtN!!!#WI_Za\"zd!EKp\"M657R25i'!!!\"tJA;s$zpkZ^%z!)S-[(B=F8!!!!G^mG_a#l\\*]_uqo>+%pC@#V6uB(B=F8!!'6V^_ZtNzDSVVJY7FMBU>#@Ll,k]V(B=F8!.^d#5SjD#!!!\"lBYYDaz\\Ze=8z!$Ggf(B=F8!!$DX^mGH$U*Q:HX@\"`=(B=F8!!)ME^_ZtN!!!!qEPN@jz5]ORUzJ25P<(B=F8!!&#15`0^^s8W-!s8SGk6P@slo$?kCz!.\\au(B=F8!!\"^6^_ZtN!!!\"lI)$NuzE,`T/z!7\\kN(B=F8!!$tp^_ZtN!!!\"TNkcG2zd!icf+0PYDs8W-!MBfn9s8W-!s-O4QE5(,hOh%@\"720X,%iEOiE8tjWV*%9_WKkE9MBg=Es8W-!rtbY8!!!!a;8<tJz5\\@eJz!-$@OQk!q8\"GG'Q'X#\"<4TBS^(B=F8!'iNs5`1*4s8W-!s8Nl8zJ476iz!18_\\(B=F8!!!ju^_ZtN!!%NMeNfKU`$'G`=]]*5TUOn5Nd!&BHfks&mp:c9>jLY+[JR<k])lk&p35mVYIg$nF,A%L(B=F8!!&CH^_ZtNz>/1pSz6J4U?z!.\\k#(B=F8!!&[4^_ZtN!!'ehdQj0)rM'550WKYj#/Dt4@8E1*z!0DTD(B=F8!!!\"(^_ZtN!!!!iMSL#.zTP)%Vz!(`\\HQj1Ir)WWaX(B=F8!!&sU^_ZtN!!!!ofK^5Qz!!!!8z!(Y3t(B=F8!5N3t5SjD#!!!!aDSR%gz.#bs!AsiVus8W-!(B=F8!!!G&5SjD#!!!#WG/+mo!!!!a7,C1r$PA0+Zc4bOZd.mPQl8;&SHs:&Mr0aB'gXQk:TuTC!?\\:0CBQg;(B=F8!!%h-^_ZtN!!!!YM80o-z&_TF:&AF8I+k,,JTL![]r?p$H#E%#]s8W-!s8SGmicOO*;5#Xo:DX!2!!!\"LBttMbzJ53lrz!!\"gj(B=F8!!%OB^mG?f2#<r'>K)K6_Z0Z9s8W+d#.O9O?*[]Oz!-!q5(B=F8!!$DB^_ZtN!!!!P[6PN.z@\"uH5z!5Nor(B=F8!!#95^l!!?s8W-!s8Nl8zi,QOKz!:n#m(B=F8!!!_T5`4!ps8W-!s8Nl8zn:SN6S[e_\"s8W-!(B=F8!!(HS5SjD#!!!#WFhednzk^gO:$<9!_$#_MJ]A]$B&4Ce4g)O$$b=^=XBG.8@P8=3!!!!!AK>89'zaFV,Cz!:Yu`MLO.Vs8W-!s,-0=s8W-!s8Ru(_Z0Z9s8W*8z!!$lO(B=F8!5PYi5SjD#!!!\"L>eh-UzE-K)6z^b4)$(B=F8!!\"]o^mGA8'Y_bK/0:/a]*Eti1J@#,MBSnts8W-!s-O'$-1PG-.C^`Az!\"at%MR/$:s8W-!s-NtF)pZE,Qj9]M2mp\\74d[^r's?&1*?NTWBW]K&odR4Ma=`ZMC]MP\\0;ZGTKiU8!b/]hj2+_c@$&U0is8W-!s8SGim!a-M!uCq;!!!\"$NkcG2z?t[7kz!8qt7(B=F8!!!!M^_ZtN!!%P[dm+]Lz\\:hX6z!!n.k(B=F8!!%h*^_ZtN!!!#WI)$Nuz?uj%!z!'jaRMUT6<s8W-!s-O31V9<R'5dUDdNTn\\(z!75`$(B=F8!!)M?^_ZtN!!!#+OMDY4z!%u&'z!*G#lQj8a;&1/Ks?P`\\B!!!#?K>89'z!.M^\"z!'jc(Qij05],(GI!!!!a@)*QYzOE\\JVz!*%0-(B=F8!!(r&^ku^#s8W-!s8Nl8zY_Bk/z!5M^PQk1qVGT=h[kb^E,l\"ARr!0n?#!!!\"L1W)JF$E=C<>TeGdW%o,)z!.].+Qj]^)Y'K'>O#4(*b81-Y!!!\"LFhednzi,ZVjd\\QpCs8W-!(B=F8!.]sP5aY%S6?kf[<H/XA4XBCDaV3:F7b/MumnU3*Lq5O-bpQBDeXl18,29RceW2tr.H78)FeLk=7BQs9?shB&[t;A46sr@ZM\"$cT\"$'UMIo!S%Tu3gE&_cC<XfFD`MH4O&7=nnB3m4L4_\\W:Q!!!#W@_e?;.i'2;:hh%UEu+fV!!!#'Mng,/zJ9\\jGzJ2th=(B=F8!!$D8^_ZtN!!!!ILVO]+z0SdH2$*cW_4s[4kC/u,Nz+E>2S'\\iZfs8W-!Qj9/a9sg3!@M]\"E!!!!QFMJ[mzb`T\\u.\\Hb@s8W-!(B=F8!.Z045SjD#z6GOB;zBT'Zn#dW!Pl4GksjHp>%ZdJ0;Cfs>]5Ra\"de2i6>.2/*,J/81c!!!\"TL;4T*z5^C-]z!\"c4s(B=F8!!'$n5aW&-/[BPls#l&/2@Gf8S/2/*!!!\",@_e?8%3rq^$Qg/b!!!\"Lp=MVHz!8)ifQjiU5q(!(mrQ3+4D$(RSz!$&cjz!'lIX(B=F8!!'f<^_ZtN!!!!)KYWrea'LeMZn/R]`E\\3lq<AUP/JeBe!!!!1HbbMdf)PdMs8W+V'<V<7s8W-!(B=F8!!!!a^mGRZZCeibjQ^b6WC(u5(B=F8!!!!X^_ZtN!!!\"<Lqjf,zTOttUz!47m(Qm)-KSSMkMl\\P/>W<HO3Afb]<]H2@2</VU6j>K$#DWfuG+VT0,FIe`#R/r:,1n_m(A6HP&>M2=qs(2nI8Ld`NoA#]=.Y<Pu\\b=)q(B=F8!5M7S5aX4(\"0Kri;saj8]O:n7ZdsTDQ0'<a^dM7(9cJsoS5<\"o`socV5aCTR*4,0Na0?E\\zi,?CIz!:%*[MH6_Vs8W-!rtbY8!!!!ABttMbz8;P'K#uC_.DEdU4LCoCrli7\"bs8W*8z!8qD'MO'k6s8W-!s5KaVN6hTa\"Tf,7N!07l!fR9a%0FXK,p`WW:]`C(,m\"8P!o*uQ,t%eD!oZ$=11f]7AO^54>snb)/nG)i\"Te].!aS1qYpiri8HJrF?&Sdc%0BN2)Zm93<=lDI<<<L/ksAA]Yn=8H!W`H+<C?n>,ZPEO0`hD.<Oi\\f,m*=-!f$fY\"sj=K!o*t]%0E7>dL\\*a)$0j_2;A67%0DIi!Y#24<C?m[<=n[f\"Te].!`_Vi\\Hu7I\\Np8u/QLa]2'i='/-7RiV$mD+/bB&F%0?\\7(]s%*!Y#32!ZM3O5ueKd-<1*d!r4QN&A]Xo!X)Ms;H4:E,m%(7!_HB'OZ*>A6is&[<=kie<<=*@q(Yk\\TfiP\\!<iO)6iuUF<=mP$!WjrRW<tL/!Z`#>!N?>fV$!FmktmWQ!WakS!n.0-S-/m&!hhe8,m'J^!\\uo-'bRDN]EA9F!lP3C%0BN2)ZmQ9<=mh5\"Te].!`_VinH)]%i?/1'/QG5.&a<*n!eCA0g]@Nd!gEii%0BN2)Zm93<=mgg\"Te].!`_ViaY-X*_&*4T/QDiR$kgZZ,p`WO3Wcel/L:H&!Wj?7-1h?B('4O=\"BD-!<=nsY<<=*@d3M^'JOBYC!<iO)6iu<U<=mO\\!WjrR\\Imp4,m*$d!\\u>R!`B*L\"p2sK!ZV7N!osOe%0Fp4!]\">T\"_C/7>lk?7M&^(.>m191\"Thst!kAPA&D9;M!\\I]Z#6G>9!WiL)T`nF-kpQ]:!J1CT<C?nn,#o2b+T_]s<O!hr,m#Y\"7uIBo&h4e$%8hc[j8oAl!W`T-)ZTj<zzzNW9%ZL&_2RNW9%ZNW9%Z&HDe2)?9a;8,rViL&_2RO8o7\\O8o7\\=9&=$56(Z`.f]PL;ZHdtScA`j>6\"X'6N@)d:]LIqM#[MU:]LIq;#gRrScA`jV#UJq=TAF%!<<*\"L]@DTL]@DTL]@DTL]@DT]`8$4CB+>770!;ff`2!PHiO-H9)nqlQiI*dQ2gmbScA`j%Hbt;,Q\\DV,Q\\DV,Q\\DV,Q\\DV/-67^704D0d3M-lnOc4O$3K0071bS0!_#KYi?:W$q(W$S!<iNn6iu=B71e]M!WjrB!Wic;m0iu,!YqC3\"/QC$!WjtUU]CN+!WkeY!oY:k&E-MU!X]#)/O^5U(.A9D!l5^B&>9[>!W`H+77749%7Lhj*s)Kq7Hjk:,m*`K!Zs2>6PUmKf`hL5m0j^2FTV1<!Y#44!Wif4704D0d3M-lTfGOC$3Hn)71c^8\"Te].!_#KYd31pinNm9Y/Odbj!]$#I/HPq^\\J50$24O[K7KSeV!Y#3f2$,O5i@\\,\"<<<4):#S'3!_ih\"!<iO!6itIk9b=Qs!WjrJg]ITe!_!/0!jP*]&E+Tt!X]\"F1.;c5*!/Ps!pN$?&:k]f!X]\"^01?G')+=TG!qATG&E,/D!W`H+777493(4D3!s4>]/Odnh!We8g\\J52:!Ncdp!^0<\\'`oI4\"TfMBqud'1!WkeY!oY:k&@j1m!W`H+77741(I\\nG%KZ\\`7>1dCAc`^@\"9TCL'`p-:Mus+j!hp:d'hcCM!>,;?zzzz!!!!,!!!!1!!!!\"!!!!D!!!!A!!!\"3!!!#G!!!#G!!!#G!!!#G!!!!l!!!!R!!!\"3!!!\"1!!!\"%!!!\"5!!!!,WQtSR!Y#4!1BK=#q(\"m'76L\\k!kBpP!^-\\g!<iNf6irJq4V6:\"!Wjr:<!!L12$+]unM2s5YpqU4$3K002%Y<a!WiK^T`m:bJKt:S6j!092%[S`\"Te].!]<@I\\Lo`NYqH.[\"Z6>_$kgA`*@hT8$:QuJ!=^><*<H:#*<ZEQ!icgs!a\"(f!!!3'!!!*$!!!f8!!!$\"!!\"JL!!\"JL!!\"JL!!\"JLz!!!?(cN25l!Y#4T!s/o5*!-QN2$+]ud3LR\\YqH7^!<iN^6irJq2%]R8!Wjr2bQ@oG!aGd9!]:#d!oY:[&<S@E!W`H+2+.NA0f9N!7KNWC2$*hN`<ZMH2AN\"g!Y#2g!ZM4268]=*4Z*9J!r4E*&E+'%!W`H+2+.M.!]:OO*s)Kq2;p,%2?Mha!]&R9'`q87<!!L1g(0VVAuZo:!Wif4aThl&7Hk[Y7R[@[\"?lQQ705Wg/HR[r_*^X\\76L\\Z!oYe$!^-\\g!<iNf6isV)4V4k6!Wjr:quQp/!WiE+2;o]9&;^WL!ZM3?\"Z6jJ#6b/0Z3p^k6j!0V2%[;*!r<$O2$0lcgB!fFX9AY7!n7;R%0Ed_!]!47!C]IH4TZQ(nH),\\4n0El1.CF`77K^/!ZM3o(I\\Bg\"Te].!^/pQYou7AaZ9J)/Np`L!Y#2g!ZM3G6T#FS&-=^W!oY:[&:ku+!X(C>+Z0hI(^0s[\"TgPL!iZ>\\&Ffl)!\\H:/$&&O/!ms46@3*#i!X8^b!Wq6[!ji+4%0?Sg6j!092%Z`+2$+]ud3LR\\a\\N'A!<iN^6ita=2%[;H!Wjr2M%(1G!ms461*%)2\"p3<]!+l;&\"p-7UU]pl0!Wk5I!r4E*&E,Q*!X]#)/N\"*u2`1XD!oY:[&>;Z!!W`H+2+.M^4>d\\,4otd;26@;O)Ztd&/HPt?\"Tf\\S)?Du$$ig8-!rr<$$31&+z(B=F8'*&\"49E>+n.0'>J+92BA9*#\"mhuE`W70!;f;?-[s7f`SiMuitZNWK1\\NWK1\\XT/>$?N:'+8-&\\jMuitZO9,C^`;fl<Du]k<8HAek$)Z#LA-*2AA-*2A*!-QN/HQjmd3L:TYqH7^!<iNV6irJq/J._0!Wjr*A-*)>\\dbYN.I%BH!Z1uT!Y#24!X(+6+Y=81.P1]@!qA#t&FiX%!W`H+/OT[)4tR>n,Q\\$!/HPt^$J@'IHjuK&o`ufC>QP?9A-*2A!Or.1#64`(!rr<$$31&+z:&k7o9EkIs)ZTj<('\"=7!<<*\"9EkIs9EkIs9EkIs#.Mq[U]pl0!i-#%%0E=0!Y#2V!Y#24#R(Y=%8jb>r!3?5!m*eE3>LdF!\\tc2!`B))!Y#4,\"p,58C]Y%Iq'?(t7JT>?7R]HA$3Hn/705UU!W`H+4[]A95!9J),Q\\$!4gY4k%0ABg$3K002%ZGn2$+]uq(4H8Tb.>`6iu<j2%ZGn2$+]uq(4H8q&T\\@!K%<f2+.MN(,ZZ6/cl)+24Y#p#V))GnI5OT,m\",\\'bu9\\NWBm=\"9K#6_u]uL!ngHQ1.@<477K^/!X]\"f+@Q>p\"Te].!^/pQYs^_dnHo=!/No$p!Y#2g!ZM3G6T#FS4otcg2;'W?&=En-2+.N)+Z0h9+TaMh!oY:[&:mA0!ZM3O#rN:a-3?%m!nf4a&Fh(N!W`H+2+.M.2`2/?3<B762:Vm<f)Ys;+9JPD'aj=6<<@RkAcgKnaTqt`Ylb%_,m\",\\dKa:a%0G#^!Y#5,3W_'*Tf5D076L\\k!oYRs!^-\\g!<iNf6it1A4V3/^!Wjr:S-8s'!]:#u!qAT7&?-U+!ZM2t4uEnV$N`1R!pN$/&BPUi!W`H+2+.N).5_[9&-;o;2>KB],m*HC!W``V&h3qt!mL`I_$^u6!^$Mn!kJTq'2lCIX9J_8!]:#d!nf4a&>;ZQ!ZM3?\"Z6kE&HW\":2;'W?&D7X!!W`H+2+.N)2`20*'`nFg2$*a]V%3XH$/P^4$60*V!h9Js%0D(^!]!3,0h\"Q#4TZQ(WBs#T4i%F+1.C/!77K^/!X]\"^,t.ku\\NU'M7I_!Z7R]HA)Zn\\=705UU!W`H+4[]@&.6S7$*<H9o4er>b%0ABg)ZoOb2%\\/3\"Tmuj\"TgPL!nekW&EsZ+!kSKm#0B4AF:HnV!\\tK\"!`B*l#QbG:]E/-D!e^j]%0Ed]!]!3T\"%>[J4TZQ(_&#NA4Ttlf\"TghT!bje/R2H&-/Nq;a!Y#2g!ZM4268]=b(BOX@2;'W?&@iSY!X(C>+Z0i$;Z\\gE!nf4a&Eu.X!g!Ed!]<@IJMf:rE<61n273l)AcdMs[0TeM%0BE/_$dXW2?K*J!Y#27!Z1tB!X8uA&c`gMzzz!!)]s!!)cu!!)cu!!)cu!!!3.!!!3.!!!3.!!!3.!!)]s!!!r<!!\";F!!%QP!!!-,!!!-,!!#jr!!#Ce!!%NO!!%oW!!#Rj!!%QP!!&8a!!$F-!!%TQ!!!3.!!!3.!!$C,!!(1B!!%$>!!%?J!!)0^!!&&[!!%HM!!\"/C!!&qt!!%EL!!)p$!!)p$!!!>(ciK(2!Y#3i#QbG:*!-QNM%KeEAbcXD7V)X,6iu=BAHH-@!W`H+>snaN7U6T$/HPu*?\"=!G!`]:@!mr8n&FiAm%KZY7!`_ViOXO3@\\M\"!c/QI`8!b;Al!r;q\"M@Sl9!]!IO![0_^#m(P;_uToK!`]:@!nf5,&@i)K<C?m[<=l\\I!`_Vi_(o\"%Tb.G0!<iO)6isV/<=lDb!WjrR[1!*;-%SrW3?9sY\"p-ph!A-G9#W8CY!Y#4T!Wif4<<=*@nM4)UYsVLm$3L#T<=lE&\"Te].!`_ViTfH*anMC:K/QI@\"26?ne\"p-YZX96*9!Y#4d#m(P;Zi^@=!`]:/!hiLl&Fh)I!ZM3G6WF]f-<1*d!l5^R&?.hs!W`H+<C?o),ukM-%0?S_<T,Me,m*TZ!m^nL$8hlO!i,o\"%0EU6!Y#32!X]\"f+]T)Q&6/c=!oY;&&D7j$!X)N^+]T)i(f^VV!jP*m&:ku.!W`H+<C?nf\"]Z+b8-/iE<TsS`$7,`gq'Q8u%%.D'OT?a0!YYG;i=I\"U!gElj%0FHO!Y#32!ZM42\"B?#T)$L'B\"Th[l!mq-N&BQR,!\\ICu!_;PX/HY>@$N_>GX96rY!Y#4$\"p,58aX[EJAYDY+7V,j,)ZkRGAHH-@!W`H+>snb!;I'jU:BCSL?/u1k%0BN2)ZoOb<=mgi<<<L/T`nF-kpTO5)ZoOb<=nCC<<=*@_(o\"%nN-dR\"BD-!<=nC7<<<L/fe6>:ko9j.QiR?l<C?oa1fY+?5QV!=<KSl@#!)>aOVB*K-(-)+F,^YM!gE]e]EJ?G!gErl%0FpO!]\">d1hB-f!aS1qM*#8M>m191\"Thst!nel*&=H;q!\\I^5#QbG:<<=*@d3M^'W@CmL)ZoOr<=n[8<<=*@q(5SXWDNEm!W`H+<C?oA1fY+7:]^\\M<TsPo%0@\"7-_(2HaWCR>*<H9T%AX+.)?RhY!Y#27!Z1t=!#5J6!!<3$!##>4z!2';l!3uS)!3uS)!3Q;%!&4HR!$qUF!*B4$!3uS)!3uS)!3uS)!)ijt!&OZU!*9.#!,DQ7!(6ee!*]F'!/ggW!*'\"!!%@mJ!)rpu!)rpu!3lM(!+,^+!%e0N!/:IR!3Q;%!3Q;%!65'>!.b+M!%IsK!!NB'!1Elf!%7gI!3Q;%!\"Hro!Rq,O%0G#[!Y#4\\!<N]3e,]U[!jW!8)b@7=1]e*f.0;8!OUOrR9go*j!g+m*!_!7o!<iNn6j!0Y71d9j!WjrBHia`Y4TZQ(fe5K\"nPTMl!Q#6H4[]A95!9J9:'(JK4o%5m,m#q*^&\\s#&h3r'!b;?9!Z2!o!<N]34TYrli?:>qd3/QS6j!094V4kc!^/pQT`mRj\\I(J$)Zn\\G4V5.2!WiKfq(4`@Yn0&\")Zoge4V7-=\"Te].!^/pQYt.\"hYn7$=/Nj.:$jm%;8c9*\\0$OMF!Z_>N%36'2!Ykc$!j)P)Aca!p#Ql*P!s150!WiuT*Q\\Qh*RQ_G1+`P/&fi!D3[Pju!Y#23V#^Q&zzzz!!!!+!!!!.!!!!;!!!#t!WW3Z!!!!M!!!!\"!!!\"'!!!!R!!!#r!WW43!!!!Z!!!#t!WW3-cHcO8!Wif4bQ7hT!ZV7N!]:#u!mr8N&@!kl!W`H+2+.M.,;g&./HPu*29Z+'P5ta5*Qf!=RK:V6!Y#3I!Y#5$&-=UU\\K41/76L\\Z!kCTc!^2*'!]!3T,Xk0k4TZQ(\\NrXc4Ttlf\"TghT!eDU[&CDa)!\\HRb!<N]32$+]uYsUA[\\Ht+p$3Hn)2%[;)2$+]uq(4H8q&T\\@6a?dq2+.MF;)Jp$3!'.52$+t#'c#+UQiRr,7088GXTl]F!Y#24'b2/3!Wif4a[#t`7F<JO7R[AA6itIk705UU!W`H+4[]@V6Tl\"N6NR<@4e)TU%0ABg$3Hn)2%[SM2$+*dks@6=OZ,-!)Zoge2%ZHEM?<n\\\"TgPL!pN<7&;_D/!\\H82!XoDNnJ!>[kpHNfV#ff]!]%^tA-*2A!!!9)!!!*$!!!?+z!!\"nWz!!!r<!!\"GJ!!%NL!!$\"!!!#1_!!!$\"!!!!\"!!!!\"!!!!\"!!!=gciKX?!Y#4$\"TfG@S-8s'!WiW2'`o+IPQgCX!Y#2n!Y#2_!ZM3g,V9T'0eEGG!jP*E&@!Yf!W`H+/OT[!:+[$N;??nO/b((f]E'=3\"Tg(RPQ:gp!\\FH\\!oY:S&:l)1!W`H+/OTZF.P23o-isH%/HPtsN<oXd\"Vh(R;&k5l!Y#4t!<N]3/HQjmYsU)SWDNg#!<iNV6is%o/J*Ir!Wjr*M%9Y2-&_j+%0EO<\\d`6A%(lWC%0Fos!\\upD7Qj4(!]<@InM36/2$F$^\"TgPL!kAXq&@i)K!\\H9_!s/o5!\\HeAi?9caTfjt/)ZnD4/J,`E/HQjmOXMdmW=1?[$3K00/J+liH3+*N!\\HeAYmN&oYs\\Wp/M/7M8%Sg(!pBZ=%eTi(<sY#o!oX.]N!'1k!WjrA!oY:S&FffR!X]\"f+Y=9$%0?S6/`@j)&GZb=!W`H+/OT[!*%__a2Za%4/JYfW:CuIgXT^`0#JC;_%g*QR!Wif41]e*f!fR.Q-0,(.%0?\\7(]pK:!Y#2_!ZM4*67ibR$S;De!hfcL&?uTH!W`H+/OTZ.%4r-B+T_]s/HPt^$4R&<!22Rk,m$(.1*$DrhuVpHPQh0u!WjZFKE_8V!Y#44\"p,58!\\HeAi?9cafg#]B!<iNV6isVk/J-kU!Wjr*[0$J.!gEii%0H/+!Y#2_!ZM3G6S/kk1+`PH!l5^*&>9=1!X(+6+Y=8i%P7`$!qAT/&EsZV!ZM3''.jcH.4kT.!oY:S&Fhgc!W`H+/OTZn#qZ_)49>R9/HQ1]'bu9S\"8rN@!YGJ8!\\G-%!giuoTg\"GD1'6\\h!n@;lU]pl0!X,G'X9,4\"T`P38zzz!!!#W#ljt`#ljt`#ljr9!!!!:!!!#Z\"98GE#ljtJ#ljtJ#ljre!!!!F!!!#Z\"98Gm!!!!p!!!!^!!!#^\"98GG#ljtL#ljtJ#ljsX!!!!p!!!#]\"98GA#ljtF#ljtF#ljtJ#ljt)!!!\")!!!!\"!!!#;#ljt?!!!\"0!!!#Z\"98GF!!!\"9!!!#j\"98GX!!!\"M!!!#h\"98G_#ljtd#ljtf#ljtf#ljr2Mp_X=$N^b=]F+cM!k\\mB%0@dV%0BN2)Zn\\/<=k!V\"Te].!`_ViYqK)gT`kK!/QE-@_Z9f?![0/&!s/o5F92mQ_#j`oAYB3;7V,j,)Zmi8AHH-@!W`H+>snb)/mT%a9`bAJ?+^1>%0?T26iuU><=n*u\"TfhN!`_ViJN[!EnPTDi/QM0GiD35li;tSk/HRM$Zicg%!Y#3q!Wif4OZ`b$A[)t]7V,j,)Zl]nAHH-@!W`H+>snba6X:8.('4Oh?/,J_%0BN2)Znt,<=lE&\"Te].!`_ViTfH*aYt+ot=B-paRK3II!Wa&+:H^]a!WjMse-H*b!k\\U:%0BN2)ZmP[<=l,<\"Te].!`_Vikt4qeq+:\\i/QFC]:V-WMa[IdA/HRM$r!_'b!Y#3q\"9K#6<<=*@YsVM&iA^uB!<iO)6iu<i<=n[I!WjrR\\L%A@7J%#j%0G;f!Y#32!ZM3G6WF]6(^0sA\"Th[l!iZ?'&E+T1!\\IE_-3DWs7I19]%0E=/!Y#3n+p'N2aYdX!AR,?E!oXl*!aPs2!<iO16irbc>nDQ1!WjrZlidG\"!Wl@i!pN$O&E+$!<C?oQ6<+TU8-K%q\"Th[l!oXko&E,&>!\\K!5eI:D4:E\\Tt/NGE-!VmuC/^+D#%0G#`!Y#32!X]!#<=n+0\"Te].!`_ViTh/5qJOBP@/QFq@-N\\i478t***)![LX9o\"<!iuV.%0H>M!]\"?G,%X5T>lk?7kriSZ>m191\"Thst!pL\\1&@iqc!\\I^M#6G>9<<<L/ksAA]R03Rk6iuU><=l,r\"Te].!`_Vikri#Xfa.]]/a<__\"lW6Q+Q3GT3<]I9;4J;a'*8UEaT3tR,m#Yqr!`32!Ytk0#QbG:<<=*@d3M^'E<61E<M<;j&?/J0!W`H+<C?oY'ibg%'`nFg<=8[.<<<4'+YB2t!\\OQ>$\\B!DOpKhL!Y#32!X]\"&\"]Z,-*`W7\\!mr/k&>:-K!W`H+<C?o)##u561'.M/<<<4fK`M5V2C5^;!Ytj*;$&Lai=TWjAR,?V!eF9]!aPs2!<iO16irJj>nH6[!WjrZr!EK7!`]:/!_HB'_']Bf!<iO)6iqp<<=nsJ!WqB_<OjFX19C^\"!Y#4L$N^b=!`_Viq(5SXR7@<Y6is%c<=l\\`\"Te].!`_ViaUqMai@4m1/QDiR$kaQ\\Acgco!W`aa!WiQ-!Zb.f$/?3r%0F0N!Y#32!X]!#<=mP.\"Te].!`_ViTdEbNkplf:/QK>.!]&R@j:VM'!e_!a%0BN2$3KHY<=n[k!`_ViksAA]knXF(!<iO)6iu<J<=kil!WjrRTft%S!r48H1,V2r!=])3+jC5i#Qb#Q!Wk83r!`]C!WiE+<M<;j&A]au!W`H+<C?nF'NG_?-isH%<=7Of<<<4'+Y@L3%0?Ul&kb[;%g!1Ag^XAp!WiE+<TuhM&?uZG<C?n^;H4:M/d2:W\"Th[l!eD@l&FhFU!\\ID(iD35la[NTA3@uiY,QfXC$OS6_M)e\"((rQmc%0EmF!Y#4d%g!1ATd0[pA[s@'7V)W&\"C:OeAHH-@!W`H+>snb!10kI=&HW\"c?)/#5%0?S4\"BE8n<=mh$!`_ViT`nF-Yq8rW)Zoge<=n[/<<<L/T`nF-nI/D!$3L#T<=kiX<<=*@fe6>:TeHWO!<iO)6iumJ<=ki7!qHOI<@%o_![[(Mq#T\"MM%-ir,m$42/aX$*&h3s:$j%=KnP:_s,m#Yqe-M!7!Y#5'&HWCC!WiL)ksAA]WD3Tu!<iO)6irbt<=mPN!WjrR/`BK$+OM:M#rsRhq'6%o4UNP<bRssd!gtu9<#>]/%80-K\"9K#6$9_Aj!WjMsr!WW9!\\NA,:ET]j;>^iu#6G>9PSO<0!i-J2%0BN2)ZmP[<=nC3\"Te].!`_ViknI,/R5tBN/QFC]:R_A-d2sr#/HRM$D!V`8%0HG@!Y#24<C?oQ6<+T=\"U+r.\"Th[l!mr#g&FgqG!\\IEo!A-;XjTkoh(bHkB!mD>[%0?S_;>^k#&crLDj:hY)!WiE+<M9Rr&=F+6!W`H+<C?oa**!Qd3W]@7<N-9N,m#Y\"!?EHf\"p+kf$W5C[e.2Ti!lPfT%0BN2$3Ee!&D8j>!ZM4\"**!R'1Bdg\\\"Th[l!gu/N&G]*'!\\ICRlj2JLIIn<W%0E%8!Ytk-(BQ@'\\Og@%AHH.*!eD(t!aPs2!<iO16is&&>nGZt!WjrZj;%e+!`]:@!kAV;&<T9\\<C?oQ6<+Sj:K7H'!pN$O&G[8F!ZM4:/QEAX)]AbY\"Th[l!mr;o&E,,@!\\IFN\"lW6Q+Q3GT3@uiY,\\i#C4UPQuaZW'l(q^Rb%0G#^!Y#27o`<SDr;jD/T`G-Kzzz!!!!*!!!!.!!!!E\"98EB!!!!B!!!!D\"98Ej!!!!W!!!!5\"98F?!!!!b!!!!G\"98FU!!!!k!!!!B\"98Fg!!!!t!!!!?\"98G$!!!\"@!!!!E\"98Gf!!!\"V!!!!>\"98EU#QOiY#QOiY#QOiF!<<+f!!!!?\"98E3!!!!X!<<+r!!!!P\"98Er!<<,/!!!!E\"98FA!<<,9!!!!\"!!!!=#QOiE#QOiE#QOiG#QOiG#QOjc!<<,G!!!!H\"98Fq!<<,T!!!!M\"98F*#QOj.#QOk>!<<,`!!!!B\"98GN!<<,r!!!!H\"98Gr!<<*<!<<*2\"98EK#QOiO#QOiO#QOif!WW3O!<<*C\"98Es#QOj\"#QOj\"#QOia#QOia#QOia#QOic#QOj=!WW3a!<<*B\"98FO!WW3j!<<*;\"98E]#QOia#QOia#QOia#QOjm!WW4%!<<*1\"98G,!WW4L!<<*@\"98E2Wm:\\k!Y#2V!Y#2V!Y#5%(6T@gdLRl1%0E47!\\u'a&LBmm*<HQLnOb)/*<cKF\"Tf]4!mr86&EuL_!\\GF7!Y#2G!ZM24'bHK/!WiK>fe4'OYponY!NH5''gr,6/enrn9`bAJ'b(.T!Wn&Z#QbG@Ac`#C#QbGHAc`#CT`G2u!Z1ta!Y#25)'L:+$31&+zzzTE\"rl$NL/,(]XO9(BFL90EM4S0EM4S1'.FU1'.FU1'.FU\"k:j!U]^`.!i,r#%0E=.!Y#5%(6Sf'nfOY1!Y#2f!Y#4q;Z\\^+JP7Xb/HR4d!g+l_![S!O!<iNN6j!0Y,nRmJ!Wjr\"Hia`Y*<HQLfe4?WJL&A@!W`H+*CKtn4rk3n:'(JK*=W!\\!Wif:!l56R,m)1U%69sfi?87X'sn&E%0?\\7(]ogm%64k4&7ttQ!`B)Q!Wif4Muj%i!oXst1+fIu/Oh<<!ZM3O$7u<*\"Te].![U59nMDO'\\Np8u/LAmJ!Y#2O!ZM3G6QH`s0*21X*SE(d&;_D2!eLFV!ZaZ1YsTNCnO!?Z/KLNKbl]6nd/sFX'b(4B!o*eX%0F0E!Y#24*CKt^0-(Ud2]Vr=!oXP.&<SmT!W`H+*CKt&4WP+08cf&G*=W'J!o3qa1]d^f#QhgM%4)):!<N]3Tfro3!r3r?1)16\";?ABN%0?VL+XI+*zzz!!!!;z!!!!.!!!!8!!!!C!<<*l!WW3m!WW3m!WW3m!WW4(!WW4$!WW4$!WW4$!WW4$!WW3f!!!!W!!!!N!<<+<!!!!a!!!!F!<<*r!WW3s!WW4$!WW4$!WW3a!WW3a!WW3a!WW3)S^.<F!Y#2_!ZM3?;(W@T9`bA!/`@j)&G]$%!X(+6+Y=8Q,R\"5M\"Tg8D!f9Au&D8]<!\\Gu*!XoFh0;Sh4%=o1p\"#']Y!Z2!5&DA$ig)U:t%0?R?!<<9'!!!*$!!!E-!!!$\"!!$=0!!$=0!!$=0!!!9)!!!6%ciN24!Y#4l#6G>9j9G_q!l>!/*&sZ,/-67^M+[n*23C]m7Pub!)Zm8o2$,?5!W`H+/OTZf,V9Sl6373?/T_%'!WjZ9!nf4Q&?ufn!ZM4267!1o,UEL!!nf4Q&A^=0!W`H+,t%g>.O>Z%9`bBX!@<j=%;,aa/Ia_b%\\4!d'E\\g*!<N]3li@.s!m+(:1,\\kf2+BG)/OTZF82UH#\"Te].!\\HeAnNnf=JNX&9/M4=2!Y#2W!ZM3'-m]G06mVmA!r4Do&@i.r\"9JT-![U59Yn/2mq&TS=/LB's!]%.i!WoG(%E&AN%0Dar!Y#24!X'h&0-q2\"-3=5O-.spt&?.hp,t%gf0-q0t$N^A4-.spt&<Smt!ZM4267!2*2['6`\"Tfu<!l60/&@\"S(!\\G^\\&'Y?S!<U@poa*Vffd?(h3=UZQi=lA'Yr2Y=*<H9T%D2fF%0E=4!Y#4T\"9K#6!WiKNfe4W_fd[.,!<iNN6isn/,nT#p!Wjr\"!pp1hU^E%_!Y#3q\"Tf,7kqiGs29?ms7Pt6!6ita=2$,?5!W`H+/OTZV*\\@r>(]jaj/_gL2%0@gW$3Jm6,nR$pRLK<!\"Tfu<!jN+Z&D79i!\\G]\"!YW`]ZjHjD!i-#%%0@gW)ZoOb,nRmT\"Te].![U59JOCdqM*:tB/L?Mi%4)(t/Ia]Lfd7.g%C%f#ZN1O5\"p,58KEhPf![Rme!r4Do&:kfI!X]\"^0-q0\\*!HBE\"Tfu<!f7mC&>;Ys!\\G_7;@PVq%H.T\\!Mp.^4T[AZN!07l!pg-n%0?SW6iu$p,nR%B,m#\"eOXMLeq(DmQ!<iNN6itIc,nT;\\!Wjr\"OUhmI!hBMR'E\\fd/HR[J!Wi?2!Y&#F\"=+$X!osUg%0@gW)Zmhm,nRls,m\"DTfe4W_WB;I.)Zn\\G,nR%<,m#\"enNnN5OV.]s\"=<\"M,nR$o,m\"DTi?9KYa[QF8!<iNN6ir2N,nS0\\!Wjr\"d5r(H!Z_>(V%\".@;?FZBm0P'?a[6e'[1'SK!\\tc2!h02l\"TfMB!Y&$)%E&VU%0F0L!Y#4Q+TaDVfhXIp2(\\k:!l66A!\\FQW!<iNV6j!0+/J.GN!Wjr*KF7hj![Rme!iZ>L&=ES'!W`H+,t%gN-RB>W&cr+d;?@:cS-n$W!Y#4T$N^b=,m\"DTfe4W_kpn%])ZoOb,nT;k!WiKNfe4W_d1ule!<iNN6isnA,nR<e!Wjr\"OUhmI!m*#'3=XXgV$]3lYr3&)r<L7L!Y#4T$j$k>Yq,r32;(>S7Pub!$3KH-2$,?5!W`H+/OT[1*%_`L;Z[\"P/X-\\G%0@gW)Zoge,nQbC,m#\"eYsTfKnONfb!<iNN6isn4,nR$W!Wjr\"%H/#F!=ckC!aH`I!YVL<r!`]:!osRf%0D1m!Y#41%0A:BffV,]2(\\k:!qA6-!\\FQW!<iNV6iu%8/J,`/!Wjr*bRO[`![Rme!iZ>L&>;Ps!W`H+,t%h)3$f-H1BIV0dKBU\\ZN7E?S-B$(!WW38zzz!!!#C!!!!,!!!!R!!!\"9!!!\"1!!!!i!!!\":!!!\"_!!!!r!!!\"9!!!\"q!!!\"H!!!\"<!!!#r!!!\"W!!!\"9!!!!:!<<+l!!!\"?!!!#_!!!#_!!!#_!!!#_!!!#[!!!#S!!!#S!!!!p!<<,0!!!\">!!!\"?!<<,V!!!\";z!!!#8!<<,h!!!\";!!!!(ZHiQY!<N]3ZiL4;!jht0%0Em;!Y#2^!Y#3^$j&1AR1qMJ2$*g^/Wh,4!\\FQW!<iNV6ita]/J./5!Wjr*F92mQ!WiKNfe4W_kro7P!<iNN6irJm,nTlH!nmf0-':b&!Ykk?(]q>N!Y#2W!ZM3O0-q17(*s#$!hhV#&?/MQ!X]\"f+XI]!;$@\"%\"Tfu<!kCTC&FiX\"!\\G]\"!`04=#\\F,<'e$Hq,Q\\DVqAJ9(*5WHmJH;#:!!rW*zzzz!\"/c,!#>P7!3Q>&!&\"<P!$VCC!!*'\"!*fU+!*fU+!*fU+!!g6a!V?Bo%0H/&!Y#2N!Y#4A3<CrnTdqui2(\\k:!l6iR!\\Np[!\\uXL;`.$%!WiKV_)O:R/a4J]1,\\;(2+BGT!X]#!;DeM-\"Te].!\\HeAnObAEq(2XL/M3b!!Y#2W!ZM3g,UF#,&Hr4:\\dnig6it1a,nQ1\\!r<?X\\cMF(!Xo/&!<N]3l5d/@@Ia^+%1X<S!<O#<nNR(12=W7U7Pub!$3IJ'2$,?5!W`H+/OTZN#qZ^^$N^A]/]7\\l%0@gW$3Jm6,nR=L\"Te_q\"Tfu<!jN:_&Fg)/!\\G]-!+l9Afa%\\^%NPge!pfph%0?S4\"TSW)!!!*$!!!u=z!!%rX!!#.^!!\"_R!!#[m!!!8ncN/t/!Y#3i\"p,58N!9=m!fR<b%0A'^%0ABg)Zm8o2%[;O\"Te].!]<@IM+0?6ks>FQ/N!t=\"9NB@%0DA)!]!346:F@44TYrlJL!Yc4Ttlf\"TghT!pMm3&CDa)!\\HRB!<N]32$+]uYsUA[i=,ql!TFCe2+.M.!]:P\"/cl)+2;p+r,m*TP!il>:%0BE/,Q\\DV\\f\\3[!4!K,!Wif42$+*dq(4H8Yn-s<\"?$!,2%[;*2$+*dT`m:bYs\\`s!<iN^6irc#2%[#.!Wjr2%Dba@%0?T&V%:ZXSI?(G8HJkqSHt/V!Y#3q!s/o5!]<@Ife52oJOhX\")Zoge2%Y=0!WiK^q(4H8OZ,-!$3Jm62%Z/`\"Te].!]<@IW=1WqYsSQo/N\"h#&]m;[0I6c@q(9i$&@#'*#osT)-3=5l%0@@MPn&cZnN\"&Z%36R'!k\\X;%0FHN!Y#2g!ZM4\"/2\\!L%Kun7\"TgPL!q?=L&E+`5!\\H82![f#1%0A:2%0@UqPQ_*t!X/WB!i,u$%0ABg)Zo7j2%\\.<!]<@Ife52oaVb6`!<iN^6irbc2%Y<^!Wjr2%1$PI!W]_2'b(4B!f[^%Acdnm!Y#24!!Nf5S-;OpA-*2A\"mc8H!X7cgN<0(nzzzz!!!!,!!!!-!!!#%\"98E@!!!!A!!!#$\"98E-!!!!f!!!!O!!!#*\"98F8#ljs6!!!!a!!!#,\"98F<#ljsC#ljs;#ljs^!!!!t!!!#1\"98G$!!!\"+!!!#(\"98F6#ljs;#ljs-#ljs-#ljr3jNdk>\"9K#6]EA9F!k\\X;%0@dV%0F@6!\\up\\)EgPQ2$+]uTb0Eh2>IR\\1-LId4[qR9!X(Bc(-M^VJK\"YG4b6?k7Qgf16irJP4T[JE!W`H+2+.M.+#OV'\"Te`W266f[%0?S4\">/RU/J,HY/HQjmWBMmFiDM6/$3Jm6/J-l=ncf-r\"Tg8D!hfuR&Eu@[!\\Gu=M$mOI\"r2gp&ZH$Ng&Vf=%0?Tn!>VC3!Y#4!%g\"LLOU40?4Z*9[!qA$/!]:,_!<iN^6irc#2%Z`a!Wjr2liI4t!\\FH\\!nf4Y&;^WD!ZM3G6S/lF8d,7s\"Tg8D!eE9^&CDX&!\\H\"_/JTQ5YoWt^!?EHf!L3]0!s2!pe,oa]!\\FHm!mr/C&Fh(N!W`H+/OTZV,qT\\M3W]@7/HPts'`nH2!>PY;2AI2@;!A\"f\"Tf,7S,sF%JPiKP!Y#4L\"9K#6/HQjm_(mSRJKY(H6j!09/J+lm\"Te].!\\HeAfd\\Qbi?/1'/M.#*$jsO0'dWq;$3C5;'`oEXX98S6!h9Ap(':!-!Y#3_!O<\\8JfOgk%0-A.zzz#ljr*,6.]D`<-)?8H8_j5l^lb_?0c<L'I\\YL'I\\YJd28UJd28UJd28UJd28UOT5@];#gRr!<<*\"V#UJq<r`4#_#jZ;#d2MTPR%=\"!gErl%0Db\"!Y#2V!Y#3*!ZM3g,Y\\j/:'+-X!nf5$&G]$(!W`H+9gf&n023\"O\"Te`W9f3Ab29cI0!B#N;![%Pt!<N]3!_l&a_(n^rJL!qk)ZlE:9b=QA\"Te].!_l&aYprHZYpf_U/PY=2O\\\\=r2)Pts,;gK$2)R6'q*5o$%0G5kU(K;X%/^,-%0EdR!]\"&d:0g=p!`_ViYt/.%<<WF)\"Th[l!kAV;&>9I5!\\IEj!Wif49`bY'ksA)UYsd:N!W`H+9gf&f&5<`+$3C8\\9p%%c,m$42!L3^D!X8]-2,Sbf#QbG:U]UZ-!l7#$10p#!>t/*$<C?nV$XEg6aZBPZ?%Eo\"7U9!q$3K`#>ln\"0!W`H+<C?o),ukN80*22,<K%%^%0B6*)Zm939b?8+637/k!_l&anH;PtOZ*=C/a<N(709+_/bB&F%0E%%!Y#4d\"9K#6!WiL!ksA)U\\L:/R$3Hn)9b=i`9`bY'ksA)UOV7m\"!<iO!6iu$X9b?8'!WjrJTbGZS3R%p5oDqUe%a5%W%0F`W!Y#3*!ZM3W(ekQm6qm_%!qATO&G[qQ!ZM3g,Y\\iT;G@3\"!oY:s&E-.`!W`H+9gf'A'ho6r2?Eq39`bA>'u:7mh>m]\"6PVUmfe3C^*>JXf!<SJk!iH&#j9>Yp!WiE+:\"_0o&;_A1!W`H+9gf'I9MH)O5QV!=9`bB(!Yl8Y!YtMV!u1k=8L9Kg,nRmaaY9h#![Ybg!Y#4\\#6G>99`c78krqfQR83tf!<iO!6ium?9b;jq!WjrJ'bVu?!e^p/!>V+1!Y#3*!ZM4*6;8$549Yce\"ThCd!r4KD&:l83!\\I-G8cgaWM%CCJ!WiAp!?KAh!Y#5'#QbG:9`c78fe6&2WB:5V6iuU>9b=9d!_l&a_(n^rE<QCE\"ThCd!bk@?M%p'n/PWnZ#\\F.#/j1K^703KA4VB4G2$+ZtjTbie2>da^%0CnY%0?SG$.K+5\"p,58!utHD!#kn<zzz!!rW*!$)%>!/CRT!)rpu!'^G`!&FTT!.t:P!,2E5!*B4$!.Y(M!4)Y*!+l32!/gjX!$D@D!$D@D!$D@D!$D@D!;6Ho!8.>P!-8,?!.P\"L!#>Y:!#>Y:!#>Y:!#Pe<!#bq>!#bq>!;-<l!.k1N!.P\"L!!`N)!/^aV!.4eI!<*$\"!<*$\"!<*$\"!$)(?!2';l!/(@Q!<*$\"!\"A,<!L*We%0Daq!Y#3q!Wif4,Q\\DV<<=*@fe6>:q+Uoj6j!09<=nt#\"Te].!`_Vi\\M$qoT`kK!/QDiR?im_;!lY0T!Wk8#KE2,`!WiE+<M<;j&:ltG!X)Ms;H4:e%93HK!mr8n&?uuP<C?nN,?5<6;?[+&\"Th[l!g*Oa&@!Yc!\\IEo5KsQ^!nfTq#rt.;!Wa%$%fubh!WjN.e-#i!!h9;n%0?T26iu$p<=lE&<<=*@_(o\"%YsSQo\"BF,.<=lE'<<=*@d3M^'i@b?9!<iO)6isn+<=ki9!WjrRW<^ZS,m)a/!\\tMH\"TlpL!WiEp'r1p5^&\\;:!s/o5i@tBhAYDA#7V,j,)Zm8fAHH-@!W`H+>snbY8mN!Z2Za%4?1\\4#%0BN2$3Jm6<=n+3<<=*@nNp4enH9!s!<iO)6isV:<=l,<!Wr&r<Imd`W<!&H!WhZt*>0hG!n7>f*<I5fj9-G(%0Gl!!Y#32!ZM4:/QE@m-rg<U!pN$O&@j1m!W`H+<C?oA(KD%B%0?S_<Ai/`Z2p3ma[uUi703N'29Z4*%0?Sg;:G_r!Ytj;&&JcGWZIB+!Y#22!\"f22zzz!!rW*!\"Ao.!'UMc!/Lm\\!/Lm\\!$M=B!$VCC!'p_f!(R\"h!&+BQ!'CAa!,)T;!-ebL!.\"nN!.\"nN!,DQ7!)*@m!'UMc!1Nrg!*K:%!'^Sd!.Y=T!.Y=T!7CiI!\"G1=!@.^U![IgV![IgV!oa=9*@6:F!Wic;%0BT2\"TfMB,Q\\DV!N6#!#64`(zzz_uKc;!WW3#('Xa=('Xa=\"6[u2ZipL?!ji+4%0Em?!Y#2V!Y#2W!ZM3W(aT`e&HX7H!nf4Q&>9[^!X]\"f+XI])(*s#$!jP*=&<R\"q,t%gf0-q1g%0?S6-.spt&E-M5!X]\"^0-q1?5m7;j\"Tfu<!kBp0&>97/!\\G]-+D(ZaaTqtXTdTst*<H9T%1UDb!tEp%!Z<![!YPt8!J*96%1NA:!l580%j_;!6Oc'3!U2oP19CeX#m)=QZipL?!X/WB!WiW2%0?u9*5hm[%0E4/!\\uY/2)Ri\\/HQjmkt3f7/Hl1V\"Tg8D!jP-F&Fg)/!\\H!_!s/o5,m#\"enM2C%nKoO`)Zmhm,nRm=![U59fe4W_W=1'S)ZnD4,nQIP\"Te].![U59kt365TfE/UNWCHn#nU\\MM)c;M(_$Op!l56R,m)1U%3Q,50*3mDU]^`n!iuM+%0H>q!\\uX,\"uSk-!\\HeAW<G-\\/Hl1V\"Tg8D!r39W&:m@R!\\H\"r\"9K#6![U59fe4W_fb^Xu!W`H+,t%fc+XI]i!WiET-++*^;?@g>%0?S2\"UtMB;5=9C\"Tf,7g(1b$60]#_!Wif4\"Tel8%MAaUzzz!!!!*!!!!>!!!\"d!rr<V#64`Z#64`\\#64`\\#64`\\#64`\\#64`N#64`N#64`P#64`P#64a$!!!!a!!!\"a!rr=R!!!\"\"!!!\"b!rr<J#64`N#64`N#64aa!!!!(^Wur!!Wif4_u]uL!lP-A%0?\\7(]pECM?uS3\"Z-8i!iZb51,Zm;2+BGT!ZM2l,W,WTM*_8!2<cbO7Pt5K\">,0M2$,?5!W`H+/OTZ&-nQ\"H1'.M//XuhC%0@gW)Zmhm,nRmP\"Te].![U59JKuNQnO`kO!X0kb!rW-$*!-QNj8f;k![RmT!oY:K&G[@K,t%h1/L:t=#mCA2\"Tfu<!i]$C&<R\"q!\\G_7$ParhO\\6ELblj:4!_5$t!Y#4T!Wif4!WiKNfe4W_YsSZr!<iNN6isn+,nTT'!Wjr\"!Wic;%0BT2!i69%*8CPr%0?^?!N6%4!Or0,!<<K-zzz!!)Qo!!&5`!!!H.!!\">G!!%<I!!)]s!!)]s!!#pt!!\"\\Q!!!$\"!!)Km!!)Qo!!!7cciN23!Y#4l\"p,58j9>Yp!osOe%0A'^%0G2a!]\"WW4)IH(!bFb$krrqcAH`,9\"Ti7'!mr9)&EuL_!\\Iu*!Y#3:!ZM4\"$saEq,Q_7>!hfd'&?ugQ!ZM3W10kHr&ZPp7!<iO16isVC>nHg+!WjrZ,m\\>h/HPqf[06Wd!<UaR!Y#4t!<N]3>lk?7Ti,/-nHoF$!<iO16is%o>nDQM!WjrZ<<<1Q72dWW2$.:iTft=[!nfd>1>NF/!Wa=k!Wif4g]@Nd!aPj7!l6Wt&@\"S+!W`H+>snaf3F*3$8-/iE>lk'NV$7))(]pK8!Y#4).KVABM,J1[D$\"9:!q@US!bDN:!<iO96isV#AJ!fR!WjrbliR:u!aPjH!mr9!&:k]#!X)fF10kHr+i4Zi!<iO16iqp1>nH6m!WjrZW=%/X,m$42!?FTGAcbES#QmNV!<W6$!o*n[%0Bf:$3KHY>nG+2>lkrHiAb*SaY-p$$3KHY>nDiN!WiL1T`n^5M)GM=!<iO16irJa>nGs7!WjrZ!Wk[D\"7]0P!<Nu;&-Xr5!Asp1S-&g%![Rmb!qZWt%0?S4\"C7])>nEDT>lkrH_&-GhYu4j/$3KHY>nDQT\"Te].!aS1qiCI5cd0'LP/R@<er<ahP\\Kq;4m0=p=EWY;*!Y#4t\"p,58!aS1qT`n^5M&]e&)Zn\\G>nDi4\"Te].!aS1q\\KP5iM,+0S/R8DZ$kaQ\\AcdYj!e::\\bQe1Y!n7GV%0Bf:)Znt<>nEE\"\"Te].!aS1qnN1\"fJK+^m/R9@u\"p+iO80.%#!Y#4j(%N1mdM;uY!Vlc+!S%2N'*&\"4zzzz$NL/,)uos=o`G0o3rf6\\-3+#GqZ?fu:B1@p1B7CTquZp!B`J,58cShkqZ?fuQN.!c=9&=$p&b9pmKW^ln-8pnn-8pnn-8pniWfG`]`8$4C]FG8n,iXjgAh3RFoVLB!<<*\"mf3=fJH,ZMmK3Fhh?O#\\h?O#\\%[tcGli@.s!pfph%0@LN%0Dpu!]\"W'(i;`Z!bFb$iD+4kAH`,9\"Ti7'!f9BX&G[mZ!\\Ito!Y#3:!ZM3g,[CuO8s08X!<iO16irK!>nFP\"!WjrZli@/U!i,hu%0Bf:)Zo7j>nF7Q\"Te].!aS1q_)P^3OWOW+/R8DX64Jkb%8c9i]E/-D!qZKp%0Bf:)Zo7j>nHNm\"Te].!aS1qWDQq4i=,hi/R8DXRK3j!%8jb>S,i[#!lP-A%0E4>!]\"Wg4)IH(AHEePq+>K*AH`,9\"Ti7'!jP.)&Fg)/!\\IuB!s/o5>lkrHnNpLmM$F1c!<iO16j!0V>nE\\i!Wp4>?/[@Emf<KP+TaD6%0BE/%0@@Jj9#Gm!WiE+>tJ<5WBLIe!<iO16ium*>nF7J!WjrZi?Y6$3?:OW'KlLd;:H*:%K[(@_?p>uiY'04!Y#3^\"TgGr\\K>ZXD$\"9:!m**4!bL=H!]\"VT)Jqr\\AHEePd0+:fAH`,9\"Ti7'!eDM+&E+`5!\\Iub\"Tf,7!WiL18R2mq%Jg50!<iO16iu$H>nG[*!WjrZ62_!J*CWC24T\\(;!SddQ#6G>9!Y#Hp#)irl%0Dau!Y#3:!ZM3G6X:8f9O.],!hfd'&D7Y$!ZM3G6X:8V&R>GW!jP*u&E+X8!X]\"F10kIM*<cKF\"Thst!hi1k&?-TM!\\I^20*3Y`#,)2%@4g.c!_f^+!n7]i-*.=Q('7bC)Zoge>nED,>lk?78R2mq\"C2'9!jOCa&G[tb!ZM3G6X:9!03nVu!g+R1&?.tt!X)e#>nEu%\"Te].!aS1qaYI-5\\KM\"U/R:Y23?:Pr%9#DYq'<!ASI\"H\\!X+Jh!WjN6g]ITe!osUg%0Bf:)Zl-8>nG[G>lkrHksAYeWDEa\"!<iO16iqo`>nG+?!WjrZ%0G)]&.KIg!Wi@A'cdQl!mCrP(';tl!Y#4q&HX_)a\\ZhDD#sbAAYCDe!bDN:!<iO96it1@AItgj!WjrbS-f<,!aPj7!r4ER&@jr0!ZM3g,[Ct<86l9(!nf54&<Rq9!W`H+>snaf-!_(u\"p2pU/R8DZ+h[pd+D(Za_+b\"@!Wks<#L!VY5Q[G`!Y#3:!ZM4\"/6rh/3<]Hb\"Thst!jN#:&:k>n!\\I[Z![/!S-j:%hnMp[\\*AD(,!WqNc*Q\\`l1*mA2+!Lji(]op1!Y#3:!ZM3_)-mf9*aJgS!nf54&E-4b!W`H+>snbI10kI-703NB>lk(r!<N<(8VI;X-4LO.4nK-a('=CB!Y#24!X)f^03o.J!<iN*\"Thst!f6ta&CC^a!\\I]g-4LNS2n:7E&:kM*-G9cuM)j>s!Y#4\\%0?t?>lk?7T`n^5_'f@j6is%c>nEt<!WiL1q(5k`\\MFBj!<iO16is%h>nFO[!WjrZWB_I8_+=\\.\"m$6-!@8>o'$2gR!Zh(gm0\"!*:m;=h%0?SW1V<kg%g!1Alja(+!aPjH!jP*u&BQ@&>sn`c>nFgs>lkrHq(5k`_'<4e)Zl-D>nGBq\"Te].!aS1qR6OsgR2Z2//R@<\\76)AW77]S$!Vn!'7JR;mO9&>_![1\"^%K[(@!Wla2qum-2!gF5t%0Bf:)Znt,>nH6S!aS1qfe6VBR2cA3!<iO16ium\">nFgW!WjrZM%C+B!YktP!n@;a.O\"rl\"VhIOn,[C9!J(:UkQ-YE!$_ID!!<3$!##>4z!%@mJ!%.aH!*]R+!)W^r!'1)[!*fX,!4iF9!-nPE!(Hqg!+l?6!([(i!0I6]!+,^+!+Q-3!5]!A!5]!A!6\"p<!-A2@!+H'2!:'Ub!/ggW!+Z34!#Ye;!0mNa!,Mc<!%e3O!3Q;%!-88C!+,a,!4i.1!-JDE!-\\GD!5SX8!.+hK!/1FR!6Y?B!+?!1!8%PW!87\\Y!87\\Y!1s8l!7h,M!,_o>!8[t]!8n+_!8n+_!4;h-!9F1\\!-SJF!:C*m!:C*m!:C*m!:U6o!:U6o!5o-C!5o-C!8@MS!<3$!!+uE7!5o-C!5o-C!!NE(!\"Ar/!+?!1!\"R3!!V?Ns%0H/*!Y#2N!Y#49638obTg<fjFTMUID7M9A!c=&(!]\"nl+E^.rD#t%GnOdp*D$9tA\"TiO/!oZmk&G[mZ!\\J8B!<N]3AHEePd3N97nPTMl!Qk`NAOHU1/nGU!.0>YA/S4PX!kA=5U^I55!mCZH%0?TB6is&[AIuC<\"Te].!bFb$TaPECJKt9u/S0K+2'i=3\"9JTU2%hA_!iuM>25C9T%0?TB6iu%5AIt7R\"Te].!bFb$nO$k!WDN]u/S+tb?il;n!Z2\"*!Wif4AHEePW<HiEJN!`6!<iO96ir2cAJ!64!Wjrb%5ehG!]A%\"S-[%6!Y#4D!s/o5AHEePd3N97OZ-hQ)Zn,!AIu[(\"Te].!bFb$Tflruq+:\\i/S+tb]`A2)#QeuI!WjN>X98S6!r33*10ohA!Y#242$np>]EA9F!bDEP!mr9)&Fff*!W`H+AOHUq%:p+@\"9JWVA[DO@aT2GE9i7tpg][`g!fR9a%0C)B)Zl-DAIu[!\"Te].!bFb$OV;:;W<E>)/S,Ac'I?%>3DE4B-U%))!Y#4\\\"p,58*>0hG!h9N2*W-'B%0?S4\"D.B\\AJ\"Yi\"Te].!bFb$i>#o8aV4dX/S+tb$keC.bmbs#,m\")^j95So!h'kp)BZg0g]dfh!l7P313LD=F[gLj!X]\"^$$?;d\"Te].!c:=,i>lbHYu1W)/T%9g!YtiK!X]\"&\"_A80-tNH!!iZ?7&=H=*!ZM4211_$e3s>Zd\"Ti7'!ndlk&@i#I!\\K!*%8@Oj%,iI+>>7gd'KlLlnH#]oj9Per!i-)'%0C)B)Zl-HAJ!6c\"Te].!bFb$fd12@kmdar/S+u(@H7K[!Wif4lj*Y%!Wlq$!nf5<&?.,\\AOHT^,@qFC#\\=&V!g+R9&;^[(!X]!k,@qFc1'I^[\"Ti7'!c_c_aX@2l/S2m+9b\\m>9f`.[h$Qk]4\\b_t\"&8Co!Y#4Y#$j5X!fRIZ?+^1>%0Db$!Y#3B!ZM4211_#R8-/hqAW\\3K&<Rq6!X*(s,@qG^*sD]H\"Ti7'!nei1&A].a!\\Isb![18IV$dt`i?\\@23DE4B'Ko1d,QgcW%UC)D!fR7T?(;$!%0EU=!Y#3B!ZM3g,\\7O<6Y-<+!f9BX&BQp9!W`H+AOHU)8S&Ha;Z[\"PAa'3s1Aq<6$3D=O!!!i9!!!*$!!!f8z!!((F!!\"eT!!\"5D!!)!\\!!#Rj!!\"PM!!(pZ!!$4'!!\"nW!!(s[!!$p;!!#:b!!)!\\!!(.H!!(.H!!(.H!!(.H!!%uY!!#ao!!)!\\!!&Vk!!$7(!!)$]!!'e>!!'e>!!'b6!!$U2!!!$\"!!'e>!!'e>!!'e>!!%HJ!!(UN!!%WO!!)$]!!!<+!!%rX!!(pZ!!!r=!!',$!!)'^!!$:*!!'A+!!)*_!!$d8!!'_5!!)'^!!!PZcN+FU%0ABg)Zo7j2%W=_!W`H+2+.M>;Df$=0*22,2$*cD!=]++!_Wu-!Y#26!Y#3A!Y#2g!ZM3W(c;lp;DeLp!qAT7&Eu@^!W`H+2+.M.+#OV?0*22,2;p+ra8l@90`j*F%0GJh!lP*@%0?t?(]r1f!Y#2g!ZM3G.Q%d:;$&UC!ng.&&?/M1!W`H+2+.MN(,ZZ>3!'.52$*h&%E/DN&d#-9!Y#242+.N!0/X<74T[K/!r4E*&?uQD!X(CV/N\")j82UGf!kCTS&EueE!ZM4*68]>-\"#U,e!hfcT&Fh))!ZM4\"3&M8`,rG`C!jO13&@!A^!W`H+2+.N91,TX56373?2%9h'!WiA[!>W!G&7ttF!_3\\/(hNi/$,K=<%0?T$*LTG=&A^p>!!S>i,pa/64NT9'!Zh(gSHoe3:sfanLB5dLbQ.bS!m1f>!tO$)\"RH/?!c8)@&HDe2!rr<$$31&+R03Kiz)#sX:(]XO9RKNTj2@0?`2#mUV,6.]DTEG5p8-o7r9)nql4TGH^Scf#n5R@Dj5R@Dj5R@Dj64!Vl6jWhn6jWhn6jWhn7L9%p8-o7r8-o7r#Dpk0`!uhX!lPQM%0@LN%0Ddq!ZM3g,aABAYqH7^!<iOi!CR!O,F&9@q(2XL/X6@T%KZY4>QP?9PlUq*!mr9Y!>+cn\"Te].!gNdS!r4R9!>()W!Wjs=!U0Ud1.@uR!b;A.!<N]3fan3?V#c,qV#a&^!M'5m)ZoOrV#^Xg!<iN*\"Tk4q6irJPSH0:a*s)KqSH8'X!Y#3r!<O2AYsXcW&FhRYPlX8ST`p\\^&Fg)2!W`H+PlX8SnNrKA&:ltG!^i4R!Wla2klN.W!j)Y%-Nb[:*s*H?liI4t!]9si!WiEH,m=>e!qZNq%0Ddq!ZM3g,aABAM$F1c!<iOi!CR\"J09lPLYn-s</X6><!YQe*aTqtpYlb%_22h_@kQ(b/!s/o5PlUq*!g+mr!>(Y,PlUpn!hfd_!>(Y,PlUpn!r4F5!>+c(\"Te].!gNdS!i\\AK!>+cV!Wjs=!<N=h!S%5tJN<lZq)pS]!^-ScV$\"X=!Y#4T\"9K#6JP#u!V#c]:V#a&^!<N<*SH5,fV#^Xg!<iN*\"Tk4q6is=kSH0;\\3!'.5SH4rY!Y#24!X+bhT`p\\^&BPWO!<O2AnNrKA&BPWO!<O2Ad3OtX&?uTH!W`H+PlX8SR15D^&A]1bC+Y\\O2%hA?,m%TYTg$Esh>m\\o3<Crfe,f[j!gElj%0EM\"!]$SQ\\J_4E7\\p-V!<NT0Th2']!hB>q!W`H+SH2+[JOH%0&?-TM!\\KrDg]dfh!gNcf)ZnD4PlVGq4d?$L$3Hn)PlVH,+U%oJRLTCa!CR\"J*L-X:Yu1W)/X6><!YQe*aTr\")%^?ZK1,ZuP!YYWHPS#kibQe1Y!gNcf)ZnD4PlVHd3s>Zd\"Tjqi6iuU$PlVGI1'.M/Pl\\6!!mL`IN!KIo!hfYs18P#.32HXFV#d+f!X]\"N.&?qGSH/lq!<iOq!CR\"b0:`+TTa(W#/Y)pl#QbG:PlUpn!jO2>!>()L\"Te]c!gNdS!gspk!>*p1!Wjs=!JLQ.!>2S8K`PIa]aoetK`Me]&>TU6%0EU;!Y#3r!<NT0d3OtX&:l^(!<O2A\\NuJ]&:l\\?!X+bhiD,X=&>:/1!<O2AYpkq=&>:-K!W`H+PlX8Sa[VNr&D8lA!\\KZ<aY8DL!e';fI1WY[d2AJ_M#l!N!WlrH$>fh]!k\\jA%0Ddq!X]\"f:6bhkM+Em4!ZM3g,aABAJPu^R!<iOi!CR\"b+-cj<nP]Jj/X6?R0P1B'_+b#K!WksD\"H`q;&A^ql!<?^5KEqWW!ji=:%0Ddq!ZM4216hkOaZ0M+!<iOi!CR\"*+dE'>_']9c/X6>J756rf8O[bj!i-Q(78s<t!``Mkq$R70;61C9!Wc#s&crLDX:,.>!WnVf6ita]PlVHT8d,7s\"Tjqi6irJlPlVH,7KNWCPl^O`0P1B'_+b#K!WkrAr!WW9!e_!a%0Ddq!ZM3G.?soFOVS\"`!CR!o.?soF\\J#,J!<iOi!CR\"J!L3ZsTgSq`/X6@i)h!tP_+CI6R8?7VK`Ql.&]l6X%0?t?ljX\"*!gNcf)ZntAPlVGi$3^J3\"Tjqi6iuTrPlVH\\('4OhPl\\u\\K`PG,kqRStYu%\\II1XdQ!WjN^D#tOUbRO[`!kAaA18P#.\"/Q#fV#d+f!X]\"N/u8RMSH/lq!<iOq!CR\"b!hB?'\\MF9g/Y)p,%g!1A!WiLi!SK,k!>*WjPlUq*!nf5l!>+K3\"Te^n\"p1%j6iumHPlVHd8HJrFPlZG5]`f\\`M(oH\"%2AkT!Y#28!XKMq%36'/![Ro1!=b8)!Y#4$&-<:BPlUpn!l6XW!>*@4\"Te].!gNdS!f7\\X!>)Lk!Wjs=!<N<o/J9((!nf4.1*rUt!\\u@\\0*3oj$N(G:%0?U$&n<3h![2EN&crLDS.Pf3!WiE+Pl]8XPlVH<(6nn%$3JU#PlVH<:'C\\\"\"Tjqi6ir3.PlVHD4otd;Pl\\uk]aH+fff<n0o`a:tFZCIj!WcS[&HWCCq$R6Z<J1b^%0E71l4jZk&cs@8X:(O!!Y#4<&crLDPlUq*!oY,a!>)4gPlUpn!f9C3!>)4g\"Te].!gNdS!eF15!>)5*!Wjs=!<RofeH*nt`\"iC`!fRco%0G3@!]$SQku\"8X7\\p-V!<NT0q%TY+!hB@C*We*n!O4Y]!Cimd!WiLq!VmG+!<Sem\"Te].!hB?[!m*?k!>+cd!WjsE!V@$,%0?Tr!CR\":,aABA_&JX?!X]!c7[3uc_&EOZ!<iOi!CR\"b'U8\\1q'#mg#qb]MALM-lSIP]%XUJbB\"p2FBAPh&OU^R;6!ot$s%0Ddq!ZM4\"*0gO9YqlOb!<iOi!CR\"b*0gO9_)_W!/X6><KFGj$<P0(K%0EUG!Y#24!X+bhYqM@C&Es^j!<O2AnM6@1&Es],PlX8SOX$+l&>9j@!X+bhYqM@C&FghG!W`H+PlX8Sfe\\lo&G\\'_!\\KZ<9c.ID<<<1i]`A0=![*a10g1Xj`=<;Vg_9f!!e_0f%0F`h!Y#4a-iu0#!O3W@!CimdSH/d!!qAs\\!<Sem\"Te].!hB?[!iZ[#!>)d]!WjsE!L+B%%0?S4\"I0\"m09lPLq&9A:\"I0\"M,F&9@O[93Q!MTc\"PlX8S\\H8#s&BP%V!\\KZ<?+g^[q(,h=%:!1l'*8UE#C0$p!@`^'8Hf)X!!!!$!!!!+z!!!!8!!!!4!!!#B!<<*K!!!!G!!!#A!<<,^!rr>`!rr>`!rr>`!rr>f!rr>f!rr>f!rr=,!!!!Y!!!#j!<<+@!!!\"*!!!#k!<<,d!rr>f!rr>f!rr>?!!!\"@!!!#j!<<,`!rr>b!rr>b!rr>k!!!\"L!!!#\\!<<*%!<<+o!!!#`!<<,L!rr>P!rr>H!rr>T!rr<s!<<,*!!!#^!<<,H!rr>L!rr>L!rr=<!<<,8!!!#B!<<+s!rr=u!rr=u!rr=u!rr=Z!<<,G!!!#R!<<+n!<<,Q!!!#S!<<,-!<<,\\!!!#T!<<,6!rr>:!rr>0!rr>>!rr>M!<<-!!!!#=!<<+[!rr<%!WW3.!<<,@!<<*;!WW33!<<,B!<<*E!WW3C!<<,h!<<+g!rr=i!rr<.!!!\"`!rr=c!rr<q!WW3S!<<,K!<<+0!WW3l!<<,N!<<,,!rr>.!rr=h!WW4\"!<<,E!<<,#!WW42!<<,D!<<+g!rr=i!rr=i!rr=i!rr>M!WW4J!<<,K!<<*7T$[T:\"Tf,7qum-2!ZV7N!hg&)10*R0<CTsi!X)6./l_sI\\H)ae<Im_A7TE.a$3K`i<<>ku!W`H+9gf'A:/);q/HPu*9nWNK%0As\")ZnD471eue\"Te_Q\"Th+\\!kBpP&@!Yc_?DM[qum/D!<U1?!Y#4q%0A:bWBXBP<D<N6!r3m;!_ih\"!<iO!6iu=F9b=QZ!WjrJMuj%i!WkeY!nf4q&Fi+V!ZM3G&4I0#6NmP9!<iNn6ium871d!q!WjrB`<d8.!jiHj8RW@p!Wif4704D0fe5c*f`M:E6j!0971e,S!WiKni?:W$aZ;il$3K0071dR%\"Te].!_#KYM$HH\\R3D\\6/OdcG'dWp<8aQdDr<OtVQ2qHU!s/o5liR:u!hg>110*9e<CTt_!ZM3/%93I(fe!7\\<P]>K7TE.a$3Jls<<>mW!s15X\\N<e\\<<>l_!neAi!_ih\"!<iO!6j!/n9b?P]!WjrJoE54)!_!/0!jP*]&;`:H7774Q/O^6(#=S\\$!oY:k&A]E>%fue.%K]'e!m*)a&Fff'!\\Hjo0*5*!!Wj\":%.+',Aca7[.M_:R!Y#2O!`B*,%K[(@KE_Je!WiE+7G0=_&=G(<!ZM426:DHR/-Q(U\"Th+\\!oZ[=&BPdk!\\Hj7532l9!l5WR1)16\";??n$8IaG^!Y#5'\"p,58M%0SB<T,6(7TE.a)ZkR1<<>ku!W`H+9gf'Q4\\ZL(49>R99tU]4%0As\"$3L#T71e]3\"Tm-R\"Th+\\!pL[n&?.eo!\\Hj74r#@FR8X/BoaV]<;?Dd_!Y#24!\\G-%!`p3B!Z2!?#QbG:M%]qG<V\\jZ7TE.a)Zj_R!_ih\"!<iO!6itIY9b>E%!WjrJoEYL-!_!.t!pN$?&?.,\\7773n1.;bR1.;6O!nf4q&?.Dg!W`H+7772k71b:j!WmrS7EIbG,m)a[/NNb4N<K@aPm]_V!@7dK+YCnG!Y#4b(?to#dLCj:!Y#3\"!ZM421.;bb(BOX@7Hm--&@iS\\!W`H+7773n5Xc6`)?Ksl7A1B[\">D.G$S>2c,,>JG%0GSt!Y#24!X(sN+[lt$.RaCX!iZ>l&E,*-!X]\"f+[ls1!X/W+\"Th+\\!l66Q&D8<1!\\HhB!!QX0SI$A(#.tHJ%0G#e!Y#4A:BE:Okt+lE<D<N%!mqc`!_ih\"!<iO!6it1n9b?PA!WjrJS.#H.!_!/0!g+]r&D8fB!WgFS!_#KYd8NIF\\KCqT/O]^Uj8o/bX:PFB!osak%0GK(!]!dO9N=P^!WiL!R71*W9a(S!\"ThCd!jN50&E-4_!\\I-J%0?t?704D0nNoYUaU/(N\"@_8m71dQJ704D0nO#_VTaF3i$3L#T71e],\"Te].!_#KYR70OUM#maI#VAK%&;::8!WiW2r<<uLU]DY@bR5.#qum-2!k]!E%0As\")ZoOb71b\"j!WiKni?:W$JK7/\\)ZoOr71eu\\\"Te].!_#KYq#WtrW<<8(/OdJ`'ef^26eqm0!>X9@!\\tc2!`B*,%g!1Ag^4)l!lPTN%0As\")Zm8U71c^Z!WiKni?:W$Yqe`L)Zn\\B71c.'\"Te].!_#KY_$<C?M(Jc1/O^-I%Vu3Z!>XJmfh's-!Y#4<&-<:B!_#KYfe5c*_$!1.)Zn\\B71b;0\"Te].!_#KYaZ)^##m(/[703Nu!hBE./cptD($>VN8\\>'*('4UC$4[+;(B=F8!rr<$(B=F8z0`V1R.f]PL\\H2a2=TAF%=o\\O&\\cMj3[f?C.?N:'+])hs4_#OH8CB+>7VZHhu;?[%#;?[%#h#IETJH,ZM_#aT:KEV>UKEV>UKEV>U$NU5-ScA`jYQ=e)BE/#45lgrcWrN,\"Y6\"\\(=TJL&\\GuU0Wr`8$FTDIBjT#8\\Xo\\S'zcN+\"Gp&G'm^&e97<WrI'nGrUi\"T\\T'XTAJ&%0?M0%flY1Xo\\S'Ad&/7Ad&/7$e*E&j8oAl!osCa%0@LN%0FWj!]!K42,-P7704D0OXNp*70N_n\"Th+\\!f9B8&G[mZ!\\HiO!Y#2o!ZM3g,Wu_/8d,7s\"TghT!g+lo&@jFq!['Ye!Wj&;U]CN+!^-T(!qA$/&:ltG!X([N69Pm24Ttlf\"TghT!g*OI&<S%9!\\HRO:9=Q'!@7dK2D(-p!Y#4Z'!`PeWXf.G$)@^r!<N]3S,ra$!^-T(!eCeD&=F^G!W`H+4[]AA1d)DD&HW\"c4TY[m!ng-H1)0il_uUV>!Wif4M'E'W9p%k=7SNpc\"@]9u9`d`e!W`H+7773.2an;*+T_]s7C3-u%0AZo)ZoOr4V5FU!^/pQq(4`@OZ*FF!<iNf6is=r4V3/R!qHaO4TYZn$Af</#Qg7q!+l:s\"9K#6'bVu?!e^Ui'nI,P3@0=[%3@*k!<N]3!CZtr!!!!$!!!!4z!!!!J!!!!?!!!\"!!<<+s!WW5m!!!!d!!!!K!!!!t!<<,(!WW5)!WW4)!!!!`!!!!\"!!!\"M!!!!e!!!!t!<<+u!WW5!!WW3-qp,;5!<N]3S,i[#!h98m%0?t?;?E?h!Y#2f!Y#2o!ZM421-H3E0g,RW!qAT?&@!Yf!W`H+4[]AI9g''(1'.M/4TY[m!l56R=9?T3%Di,Tfe3C^'c[8a!i,hu%0AZo$3K004V6RM4TZQ(ks@NEiDMf?)ZoOr4V4:p\"Te].!^/pQi=.p]OWOW+/Nnq%%5e1g!'6)L%2(-7!iuS@%G=<!>-%q@\"p,PAq?m'9;mI\"B!Wif4!^/pQT`mRjTfE/U\"?iF^4V5.2\"Te].!^/pQYn0&0q&TS=/No4KN<CO/TbB\"<*Mil?\"p1\"k!Y#24,uL`Je-#g^!iuJ*%0AZo$3L#T4V7,d!WiKfks@NEnH:uV)ZkR94V308!^/pQT`mRjJOhp*)ZoOr4V4\"h\"Te].!^/pQWBNHVJN!W3/Nr&k/M.$X#W84Tfe4oY\"p1J3jT5MF#cn43%0F'a*>\"nXX9J_8!o*n[%0GKM!]!KL.nrK-!_#KYi@.J&7I^N_1/6F39h%iG!X]!c5\"u)I\"Te].!_#KYOV:.pi>_n#/OdS]!Y#2o!ZM4269Pmb$N`IZ!hfc\\&BR_B\"Te].!^/pQaVd5QaY*\\s/No4K,p<>`'.l3bh$a>h!gEc>8JArIU]UZ-!Wif;X9'pS%0FHP!Y#2o!ZM3g,Wu^t2['6`\"TghT!l6u^&E-.]!\\HRR\"9MC$!?;(Wzzz!!!!#!WW5e!<<*/!!!!0!!!#n!!!!#!WW3%!WW3%!WW3%!WW3L!!!!C!!!#n!!!#o!<<,p!<<+1!!!!n!!!!U!!!#o!!!\"7!!!!h!!!#r!!!#k!<<,r!<<,r!<<+d!!!\"/!!!#p!!!#k!<<,l!<<,f!<<,f!<<,I!!!\":!!!#s!!!!+g<]lU$N^b=g^=/m!o+.b%0@dV%0E4_!]\"&l$XH5-<<=*@d3N!!<<WF)\"Th[l!kBsa&>97/!\\IF-$N`NoF92mQM,47/?*OT>7U6'q6j!0*>ln\"0!W`H+<C?o!/l`JY9`bAJ<P/>6%0B6*$3L#T9b=R#9`c78Tfl*]\\I)%4)ZnD49b;jb9`c78OXNp8nO!@P6is%c9b=Q@9`c78q(5;PM&f:l)Zoge9b=Qtap%nJ\"ThCd!qA*A&FiX\"!\\I+J!m^l^!WksD%FGM/3=R9k0`r`X!>6j`*<NnT![Yqo\\,d>L!s158!Wiu\\--6EU--7A51,T+7&gcTC!jht0]E83E!jPH$10q-c>t/+\"!ZM2l)-m;D\"Te].!`_ViTflBeq+:\\i/QIH,!Y#3*!ZM3O5tqpL/-5kU:$Fu=&GZc0!ZM3g,Y\\i\\%Kun7\"ThCd!eD4`&A]Xo!i5old0`#s%0?UG!A2\\+V$T-k/I5'&bR+FB!<RoX!Y#4a'*9ppR7^aS>u^q5!jN,=!`]C*!<iO)6itI`<=mh5!WjrRbQS%W!WiE+:$Fu=&E+?u!ZM426;8$M'a4X>\"ThCd!jN,-&;`:H!\\NsGM).\"L2=Wjf3AiAi;?EOUjU7.N!g-C_1,ZE@!Y#2_!+l;c9f43uM).\"L25rYp3AmlE!Y#4t\"p,589`c78nNoq]JLO:p)Zn\\G9b?hV!_l&a8PKcd4&#bq!jP*e&Es[!!X]\"F1//>E%K]?m!pN$G&D7?n!W`H+9gf'I*).!$:BCSL9pH6?3Wg](4Zt(mh#[XY*Bb#b!\\FIa!m*e]DZ\\TF!pTgJ$7u<W!k\\^=%0F0J!Y#24!X)661//=2,#&+X!oXP^&G]0)9gf'I6;8$e;$@\"%\"ThCd!pLUt&?.tt!\\I+u!`B*e%fdCIfhMDR,m*uI!Y#4<#m(P;R3)Jc?+D1c7U9!q)Zmhl>ln\"0!W`H+<C?nf4B2s_'`nFg<W!.)%0B6*)Zmhm9b?PK\"TfnP!_l&aJMg.5Yn@*>/PReuC')LE/L:JO\"p-P;Zj6^B!n7PY%0Dq+!]\"&D6sW8f<<<L/Ym=V:<<WF)\"Th[l!f9HJ&CEN?!\\IEB$N^b=9`c78YpiBYkq3,@!<iO!6isV!9b;jd!WjsZ!jOF2)PIfJ!Z2\"\"$N^b=9`c78YsV4siCZfG)ZnD49b=!F9`c78nNoq]feNU1\"ARhu9b>u5\"Te].!_l&akr2<J_'&j]/PQ9J$ju5#`<KKI(&93Z(!.O!ec@(5!\\XVD$L/6@_?'cR)uq)]!!!*$!!!H.z!!\"#>!!\"JK!!&)^!!$(#!!\"YP!!&,_!!$F-!!\"nW!!&2a!!$p;!!#[m!!&Ji!!#+b!!#+b!!#+b!!&\\m!!$O0!!&Dg!!\"n\\!!\"n\\!!\"n\\!!(CH!!$g8!!&>e!!(aR!!%TN!!&5b!!\"PR!!\"PR!!\"PR!!\"PR!!!N1!!&/^!!&Af!!\"bX!!\"bX!!\"bX!!\"SO!!&kr!!&>e!!\"\\V!!\"\\V!!\"\\V!!$\"\"!!'V2!!&Sl!!%9F!!(+@!!!$\"!!\",F!!\",F!!\",F!!\",F!!!GecN1Z\\!Y#4D!s/o5]E83E!dk%Y!X/WB!g3]W$kqnG49>rn!WiKVq(400q+V\"o!<iNV6ita]/J+UR!Wjr*!rWO),b+o;%0D1`!Y#5$&HX^N_+Hj[4Z*9[!g*OI!]:,_!<iN^6isVC2%[#A!Wjr2bQ.bS!\\FHm!l6WD&?uuS!i5o$!\\HeATaNF`JKt9u/M3q.*@1b5!Wa#V!cnE\"!Y#4T\"9K#6X9&G4!f9DK1-PFC4[qR92+.M>3B[F$\"Te].!]<@Id31@YnNm9Y/N*/%!Y#24!X(+6+Y=7V%JgG6!<iNV6iu=#/J,/u!Wjr*'`nR@!n@HO,fBfe%0FHM!Y#2_!ZM3g,V9Sd+>!X6!oXP>&@!A[/OT[!+Y=81+Ta5`!r4E\"&Ffl,!W`H+/OTZ.$S;pH#6FrY/HPt^$B5,f$NfDq!W`b+!Wl't*!-QNe-#g^!\\FHm!l5^*&D7jO!ZM3g,V9S<-j9YQ\"Tg8D!l5^*&:k]#!\\H\"''ceS%,m\")^*<P+!![Ii_!<N;p!<<Z2zzz!!$a>!!$a>!!$7(!!!N0!!\"8E!!\"kZ!!#Xl!!\"kV!!\"hY!!$a>!!$a>!!%!=!!#Ff!!!$\"!!$[<!!$[<!!$[<!!$a>!!&8a!!$\"!!!\"n[!!!;=eH*;t!Y#4D'`ngG]G1JW!Wn>^$,d@=)ZgHMAHDn'!JDEo%0?Sg$)A]V!s/o5<!!L1a\\r6rm/cH&m/]]D!Ta=`$3Ib(m/[:M!V$?q1@5+Y0C8d0m/c;L!X]\"F3:-_JjT,Md!<iPd!CR\"\"0'**FYqH.[/`d#G!<N]3h#RQr!r4G(!>+3!\"Te^V#m/o`6iqp&h#S)W;??nOh#X&Id5V\\s!MN0g19CQY!YV%)!\\@!%$]Hb@%0E%$!Y#41'EU&W!LZ+<!ClGWjT,E%!eE;t!<V?`\"Te].!p'GN!jP;X!>(q:!Wjt8!TX:`%0?S4\"Pj*P;V_?bi@b?9!<iP\\!CR!o6eqbSR3D\\6/_pF/!_G8#98rru!_!1g!A-GI.O\"r<$5G_B!s/o5h#RQr!nf6_!>+cJ\"Te].!o3lF!iZUa!>((m!Wjt0!<N=1!m*Ya,m*$\\2*!NW!]M]\"!_412![0Fc!Wif4!^-jk/%d,/%0?UT%SN>nlidG\"!n7>S%0FpN!]'-DJI1]E7dU3XjT.aN\\L?hG!p'Fd!W`H+jT.aN_&287&:k]#!\\NL7S-8s'!o3kY)ZnD4h#S)G.DcJp!<iP\\!CR!G2VeBFW=T+4/_pGu!RWk/N</hg!]$kY!Wj\"*!PAO:HNJj6!Y#490EO\"PKH(%&!e_PY!DplQg^XAp!ng-H18P#Q-ishZX9J_8!o3kY)Zm93h#S)?5Qq2i\"TmK\\6isVkh#S)G'`nFgh#Z2#!pTfg!N[XM('=+4!Y#24!X.<[OX&Z_&:lUm!<O2AnNu%4&:lS<h#TnFYqOo6&@!D_!W`H+h#TnFM&b=P&A^I1!\\N4/aZl=(S,i]E3DDM.blRqI/HPuF?1CZY!aV3DAN<2q$=s9EKEqVg!WiEH9frId!e^cC!DpTVoE>:*!iuY/%0G>d!X]\"V,i&J4M*'Mo!ZM421>MsBJNF#:!<iP\\!CR\"2.,=n8aYEo!/_pG5!Wa=p04c&%>lk33klCi@Aa'3s17\\d:!<P$!JP1D;!iu\\0%0D4a!Wc;L&h5(,KH(_TbR\"=[!Wq0Y6j!0Yh#S)W;r%HU$3J%!h#S)W;r%HU)Zn\\Gh#S)'5Qq2i\"TmK\\6it1/h#S(,!Wjt0!<N=1!m*ZD,m)a[D)lIP%KZ[]!dt-8!G)<6+`.9D$'Yn;-3=VXj9bqt!m++;1@5+i1[P34m/c;L!ZM3G8aQN[jT,Md!<iPd!CR\"R-05.=fd$V#/`d#7$N^b=h#RQr!nf6_!>*'j\"Te].!o3lF!pNG8!>'f\\!Wjt0!Gqm<SH4B`!bVT,$N^b=d7OHqm/b$Gm/]]D!Ta=`)Zn\\Jm/[:M!<iN*\"Tmcd6itaOjT,q73<B76jT3\"&!Y#4e!<O2AnNu%4&CE!3!ceGGh#TnFTdJRr&Et\\H!\\N4/JP0j_!<RDK)?Wu^&h3s\"!\\,AqS1>=kS.,N/!kD&-1@5,$)XRPpm/[:M!CR\"b..%$:jT,Md!<iPd!CR!_9B?0c\\JkSO/`d#o%0?t?h#RQa!g+_`!>+K=dKosU\"TmK\\6itI;h#S)W8-/iEh#[%@<B6<P_$XI.9`bAfA\\e^Z!bDE78SuirD$\";8$N^b=!hB?hbV%Zk!Y#4l%K[(@h#RQr!jP,K!>'f&\"Te].!o3lF!qAk<!>(AT!Wjt0!P'BUT)j(f*!-QNOU)\"D[/g=1&u>U1*)!+/ljs4-!mD/V%0H>C!]'-D=mZ5Zm/c;L!ZM3_%.+&sjT,Md!<iPd!CR\"R(ZbZ/R6L`S/`d\"t&-<:Bh#RQr!mr:L!>(Y=\"Tf2<!o3lF!g,_'!>*'P!Wjt0!J++E!@7g+.&?r)V#d\\!M(o+'!NcA(\"p1S2!h',klmVuF!Wj>VN<+\\E!Y#4)*!.n_!T=p`!ClGWjT,Di!f8Ps!<V?`\"Te].!p'GN!hh=0!>*'M!Wjt8!R),W%0?S4\"Pj+S1#2jAi<f_i!<iP\\!CR!G0&6O>q)/9U/_U]N*!.m\\!<N<8K`Q`t`=F6rPlUpeK`R/6&h5*t&-<:BZk<EL!WiE+h#Xc0h#S(<:^$n$\"TmK\\6irblh#S(d:'(JKh#W((K`NJ$_)4qIK`S.TN<)%fr\"&o=!fRco%0?Ue!CR\"Z9&0LZkt_Ha!<iP\\!CR\"J*o-i.nN[-W/_pH(\"9JTEV#et'\"-!>t\"TgHe!Se=i%0E@,)CbfZ!<O/@bRO[`!rN]5%0?S4\"Pj*P\"l01jq%Nu6!<iP\\!CR\":*Sg`-nKJ#9/_pH42SB5R-/f=[3@3&k,rm9a(]k-Je._rn!o3kY$3Hn)h#S(l1Yi'5)ZoObh#S(l1Bdg\\\"TmK\\6j!0(h#S(\\3W]@7h#YnA-'SGt%I\"0F3@+_.8M,Kd2'i<o(]k-J`\"`=_!o3kY$3Jm6h#S)_4p:ug\"TmK\\6ir3=h#S)_:BCSLh#ZaA%4)&bq'Q7RR0`pM*<H9TN<Ymg!Y#4,('4pHM$a;>m/d\"gm/]]D!<N<*jT5/rm/[:M!V$[%1@5+A;saTTm/[7i\"Q][3!pp!ijT,Md!<iPd!CQu4jT,pd('4OhjT1;V!Y#4e!<NT0T`s6Q&CD*lh#TnFi?@\"X&?uJr!<O2Aq(:D'&?uHD!W`H+h#TnFq&A,j&?--@g'94c!U0Y#,m)<mq'Rj2\\PWD`N=>pj&euDg7n^BRRKkhfq'ICJ-1hiP%0A\\t)?V9K&h3r?!\\,Aq4;B`l(]k-J&HX`T!LXtq!ClGWjT,E%!ndqJ!<V?`nI>UUm/b$Um/]]D!Ta=`$3I1-m/[:M!<iN*\"Tmcd6iu%=jT,q/:]^\\MjT2G#!Y#4e!<NT0T`s6Q&=FXE!W`H+h#TnFW<(fU&A\\DL!\\H1T)C7DO#:6Vn\"!o5p\"p3a,-+3h#d2F;k-.*VW3@2l`!Y#4a8HLZT!L+Q*%0?U%!E#X3Zl/uT!o3kY)ZnD4h#S)G70N_n\"TmK\\6isnlh#S)?*!-0nh#WHR!o3kYSH7[t\"-int0EO#3!<N<8SH5N)!Y#4\\/clI`!Wla2S1=XM!j!=B%0G>d!X]!k.,=n8klV(j!<iP\\!CR\"*)VkE*_);>r/_pGu!T>F/Pn!7B!]$kY!Wj\"*!<Sem;3V@1\"9K#6!dtB^1A!.\"%0E%>!Y#4A.KVBm!J)lj!ClGW!p'GN!mrXf!<V?`\"Te].!p'GN!i[@)!>*Wq!Wjt8!TY4%%0G>d!ZM3o#MfCl_*Z!?!W`H+h#TnFW<V/Z&?/&!!\\N4/iD[Dj,m)$dV#a-O'?pQ[!D'I&`<!pY>Km2f!Q>)a!OVsA!<NH,FTMTW!Rr+k%0Fa+!Y#4l*<HZOR8!`<m/_bMm/]]D!Ta=`)Zo7-m/[:M!<iN*\"Tmcd6it1tjT,qG0`hD.jT2G(!Y#4e!<NT0nP\\0D&D9JU!W`H+h#TnFklolD&:m:P!c$NlOY3I2,m(1Ld5V6!!RWh-1?AtI!?*EhV#^W9!WoGO9;MZR\"p,58S0%eA!o3kY)Zn\\Gh#S)_\"pG&/\"TmK\\6iqomh#S)/6imEAh#X&I!g*L(V#et'\"-!?77KP?Q!Mof8.KZ.A!ZD-q$3CY<K`R;N\"+B,=!]$#A!Wj!g!<RrU;4K/<&crLDX<7QR!Wq0Y6irJqh#S)?5m7;j\"TmK\\6isVDh#S(D+p%fth#[0VOVIseM$sG@>lk'?:&H+8%0?T*;*=1L!Y#2o!`B('!Z2!7+T`)SW>>Ukm/a16m/]]D!Ta=`)ZkjYm/[:M!<iN*\"Tmcd6isn0jT,pL5lq*>jT4]k!Y#24!X.<[8_jCYfae5f=Tnl_!CR\"B38FTHJHQ#U/_pH\\9sk3P!f8^%3CWI%76*eq+T`)S`$,6l!oZWN1@5,,#jhX^m/c;L!ZM3/&FBK\"jT,Md!<iPd!CR!?!Ta=nR5P*J/`d\"l,6A;Uh#RQr!qA&%!>)M0\"Te].!o3lF!mq&)!>(Yb!Wjt0!JrU$3CTo/7A^)S4T_Yb!m*em,m*-P!Y#4t,6A;Uh#RQr!l5`0!>*XH\"Te].!o3lF!neUM!>(Ae!Wjt0!N?G.1.=>-iW0*D#\\F..+T`)S`$>Bn!o3kY)Znt,h#S)O\"9ei-\"TmK\\6irb\\h#S(D(]jajh#RQY?iiIs-3Djp73r#J+p&2TS0\\4G!Z;%pm/cGum/]]D!Ta=`$3I2#m/[:M!<iN*\"Tmcd6j!0NjT,q'/HPu*jT4Eg!Y#24!X.<[Ti0\\I&=GrB!<O2AnNu%4&=Goi!W`H+h#TnFWD)+K&=FF<!\\O6OJP1\\*%g#0$!B!\"Q.O\"qq\";O)D-3=VX!o3lF!hiNJ!>'f4\"Te].!o3lF!i\\39!>)5!!Wjt0!<N=1!WiEp4e2fZ<reI2!Y#3g\"mQq/\\f^beWWH)8'!s\"f%0G>d!ZM3G6eqbS\\P`J1\"Pj*h0&6O>fbFYl!<iP\\!CR\"Z9AKU[d4bV'/_pGi0!ta,!keW^3!5]POY['!!R1YY!?*Eh[/g=I!WnT+9=4eb)?L?LZmYtb!g*Te1@5+A.I@.*m/c;L!X]![$LIiqjT,Md!<iPd!CR\"J532eVOUV?n/`d$2-ishZh#RQr!jP,K!>(@s\"Te_)!Wq0Y6isnch#S(l\"Te`Wh#WWjXT9^L[/nZ7\".]IT7fkHb!OVqH.KZ^Q!ZD+AX=$ZC!Mfo$%0@LN%0H/N!Y#3n5lrh/!Vn54!ClGW!WiMd!MLn.!<V?`\"Te].!p'GN!ms9p!>,&h!Wjt8!PBl`%0G>d!ZM3g,i&J4kqWDD!<iP\\!CR!_-f\"e7d0Tje/_pHL5G\\B,!nfT1!BHtWd2oCj3G#T!!Wehm!WjOA!TY[256:n'$2bm`#m(P;Zmu1e!ng'F1@5+92=1E6m/[7i\"Q]Zh47*%MjT,Md!<iPd!CR\"b''0-*_+t+6/`d$2.fp.]!WiM\\!O4<6!>(Y)\"Te].!o3lF!jOiC!>(AB!l>-nh#YnEh#]T2<F%3Y?26'6X9>=)!Y#4\\/-67^i=Z2Im/_bim/]]D!Ta=`)Zn,4m/[:M!<iN*\"Tmcd6is>/jT,pl,6@oujT1l'!Y#4e!<O2Ai?@\"X&CDU(!W`H+h#TnFd6cXi&?.\\l!\\N4/R3Q8EICV%KCOMliFTQts!(q[@\"9Rcf!rOVO%0G>d!ZM3_);P<)iD9[Z!<iP\\!CR\"B:u)-`M(A]0/_pF/!bDE7!_Igf$=*^]bU`f)!e_Np%0G<;!Y#4956<V-!VmMu!ClGWjT,E%!i[C2!<V?`\"Te].!p'GN!pN#4!>+Kj!Wjt8!Mh@M%0G>d!X]\"n52?5NM&4tK!ZM3G6eqbSM&-<s!<iP\\!CR\"2#2K:k\\Ng2t/_pGu!RWk/N<,_H!_e:N!Wk6M!<V$`9:Z*J*s)lQPV<.J!iZe61@5+!-1(_&m/c;L!ZM4:;XFJdjT,Md!<iPd!CR!G0BE3GWD*Eq/`d#g0EM[b!o3lF!g+S\\!>+cS\"TlsM\"TmK\\6iuTsh#S(<5QV!=h#X&I!Wa=<!RWk/N<.^%!]%.a]a5T,!hB>n)?MGk%0FI&!Y#4e!<NT0OXT#d&G\\`u!W`H+h#TnFiC;W(&D9GQ!\\N4/PlZ^r\"\"fc=!X8^s!T>F/Pl[+)!Y#4!&cshj!<N<8SH/e_!E&2%N&(ME!k^8i%0?Ue!CR\"Z9&0LZJLgs+!<iP\\!CR\"b\"l01j\\Olo)/_pGm!<N9BSHJupN<,:F!X8_=0`hdc9EGY)!ZVpTN;rqYzzz:&t=p:&t=pJcPiOJ,oWM'EJ16'EJ16'`\\46+ohTC_#OH87fWMh1B7CTR/d3e2?<dX2?<dX2?<dX2?<dXE<#t=56(Z`M?!VV-ij;J-ij;J-ij;J.KKML-ij;J-ij;JC&n;7C&n;7OT5@]?2ss*`W,u=S,iTiRK3BgScJfkScJfkO9#=]O9#=]b5_MBD#aP9aT);@h#IETHiO-HMuWhX)?Bg<*!$$>*!$$>*!$$>(]aU:(]aU:RK3BgRK3Bg$NU5-O8o7\\\\,ZL/EWH.?F9)@AFo_RC.00DKQiI*d]`8$41B@IUU]:ApU]:Ap9*#\"mW;lnuY5eP&2?<dX2?<dX=TJL&]Dqp3_Z0Z:KE2&QI/s<JdJs7IU]:ApVZ?btirB&ZS,`Nh3WT3\\4okW`5QLib63.&d63.&d63.&dNWB+[NWB+[f`;'QoDejkci=%GlN$tc%KQP0VuQet:&t=p+T_WD+TVQCV>pSr:&t=p:&t=p:&t=p:&t=p9`b:p0ED.RV>pSr@fcW14okW``W,u=If]TM8HAekKE(uPPl^pc;ult!K`D)Q&-2b2'EJ16'EJ16YlXn*@fZQ0HN4$GaT;GBIfTNLHiO-H!!*'\"#QXo*#QXo*#QXo*'EJ16'EJ16'EJ16'EJ16&H`\"5U&b5oKE(uPPQ:aaPQ:aa9*5.oZ2jq*_>jQ9:&t=p:&t=pCBFP:^]=E8_uKc;H3\"!GH3\"!GLB@MVgAq9Sb5_MB\\H;g3nc8^ja8c2?k5t\\arrE*\"_Z0Z:!<`B&\"9JQ'V#UJq$NpG0&HVq4MZ<_W,m42J-NX8JnGiOh;$6k!3W]9]mf3=fG6@mG703Ghn,NFgiW0#ZiW0#ZOTYXa:BCLr[/^1,h>mTVh>mTVh>mTVVZZu\"BEA/6[/^1,df]XNDup\">RfEEgAcVl3AcVl3AcVl3)uos=/cYkOm0!ChK`V5SaoDDA%0Z_3S,rZjaT);@3s>TaZN:+,W;lnu8-&\\j8-&\\jD$9n>`W?,?[K$:-D?0_;D?0_;D?0_;Pm%-fg&_6Sec5[MXoSM&YQ4_(VuZkuVuZku^BFT;joPM_]`8$4VuZkuWW<)\"WW<)\"L]IJUf*)-S!<W<%_Z0Z:\"U4r,(BXX;_#OH80a7UX+9MTD^&S-56O!Mj-3F5J^]4?7:Bge!0`qCU^&S-5*i%*`U]CN+!i,hu%0@LN%0Fp%!]\"&41L3IU<<<L/iD*Y[<<WF)\"Th[l!f9BH&G[mZ!\\ID_!Y#24!X)6^6;8$]8d,7sRL'$i6irK!9b=ig!WjrJ!i60\"oFKFR!Y#44!<N]3_$pH$?'.K[7U9!q$3Ib(>ln\"0!W`H+<C?n>4]N'X4otd;<V-:n%0B6*$3L#T9b=iA\"Te^f#6IUf!i]$k&E+'\"!\\I+J!XoFh8HLX^fgu6#`<X<_!Y#4T!Wif49`c78YsV4si@b66\"AS,I9b;k7!_l&a_(n^rq+:el!<iO!6ir2c9b?hO!WjrJfgu6)-%Sql$7,c$3%[-B]`A08%IktN1-G[?&hOe!%0E%,!Y#4l!s/o5!WiL!_(n^rYos/M\"AQ]f9b?gt\"Te].!_l&aR0u_#YmLO6/PV?[/L:IL;2kW'!mrue\"Z\\G'!W`am7fkG7e-#g^!]:lG!\\FHl!Wn;k9.fcI!Y#5/\"9K#69`c78YsV4s\\L7U_!<iO!6iu$X9b=iF!WjrJfgu7Y!A1qf!Y#3f3W_'B\\N!ka>u^q5!oXPn!`]C*!<iO)6itIE<=k9+!WjrRKE_Je!_i_8!nf5$&G[p^!W`H+9gf'A$r%;T)$0jkEYSY1!A2e+!Y#4T\"p,589`bY'_(n^rktD6^!<iO!6iu=+9b<^D!WjrJOY/43!eF3+,m)IR2*(%34TYWnU^$r1!mrq.1.=&=.KV1')?KuI\"\\UH>\"9K#6!Wk83g]mli!kB'J10p\"C>t/+\"!ZM3?:gF-&\"Te].!`_ViJLOS1Yp'5N/QJSP!Y#24!X)6n/PQf@)GL8P!oY7r&G]0t!ZM4\"+AEF#1ee#Y!l6Wd&:l#/!W`H+9gf&N),1\\,%KZ\\`9eH;M8?jWr/P,+>2&4O?kn>X#>D3,9,m(=Y/M10abQe2j!ng-H1+g]V!Y#249gf'Y/PQem(JOr<!pN$G&A].d!W`H+9gf')7SOG6!WjrJV$mD+V$YWV!Y#4L\"p,58iXt_s>d>EX$3CY<9`c78nO$\"^fb.!\\$3KHY9b<.P\"Te].!_l&aOW7(,kr8_G/PWbr!]!2%)Fji\\!ZD+A`!K)]%-.fu%0E=5!Y#4!0*3n7OZ6W9>u^qF!oZaW!`]C*!<iO)6it1J<=nC@!WjrRljEk(!Wl(a!hiLd&<S\"8!X)6^6;8$U2ba>\\!l6Wd&D8fB!W`H+9gf'I.npS[8HJrF9p%($\"=4,#;)KX$d5X!D`<`\">!W`b3$3Ff@]EnWK!qZm&%0B6*)Zl-M9b<-_\"Te].!_l&aYmsJ>d458\"/PQ9Jh>o20/Q(\"&KF\\+n!lPNL%0D)E!]\"&l#$j](<<<L/fh>ZQ<<WF)\"Th[l!l5CI&E*Wk!\\IE2%K[(@9`c78fe6&2WBgS[6it1[9b=9i!WiL!ksA)UR2Z;2!R_,Q9gf'Q0MN+H703NB9n?.n,m)IReIFSkPlq.g%Il4U1-Ot4!Y#4d!s/o5,m\"*!e-?$a!i->.%0B6*$3Ho!9b>\\a\"Te].!_l&anO-(_OZW[H/PYa?!]#0*!YR'd/Q'.iljs4-!rNQ1%0B6*$3KHY9b<^X!_l&a_(n^rkqE/?\"AS,I9b?h9\"Te].!_l&aM&&es\\PiP2/PUdnSH^AAd5W^<\"f2_2!=bP0!Y#4$$N^b=r\"&o=!_i_'!pN$G&Fg/4!W`H+9gf'I7SOH!3W]@7:\"`)>16i0)%g!1A!!!`6zz!!!6(!!!]5!!!T4!!\"ML!!\";F!!!$\"!!#^n!!\"hU!!!K1!!$d7!!#(\\!!!T4!!%9E!!#ao!!!c9!!&Vk!!$X3!!!W5!!\"2G!!(IJ!!%9E!!!W5!!)Zl!!&>c!!!o=!!\"_S!!&_n!!!]7!!\">K!!\"2G!!%NL!!#^o!!(7D!!!]7!!&Pj!!)Nh!!!`8!!\"PQ!!\"PQ!!)6a!!!K0!!!Z6!!\")B!!!c8!!!c9!!!G_cN1*M!Y#44\"9K#6X98S6![IgV!qAAS1-Ok/4[qRl!ZM2l,Wu2d\"Te].!]<@I\\M#fOT`kK!/N%>G%0?S4\">/:[/J,HF/HQjmYsU)SnPTMl!<iNV6iuU:/J-;T!Wjr*i@W:a,m*$k!pTe$%0BE/bQ.bt!Y#2J!iuM+%0GSk!Y#5,*<IuZO[qW)4Z*9[!jP9Z!]:,_!<iN^6is>b2%YlO!Wjr2X9&G4!WiE+/bptM&@\"V,!W`H+/OTZF81bDC6375K!A+bs9`kh+!_FD`'HIb$8YJs$&BQX%/ThW0:l.me&CDg+![/#C!s/o5\"TfMBX9/M5!\\FH\\!oY:S&<Sn'!ZM4*67ib22_>(M!oXP>&A]Xr!W`H+/OTZ64Y74r2Za%4/I`!W!<N<&])fSQ*=ufa!WjMS%2`[Yg]7Hc!ji(3%0A*_$3Jm6/J.FR\"Te].!\\HeAi@HPlYos/M/M.#(\"UtO/\"&$T:*!-QN\\eK`0-K5R>liDeAD$9nPzzz!!!!*!!!!:!!!#9\"98FV#ljr*!!!!Z!!!!N!!!#?\"98Fb#ljsi#ljsk#ljsm#ljse#ljse#ljsm#ljs@!!!!d!!!#=\"98F`#ljse#ljsb!!!!p!!!#8\"98E-U<iq2\"Tf,7S-8s'!h9Dq%0E4e'dWq?)Zhc8'`q8749>rn6imf!TbIP`4fM4?7QiU1)Znt-4T[JE!W`H+2+.MN.5_Z.!Wjr2Mu`th!\\FHm!qA#t&?/MY!X]\"f+Y=8);$$e%/`@j)&?/MY!ZM3/+tXA2(+fS,!qAT/&>9[f!X]#)/M.P(63RE%\"Tg8D!kCTK&G\\$^!\\Gu(!d;*h_$^u%!m)J-#fQi##QbhHN<Bst;?FK4!Y#24!\\G-%!`p6\"#6G>9iWn`Z=lLA8&7ttF'aOm%#6G>9M%9YC-%l@%%0A*_)Zo7j/J*aD\"Te].!\\HeAJIO1BYs\\Wp/M.#*+Vb%Yh#S5l'iDUHr!!33!o*kZ%0?S_6iu<j/J,01/HQjm_&+a8Yos8P!<iNV6is>O/J-S;!Wjr*Tfs2;!r3E01*-<%!r2iuj9G_q!lP3C%0A*_)ZluB/J-Sb\"Te].!\\HeAnH(9Ri?/1'/M.#@\"Vh(RB&j1:!Y#24quTM;oE#('!i,u$%0FX+!\\up$;E[K42$+*di>\"KW2$F$^\"TgPL!gsKT&:ku+!\\H:r\"Tf,7/HQjmOV9;Xq(=6#$3L#T/J+=$\"Te].!\\HeAi>!pUi@+g0/XcqH!XoDF!c7q24r#@FWC$_Bbm\"4L\"XVq.!Y#24,uKU)U^.#2!Ys2e?QIo,!Y#3a#6G>9!WiKVfh!b,JK+gp!<iNV6iumA/J+UI!Wjr*d1@$=!WiW2*>JV[!Wn5b/KO0^!Y#4d!Wif4lj!S$!\\FHm!jO4,&EsZ.!W`H+/OTYk.4l+q*!-0n/Hl4F!<T>.!Y#4Y;?AU:d3q.I4Z*9[!pLUd!]:,_!<iN^6itIY2%[kb!Wjr2oEYL-!\\FHm!jP*E&D8lD!b;H9/OTYk+tX@_'`nFg/b((f9I5W$!Y#26F<#i4GQ8fczzz!!)iu!!)iu!!)iu!!)iu!!!T2!!\"2C!!%HL!!#Lh!!\"AH!!%KM!!!!&!!!!&!!!!&!!$1&!!)?g!!)?g!!)9e!!$@+!!\"qX!!%!?!!)-a!!)-a!!)-a!!%3C!!#Ig!!%6F!!)-a!!&,]!!#jr!!%BJ!!)!]!!)!]!!&tu!!$U2!!!$\"!!(p[!!(CH!!$j9!!%!?!!(gT!!%BH!!%-C!!)lr!!%ZP!!%'A!!!B-!!&8a!!%!?!!!<%cN1BR!Y#4<!<N]3*!-QN2$+*di?:&iOWOW+\">ukV2%[#A2$+*dT`m:bYphO3)ZoOb2%]:M\"Te].!]<@IiD)6Aq(2XL/N'4@Pm'1M!Y#2Q,/FWr,m)1U%<`360*3oB$4R&7!rN*$%0F0C!Y#4!,m#hjOUsrN76L\\Z!kAV+!^-\\g!<iNf6is%i4V7-]!Wjr:KE;2a!Wk5I!nf4a&?ucJ2+.N!0/X<g+Z0<?!mr8N&@i,O!Whj$!]<@InO#/FiDK^Y/N'4c%4))'8-1O]SIP^!!rWW0Acf%;!kn[:KED8b!]:#u!r4E*&BQs7!X(BS\"Z6k-,m=>N\"TgPL!f7.>&@\"V)!\\H8=!+l9AnL9:q%@J@[,m)I%*B>.n8HLXnfgu6#/HPtd*K^lO$7,b4\"9K#6PQV$s!]:#d!oY:[&?-3B!X(C60/X<W(]lQ_!nf4a&?,gj!ZM421,TWR%Kun7\"TgPL!q?=L&Fh(K!\\H:G.4)M*-(u8(3@4V4!ZrV[5.ptC!m)&V19D#q!`B('!Z2!G\"Tf,72$+*dks@6=R4L2s)Zm932%Z0,!]<@Ife52oi>\"3O)ZnD42%YU?2$+*dT`m:bfg#]B!<iN^6ir3/2%[;H!Wjr2($S3j%@J@[,m)I%*B>.n8HLXnfgu7E!S%5Q!YQN9%j`M'_'pZjh$Xnu&H\\CCdKgAH!jht0%0?P?!\"Ju/zz!!`K(!\"f22!9jUd!$qUF!#>P7!9s[e!&\"<P!%e0N!9XIb!7D/R!7D/R!+>j-!)W^r!:'af!87_Z!87_Z!87_Z!87_Z!3H5$!,V]9!9jUd!3-#!!\"&5B!PAR;%0F0G!Y#4D\"Tf,7RL71Z9!S[2!`oB/\"Tf,7!WjqgU]LT,!_`Y)!WiE+2;o]9&<S@u!X]\"^0/X<'-j9YQ\"TgPL!r4Q.&<S1=!\\H:_0C9*,r<WP$!_X7b!Y#44!<N]3!]<@Ii?:&iYnf1u$3Jm62%[;a2$+]ufe52o\\NpB#!<iN^6is%i2%]\"9!Wjr2\\N^fT!Z_=aeHLpA!X8_5!u4X`;'Z2P!iuG)%0D(c!]!47,t19l!WiKfi@dV$4Ttlf\"TghT!mr/S&Fi'g!\\HS-!Wif42$+]ud3LR\\JIMba!<iN^6iu=#2%[#(!jW\"^2&-0o!42n2V?$b2!s/o5TeZ[)7HlBm7R[AA6isnI705UU!W`H+4[]@F4ZsAP8cf&G4bNq>%0ABg)Zm932%\\Fj2$+*dfe52o_&,$2)ZnD12%\\FW!WiK^T`m:bW<E>\\6iu<j2%Y<^\"Te].!]<@InH(QZ_'K-a/N)K='dWpl\"Tfqid1+&!,m#Y\"!VHdG&h3t-#QeN<!Wn&V's\\#F<r`C*(]qVZ!Y#24!X(C>+Z0hi'`p6\\!r4E*&BR]O!W`H+2+.Mf))VuI0*22,2$*gf$FrA9,m(I[!W``F!X8_%!F8OD5=>P^!WhWg!##>4zzz!&afW!#u:F!#c.D!\"T&0!#,D5!/q$\\!%S$L!$hOE!0%*]!)!:l!&X`V!/q$\\!#>k@!,hi;!)rpu!0@<`!$V^L!$V^L!#c.D!3lM(!+>j-!!*'\"!#>k@!#>k@!#>k@!#>k@!\"%'!!K7$\\%0DIh!Y#3i!<N]3,Q\\DV/HQjm8M(ML9`bA!/`@j)&G]$(!W`H+/OTZN0.da/\"Te`W/JSP'!WnVg7KT@g!Y#5$,Q]_IS-&g%!gE]e%0A*_)Zl-8/J+$G/HQjm\\M#NGYn7-@!<iNV6it1a/J+$m!Wjr*!WnJb$4R&G!22Rk,m)a@!\\tbt!!O[%!Wif4![U^6\".TDo%0EOI1/5mmHia`YX9&G4!\\FHm!pN$'&>;)c!X(+6+Y=816S/?Y!iZ>T&@\"S+!W`H+/OTZN$7uhZ6373?/HPts'`n@@'`u&Q&YoOL!Y#4,!s/o5/HQjmi>aE\\f`MBZ!<iNV6itIk/J-ko!Wjr*!i,ku-0,.0%0A*_$3Hn)/J+mF\"Te].!\\HeAnKoh!YmLO6/M2ei!]$S]U]LT,!X/WB!Wn/YPlUjqzzz!!!!*!!!!0!!!#J!WW4p\"TSOs\"TSNK!!!!<!!!!\"!!!\"l\"TSNa!!!!C!!!#H!WW3G!!!!j!!!!Q!!!#H!WW4r\"TSOu\"TSOu\"TSO:!!!!e!!!#H!WW3)Z-WO4#QbG:j9Per!osUg%0@dV%0H>u!]!3D%n/rV4TYrlnOc4O4Ttlf\"TghT!kBsI&>97/!\\HQO!Y#24!X(BS\"Z6kU4p:ug\"TgPL!qAl?&CDa)!\\KQ:,m\"8PO\\)qa!Z_FG(]q>N!Y#4Q-NZ%liBp%'705V?!hg2p!^-\\g!<iNf6is%i4V7-]!Wjr:KE;2a!]:#u!mr8N&Fg+e\"p+f/!]<@Iq&VC)iDK^Y/N)37*B=S1\"Tec-ap4(>(\"sAO!Wif4\\MjRF7F<PQ7R]HA)Zkj$705UU!W`H+4[]@V6Tl\"N6NR<@4e)TU%0ABg)Znt<2%]\"E2$+*dfe52oYmLX9ciF:O2+.N!\"#UXH*<H9o246EE3LpEWS-\\fh*TR>)%0HG0!Y#242+.NA/N\")j)$2Z`!hfcT&E,SP!W`H+2+.N9\">paa4TY[:27Ypl,m*07!W`b4!<NH,oE?73JPi3I!Y#4t\"9K#6!WiK^q(4H8JKY0u!<iN^6is>!2%]Qm!Wjr2O\\,3R3=VJa!Y#4<\"Tf,72$+]ufe52oi@+p3!<iN^6irbc2%[;H!Wjr2'`oa'oE>:*!Z_PY!WX5q*T9pC,m#Y\"!>PYU9.eWu!Y#44\"p,58R2#cY7Bng@7R]HA)ZmPn705UU!W`H+4[]@.:H]9J'`nFg4nJp[%0ABg)ZnD42%Y<Y!]<@Ii?:&iJMK(a$3Jm62%Y<o\"Tm?X\"TgPL!f7mS&A^I1!\\H;&$3C6f\"S;j!AHLWl!Y#2g!ZM3G6T#FC:B^e#\"TgPL!hfiV&@!D\\!\\H;*$N_J'*!-QN!iuPu*NTMJ%0ABg)ZnD42%[kl\"Te].!]<@Id82\\3aYEo!/N'm9!oO(\\lj*Y%!jO?Z1.@<J77K^/!ZM3?4@K<7\"Te].!^/pQfebi'aX@2l/NpHI!Y#2g!ZM3g+Z0h1)?KsC2>Jg]&BRBF!W`H+2+.MF4>d]?'`nG?2$*gf$3C8h'tHQJ!@7dn!W``N!X8_u\"!(4[5Kj01%0?Tb!L3Zc'EA+5zzz#ljr*('\"=7^&\\360)ttP-ia5I\\cDd2li7\"c<<*\"!4obQ_\\cDd2IfKHK9E5%m])_m3RfEEg>lXj)\\cDd2EWZ:A^An66A,lT0^&\\36b5_MBH2mpF]E&!4pAb0nK)blO^&\\36#lt#+MuWhX\\cDd2)Z]p=T)\\ik!<<*\"E!$(?EWZ:AEWZ:AEWZ:AEWZ:A$22[G]ESEH!k\\^=%0F0H!Y#2V!Y#2g!X]\"f+Z0i,9f2tk!kAUp&CDa,!W`H+2+.MV0/X<7\"Te`W2%9mB!pM0918P*\\%93I_!<O#<Mu`th!Wk5I!oY:[&E+'U!X]\"&\"Z6kM;DeLp!jP*M&E-ME!X]\"f+Z0hA5m7;j\"TgPL!eEKl&G\\$^!\\H9h![)(V(!-^`'sRiBZN:\".!Wj\"j!u8o`!u7=-!Y#4,!Wif42$+]unNo)EYs\\XN6is%c2%[#[\"Te].!]<@IR3FL\"WDN]u/N(X\"!\\u&'!YQ4_JN<lJq)p$Y!<OhS!=dQa&h3qt!b;AK$Parha[6e''sn&E%0F0E!Y#2g!X]#)/N\"*U,m#ql!oY:[&<SmT!W`H+2+.M>4Z*fH8cf&G2<dF/1<g$J#6Id)]ESEH!hpRT\"AGO)U]^`.!]:#u!jO44&E+T4!W`H+2+.Ls))Vtn$N^A]2$F%L!e^^Y%0?S:\"UtMB;&n?o!Y#2N!Y#3i\"Tf,7!]<@Ife52oW>d\\r)Zmhm2%Z`+2$+*dfe52oM*:tB\"?#-]2%[##!]<@Ife52oi=#kk!<iN^6itIE2%Z_j!Wjr2%1m+QaZ]S5<Z&4K!giui_$^\\u!m*e=3W0*60*3mD`<HBA!rN0&%0?S2\"UtMB;4IdM\"9K#6\"Tel8%MAaTzzz!!!!*!!!!1!!!!q!rr<G!!!!O!!!!r!rr=.!!!!T!!!!s!rr=8!!!!b!!!!t!rr=e\"onX,!!!\"U!!!!l!!!!l!rr=g\"onXj\"onXj\"onXj\"onXn\"onXu!!!\".!!!!n!rr>A!!!\"3!!!!o!rr=e\"onXh\"onW.o?RGj\"p,58KE_Je!e^aZ%0?S4&eu.43Wg,m4XDBU49>rn6imf!!]<@Iks@6=nObY?$3Jm62%]:M2$+*di?:&inPTMl!<iN^6irK!2%W=\\!\\H;&!<N;h%j_i<!YkcI!l56Z,m)1U'fkptks>G,*R\"Qd%0G#[!Y#242+.N!0/X=268\\f`!jP*M&G[A)!ZM4\"$oJUd$3^J3\"TgPL!i]$S&A^=-!\\H:3%LOQbd51p@!>PqN<<<mX?36>n!Y#4\\!Wif4!]<@Ii?:&iTfE8X!<iN^6isV]2%]:F!Wjr2bmskR!e^aZ%0E%%!Y#2g!ZM3'-oDRP,rG`C!jP*M&>;6E!ZM4:/N\"*%2['6`\"TgPL!pN<7&;_D/!\\H8EaTqt`Ylb()!@7dK`W6ehaTsF4aXR?I,ocsq!i,r#%0ABg$3Jm62%]9Z2$+]uYsUA[\\IJcE!<iN^6iu<u2%Z/`!Wjr2_$^\\u!m*e=3P>aP0*2Co%0BE/N!07l!mCZH%0E%'!Y#2g!ZM4\"$oJTa%5e2+!kB^:&E,&A!W`H+2+.N!#;m'l&-;nb2%:,`!<SZJ'uU+i%0BE/S-/m&!pUX!)%X:r!WWB5!Y&\"s#,DG)%0?\\7(]jaE\"UtMB;9T'*\"Tf,7\"Tel8%MAaYzzz!!!#I\"onW2!!!!6!!!\"6!rr>P\"onYS\"onYS\"onYS\"onW\\!!!!H!!!\"4!rr>L\"onYO\"onX'!!!!R!!!\"7!rr>@\"onX9!!!!d!!!\"5!rr=X!!!!s!!!\"2!rr>!!!!\"+!!!\"1!rr>`!!!#=\"onYC\"onYC\"onYC\"onYE\"onYE\"onW.\\Bk93#QbG:g^!rj!o+%_%0?UL!D>kW!Wif41]e*f!WiL1OX\"-COXOK:$3KHY>nHNu\"Te].!aS1qq+Y-+_(l&n/R8DZ8O]mH9fXf),u$BoW?odi!_'@V9f`.[0hjZ&0hh^<*!-lW!Z_U6\"dB>q%0F`S!Y#24>snaf;I'j-&R>GW!mr9!&?/M1!W`H+>snb)6!Y%Q,Q\\$!?*QL\\!^43t'j*?#!<VTg!iuG)%0F?X!]\"VL.W%XlAHEePnM4q_AapcB12ZPID+8AR!ZM3?$uH&W\"Te].!bFb$TfHZqnNm9Y/S1.K!Y#3:!X]!#>nH6m>lkrHd32d,kt2!Y\"C9\\P>nH6m\"Th-s!aS1qYmObJYsSQo/R8GS$1\\+^#fH`F3We(B!Ytjs&V:cFl3*%K!Y#24!X)e#>nGZo>lk?7ksAYef`tda)ZoOb>nE,3!WiL18R2mi'*84<>tJ<5R103!\"C4T)&:l!1!ZM4\"+^GY1+U%oJ\"Thst!iZ`:&<SmQ!\\I\\djTh=W4i'l^3A&'B705W'(A.f=/V+[+!^2Z$76)r^1.;7-\\M:Jm3V<Wf0dQlaPQh0u!o['8,m$42!@9T)\"p+i-8Ni:C!Y#4$\"p,58>lk?7ksAYe_)u!))ZntA>nGsR>lk?7Ti,/-iAUoA!<iO16ir3@>nG+R!WjrZfcNXCSHRUf7=O&$YrkH8/HS@<*7P5q%0E%)!Y#3^-3>r>fh60OD.Nbf!eDe;!bDN:!<iO96isV;AJ!f@!Wjrbj9G_q!WiE+>tJ<5q(H\"T$3KHY>nEu%>lkrHd3N!/fd-e'>6P(66iuU9>nHfg!WjrZd0<$\"`=L?#705V\\Ka]snKEM?k!\\=B^!osUg%0Bf:)ZntX>nHN@>lk?7i?;J<nJ)3/!<iO16iqo`>nG+?!WjrZ!Wic;!WjJB!Jq@.,m)!k!Y#4T#m(P;>lk?7q(5k`_&!7V!<iO16isV+>nCuW!\\I\\(!W``N&h5(,ZiLoL#Fl,&('7bC)Zn,!>nGCE\"Te].!aS1q\\JJN__$0rB/R8DZ;?@j?!>PY;2B;bt/-#YMzzzFoVLBFoVLB%0-A.%fcS02uipYEW?(>EW?(>EW?(>F8u:@F8u:@F8u:@F8u:@?2ss*?2ss*1B7CT+ohTC2uipY?iU0,?iU0,9)nql4obQ_3rf6\\z9E5%mK)blO;ucmu1&q:SAcMf2AcMf2BE/#4BE/#4C&e56C&e56C]FG8C]FG8C]FG8]`8$4@K6B.0E;(Q`rH)>DZBb;2ZNgXDu]k<Du]k<Du]k<k5YJ^L]@DT0`V1RA,lT0A,lT0Du]k<)$'^;PlLda!<<*\"=o\\O&0*)%QWW3#!0)ttPIK0?J%_L$fj8f;k!os@`%0GSk!Y#2V!Y#4i\"p-P3JO_:]/L:H;!jO1+![S!O!<iNN6isnP,nQaR!Wjr\"C]Y%I*<HQLfe4?Wkro7P;$@\"A6iumN*>$UD!Wjqo_$^\\u!g-+b3UHqa!_;h_]E&'C!Y#28!Y#34!!NE@!Y#2J!h'_t#rRSJli@.s!pMQD1+e%]/Oh<<!X]!s+tWjB\"Te].![U59nNnN5JNX&9/L@b*!Y#2O!X]\"^0-(VO+U%oJ\"Tf]4!gt5Q&G[@K!\\M7j!WWC`#QbH4*7Ouj%0?Zk!JgarOT>Fjzzz!!!!*!!!!6!!!\"r!WW3q\"TSNt\"TSNr\"TSNr\"TSNr\"TSNl\"TSOq!!!!\\!!!!O!!!\"n!WW3)ld#UM\"9K#6_up,N!lP3C%0@dV%0?T26iu$p<=n+a!WiL)i?;24Ypf_U\"BFD(<=ns\\\"Te].!`_Viq+Xj#T`kK!/QKb!!Wa%(0s(O(!r4g8%lk@Fkn=jBj8oAl!i,hu%0BN2$3KHY<=j^E\"Te].!`_Vi_)PF+OWOW+/QK%_,odAF;(X'q\\L/shjU(P[!Y#5/!<N]3!`_Vi8Q?>l6WF0p!oY;&&FhR\\!W`H+<C?o!#uqP1$N^A]<QR'!1,V2r!UU-b#6FoH9`b>A!\\Fm3liI4t!WiE+<V\\4H&FhMU!ZM3W10\"mB#6Imn!oY;&&;^Vq!W`H+<C?oa8lZGM+T_]s<Rh3ReH#`>1#3'\\!r4er3??lW!Y#4l!s/o5<<=*@OTJMoWBLIe!<iO)6ium*<=lDB!WjrRkn>?M%4/7d(F:('\"p1:q!Y#24*(q$r\"Tf,7bQItV!`]:@!kBsa&@j2h!ZM426<+SZ'*84<<T,*$&<RW+!ZM3o03&S*0*MCX\"Th[l!neAi&E,SM!\\ICR!egX^OY310KE2,p!i5o,'`nR@ZigF>!osLd(';nldM)]($e\\)Q1)1c1%0FHN!Y#22!##>4zzz!!rW*!\"T&0!-8/@!9aIa!9aIa!9aIa!9aIa!%@mJ!#kn<!-SAC!'(#Z!%\\*M!-\\GD!*]F'!&srY!-A5A!-8,?!(Hqg!-J;B!9O=_!9O=_!0[B_!*0(\"!!*'\"!3ZA&!*]F'!-8/@!/(=P!9O=_!9O=_!\"5LH!A\"9]!\\=B^!\\=B^!f@>b#!V#X\"TfMB1]e*f/HQjmnM2[-OXL84\">/RU/J+$m/HQjm\\M#NGq(W$S!<iNV6isVB/J,`R!Wjr*!WpgO$J@(l%4VgD3>Ee>,Q\\DV/-67^!Or.1#ljr*zzziW&rYE!?:B%0-A.&HDe2!<<*\"E!?:BE!?:BE!?:B#*R:5!Wic;fe4(#%EUaJ,QIuL(]sOFWYR;:*s;WS!Wfe3!!N?&!!3-#!'1;a!'1;a!'1;a!\"],1!!V?.!K7?e%0DIq!Y#3i$3CY<,Q\\DVkn!nOPl[:'PlX@>!<N<*N</QIPlUrG!SK..16hn!3L'V7PlZjF!ZM42;O%7aN<'1a!<iOa!CR!o.?+?>T`kK!/WBdi!<N]3K`M5o!jP+H!>)Lc\"Te].!egYC!qB0B!>,&]!nmk\"!JLRM$Na@7r!!33!Wr9(93iM=%0?S4?io[!!Y#5'!<N]3M#dZ5PlZ^FPlX@>!K@*]$3IaFPlUrG!<iN*\"TjYa6j!0*N<'UL%0?S_N<-Zn!Y#3b!<O2AnM5e!&?ucM!W`H+K`ORCd342E&@i)K!\\K*,i?V]6/R;WrRLTC);9T'*!s/o5N!'1k!h9>o%0D4a!ZM4215,`?W=4I]!ZM4215,`?_'Od9!X]!c7YLjS_'K6d!<iOY!CR\"R8qd9WM&cX!/VO5a,[F4u?!S.=O\\&j@!OW'S!<N]3PQV$s!egXV$3K00K`MbD/-Q(U\"TjAY6iu<iK`MbT-3=6#K`U-a'dWpL1'03O'`q87!Wkq.li[A!!WiE](!6[%$oF[bKEVDd!egXV$3J%!K`Maa)he:o)Zn,7K`Mb4\"9O8X6it1[K`Mb4\"GHjX$3Hn)K`Mb4\"9ei-\"TjAY6irbcK`Mb<.KTZ'K`M5V8N\"0l'mBNdfe3C^25(0T1-O;D!]!1Ge-fc?!Ls>q%0D4a!X]\"6080E<fg#]B!<iOY!CR!W/;4*9a\\Ms>/VO3k<B2X2<>8/i8Q@c&j9l\"u!WjAKquhZ\\!Y#3a#6G>9M'rE\\PlZFiPlX@>!<S5]6ircPPlUrG!<iN*\"TjYa6ir2bN<'Ta8HJrFN<.6.!Y#24!X+2X\\M&X;&?/!M!<O2Ad3ODH&BQ>S!<O2AOWT8X&=EZT!<NT0\\M&X;&BR&7!<N9*!egYC!m*3O!>'f;!Wjs-!QdQ;,m)a[N=.aX'l><E!Wkr9d0<SPFhnPn!d+PG+l*XX$NaT8oEYL-!egXV$3KHYK`Mb<1^*p]\"TjAY6iqo`K`MaA'`nFgK`OJ>3Mcp[<>8./<DhfbPQh0u!mCrP%0D4a!ZM3G6\\POPW>YpA!<iOY!CR!o&qp>tE<61nK`UE=!ic9$li@.s!gF#n%0D4a!ZM426A5FOfd$WQ!CR\"b/VO3:Td9jD!<iOY!CR\":3e[SG_&!.S/VO3,!XoFH58>dP]`J69%2ApK!YqdF4NTgH!s/o5N!f[r!egXV$3L#TK`MbL/d2:W\"TjAY6irbXK`Maq4TY[:K`M5V?ih>M!>PY;2Y@I[2)FS)g]7Hc!Wq]h93(Tl!Y#3b!<O2Ad3ODH&@k76!W`H+K`ORCR7Dr3&BQp6!\\K*,`!HL>!<TV:!Y#3b!<O2AnNqp1&?,_b!<NT0i?<mU&Fg`o!<O2Afe8$[&@i_`!W`H+K`ORCTgXS8&CD6p!\\K*,!WkrQ!f7I/=99cMNWBS0&h5(,lin1F!!\"DIzzz!!!<*!!!r<!!(LN!!&f\"!!&f\"!!#.^!!\"_R!!(LN!!&5g!!$X3!!#:b!!(LN!!%]Q!!#Xl!!(1E!!&Ak!!&Ak!!&Ak!!&;b!!&\\m!!$=*!!(CK!!&f\"!!&f\"!!&f\"!!&f\"!!(%>!!$j9!!(IM!!&Ys!!&Ys!!(sX!!%iU!!(OO!!')*!!'/,!!'#(!!'#(!!\"#?!!&\\m!!(IM!!#Fg!!'&\"!!!$\"!!$.&!!'5'!!(.D!!$L0!!'M/!!(@J!!'G4!!'G4!!&f\"!!&f\"!!%?H!!'t<!!(IM!!%uZ!!(CH!!(=I!!&Ys!!&Ys!!&Ys!!!\\[cN1Z[!Y#4D!Wif4]E/-D!k\\R9%0H)9iY*NQ\">g/h!]:#u!mr8N&@jCp2+.N)+Z0hq4uEBK!oY:[&<S%<!W`H+2+.MN.5_[Q1'.M/26fRO1*r>?!\\u>/,#]3c!Wft>h$<Ha!tDU<!^Qn#!<N]32$+*dfe52oWDPMS)Zn\\G2%ZGn\"Te].!]<@ITaN^hnPTDi/N'dM!\\u(,4T[Aj![:PX%0DCf'c$6Q\"6B`\\8cgaobQ@nU!WiE]'uU.T%0ABg$3Jm62%Y<J2$+*di?:&iM$Gm>)ZnD42%]:52$+]u\\M#fOJN!`6!<iN^6iu=#2%]9b!Wjr2!WjeX'o=XI/JS<k!Yt5>\"/QJY!fd9_e,oa]!]:#d!oY:[&Fh(N!W`H+2+.M^,rH7U3W]@72<b,C1+`PO;hY>`!Wa#N!W`b;!Wif4!!!W3zzzz!!(XO!!!H.!!!]5!!!6)!!\"ML!!\"5D!!!<+!!!c9!!!c9!!!c9!!!i;!!#jr!!\"kV!!!$\"!!!K1!!!K1!!!K1!!!K1!!%-A!!#@d!!!B-!!!i;!!!84cN1BR!Y#4<!<N]3ZiL4;![IgV![Rme!mr8>&<S@B!X'h.+XI]Y:*fr\\!qAT'&E-@f!W`H+,t%h19dL@E\"Te`W-,Bu&\"`+7&9,0H%*<JaC!L*TdZ2k\"A!`B*$!<N]3neJG4%Isr3!Z2!O!<N]3d5D%]2<d4\\7Pub!)ZogV2$,?5!W`H+/OTZ6$S;q[;??nO/VF0,%0@gW)Zl-8,nTSR\"Te].![U59q&UgniDK^Y%j_8Y$jmFFVZ?c!%8j2-*!-QN\"ge</!PJND!Moes%0-A.zzz#ljr*&-)\\1Ook[a-3jMN-3jMN,R4;L,R4;LA,lT0+pS)J0)ttP-NF,H!<<*\"+9qlH+pS)J#Ed=5!Wic;%0BT2\"TfMB\"9K#6Z6-(]:!sCMn,WLl!!!!#!!!\"t#QOk'#QOi)!!!!$Xj7$L!<N]3X8rA3!iuD(%0EgJOr-]H!JCLU%0A?f%0?SW6j!09,nTT=,m#\"ed3L\"LkrpBp)ZoOb,nQ1e\"Te].![U59Ypgt1_(l&n/LA4@'dWpD9,5PL(&\\XE8)\"([!`B(F![7]Q!<N]3,m#\"eW<FRZTaM#*!<iNN6irJP,nRU>!Wjr\"!Wic;%0BT2!Y%_S!\\=B^!X/WB!X5Y+VuaR4\\,iE,!\"8i-zzz!8IPS!\"/c,!\"o83!(m=n!1!fh!0dZf!0dZf!%e0N!$)%>!!*'\"!0@Bb!0RNd!0RNd!!T1E!@.^U![IgV![IgV!X/WB!\\=B^!WiE+-.spt&@!Z1!ZM3O0-q2*9a(S!\"Tfu<!mr8>&EuL_!\\G]\"!k/1;%0BT2!hBWp*5N!t,m'3%'fd!L!_;8PU]CN+!Ykc7!ZV7N!r<tl*X176,Q\\DV\"gA$+!PJND!Moes%KHJ/zzz_?Ku?$NL/,%KHJ/!<<*\"^]jc=_?Ku?`!-2A`!-2A`WcDC`WcDC`!-2A`!-2Anc/Xi\"f9iPe.Vlm!n7kb%0G#m!Y#4e!Wkm@!mqP7!WpmR`<$r-!jr(2A-)gt!WW;'!Wif4<!!L1q(i(-V$4CBV$0>b\"e>eu)ZkR9V$-pk\"U+r.\"Tk4u6irK!SHTS00*22,SHYMa!Y#24!X+blYt1,`&A^=0!W`H+Pm'PWJL$Ka&Fi?o!XFtoR5j\".!n@@G;q1mMeH4P.$7>oN$N`*F!Xd`b<<D\\fh#[Z.!kB&r!YE0g*!-QN!WksD!o3pO/46N@h#cC6&`GR2\"9K#6`!QPT!k\\R9%0ELH!]$SUaV^iX7\\p9Z\"Tf#4JISFZ!hBJu!W`H+SHVC_\\I+l2&@i)K!\\KrHKED8b!gNoj$3L#EPm%`p8d,7s\"Tjqm6iqoKPm%`(6imEA,2\"ua!]d@c]`J69N<7'#nOE\\X!<N<oeH4P.kr(o2!o3q6!YOZp9EGY)d1>%7!n@@k!ZENi[/pD?!m*[7![RoT!Wif4S-/m&!WiE+Pm+E`Pm%_M)$L'B\"Tjqm6iu=,Pm%_u4otd;Pm*R8V$d@T!f8AV!YEaT\\J<Wr&Fh1)!WklE!UKmi%0FX9[/qWUff?GA3OJq%!WiCV!lY570*A$OMuj%i!WqHa$,d,I/clI`e.Vlm!k\\[<%0F?S!]$SU;5FFcV$3Cn!X]![7&:%gSHT/u!<iOq\"[iF6'V,C=OV7ct/Y*&u\"p,58Pm%4.!q?DY\"VCJ^\"Te].!gNpW!oXQQ\"VAcn!Wjs=\"g%h-I-Ug\\&$5m7V#g]\"+dE+o!i[1BdK5@4!Y#24!al(p!m)5\\V#^W!8YlKj!qcR+_,6U[XTAR#!ji+4%0Db!!Y#3^#QccX\"lW%L\"\\,<l!hBK_!ndmV\"Tk4u\"Te].!hBK_!eD>^\"VBol!WjsE\"l'=a%0?S4\"I0.Q!gNp#JLSGA!W`H+Pm'PWTa-hd&@!D\\!\\KZ@Pl_!k!Wo2#!!8Yo!Y#4A&a]ZH!oZ0A1A(b:!s2@%PWJpU!rW/Q\"TtS%N<8bR&Wo'T!YYG4j9Per!pg0o%0E4l!]$SUfc[*p7\\p9Z\"TfVEa[W*1!hBJu!W`H+SHVC_fef6'&BQ=%!\\KrHZj?dC!gNoj$3Ib(Pm%_u49Yce\"Tjqm6ir2NPm%`h'`nFgPm%3j8VI3I!_K4!!WkrY!^VMA!gNiG,`Mk^!L3_N$3CY<PlfbB=S2^J0*3no!hfc!17\\L\"0*3o*!Wp:IA!I+q'$:Iuq?I(e!]0HOg]dfh!o++a%0DqM!]$SU_#^A97\\p9Z\"TfVEOW1,#!hBM*6NT$>\"j'<3\"\\,<l!WiLq\"d'b#\"Tk4u\"Te].!hBK_!gs+\\\"VAd3!WjsE\"iLcM%0Ddu!X]#)9pGknJO9SB!<iOi\"[iF63L'aZi@4m1/X6J@!_LW@d6)O__+E#_Z3E\\<0EM:gASoO*\"'sCo!Y#4I$[!`sO\\9gWFaX<]CXa.%%0F`^!Y#4i638p=\"d)!F\"\\,<lSHT'%!hg%!\"Tk4u\"Te].!hBK_!q@8$\"VB'[!WjsE\"dBGt%0Ddu!ZM3G.?t&JnON]_\"I0.a\"dK6&nONfb!R_GZPm'PW\\J(53&?,^4!\\KZ@!Wkq>_&:2qBpgs68L4q1*Usdh&FhfT/gV(f'9NbN&<S6K'dXF5\"1]-m&;_Zs&crLDO[d\"b&A^rk$bZQPaY3bt'!22!('4pH`!uhX!oX@c18P0-/#<D=V$-o%\"J#_</u8^QSHT/u!<iOq\"[iEc7\\'\\ofh;GK/Y*'(%g!1APm%4.!q?DY\"VC2l\"Te].!gNpW!m*'[\"VCJ2!h'NLPm%3j&g]+27h[`]U]GfD!_GP>&HWCCklN.W![[Xi\"!rdZ!\\uXG%K[(@klQ8Z!e'kl\"+?RD!]#`9oG7QE!iuq7%0Ddu!ZM3G6^7fdkqE8B!<iOi\"[iE[5a;KaaUA4P/X6LM2$,,t!@$%p<<<4'8_jDu9B?1#!pp!i!R1Z,!>6k+!h9E/jT.dO8\"0QS!_7kE<<>[[\",%Bj%0F0S!Y#3r\"Tf#4OTLdO&=F\"3!W`H+Pm'PWa\\J*)&D7p&!\\KZ@eH$jA!r33*1>Mtn.KVBm$CN=E1@5+<&-<:BS.Yl4!gNoj)ZntXPm%`p8-K%q\"Tjqm6isV(Pm%`0#Qb&ZPm%3jK`NdI%4r-j0`hD.22MGn!\\M5\"/J,0Gkn5QL,m\"->/\\)TJ&?.Cp.4l+a(s*4=&;_oo)(bn9\\J6D%M*UDB!Y#3^-(P&JJL]nPSH0:i(SLl#!>(Af`\"W7^!o+Fj%0Ddu!ZM426Bq]cq%Nl3\"I0/L+dE3Bq%Nu6!<iOi\"[iEK;3_:rknjI'/X6J@![@c'2[q&7klRsjrrE09nJ_QFbSpTm!l64S!>()JV#eCH!u7d\\!]%.a_'B(;]`A0Y;l'Ms!Ppu&V#^W!8\\G.p%K[(@N\"lC'!gNoj$3L#tPm%_e3<]Hb\"Tjqm6irc)Pm%_m+p%ftPm(I0'E])\\9`d(e_'B(;D#tn[?\"Li:\"'sC`!Y#24!YQ4g!_5<u!Wa;C,mXS5%g!1AS/)/8!i[dR18P0E$`+\"rV$3Cn!ZM3g-)CbHSHT/u!<iOq\"[iEc*M!?FfaIo`/Y*(+('4pH!gNpW!qB0R\"VC20\"Te].!gNpW!m(S1\"VBWC!Wjs=\"gn@48,EA$%0B%p!Q>)U56I__!WksD!Js7q!>*(=aW/h3ScQqe!Wj\"R!MgY9%0CYR;?D!?*<TSi!X8^Z&-<:Br\"fDD!f7it18P/*1o1@FV$-pk\"[iFf6)=_dSHT/u!<iOq\"[iFN$(V52iACZ</Y*'`(]k-JPm%4.!g+mr\"VAch\"Te].!gNpW!guE@\"VALH!Wjs=\"Te`VI>%\\'7jGkU!WduU!Wl&T!L3Ze8,E;g!_Jp`JN02$&>;\"h'*8UEThPSDm/`VK!]'EL.a7uo!jiO@%0G<&!Y#4A'EU%d\"jnNj\"\\,<l!hBK_!m+?:\"Tk4uTe-=$V$2E4V$0>b\"e>eu)Zn,ZV$-pk\"U+r.\"Tk4u6iqp*SHTS(!<N<SSHZqM!Y#3r\"Tf#4iD,XA&=Ek/!W`H+Pm'PW_).D\\&@i2N!\\KZ@!WkrQ!Vm7S&=GM@\"p4Z&A'kg@!<RZN!YT@G$j$k>blK:A!r2iu1=ZEq0`j,d!J)U\"1?APD)$16Ke/JGu!r3Z718P/r-D^l8V$-pk\"[iEc:8J*qSHT/u!<iOq\"[iF>3Lp<bnL\"A>/Y*'8*!-QN!gNpW!oY;f\"V@XV\"Te].!gNpW!guWF\"VB&u!Wjs=\"jne$1*uSo)Cbdt!ZD+A!_a'7#/NS-%E&YV%0F'e!]%^sksGM-bl`M)!]&:.)SH5Q!hiQ+!s5k4bU<N%!jisL%0Ddu!ZM3G.?t&Ja[-.4!<iOi\"[iFF0pMnRGle%!Pm%3j8YlN_&u>[A_+D0oV$!@kaY3bt&sWP#!_JpbbW#Y5!WiEHXTP[-OY6gU!WiEp]`ZAF]`Sh634Td;!tb8Oj=(->!mD\\e%0FW_!]$SUfdEU\"7\\p9Z\"Tf#4JN9P1!hBJu!W`H+SHVC_d06'E&=F@:!\\KrHPTKr9!WiE+Pm-tUPm%_M0*MCXncAlX\"[iF.2jFOXaU8.O/X6JHXT;E'nPQt%!jr-D!s1tCd1<nm!jr+3!YV=3]HI=c!WiEp[0+em[0$uV8YHX%!t`R.N%b;B!WiEpSH?&1SH9@j34Tcp!YG/NN&C_H!k]WW%0?S4\"I0/L09l\\PnH/pr!<iOi\"[iF>)jLR<JKFpp/X6J@!YV=3a[M0m!hBFa\"0!:C`<)S4!X8_&\"2R2(`<,ZR!Y#4E!WiQ-`<*ji!u9KM!]&:-`%hB'!lQ5`%0H?%!]$SUR4tH@7\\p7iSHVC_d70r9!hBJu!W`H+SHVC_M*.=4&D8oB!\\KrHN$8<4!gNoj)ZoObPm%_m.?t&<$3K`)Pm%_m.0TbR\"Tjqm6isV<Pm%_]:'(JKPm,PWV#pdi\"6!%H\"7?2T\"SrMr7g$^3!Wks$\"5s<h!t^k[]`T0#!rO#>%0F'eo`>\\]3W0!\\7mht4_*8%@!WiEpPlm.6PlhT68_FfC!t`R.!Wj!g\"5GO2%0F`u!Y#49(BQ@g\"lW.O\"\\,<lSHT'%!msE4\"Tk4u\"Te].!hBK_!jOJN\"V@q4!WjsE\"dC86%0Ddu!ZM3G6^7fdq&0D<!U:!nPm'PWM&;K]&?-cR!\\KZ@aWCSc!SmeY!YW`Z\\J50$eH38r!]&R5\\J50$jT;t-!]'-Ej>?uJ!oYO\"!>*@,!Wj\"r!P&pH1@5)D!\\O'Gj<ap;!j![L%0DYC!]$SUJJ+d_7\\p9Z\"Tf#4q%]_0!hBJu!W`H+SHVC_\\OE%m&?.>b!\\KrHoHaPJ!gNoj$3K`QPm%`P3s>ZdndGSb\"[iEk9U,bmd7s`E/X6LM-3>sA\"6i/S1A(p($N`*6!ueiT<<Ajm]`S>D\"2+dD-N]\\p`</-n!lQ,]%0HJ/!_9!eK`V<Gb6*_*OY6g5!L+].%0DJ9!Y#4A&-=V`\"lTic\"\\,<lSHT'6!g*qg\"Tk4u\"Te].!hBK_!r5T^\"V@q2!WjsE\"k4n$%0?Tr\"[iFN09l\\P_((]R!X]#!$C(c+_((]R!ZM4:/X6JN_(#Ti!<iOi\"[iEC&=!D1JKP!q/X6JcnOMdDo`5*q[fNl=d3#au&=GMk!u`NgUa6'O!ke[C-N\\i4`</-n!XcUC<<D\\f]`S>D\"2+d<7rum1!Y#3a.09q[Pm%3r!g+Ri\"V?Mc\"Te].!gNpW!guNC\"V@XQ!Wjs=\"cWS_*<V9/N<0.c!kB$I16hnB!\\KrEV#g]gMZW6#!Y#4))8-+`koReG!_:-/d1=1u!ke\\h.KU%\\N%+lE!neb!18P/:-)Cc7V$3Cn!ZM3/4/E)^SHT/u!<iOq\"[iF.1S\"[\\_&i^[/Y*'p.KU%\\!gNpW!eE:q\"VBo&\"Te].!gNpW!i\\,D\"VBo=!Wjs=\"Te`KXTRYmOY6gU!WiEp]`[3p]`Sh634Td;!tb8OOXIgE&Et7T!s1uf\"47Xu!s6.<!Wi\\1\"6;?A%0GJj`<$Um0EM:g[0\"#COY6g5!<N<obl[et!Y#4i3W_)0\"760l\"p+jj4%nrCS2p]\\!i.@K%0E4f!]$SUW@t(O7\\p9Z\"Tf#4M'o,'!hBJu!W`H+SHVC_YtLVk&?u9<!\\KrHiD6!H3Q2&r\"7\\k``<$)B8_O]./HQ@_N%G)?!r3W618P/:)5RL+V$3Cn!ZM4\":o+<sSHT/u!<iOq\"[iF>6Ce8kd89rH/Y*'p/HQ@_Pm%4.!kAW&\"V@@L\"Te].!gNpW!r2q`\"VB>i!Wjs=\"j'3@!t^k[]`T1H!<TeY!]%^sksGM-bl`M)!]&:.)SH5n!hiQ+!s5k4]`STh!f8qV\"$-#Ue1Le3!XcUC<<D\\f]`S>D\"2+d<7tUok&%r&H[0*cY!Y#3a0*2RaPm%4.!m)=F\"VBW;\"Te].!gNpW!nfo*\"V@q&!Wjs=\"TeaN!p'I!56I__!Wksd!P(Vk!>*(=r$2=Q!f[;E0*B/p!Wkra\"-Gj>!t^k[\\J:Y;&G[K#5FhlfkoPd<!Y#3q0EM[bPm%4.!g+mr\"VB?c\"Te].!gNpW!g+=b\"V@Y-!Wjs=\"Tead!Mon#\"-G5=`<$)B8\\G4_6bNR5R5jOe!Y#4A'tj\\\\q'!!G]`Si1*lS3_8$`;f1'.mdPVE4K!gNoj)ZntAPm%`H70N_n\"Tjqm6iu%0Pm%_m,6@ouPm*ud!_9Qtd1<&U$Cq8#![3O*N<?.#\"2t>$!s/Z.Plnie\"2t>C*<HZOnLMic&=GMg(!Qdkq'\"8i!_:E8r&Fff!mqOt!s6.<!WjOI\"0DZf0*B/p!Wks,\"7.fF%0F?k!]&R5![:R^!pKd2![Rom!r42GblYg.!Y#5'1'.mdPm%3r!q?V_\"V?5O\"Te].!gNpW!jNW.\"VAL?!Wjs=\"g%h-8+Qei!l7)'V#^W!8aQSY/]@c&_+E-,!Y#4Y&%r&H[0$I3&u>]h!i5u#SHGB5!Y#5'1BJ!ePm%4.!jO2>\"V@Y)!WiLi\"o1cU\"V@Y)\"Te].!gNpW!q@M#\"VAL#!Wjs=\"jnF*!t^k[\\J;d[&G[K+#1WnjkoReG!_9j)d1=1u!ke]#*WccPlnebQ!gNoj$3GbfPm%`80EhLY\"Tjqm6it1dPm%`0.foc(Pm,8m`</-n!XcUC<<D\\f]`S=q%_VrG7uIJs&%r&H[0$I3&u>]h\"Jl2%SHIhHSHCmk!e_p&%0?S48bE.q-M7EOaZ[0]o`>\\m2n::.!YBnrKHgO-!gGSE%0Ddu!ZM4\"+dE3Bq#gj&!<iOi\"[iEk;O%Cskp-<3/X6L9!Wklu!mqOT!`#9f!WjO)!rOGJ%0GlS!Y#4i49@:7\"fX;S\"\\,<l!WiLq\"o1`d\"Tk4u\"Te].!hBK_!m+$)\"V@q9!WjsE\"gg2i%0Ddu!X]#)8sKPkTgAna!<iOi\"[iES/!U8L\\PN>//X6M(!j)PN!j)S#-NgIQR0`pM`=E\"O'!29#!jr+V!jr.+-NgaY\\PWD``<-/C'\"%hP3f4)$[0)gV]`U:.!s7Qd.+JFA;=+H3!rOPM%0G$=!Y#3r\"Tf#4nHtNb&@k>s\"TfVEi?=Hi&@k=8!W`H+Pm'PWTf\\MC&E+]4!\\KZ@iD6!Hn,\\4MiD6!H3Q2&r\"7\\k``<$)B8[SZZ\"LS=CR5hk^)CGTs-3>sA\"6i/S1<foP$N`*6!ueiT<<Ajm]`S>D\"2+dD-N`?c!Y#4Y&(L^_blRqJ+h[rj!i[1BV#d)0!Y#4,#QbG:q@)'e2u4HH\"O[Jdnda@gZ3^t<`&[r/!WiE+Pm-DEPm%`p$j?\\5\"Tjqm6ircLPm%_m49>R9Pm+]1jUWX=faS!<o`OR`!`B)q6NR\\ua\\hF-,m)a/!]'ENm/mCo!Wo/b9C2ho3W]`l`&e#0!gNoj)ZogePm%`H5m7;j\"Tjqm6isnmPm%_U-3=6#Pm+PuTeCD^\"9JWr`<;;>`<6a?34(mO%0FcWq'Q9h\"M%A21>N'7!YW`\\oK`Nf!WiEsh#sEMh#mf0\"9JWVh#rs/!Y#4d49>rnPm%3r!oY8e\"VB?X\"Te].!gNpW!m*rt\"VBWe!Wjs=\"jmk:\"9R*V!Wj\"*!n@AS!Q>2K637St![:R>\"K_gC56I_b!Wks,\"PG$5\";&C@M&s>5&BQU-!YVU<]K60(!pi&O%0DAS!]$SU\\OWJ\"7\\p9Z\"TfVEiBO.B!hBJu!W`H+SHVC_W>;$.&CCab!\\KrHZp\"O#!gNoj)ZntXPm%`($j?\\5\"Tjqm6it1ZPm%_m7fi`DPm%3jK)tWJfh1o?&A^r#-M7KQaY3bt''08`\"Hb>>V$,\"0!f-jY[0-O3`<>E,`<7Ig`<>ua\"2tDE8HK>&]KZH,!gtkH18P/R.&@):V$3Cn!X]\"&(o7B;SHYE,!]$SUJJY-d7\\p7iSHVC_TbsU0!hBMZ'`p.e\"dq6E\"\\,<l!WiLq\"c5I?\"Tk4u\"Te].!hBK_!m*Ws\"VA3_!WjsE\"iNY-%0Ddu!ZM3G.?t&JkmWg\\!X]\"f+I**AfbT_[!Wi--!gNpW!f8\"a\"VAcW!Wjs=\"gKo'\";&sV\\J<'dOob)$ble)<Wrp`[ble+H%fueU[03l?aVP&U\"9JWr`<>]`_@.!D36_R-8(.Ld&'Y4Y`<65D+ghH\\\"K<CDV$+1/!X8_U7045+\\J50$eH>pT/_pQk\"Mm;)V$,jB!Y#5$;;D?VeHD9ReH?H2-J\\e+8&GDX49>rn]KuZ/!gNoj)ZmQ9Pm%_e4p:ug\"Tjqm6iu%:Pm%_m6NR<@Pm,,0aVP&U\"9JWreHEuQeH?GO38F]=8)jWt&)@?ieH>pT1;sBT8-05%m/mD[RfW0a!_8FVr<!*kgB!!2!_:E7e40QL!n9R=%0D(_!]$SUTc0a27\\p9Z\"Tf#4_+:C+!hBJu!W`H+SHVC_d4_$o&@!Sa!\\KrHS4!Df!WiE+Pm+].Pm%`h.KokSZ3^St\"[iFF/sQSOnK@r8/X6J@!_N=nM'2a(&=GMg(&\\7Hq&tFq!_62:%tt/gr<*0'+mfF\"\"9JV;!<VWk#Qb/2(]ja?8_!sK2:Vg@R5j\"*!_99md1>%9!n@DT![5Mc`<<.\\\"/Q.>\"9Jc/PWo3Y!ke`Q56I_b!Wks<\"Gnt[\";&C@S43Ph!o3t\\8!<u$&)@?ieH>pT+iOT'\"N_G^V$*#O!Y#4,7KO##M%TkFV$56[V$0>b\"e>eu$3GbgV$-pk\"U+r.\"Tk4u6irbYSHTS`6imEASH\\@L!Y#24!X+bliAd)+&<T!W!W`H+Pm'PWO\\qAI&;a<e!\\KZ@M';6o&BQU-!YV45`<>^$\"/Q,%!_LoFYsHnC&=GN6\"9JUp\"LL8m%0DLl!_6I[\"9M)W!hBGq8#lZe\"MkcS($R^[1:78$,Q]a7\"KX`f%0Dbb!Y#4a4T[C8\"n=IH\"\\,<lSHT'6!jNlE\"Tk4u\"Te].!hBK_!msB+\"VAd%!WjsE\"l)WM%0Ddu!X]!s$^Cl,fdR(+MZEt_Pm'PWq)=QB&D8T9!\\KZ@`<=:!\"18O=!_LoFnM\\o#&=GNM703o\"R8O)AeH>pT'#b\"<!mLio!gGeK%0?M0$N^;.zzzE!$(?D?Bk=A-2f3A-2f3:]g[t:]g[t'`\\46)?9a;ZN1%+BEJ57C'+G9C'+G9C'+G9C'+G9C]aY;C]aY;;?Hn!<!*+#<!*+#<!*+#:]g[t:B1@p3WK-[Z2jq*Aci#5Aci#5Aci#5=p\"a);?Hn!;?Hn!A-2f3A-2f3LB%;S8cShkWW<)\"<W`=%=9AO'>QXs+>QXs+T)\\ik;ZHdtW;uu!3Wf?^3Wf?^zY5eP&B)ho3`W6&>M?<hYL'%DUncJjlncJjl:]g[tL'%DUL'%DUL][VWL][VWL][VWjT#8\\JcGcNq#LHq3Wf?^3Wf?^EX)REAd8;9EX)REEX)RE49GQ`49GQ`49GQ`49GQ`)Z]p=SH&WiT)eol5Q^ud7KWVj8-8hl8co%n8co%n7KWVj:]g[t:]g[t:]g[t:]g[t.KBGK:]g[t:]g[t<ri:$^An66&-2b2+p%`E,Q[rG+9DNC-isAK-isAK49>K_49>K_4ot]a4ot]aP5tX`gAh3R!WW3#\"onW'#QOi)$31&+$ig8-%KHJ/&c_n3'EA+5'EA+5g&_6Sg]@HUfE)$QfE)$Qd/a4Ip](9oA,lT0c2[hEg&M*Qn,NFgn,NFga8c2?a8c2?a8c2?a8c2?KE;,RKE;,RKE;,RKE;,R$N^;.%06G/RK3Bg2?NpZ3Wf?^3Wf?^3Wf?^3Wf?^p&G'mli@(d%KZV1%KZV10*2+R+oqZDRK3Bg7fiYj.KKML$ig8-)?9a;)uos=)uos=*WQ0?(]XO9,QIfE-3+#G-ia5I.KBGK,QIfE0E;(Q0E;(Q`W?,?a8u>AaoVPCaoVPCG6.aE8-&\\j!<<*\"bQ7bEe,fUMe,fUMe,fUMe,fUMfE)$QfE)$QfE)$QUB1Dq>6+^(%flY1+9DNC+9DNC\"98E%:]LIq^&S-5^&S-5^&S-5`rZ5@Erc7@Erc7@p&Y3o-j'GL-j'GL.K]YN/->kP-j'GL-j'GL49>K_?ig<.?ig<.?ig<.rrN0#Nr]4\\63.&dMuitZTE5)nTE5)nV?-_t_?'];_u]o=_u]o=1'7LV1'7LV1'7LV1'7LV2Zj$[Y5nV''EJ16.KTSM/cl\"Q/-5eO-isAK-isAKCBFP:\\H)[1R/m9fFTVUDblIeE!<<*\"\"98E%\"98E%T`Y8peH#XM/->kPXTJP'h#RKU&-Dn4+pJ#I,R+5K+9hfG/-Z(S/-Z(S[KZ^3jotecjoteckQV\"el374gl374gdfTRMq>gQr,Qe#H9EkIs8d57q63[Di63[DiH3O?LHj0QNIKfcPIKfcPfE;0Sg&qBUg]RTWg]RTW%g2k4%fu_21BRUWGQn-JGQn-JH3O?LH3O?LYQY\",cijCLcijCLcijCL0a%IV.KTSM+Th]E<!E=&<!E=&<!E=&<X&O(=9\\a*=9\\a*lid@hp&tEr!!WE'!!WE'!X8W)\"9ni+!!WE'!!WE'Es)IC8cetmklLhbfED6Tg'%HVg][ZXh?<lZh?<lZ$3U>/\"p=o+&d/17'EeC9'EeC9WrrD&B`\\87,6IoG8-T%o8-T%o8-T%o*!?6A49PWafE;0SfE;0Sirf>^L&q>T+Th]E6j<Vk7Krhm7Krhm=p=s,=p=s,=p=s,=p=s,?3UB0?3UB0+U%iGQi[6fL&q>T(^0m>)?g*@+9_`F+9_`FlimFin-/jmmKNXkmKNXk6NmGiYlXn*EruCB('ag>('ag>(^C$@)@$6B*!ZHD+9qlH*X;ZF('ag>('ag>Op(gcNWfC_Qj!HiQj!HiQj!HiAd8;9E!H@CE!H@CE!H@CM$3kZciO1I1BRUWUBLVti;ruZ1]m^X`<?5Ak5kV`2$3gYd00LMliI.e2?NpZE!?:BD?^(@D?^(@i<92]pAt<pSH/]j\"p=o+\"p=o+#Qt,-#Qt,-$jH\\3$jH\\3%L)n5&-`+7&dA=9&dA=9\"U4r,#m1/-4TbZaL'@VXL'@VXL^!hZL^!hZM?X%\\N!97^O9P[bO9P[b,mF>L)$9j=$NgA/'F\"O;$jH\\3*X2TE*X2TE+9hfG+9hfGRKWZkS-8lmTEP;qTEP;qNWoI`L'@VX[KZ^3[KZ^3[KZ^3cijCLcijCLdKKUNdKKUNdKKUN>m:9/2$3gYU&k;pNWfC_NWfC_O9GUaO9GUa>Qt0.<!E=&<!E=&<!E=&I0KZO7fr_k>QXs+\\cr-7]ES?9^]jc=^'4Q;^'4Q;Rg&im<W`=%)Zp'?3X,Qa3!K?_0EqLW0EqLW63[Di63[Dij95M`jok_bkQLqdl3..fl3..f`<H;BB`e>8Dup\">h?3fYfE;0SfE;0SgBIWXJ-,cOY6+b)?j?Z3?j?Z3?j?Z3?j?Z3@Kul5@Kul5C'O_=E!H@CE!H@C'aF^=P61db('=O:0EqLW0EqLW0EqLW1'R^Y0a@[YSHAil)?Ts>2?j-]2?j-]Sco)oQj!HiYQY\",YQY\",E!H@CV>pSrbQ%VCKE(uP;$R($Y6+b)]E8-6BEnM;GR\"3KGR\"3KFpA!IBEnM;FpA!IFpA!IFpA!IE<cID^]OQ::BUXtTEkMtTEkMtV?m5&V?m5&V?m5&V?m5&%LE+8%LE+8&.&=:&.&=:QNmKjdK9ILM?EnZ$4-\\4$4-\\4$4-\\4O9bgdPR%6hPR%6hQ3[HjQj<ZlPR%6hPR%6h]*A<9m/m=gf`V9TZj?^4[Kup6Z3^L2]EnQ<]EnQ<U'Uf\"U^7#$U^7#$U^7#$mfrgm&Hi(6;$6k!U^-r#W!EA'V?d/%Sd5;rYQt4/YQt4/Z3UF1[Klj5Zj6X3YQt4/rWiK(rWiK(rWiK(WX/Y*X9ek,Z3^L2Z3^L2&.&=:&d\\O<('ss@('ss@:C$q#0*D7TQ370f/dVLX1'mp\\0F7^Z/-u:V/-u:VJd28UPQq0g^]si>g]mfZg]mfZFU.sI8d#+oh?3fY^'Oc>^^0u@`!HDD_?g2B]EnQ<nd,9rnd,9rnd,9rHjKcQIL,uSJdDDWJ-c2UHjKcQU'Uf\"U'Uf\"U'Uf\"!!rW*!!rW*!XSi,!XSi,=:\"s-<XAa+;@*='HjKcQHjKcQaTqkHF9DRDJcl&R!!rW*$4-\\4$4-\\4$jcn6%LE+8%LE+8*!cNEBF\"S<GR+9LO9bgdO9bgdO9bgdO9bgd\"UP//P6:jcW<<2$<!`O)<!`O)U^7#$U^7#$V?m5&<NOLIA-*2AA-*2AA-*2AapXpQ#5SWW!Y#2O!ZM3G.NK)20*MCX\"Tf]4!f9Ae&EuL_!\\GDr!n@;QC]Y%I!ZaZ1i?93QOTGRc\"<H/K*>$%H*<I/]nNn6-_)NG:)Zmi2*>!cb\"Te].!ZaZ1JKu6Id3Jbp/KMY89d'S#9+<ljXTAPodfU$\\f`;-`!`o@I!Y#3A!YthDG]Xp\"D(/$[I/jQRzzz!!$1&!!!B,!!!r<!!\"&A!!#1c!!#+a!!#+a!!#+a!!!/-dfHNl!Y#44*s)lQX<.KQ!dt+ND2]Y?%0H>5!]\"n_(]k-J6imf!V#^W:!m)=V!>+3b\"Te].!i5oc!r5Qe!>%g(!\\L5L!Wk^j![U^>+hSEh%0Dap!Y#24V#`sci?>#u&:ltJ!W`H+V#`scYpuRN&<S@B!\\L5LTfs2;!f73b1*%)2;??n$/JXNO!`qVj!Z2\":!<N]3d4k\\X[/oe([/ib)!NcA($3IJ#[/g?2!<iN*\"Tke,6isn*XT9!,$N^A]XT??A!Y#4-!<O2Aq(\\]H&@i,O!W`H+V#`scYn3`4&Fg)/!\\L5LI<?1u/:DA?Z3?0o!Y#24U`^BeS-&g%!WiE+V#fNuV#_.,%&Et+)ZoOrV#_.,%&Et+)ZnD4V#_-i2['6`\"TkM$6iuUFV#_-a*<H9oV#cDaeHmu4!XJrM'bVu?Mus.)!<N<&\"Vh(R;2bOO\"9K#6V#^W:!mr9i!>+30\"Te].!i5oc!eD5c!>(Y,!WjsM!ONsN,m*-1!Y#41-3>s1!RWL,!CjHtXT8JB!m)=f!<TA(\"Te].!j)Jk!eDMs!>+3@!WjsU!NZG+%0?U-!CR\"B0;S[\\aV:QP!ZM3G&>]C=aV4m[!<iP$!CR\"J.A[%VfbX\\k/YrIL!al)3!>YM5!e^amPl]Q0oEYL-!WnT'96K;#!Y#4,\"p,58V#^W:!g+S$!>*pL\"Te].!i5oc!eEb9!>()O!WjsM!T>;H3H]Ie%pb;hFZFT'\"p,58r!!33!Wo2!6j!0YV#_-Y18P!Q)ZnD4V#_/'1^*p]\"TkM$6is>NV#_.d2Za%4V#bEUAcfXP!WckL!X8]CFYOW$\"p3W^!\\=B^!qZ^!%0E@,!X]#)0r4m^fd-\\$\"Jl.p0r4m^fd3Hq!X]\"f:8It&aZK_.!<iP$!CR!W\"Jl,1fa.]]/YrKi5E,[i!nfT9\"ZbZHi?=He3B`o6!Wf,(!WjO)!L+`/%0?tR/cqglfh#TeN!TOp!l5TQ1:7/)$+0e'[/mB1!ZM3?)RTSIXT8S,!<iP,!CR!/XT9!t)?KslXT?oX!Y#4-!<O2Ad3POh&BRBF!W`H+V#`scW>_T6&?.,\\!jVj'!TY.#VZ?j`$3CY<WAO`4[/n*-[/ib)!<TA(6iuU![/g?2!<iN*\"Tke,6itasXT9!L(BOXiXT@2a!Y#24V#`scYplLM&;`p]!W`H+V#`sc\\NQbi&BQ^0!\\L5LbmGk2!f[3^!IZF!\"p0JZZjT\"L8^nd_%0F0M!Y#4-!<NT0T`q7n&BPN\\!<O2AYsY>g&BPLf!W`H+V#`scJO?77&=ES$!\\L5L\\J51L!PJY!!Y#3q$j$k>!i5oc!_K3h&CE#)!<NT0i?>#u&<S\";!W`H+V#`scfeTB)&A^d:!\\L5L<<<2T\"Te`K77AnB!j)R@9`mfc!_HCF%0?t?N\"#gt!ms.41:7.62RNQT[/g?2!CR!W7C<-tXT8S,!<iP,!CR!O(9ITKnJhT3/Zf''%0?t?V#^W)!jODT!>)45V#^W:!jO2N!>)dt!WiM$!O4;S!>)dtl4!dq\"TkM$6is%hV#_.<'*84eV#dPb<=lu<>nmsn:!#(p!pp,a\"]Z,=:uN58\"IfG>-F=?d%0G;p!Y#4A1'05=!Kdbt!CjHtXT8JB!mqUf!<TA(\"Te].!j)Jk!eDAo!>+cT!WjsU!Mg5-%0E@,!X]!k,GbDPaUG!H!ZM3G6_sepaUA6I!CR!o0;S[\\\\PiY5!sJb&!CR\"B!Mof.OZW[H/YrK]%MC5m707!$a[8KC!nfa=1/11=;?EOU73r#O3<BcZ\"cNik%0F0R!Y#4-!<NT08YlG!nPH%_!ZM3'.&?qUnPH%_!ZM3g,c(MQnI,R&!<iP$!CR!G0Vnd]Yt\"is/YrIL!qcSj\"\\$N=\"%BHs!]!aW!YRqd'*?G[!k]*H%0E@,!ZM3O6)=Sni<lC^!X]#)/YrIZR2uD2\"Jl-],GbDPR2uM5!<iP$!CR!g+/JuLfbjhm/YrIL!d7\"$3+`6&0^T$(XU7Ju\"p1J3704M-'*8UE`\"E+\\!i5o!$3Eeq!>+KV\"Te].!i5oc!eF1E!>*X0!WjsM!U0YS,m$O2-Nh<uaWCR><O<;=%0E%5!Y#4-!<NT0YqMpS&BQi,!<O2AYsY>g&BQg6!W`H+V#`scknp5t&:mOW!\\L5L7EGf;7BmL-KE9=*!Wj!'KG4Is!i-t@%0DJ&!Y#4q9*-lV!RVUh!CjHt!WiM,!O3oX!<TA(fc^DP[/mfr[/ib)!NcA($3IIX[/g?2!<iN*\"Tke,6iuTpXT9!L/-5l)XTA&.!Y#4-!<O2AnNs&Q&=F+6!W`H+V#`scYp?.H&FiHr\\dL+4!C_Q#\"%E#K<NcE)>lk$ie.)Nh!WiEH/YjKj%0G<\"!Y#3^(]lJ#!T?\\Z!CjHt!j)Jk!hgXB!<TA(\"Te].!j)Jk!ne!a!>)4i!WjsU!MgJ4%0E@,!ZM4218P!_+f,2@$3KHYV#_,NV#^W:!nf6'!>)4?dL?6Y\"TkM$6irKCV#_.$('4OhV#e\\&/L:JO3A&/Mh#TA7GRZe;!?K)n!Y#42%cS6gne8)@!Y#4-!<NT0i?>#u&<T9_!W`H+V#`scq&?.2&:kPt!\\L5L(hGFu!C:9WAS#Ee?2PK?%0DY`AN=<'oEIs\"j;n@3!d/oVq$R7P;2c^#(]k-Jff&sf[/mNQ[/ib)!NcA()Zoh$[/g?2!<iN*\"Tke,6irb]XT9!t#6FrYXTA&2!Y#4-!<O2Ad3POh&A\\DO!f[3a!i5oc!ngGI!>(Yd!WjsM!?;13!<TVG!Y#5,;Z\\_^!RXKH!CjHtXT8JB!i[$E!<TA(\"Te].!j)Jk!jPP'!>*?q!WjsU!W3f:%0E@,!X]!#V#_.$+f,2@)Zn\\/V#_.<$j?\\5\"TkM$6iqp*V#_.\\$3C8\\V#_2lRK3KC0*3p%$D@V)huQR*0*3n/KH(%&!pgg,%0GKR!]%.aq*qam7^W6u!X,V+kl\\<o!j)J,!W`H+XT:fk_)ACr&E-%Z!\\LMTZl9&U!i5o!$3K00V#_.4#mCA2\"TkM$6iuTTV#_.$1BQ85/YrKi58>IGM+JFB%35KN%?)8.%0?Tq+_*s**!-QNV#^W:!r3;%!>*?uV#^W:!jP+h!>)4R\"Te].!i5oc!i\\\\d!>*X=!WjsM!SK+--m\\or&eu,e.38%#!Y#5/*!-QNnJD<_[/lsu[/ib)!<N<*XT<uK[/g?2!<iN*\"Tke,6it1kXT9!\\/cl)+XT??\\!Y#4-!<O2A\\I#)5&<SZC!<NT0T`q7n&G\\Zs!W`H+V#`scJPW*C&GZP4iX@E8!QbcP1;s?H;(X'qM(pSB/N!S1'eKIk!Y@4D/Nj_?!_!.k/HPuF9ro36%0D4alj#L-ZjQpE!pgs0%0E@,!ZM3g,c(MQJN3l8!<iP$!CR\"27&9nqd746>/YrL4!<P#foEGAD!jj$N%0E@,!X]\"f+f,2NYs>,d!ZM3G6_sepYs8Ho!<iP$!CR\":'r:pBTelfP/YrKA4q/e>q(Ml0!PJLC!`B)a+9DuR!Wkq&N!'1k!Wj)CS0H_k!Y#4D+9DuRV#^W:!nf'\"!>(Yo!WiM$!T>2u!>(Yo\"Te].!i5oc!q?Ah!>'f(!WjsM!=]br!qZc+!Ee#HPQLsr!WkeHU_c,p%0EUS!Y#24!X,>#i?>#u&@i;T!W`H+V#`scW=u*/&Fi0j!\\L5L_$ecq,m)1U'fd#^0*3mLr#l+N!Ykc7!fR6`%0?Ti$;5g>!<N]3TbB\"<-);Y8:pD_('`ngG#mL_H&f)B,+p%aYzzz!!!\"L\"98FP\"98FN\"98FN\"98E6!!!!0!!!!]!WW4d\"98Ff\"98EJ!!!!<!!!\"2!WW5G\"98GI\"98GI\"98Ed!!!!R!!!!a!WW43!!!!b!!!!I!WW4S!!!!l!!!!D!WW4g!!!\"*!!!!I!WW4*\"98F,\"98F,\"98G@!!!\":!!!!`!WW5X!!!\"F!!!!_!WW4L\"98FN\"98FN\"98H#!!!\"Z!!!!i!WW3B!<<+n!!!!U!WW3h!<<,,!!!!b!WW4T\"98FV\"98F?!<<,8!!!!e!WW4X\"98FU!<<,D!!!!s!WW4t\"98G!\"98G!\"98G!\"98Fs!<<,]!!!!u!WW5#\"98G%\"98G'\"98G)\"98G)\"98GR!<<*\"!<<*r!WW4p\"98Fr\"98Fr\"98Ft\"98Ft\"98Ft\"98E4!WW39!<<*q!WW3R!WW3E!<<*u!WW5/\"98G1\"98G1\"98G3\"98G3\"98F!!WW3_!<<*q!WW4n\"98Fn\"98Fn\"98G3\"98FS!WW4&!<<*r!WW5,!WW4A!<<*L!WW5)!!!#b!WW4P!<<*_!WW3*!rr=d!<<*b!WW3P!rr>\"!<<*\\!WW4F\"98FH\"98FH\"98FH\"98F+!rr>:!<<*W!WW4F\"98FU!rr>F!<<*W!WW4:\"98F<\"98Fo!rr>[!<<*Y!WW4>\"98F@\"98F@\"98F@\"98FB\"98FD\"98FD\"98FD\"98FD\"98FV\"98FV\"98GV!rr>o!<<*_!WW5f!rr<&!WW3B!WW3e\"98Eg\"98Eu\"98Eu\"98E4\"98E7!WW3J!WW4F\"98FH\"98EP\"98EE!WW41!WW3i\"98FP\"98FP\"98F\"\"98F\"\"98E<2uipY",0X5));break;end;end;local e;H=0X2;while true do if H<0X79 then if not k[0X33D6]then H=-10081805046+(_[3]+k[0X69a]+_[0X3_]+k[8835]+_[0B1001]);k[0x33d6]=H;else H=(k[0X3_3d6]);end;else if H>0B10 then e=(type);break;end;end;end;local v_,T;Y_=(nil);H=0X63;while true do if not(H<=0Xd)then if H~=102 then v_=J_.yield;if not(not k[0x593D])then H=(k[0X593__d]);else H=50+((k[0x528B]<k[0X2B28]and k[11001]or _[0x9])+k[0X39__3]-k[14722]<H and _[1]or k[21131]);k[0X5__93d]=(H);end;else T={};if not(not k[0X4978])then H=(k[18808]);else H=(0Xb+(n.v((n.x((n.u(k[6901])),(k[1690])))-_[0x6])));(k)[18808]=H;end;continue;end;else Y_=function(Y)local A=0x76;repeat if A>0b1011101 then a=(Y);A=(0B1011101);else if A<0B1110110 then M_=1;break;end;end;until false;end;break;end;end;local d,u;H=(0X6E);while true do if H<0X6E then u=function()local Y,A=(109);repeat if Y==0x6D then Y=0B1101000;A=s(a,M_,M_);elseif Y==0X68 then Y=(0X27);M_+=0B1;else if Y==0B100111 then return A;end;end;until false;end;break;elseif H<0X75__ and H>80 then if not k[0X07E77]then H=87154703+((n.X((n.L((n.c(_[7],(k[18808]))))),_[6]))-_[0B11]);k[0X7e77]=H;else H=k[0X7E77];end;continue;else if H>0B1101110 then d=(w);if not k[0X496a]then H=(-3834817677+((n.X(k[0X4978]+_[4]+k[11048]))-H));(k)[0X496a]=H;else H=k[0x00496a];end;end;end;end;local x,Z_,l_,J=tostring;H=0X47;repeat if H<0B00_1111010 then Z_=function()local Y,A,p=0b110_011;repeat if Y<0B1110__11__0 then Y=0X76_;A,p=P("\60\u{0049}\z  4",a,M_);continue;else if Y>0B110011 then M_=(p);break;end;end;until false;return A;end;l_=(function()local p,Y;for A=0b1110101,0XB3,0X9 do if A<=0B1110101 then p,Y=P('\x3Ci8',a,M_);continue;else if A==0X7e then M_=(Y);else return p;end;end;end;end);if not(not k[0X0069c1])then H=(k[27073]);else(k)[14380]=107+((n.F(k[21131]))+k[0x0393]-k[11001]-k[0X5804]);(k)[21915]=-0X20205Fb6+(n.L((n.X((n.c(k[0X49__6a],(k[0X1467])))+k[28624],_[0X1],_[0X6__]))));H=(-0x368A6A_27+((n.x((n.v((n.L(_[0X2])))),(k[0X69A])))+_[0X02]));(k)[0X69C1]=(H);end;continue;else if not(H>0X47)then else J=(function()local A,Y=P('\<d',a,M_);M_=Y;return A;end);break;end;end;until false;local p,P,Q,E;H=(0x21);repeat if H<=30 then if H~=0B1100 then Q=(function()local A=P();if not(A>=R)then else return A-p;end;return A;end);E=function()local A,Y=(0B1001);while true do if A<0X23 then A=0X54__;Y=P();elseif A>0B100011 then A=0b100011;M_+=Y;continue;else if not(A>9 and A<84)then else return y(a,M_-Y,M_-0x1);end;end;end;end;break;else P=(function()local q,Y=1,0b0;repeat local A=s(a,M_,M_);Y+=((A>127 and A-0B10000000 or A)*q);q*=0b100__00000;M_+=1;until A<128;return Y;end);if not k[22560]then(k)[11519]=(0b11001101+((n.G((n.G(k[0X69A],k[0X2Af_9],k[0X5804])),k[0Xe3E]))-k[0X2AF9]-k[0X69a]));H=(-3111138594+((n.L((n.u(_[0b100]>=_[4]and k[0x002531]or k[0X5Ad],_[0X5]))))+k[11001]));(k)[22560]=H;else H=k[0X5820];end;end;elseif H>0x21__ then if not k[0X5652]then H=(-2097122+(n.p((n.G((n.v((n.h(k[915],(k[3646]))))))),(k[0X1467]))));(k)[0X5652]=(H);else H=(k[0x565_2]);end;else p=9007199254740992;if not k[0Xe3e]then k[24709]=0X5a+((n.G(_[0X4]+k[9908]-k[0X2283],k[0X33D6],k[0x2b28_]))-k[0X4978]);H=-0X7FFFF3+(n.h((n.F(H))-k[14380]-k[21131],(k[8835])));(k)[3646]=(H);else H=(k[3646]);end;end;until false;local t_,W_,H_;H=53;repeat if H>0B101111 then if not(H>=0X0__042)then t_=function(...)local A=I(b,...);if A~=0X0 then else return A,T;end;return A,{...};end;if not k[0X189]then(k)[7508]=-8417+((n.p((n.F(k[0X559b])),(k[18808])))+k[11519]+k[0X5820]);H=16+(n.G((n.X(_[0X5]-k[0X49__6A],_[0B10_1]))~=k[18794]and k[0x1467]or k[0X5652],_[4]));(k)[0X18__9]=(H);else H=(k[0X189]);end;else H_=(function()local I,S,i,V,A_,a=60;while true do if I==0x3c then S=(P()-0X678C);I=0X6B;continue;elseif I==0B01101011 then I=78;i=B(S);V=B(S);A_=B(S);else if I~=0B0100111__0 then else a=B(S);break;end;end;end;local s,s_,z_,L_,r_;I=(36);while true do if I==36 then I=(51);s=B(S);s_={nil,w,w,w,nil,nil,w,w,w,nil,w};continue;else if I~=0X33 then if I==0x76 then L_=B(S);r_={};break;end;else z_=B(S);I=118;end;end;end;local d_;I=(0x34);while true do if I==0X34 then I=3;s_[L]=z_;elseif I==0x3 then d_=(0X1);(s_)[0xA]=V;I=(0X6);(s_)[0X9]=s;else if I==0X6 then(s_)[0X5]=(a);(s_)[11]=(i);break;end;end;end;I=0B1110;repeat if I<0b10__101 then(s_)[0x7]=(A_);I=0X15;continue;else if I>0Xe then(s_)[W]=(L_);break;end;end;until false;for R=0X1,S do local y,p,T_,b=0B0010;while true do if y==0X2 then y=(0x79);p=Q();continue;else if y==121 then T_=(p%0X8);y=0X4_;else if y==0B100 then b=Q();break;end;end;end;end;local c_,T,C,W,L,X,v=Q(),Q(),(b%0B1000);for A=103,0B11111110,0X21 do if A<0Xca and A>136 then v=(p-T_)/f;(V)[R]=(c_);elseif A<0x88 then W=T%8;L=(T-W)/8;else if A>103 and A<169 then X=((b-C)/f);continue;else if not(A<0XEb and A>169)then if not(A>0XcA)then else L_[R]=v;break;end;else(a)[R]=L;continue;end;end;end;end;A_[R]=X;y=0X4c;while true do if y<0X4c then y=(0X5e);if C==h then if e_ then p=(nil);T=(nil);for A=0X31,0X52,0b100001 do if A<0x5__2 then p=(p_[X]);T=#p;continue;else if not(A>49)then else p[T+0X1]=(s_);end;end;end;b=(0X4e);while true do if b==85 then(p)[T+0X003]=(0Xb);break;else b=0b1010101;(p)[T+C_]=R;end;end;else(i)[R]=(p_[X]);end;elseif C==0x4 then A_[R]=(X);else if C~=r then else c_=nil;local r=(0B1110111);while true do if r==0x77 then r=0b1101010;c_=#D;continue;elseif r==0X6a__ then r=65;(D)[c_+M]=i;else if r~=0B1000001 then else(D)[c_+0X2]=(R);D[c_+0X3]=(X);break;end;end;end;end;end;continue;elseif y<0X5e and y>0B111011 then if T_==0X1 then if not(e_)then(z_)[R]=(p_[v]);else local r=(p_[v]);local A=#r;for p=0x16,0X33_,0B11__101 do if p>0B10110 then r[A+2]=R;else if p<0X33 then r[A+M]=(s_);continue;end;end;end;r[A+0x3]=8;end;elseif T_==0B100 then L_[R]=(v);else if T_==0X3 then local r,A=(65);while true do if r>=65 then r=0X2C;A=(#D);else D[A+M]=(z_);break;end;end;(D)[A+0B10]=R;(D)[A+0B1__1]=v;end;end;y=59;continue;else if not(y>0x4c)then else if W==0x1 then if not(e_)then(s)[R]=p_[L];else local r,p,A=(11);repeat if r<=0XB then r=0X6__e;p=p_[L];else if r==0x75 then(p)[A+0X1]=s_;(p)[A+0X2]=R;break;else A=(#p);r=0x75;end;end;until false;p[A+3]=0B1001;end;else if W==G then(a)[R]=(L);else if W~=0X3 then else local r=#D;D[r+M]=s;for A=0x1E,0b10001000,0x6A do if A<=0B11110 then D[r+2]=R;else D[r+0X3]=(L);end;end;end;end;end;break;end;end;end;end;S=P();i=nil;I=(0X1_D);repeat if I==0X1d then i=B(S);I=88;continue;elseif I==0b0010__11000 then I=0B101_0111;(s_)[Z]=(i);continue;else if I~=87 then else for A=0B1,S do A_=P();if d[A_]then i[A]=d[A_];else a=(A_/4);V=({[0x3]=a-a%0B1,[0x1]=A_%0x4});for r=0x7__8,164,0b1__0110_0__ do if r~=0X7_8 then i[A]=V;else d[A_]=(V);end;end;end;end;break;end;end;until false;s_[0B11]=P();I=0B1001;repeat if I>0X2_6 then I=(35);for p=0X1,Z_()do L_=(nil);p=(nil);for A=0B11_00010,430,0X5__9 do if A==276 then if L_%0X2~=0B0 then i=nil;for Z=0X13,0Xd5,0X3a do if Z==0b1001101 then i=Z_();elseif Z==135 then for r=p-p%M,d_ do(r_)[r]=i;end;break;elseif Z~=0X13 then else d_=Z_();end;end;else(r_)[d_]=(p-p%1);end;elseif A==98 then L_=Z_();elseif A==365 then d_+=0X1;break;else if A==187 then p=(L_/0X2);continue;end;end;end;end;continue;else if I<84 and I>0X23 then return s_;elseif I<0X26 and I>0B1_001 then I=(38);s_[1]=P();continue;else if I<35 then I=(84);(s_)[0B10]=r_;continue;end;end;end;until false;end);break;end;else if H<=0B10000 then W_=function(r_,b)local r=r_[0X1];local w_,v,I_,A_,__,W,s,y_,p=r_[0X2],r_[0x08],r_[0X4_],r_[7],r_[0xB],r_[0X05],r_[0B1001],(r_[10]);p=function(...)local C=B(r);local A,m_=t_(...);local z_,C_,X,g_,c_,D_,K_,T_,Z,I=0b1,(getfenv()),0X1,0X0,0x1;local S,L_,Q,b_=U(function()while true do local R=y_[c_];if R>=0B11_0011 then if not(R<77)then if R>=0X5A then if R>=0X60 then if R>=99 then if not(R>=0B1100101)then if R~=0X6_4 then I=({[0x1]=D_,[0x2]=T_,[0x3]=K_,[0X4]=I});local r=W[c_];T_=(C[r+0B10]+0);K_=(C[r+1]+0X0);D_=(C[r]-T_);c_=A_[c_];else local r=(I_[c_]);C[r](B_(r+1,X,C));X=r-0X1;end;else if R~=0X66 then C[I_[c_]]=(s[c_]^C[A_[c_]]);else(C)[I_[c_]]=(b[A_[c_]]);end;end;else if R>=0x61 then if R~=0X62 then local r,T,y,o_,i,a=4503599627370495,0x10,85;while true do if y==0X55 then a=(-0X1Ffff_F_d__4);y=(0B101110__+(O_[10]((O_[15]((O_[0B1010](y-y,y,y)))),W[c_],W[c_])));else if y==0X30 then o_=(0X0);break;end;end;end;local L,s_,G;y=61;local f;while true do if y==0x3__D then o_*=r;y=0X3b+(((O_[0X0__0c](W[c_]))==y and y or W[c_])+W[c_]>=W[c_]and y or R);continue;elseif y~=0x78__ then else r=(O_);break;end;end;y=(26);while true do if not(y>11 and y<0X31)then if not(y<110 and y>0X0031)then if not(y>0X5C)then if not(y>26 and y<92)then if y<0B11__0__10 then T=T[s_];y=-4294966985+((O_[8](W[c_]-y,R))-R+W[c_]);continue;end;else T=(O_);y=(0B1011001+(O_[0xF]((O_[0X7]((O_[0X8](y-y,R,W[c_])),W[c_])))));end;else s_=(O_);break;end;else s_=0X7;y=-0B1__0101+(O_[0B1100]((O_[11]((O_[0Xf](R-y)),y,R))));end;else r=r[T];y=-1073741769+(O_[0X9]((O_[0X8]((O_[0xA](W[c_]-y)))),W[c_]));end;end;y=(92);local U;while true do if y==0b1011100 then f=(0b1010);y=(-0B1100+(O_[9]((O_[0xb](y-y+y)),W[c_])));elseif y~=0XB then else s_=(s_[f]);break;end;end;f=(O_);y=(58);while true do if y>=81 then f=f[U];break;else U=(0xA);y=0B10110000+(((R<R and W[c_]or y)+W[c_]>=W[c_]and W[c_]or y)-R);continue;end;end;U=(O_);y=(33);local V;while true do if y<=0X1E then if not(y>=0X1e)then i=O_;y=(0X5f+((W[c_]>R and y or W[c_])+y+y+W[c_]));continue;else i=(i[G]);break;end;else if y<=0x21 then i=7;U=U[i];y=-4294967250+(O_[0X10]((W[c_]-R<=R and W[c_]or y)~=y and y or R));else G=(0xA);y=0X99+((O_[0b101_0](y<W[c_]and y or y))-y-y);end;end;end;G=y_[c_];y=(0X6d);while true do if y~=0X6D then if y==0x068 then V=W[c_];i=i(G,L,V);y=(-0X313+((O_[13](y+y-W[c_],W[c_]))+W[c_]));else if y~=0X27 then else G=y_[c_];break;end;end;else L=(W[c_]);y=0x74+(((O_[15](y))-y>=W[c_]and R or R)-y);continue;end;end;i-=G;y=2;while true do if y>2 then U=U(i,G);break;elseif not(y<121)then else G=W[c_];y=0XdA+((O_[0B1011]((O_[16](y>=W[c_]and y or W[c_])),R,y))-R);end;end;i=W[c_];y=(0X6);while true do if y==0X6 then G=W[c_];y=0X14_+(O_[0Xc]((O_[0Xc](W[c_]))-W[c_]+R));continue;elseif y==0X2d then f=f(U,i,G);y=0X15+(O_[0b101__0]((O_[0X7]((O_[8](W[c_]==W[c_]and R or W[c_],y)),W[c_]))));continue;elseif y==0X28 then U=R;y=(6+((y+W[c_]>=y and R or y)-y+y));continue;elseif y~=0B00__1100111 then else f+=U;break;end;end;s_=s_(f);y=113;while true do if y<0B11100_01 then r=r(T);break;elseif not(y>0X1__C)then else f=W[c_];T=T(s_,f);y=(-0X55+((O_[0XC]((O_[0XC](y+W[c_]))))>R and y or y));end;end;o_+=r;y=(0X5D);while true do if y>0B11000 then a+=o_;y=(-4294967271+(O_[0b1000__0]((O_[11]((O_[0Xb]((O_[0B1011](y,y)),W[c_])),W[c_])))));elseif not(y<93)then else(y_)[c_]=(a);break;end;end;a=__[c_];y=0x6B;while true do if y<0x4f and y>0X3__0 then r=(W[c_]);y=(0X53+((R+y<R and y or R)-R+W[c_]));elseif y<78 then a=(a<o_);y=(-2147483480+((O_[7]((O_[0B1100](y)),W[c_]))-R+W[c_]));else if y>0X4f and y<0X6B then o_=(o_[r]);y=(-0x25+((O_[0Xf](y))+y-y+y));elseif y>0x04e and y<85 then a=not a;break;elseif not(y>0b1010101)then else o_=C;y=-19+(((O_[7](y~=R and y or y,W[c_]))~=y and y or y)>=W[c_]and R or y);continue;end;end;end;if not(a)then else o_=(nil);for r=0B1001,0X61,1 do if r==0B1010 then c_=(o_);break;elseif r~=0X9 then else o_=I_[c_];end;end;end;else local r,U,k_=A-g_-1,I_[c_],0X0;if r<0X0 then r=-1;end;for A=U,U+r do C[A]=(m_[z_+k_]);k_+=1;end;X=U+r;end;else D_=(I[0X1]);K_=(I[0X3]);T_=I[0B00_10];I=(I[0b100]);end;end;else if R>=0b1011101 then if R<0X5E then(C)[I_[c_]]=C;else if R==95 then if C[I_[c_]]~=C[W[c_]]then else c_=A_[c_];end;else(C)[A_[c_]]=C[W[c_]]^v[c_];end;end;else if R<0X5b__ then if not(not(C[A_[c_]]<=v[c_]))then else c_=W[c_];end;else if R~=0B1011100 then C[I_[c_]]=(C[A_[c_]]+C[W[c_]]);else(C)[I_[c_]]=C[A_[c_]]..C[W[c_]];end;end;end;end;else if not(R>=0B1010011)then if not(R>=0X50_)then if R<0x4E then local r=(b[A_[c_]]);C[W[c_]]=(r[0X1][r[0B11]][C[I_[c_]]]);else if R~=79 then C[I_[c_]]=(z(C[W[c_]],C[A_[c_]]));else(C)[I_[c_]]=(b[W[c_]][__[c_]]);end;end;else if R<0x51 then if C[A_[c_]]~=s[c_]then c_=(I_[c_]);end;else if R~=0x5__2__ then if not C[A_[c_]]then c_=(W[c_]);end;else local r=I_[c_];(C[r])(C[r+0x1]);X=r-0X1;end;end;end;else if R>=0B101_0110 then if not(R<0B1011000)then if R==0X59 then(C)[W[c_]]=(C[I_[c_]]>=C[A_[c_]]);else(C[A_[c_]])[C[W[c_]]]=(C[I_[c_]]);end;else if R==0X57 then local r=(b[W[c_]]);r[1][r[0X3]]=C[I_[c_]];else local r=(b[W[c_]]);C[A_[c_]]=r[1][r[3]][v[c_]];end;end;else if not(R<84)then if R~=0x5__5 then local L,U,G,z,T,r,s_=0B1010010;while true do if L>0X23 then if not(L>38)then s_=4503599627370495;break;else if L>0X52 then T=0X2;L=19+(O_[0B001011]((O_[0Xc](R-L+L)),R,R));continue;else r=b;T=(W[c_]);L=(-0X2937+(O_[0XD]((O_[6]((O_[12](L)),(0B11111__)))+L,(0B11__1))));continue;end;end;else if not(L>=0B01000__11)then r=r[T];L=84+(O_[15]((O_[0X9]((O_[0xA](L-R,R)),(L)))));else U=(0X0);L=(0X3+(O_[0x8]((O_[0B1000__](L+R))-R)));end;end;end;local A;L=(0x70);while true do if L>0xF then U*=s_;L=-0b1000+(O_[12]((L>R and L or R)+R+R));elseif not(L<0B1110000)then else s_=O_;A=0b101__1;break;end;end;s_=(s_[A]);L=0B1111110;while true do if L<0B111111 then z=(0B10001);break;elseif L>0B1100000 then A=(O_);L=-0xa80000F+((O_[0Xd]((O_[0B1011]((O_[0B10__10](R,L,L)),R)),(0X015)))+R);continue;elseif L<69 and L>0X12 then G=y_[c_];L=(-6+(O_[12]((O_[0X0_0a]((O_[8](L+R,R)),L)))));else if L>69 and L<0X7E then A=(A[G]);L=-4294967136+(O_[0B010000]((O_[9](L,(18)))+L>=R and L or L));elseif L>0x3f and L<0x00_60 then G=(0X9);L=(0b001100000+(O_[0XF__](((O_[0X7](L,(0X2)))>=L and L or R)-R)));continue;end;end;end;A=A(G,z);L=(0XB);while true do if not(L<11)then if L<0X50 and L>0X2_ then G=R;L=0X63+(L-R+R+L-L);continue;elseif L>0B1101110 and L<0b1110101 then A=R;L=-185+((O_[0x8__]((O_[0XC](L+L)),R))+L);else if L<0X6E and L>11 then s_+=A;L=(-0X14FfF41+((O_[0b01101](R-R+R,(0b10010)))-L));continue;else if L>0X6f then A=(R);L=(-122+((O_[0Xf]((O_[0Xf](R))))+L+R));elseif L<0x6f and L>0X50 then s_=s_(A,G);L=0X7+((O_[11]((O_[9]((O_[16](L)),(0X014)))))==L and L or L);end;end;end;else s_-=A;break;end;end;L=58;while true do if L<0B10__10001 then A=R;L=-0x5__7+((L+L+L>R and R or L)+R);elseif L>0B111010 then s_-=A;break;end;end;A=(R);s_=(s_==A);if s_ then s_=(R);end;if not(not s_)then else s_=(R);end;L=60;while true do if not(L<0x4e and L>48)then if L>85 then s_=(s_>=A);L=-0X1d+(L-R-L+R+L);else if not(L<0X3C)then if L<0B100_111_1 and L>0X3c then if s_ then s_=y_[c_];end;L=-2013265992+((O_[0X7]((O_[0XA](R,R,L)),(O_[14]("\<\u{69}8","\6\0\0\0\x00\x00\0\0"))))+L+L);continue;elseif L>0X4__e and L<0X55 then if s_ then s_=R;end;break;elseif L<0b11__0_101_1 and L>0X04f then if not s_ then s_=R;end;A=(R);L=-4294967163+(O_[16]((O_[0XF]((O_[7](L,(0Xf)))))~=L and R or R));continue;end;else s_=(s_<=A);L=0X2F_+(O_[0XF]((O_[0B1100]((O_[0b01001](R,(0x3)))-R))));end;end;else A=(R);L=(0B10111+((O_[0Xb]((O_[0XF]((O_[0X9](R,(0b11100))))),R,R))+R));end;end;L=(0X53);while true do if L<0X53 then U+=s_;break;elseif not(L>0B10110_)then else if not(not s_)then else s_=y_[c_];end;L=0X16+(O_[0X9]((O_[0Xc]((O_[0XC](R+L)))),(18)));continue;end;end;T+=U;L=(0X75);while true do if L>0B1010000 then y_[c_]=(T);L=(-0B10__0101+((O_[8]((R>R and L or L)+L))-L));continue;elseif not(L<0B1__110101)then else T=(C);break;end;end;U=A_[c_];L=34;while true do if L<0X22 then A=0B1;L=-0b10101111+((O_[0X9]((O_[0x8](R,L))-R,(L)))+R);continue;elseif L>36 then G=0B11;break;elseif L<0B110011 and L>0b100010 then s_=s_[A];A=r;L=(-819149+(O_[0x6_]((O_[12]((R>L and L or L)+L)),(15))));continue;else if L>0B11001 and L<0X24 then s_=r;L=(-4294967178+((O_[0XA]((O_[0XC](R))-L,L))-R));end;end;end;A=A[G];s_=s_[A];L=(0X33);while true do if L<=0B110011 then A=(v[c_]);L=-4250926985+(O_[0X10]((O_[0Xd]((O_[0X9](L,(O_[0Xe]('>\u{069}8',"\x00\0\0\0\x00\0\z  \x00\27"))))+R,(O_[14]("<i8","\19\z \0\0\u{000}\0\0\0\0"))))));continue;else s_=(s_[A]);break;end;end;T[U]=(s_);else local r,A=A_[c_],(W[c_]);local L=C[r];(K)(C,r+0X1,r+I_[c_],A+1,L);end;else local r=(W[c_]);X=r+A_[c_]-0B1;(C)[r]=C[r](B_(r+0X1__,X,C));X=(r);end;end;end;end;else if not(R<64)then if not(R>=0b100_0110)then if R<0B1000011 then if R>=0X41 then if R==0b0100_0010 then C[I_[c_]]=(not C[W[c_]]);else repeat local r=Z;if r then for L,A in r do if not(L>=0X1)then else A[0X1]=(A);A[2]=(C[L]);A[0B011]=(0X2);(r)[L]=nil;end;end;end;until true;return true,A_[c_],0x0;end;else(C)[A_[c_]]=(C[I_[c_]]==s[c_]);end;else if not(R<68)then if R~=69 then C[A_[c_]]=(I_);else(C[I_[c_]])[C[W[c_]]]=(__[c_]);end;else(C)[I_[c_]]=C[W[c_]]..__[c_];end;end;else if not(R<0B10_01001)then if R<75 then if R==0X4A then local r=b[A_[c_]];(r[0x1][r[0X3]])[C[I_[c_]]]=C[W[c_]];else C[W[c_]]=({});end;else if R==0X4C then X=W[c_];C[X]=C[X]();else if C[W[c_]]then c_=A_[c_];end;end;end;else if not(R>=0X47)then C[A_[c_]]=C[W[c_]]+v[c_];else if R==0X48 then C[I_[c_]]=(C[A_[c_]]*s[c_]);else local z=(s[c_]);local L=z[0X6];local y=#L;local A=y>0x00 and{};local G=W_(z,A);(C)[I_[c_]]=G;if not(A)then else for r=1,y do G=L[r];z=G[0B1];local L=G[3];if z==0X0 then if not Z then Z={};end;local G=(Z[L]);if not(not G)then else G={[0x3]=L,[0X1]=C};Z[L]=(G);end;(A)[r-0x1]=(G);elseif z==0X1 then(A)[r-0X1]=(C[L]);else(A)[r-0x1]=b[L];end;end;end;end;end;end;end;else if R<0B111_001 then if not(R>=0X0036)then if R>=0X34 then if R~=53 then repeat local L=Z;if L then for r,A in L do if r>=0x1 then(A)[1]=A;A[2]=(C[r]);A[3]=(0X2);L[r]=(nil);end;end;end;until true;return true,A_[c_],0X1;else C[I_[c_]]=C[A_[c_]]-C[W[c_]];end;else local r=false;D_+=T_;if T_<=0x0 then r=D_>=K_;else r=D_<=K_;end;if r then C[A_[c_]+3]=D_;c_=W[c_];end;end;else if not(R>=55)then repeat local L=(Z);if not(L)then else for r,A in L do if not(r>=0X1)then else(A)[0X1__]=(A);(A)[2]=(C[r]);A[0X3]=(2);(L)[r]=(nil);end;end;end;until true;local r=W[c_];return false,r,r;else if R~=0X38 then repeat local r=(Z);if not(r)then else for A,L in r do if A>=0B1 then(L)[0b1__]=(L);L[2]=C[A];L[0b11]=0b10;r[A]=nil;end;end;end;until true;local r=W[c_];return false,r,r+A_[c_]-0X2;else if not(not(C[I_[c_]]<C[W[c_]]))then else c_=(A_[c_]);end;end;end;end;else if not(R<0X3c)then if not(R<62)then if R==0x3f then local r=(I_[c_]);local L=C[r];local A=W[c_];(K)(C,r+1,X,A+1,L);else C[A_[c_]]=(-C[I_[c_]]);end;else if R~=0X3D then local V,y,z,r=0X59;while true do if V>54 and V<0X64 then y=(-1966073);V=(-0X31+((O_[0XB]((O_[13](V,(0b110)))==R and V or R,R))+V));elseif V>0X6_4 then r=4503599627370495;V=0X0035+(O_[15]((O_[0B1100](R+R-R))));elseif V<0B1011001 then z*=r;break;else if V<0X7_3 and V>0x059 then z=0X0;V=-0B111__11+((O_[0Xc]((O_[8](R))))+R+R);end;end;end;local K,G;V=(0X4);while true do if not(V<=4)then if not(V>=0b1010110)then G=(0X007);V=0X7+((((O_[0Xd](R,(V)))<V and V or R)<V and V or V)+R);continue;else r=r[G];G=(O_);break;end;else r=(O_);V=(-7+(O_[0B1100](R-R-V+R)));continue;end;end;local A;V=(0X06A);while true do if not(V<=65)then A=(0X8);V=(42+(O_[0xF__]((O_[0x7]((O_[0X8](R+V)),(0xA))))));continue;else G=(G[A]);A=(O_);K=0b1101;break;end;end;local L=(R);A=(A[K]);K=y_[c_];K+=L;V=90;while true do if V==0X5a then L=R;V=(0X35+((V+R<=R and R or R)-V~=R and R or V));continue;elseif V~=0b1110001 then if V==0X1C then L=(R);break;end;else K+=L;V=0x1C+(O_[15]((V+R<R and V or R)>=V and V or V));end;end;K+=L;L=(y_[c_]);K+=L;L=(R);V=(68);while true do if V==0B1000100 then K=K>=L;V=0B101001__1+((O_[0x6]((O_[6](R,(28))),(0X14)))+R-R);elseif V==0B1010011 then if K then K=y_[c_];end;V=-2147483670+((O_[0Xa]((O_[0B1010]((O_[0B011_1](R,(0b1_1))),R)),R,V))-V);elseif V==0X16 then if not K then K=R;end;L=(0XA);break;end;end;A=A(K,L);V=(49);while true do if not(V<=0B10_1_1)then if V~=0B1011100 then G=G(A);V=(-0X1__1+((O_[8](R+V<V and R or V,R,V))+V));continue;else A=(O_);V=(-0X0__51+((O_[10]((O_[0b1011](R,R))-R))+V));end;else K=0Xe;break;end;end;A=A[K];V=71;while true do if V==0x47 then K="<i\x38";V=(62+(((O_[0x8]((O_[0xD](R,(31))),R))<V and V or V)>=R and R or R));else if V==0x7a then L=("\x1B\0\0\0\0\z \0\0\x00");A=A(K,L);V=-103+((((O_[6](V,(26)))==R and V or R)==V and V or R)+R);elseif V~=0B010_001 then else r=r(G,A);break;end;end;end;z+=r;V=(100);while true do if V>100 then y_[c_]=y;V=(0b110110+(O_[0Xf]((O_[0Xd](V-V,(0B1111)))~=V and V or V)));elseif V<0X73 and V>0X58 then y+=z;V=15+(((O_[0x9](R,(21)))~=R and V or V)+R-R);continue;elseif V>0X36 and V<0X64 then z=(s[c_]);break;elseif not(V<54)then if V<0x58 and V>29 then y=C;V=(-4294967204+(O_[16]((O_[0XA]((O_[11]((O_[0X9](R,(13))),V,V)),V,R)))));end;else z=I_[c_];y=y[z];V=(0B111011+(((O_[0x7](R,(V)))==R and V or V)+V<=V and R or V));continue;end;end;V=(46);while true do if V==53 then if y then K=(A_[c_]);c_=(K);end;break;else y=y==z;V=-53+(((O_[0B10_11](R~=V and V or V,R))>=R and R or R)+V);end;end;else(C)[W[c_]]=(C[I_[c_]]<C[A_[c_]]);end;end;else if not(R>=0x3A)then(C)[A_[c_]]=C[W[c_]][v[c_]];else if R==59 then if not(__[c_]<=C[I_[c_]])then c_=(W[c_]);end;else O_[A_[c_]]=C[I_[c_]];end;end;end;end;end;end;elseif R>=0X19 then if not(R<38)then if not(R<44)then if R<0X2f then if not(R>=0X2D)then local r=(b[I_[c_]]);(r[1])[r[0B11]]=(s[c_]);else if R==0X2E then C[A_[c_]]=(#C[I_[c_]]);else C[W[c_]]=nil;end;end;else if not(R>=49)then if R==0X30 then(C)[W[c_]]=C[I_[c_]]/C[A_[c_]];else C[A_[c_]]=m_[z_];end;else if R==0X32_ then(C)[W[c_]]=(v[c_]);else C[A_[c_]]=b[I_[c_]][C[W[c_]]];end;end;end;else if R>=41 then if not(R<0X2a)then if R~=0X02b then local V,A=I_[c_],(A_[c_]);if A~=0b0 then X=(V+A-0B001);end;local r,G,L=(W[c_]);if A==0X1 then G,L=t_(C[V]());else G,L=t_(C[V](B_(V+1,X,C)));end;if r==0X1 then X=(V-0X1);else if r~=0X0 then G=(V+r-0B10);X=(G+0X1_);else G=(G+V-1);X=(G);end;A=(0);for r=V,G do A+=0X1;C[r]=(L[A]);end;end;else C[A_[c_]]=(C[W[c_]]~=C[I_[c_]]);end;else(C)[W[c_]]=C[A_[c_]]*C[I_[c_]];end;else if not(R<0B100111)then if R==40 then for r=W[c_],A_[c_]do(C)[r]=nil;end;else(C)[I_[c_]]=B(A_[c_]);end;else C[A_[c_]]=r_;end;end;end;else if not(R>=0x1f)then if not(R<0x1C)then if not(R>=0B11101)then C[A_[c_]]=C[W[c_]]%v[c_];else if R~=0X1E then g_=I_[c_];for r=1,g_ do C[r]=(m_[r]);end;z_=g_+0X1;else if C[W[c_]]~=C[A_[c_]]then c_=(I_[c_]);end;end;end;else if R<0X1A then C[A_[c_]]=(C[I_[c_]]-s[c_]);else if R~=27 then local r=I_[c_];C[r]=C[r](B_(r+1,X,C));X=r;else(C)[I_[c_]]=(y_);end;end;end;else if not(R>=34)then if R<32 then local r=I_[c_];X=r+W[c_]-0B1;(C[r])(B_(r+0X1,X,C));X=r-0x1;else if R~=0x21 then C[I_[c_]]=(C[A_[c_]]%C[W[c_]]);else local r=W[c_];(C[r])(C[r+0X1_],C[r+0b10]);X=(r-1);end;end;else if R<36 then if R==35 then else(C)[I_[c_]]=O_[A_[c_]];end;else if R==0X25 then(C)[A_[c_]]=(C_[v[c_]]);else local r=b[W[c_]];r[0b1][r[0b11]][v[c_]]=(C[A_[c_]]);end;end;end;end;end;else if R<0B1100 then if not(R<6)then if not(R>=9)then if R>=0X7 then if R==8 then X=(A_[c_]);C[X]();X-=0X1;else if C[I_[c_]]==s[c_]then c_=(A_[c_]);end;end;else local r=I_[c_];C[r]=C[r](C[r+1]);X=r;end;else if not(R<0b1010_)then if R~=0Xb_ then(C)[I_[c_]]=(W);else repeat local G=Z;if G then for L,r in G do if not(L>=0X1)then else(r)[0B1]=r;(r)[0X02]=(C[L]);r[0X3]=0x2;G[L]=nil;end;end;end;until true;return false,A_[c_],X;end;else local L=A_[c_];local G,r,V=D_();if not(G)then else C[L+1]=r;C[L+0X2]=V;c_=W[c_];end;end;end;else if R>=0x3_ then if not(R>=4)then local r,L=I_[c_],(C[W[c_]]);C[r+0B1]=(L);(C)[r]=L[__[c_]];else if R==0X5 then local r=b[A_[c_]];C[W[c_]]=r[1][r[0x03]];else C[W[c_]]=A_;end;end;else if not(R<1)then if R==0X2 then C[W[c_]][v[c_]]=(C[A_[c_]]);else C[I_[c_]]=C[W[c_]];end;else repeat local b,L=Z,A_[c_];if b then for r,G in b do if not(r>=L)then else(G)[0x1]=G;(G)[2]=C[r];(G)[0B11]=2;b[r]=nil;end;end;end;until true;end;end;end;else if R<0B10010 then if not(R>=0xf)then if R>=13 then if R~=0X00E then c_=I_[c_];else local V,b=A_[c_],W[c_];X=(V+b-0B1);repeat local G=(Z);if G then for L,r in G do if L>=0X1 then(r)[1]=r;r[0B10]=C[L];r[0x3]=2;G[L]=nil;end;end;end;until true;return true,V,b;end;else for r=0X1,W[c_]do C[r]=(m_[r]);end;end;else if R>=16 then if R==17 then C[I_[c_]]=s[c_]..C[A_[c_]];else(C[A_[c_]])[s[c_]]=(v[c_]);end;else(C)[A_[c_]]=(C[I_[c_]]^C[W[c_]]);end;end;else if R<21 then if not(R<0X13)then if R~=0B10100 then if not(__[c_]<C[W[c_]])then c_=I_[c_];end;else C[A_[c_]]=C[I_[c_]][C[W[c_]]];end;else local r=(W[c_]);C[r]=C[r](C[r+0X1],C[r+2]);X=r;end;else if R<0X0017 then if R~=0X16 then I={[1]=D_,[2]=T_,[0X3]=K_,[0X4]=I};X=W[c_];local L=F(function(...)v_();for s,r in...do v_(true,s,r);end;end);(L)(C[X],C[X+0X1],C[X+0X2]);D_=(L);c_=A_[c_];else local s,F,I,r,L=0x0,0B1_01110,(0X39);while true do if not(F>46)then if not(F<0B110101)then else L=(4503599627370495);F=-47051+(O_[0X7](((F~=R and F or R)~=F and F or R)>=F and R or F,(R)));continue;end;else s*=L;break;end;end;L=(O_);local v;F=(120);while true do if F==120 then v=6;F=(381+(R-F-R-R-F));continue;elseif F~=0X77 then if F==0X6A then r=(6);v=v[r];r=(y_[c_]);break;end;else L=L[v];v=(O_);F=(0X9+(O_[0X8]((O_[9]((O_[0X7](R,(R)))>=R and R or F,(R))),F,R)));end;end;local G=y_[c_];F=(0X17);while true do if F==0x17_ then v=v(r,G);F=-12+(O_[0Xa]((O_[8](R))-F<F and R or F));elseif F==0Xa then r=(R);F=0B10000001+((F<=R and R or R)-F-R-R);continue;else if F~=97 then else v-=r;break;end;end;end;r=y_[c_];v-=r;r=(R);v+=r;r=(y_[c_]);v+=r;r=R;F=34;while true do if F>25 and F<0B100100 then L=L(v,r);F=(-9+(R-R-F+F+F));continue;elseif F>0X22 and F<51 then L-=v;F=(0X57+(F-F-R+R-F));continue;elseif F<0X76 and F>36 then v=(y_[c_]);F=(-4202692490+(O_[6]((O_[0XB]((O_[0x7__](R,(R))),F,F))-R,(R))));elseif not(F>0X3_3)then if F<0B10__0010 then v=(R);F=-4294967251+(O_[0XA]((O_[0B1010](R,R))-F-R,R));continue;end;else L-=v;break;end;end;s+=L;F=0X71;while true do if F>0X1_C then if not(F<0X71)then I+=s;(y_)[c_]=I;F=0X1+(O_[12]((O_[0X8](R-F))~=F and R or F));continue;else c_=(I);break;end;else I=(I_[c_]);F=(-92274613+(O_[0XA]((O_[0Xd]((O_[0X6](F,(R)))<F and F or R,(R))))));continue;end;end;end;else if R~=0X18 then C[I_[c_]]=(C[W[c_]]/__[c_]);else repeat local W=Z;if W then for G,r in W do if G>=0B1 then(r)[1]=r;(r)[2]=(C[G]);r[0X3]=(0X2);W[G]=nil;end;end;end;until true;return;end;end;end;end;end;end;c_+=0X1;end;end);if not(S)then repeat local r=(Z);if r then for Z,W in r do if not(Z>=0X1)then else(W)[0B1]=W;(W)[2]=C[Z];W[0x3]=0B10__;r[Z]=(nil);end;end;end;until true;if e(L_)=='stri\x6Eg'then if not(j_(L_,"\z \x3A\u{28}\z\u{025}\x64\x2B\x29\u{5B}:\13\10\93"))then(F_)(L_,0x0_);else F_("L\zur\97\112\z \h \83\x63\114\z i\112t:"..(w_[c_]or"(i\110t\101\z \u{0072}\z \u{006E}\97l\)")..": "..x(L_),0B0);end;else(F_)(L_,0);end;else if L_ then if b_==0B1_ then return C[Q]();else return C[Q](B_(Q+0b1,X,C));end;else if not(Q)then else return B_(Q,b_,C);end;end;end;end;return p;end;if not(not k[0X68a3])then H=(k[26787]);else H=(-4294967193+(n.u((n.L(k[22845]-k[0X393]))-H)));(k)[26787]=(H);end;continue;else if not(not k[0X35a6__])then H=k[0X35a6];else(k)[0X50CD]=(-3834817936+(k[21915]+k[18808]+_[0X4]+k[0x7E77]-k[27073]));H=-4294967207+(n.X((_[0X1]-k[14380]<=k[0X69A]and k[3646]or k[1690])-k[0X382c]));k[13734]=(H);end;end;end;until false;J_=(function()local G;for r=0B1101110,0X188,0X6E do if r<0x14__a and r>0X6e then G=P()-17323;continue;else if r>0xdC then p_=B(G);break;else if not(r<220)then else d=({});end;end;end;end;local C;for r=0X15,0X15e,0X79 do if r>0X15 then if not(r>0X8E__)then e_=(C);continue;else for r=0x1__,G do local Z,p,W=0B011__0__;repeat if not(Z<=0X6)then if Z~=0X2d then if W>0B10001010 then if W~=P_ then p=u()==0X1;else p=E();end;else if W<=Q_ then p=J();else p=l_();end;end;break;else Z=(0X28);W=u();end;else Z=(0x2d);p=w;continue;end;until false;if C then(p_)[r]=({[j]=p});else p_[r]=(p);end;end;break;end;else C=(u()~=0x0);continue;end;end;G=(P()-86312);local Z=B(G);for j=44,0X5e_,0X32 do if j>0X2c then for r=M,#D,g do D[r][D[r+0X1]]=(Z[D[r+2]]);end;if C then O_[h]=(p_);(O_)[0X4]=Z;end;else if j<0B1011110 then D=B(G*0B11);for r=0X1,G do(Z)[r]=H_();end;end;end;end;G=Z[P()];for r=0X73,334,0X3A do if r~=0X0073 then if r==0XAD then D=w;continue;else if r==0Xe7 then d=(w);break;end;end;else p_=(w);end;end;return G;end);O=nil;a_=nil;H=0X55;while true do if H<0X55 then a_=J_();break;else if not(H>48)then else O=function(...)return(...)();end;if not k[0X3Bc8]then H=(-4294965583+(n.X((n.X((n.L((n.c(k[0X5804],(k[0X2B28]))))))),k[26787])));(k)[15304]=(H);else H=(k[0x3BC8]);end;continue;end;end;end;O_[0XF]=n.F;(O_)[0B1100]=n.v;H=0X7E;repeat if H==0X7e then O_[0B10000]=U_;if not k[11399]then H=-1601632650+(n.p((n.X(_[8]+k[0X66e]+k[27073],_[2])),(k[1690])));(k)[11399]=H;else H=(k[11399]);end;continue;else if H==0X45 then O_[0B1_101]=(G_.lrotate);if not(not k[0X3a])then H=(k[0x3a]);else H=0X30+((n.c(k[0X393]+k[11399]+k[23772],(k[0X2_283])))>k[18794]and k[15304]or k[0X26__b4]);(k)[0X3A]=H;end;else if H==0b110000__0 then O_[0B1011__]=(t);break;end;end;end;until false;(O_)[10]=(N);H=0B11000;repeat if H<=23 then if H==0xa then O_[0B1001__]=(l);if not k[18965]then H=(17+((n.u((n.h(k[0X3_93],(k[0X4a0E_])))~=k[393]and k[28624]or k[13270],k[0X382c],k[26787]))+k[7508]));k[18965]=H;else H=k[0x4a15];end;continue;else O_[0b1000]=(m);if not(not k[0x5cab])then H=(k[23723]);else(k)[0X4A__0E]=(-0X35+((n.p(_[0B11]<=k[5223]and k[0X2_B28]or k[7508],(k[1690])))+k[28624]<=k[3646]and k[0X68A3]or k[9908]));H=(-4294967216+(n.L(k[0X33D6]-k[22560]+k[20685]~=k[6901]and k[28624]or k[0X2B28])));(k)[0X5CAb]=H;end;end;elseif H==0X1__8 then(O_)[0B110__]=n.x;if not(not k[4689])then H=k[0x1251__];else(k)[10108]=(-4294967259+(n.X((n.L((n.c(k[0x7e_77],(k[0X5__652])))<_[0B110]and k[0x5a_d]or _[0B110])),k[0B111010])));H=-1253407795+((n.p(k[0X5804]+_[0X4],(k[0X1D54])))+k[0X026B4]+k[0x0593D]);(k)[4689]=(H);end;else(O_)[7]=(n.c);break;end;until false;H=(89);while true do if not(H>0X59)then if H<0B1100100__ then O_[0Xe]=n.m;if not k[5232]then H=-0X1A+((k[27073]+k[13734]+k[11519]<=k[0X5cD_c]and _[0X2]or k[14722])~=k[8835]and k[6901]or k[13270]);k[0X1470__]=(H);else H=(k[0X1470]);end;end;else a_=W_(a_,R_)(J_,c,o,O,J,u,Z_,_,Y_,W_);break;end;end;return W_(a_,R_);end)(select,6,0X98,bit32.bor,0b100,0X8__,unpack,0B10111,nil,'#',next,0X3,table.create,table.move,bit32.band,0B1000,0X0_,0B10,1,coroutine.wrap,0x5,bit32,0X1,string.char,0x4__,bit32.rshift,string,3,bit32.bxor,bit32.bnot,coroutine,setmetatable,function(...)(...)[...]=(nil);end,{X=bit32.bor,F=bit32.countrz,v=bit32.countlz,G=bit32.band,c=bit32.rrotate,L=bit32.bnot,m=string.unpack,u=bit32.bxor,O=string.match,R=string.sub,p=bit32.lrotate,x=bit32.lshift,h=bit32.rshift},{},{5258,915040929,3844189945,3834817834,0x468fCA_81_,3754920799,0X263c7cF3,2982958981,2393425247})(...);
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = nil, -- Create a custom folder for your hub/game
+        FileName = "Big Hub"
+    },
+
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+
+    KeySystem = false -- Set this to true to use our key system
+})
+-- ─────────────────────────────────────────────────────────────────────────
+-- ─██████──────────██████─██████████████─██████████─██████──────────██████─
+-- ─██░░██████████████░░██─██░░░░░░░░░░██─██░░░░░░██─██░░██████████──██░░██─
+-- ─██░░░░░░░░░░░░░░░░░░██─██░░██████░░██─████░░████─██░░░░░░░░░░██──██░░██─
+-- ─██░░██████░░██████░░██─██░░██──██░░██───██░░██───██░░██████░░██──██░░██─
+-- ─██░░██──██░░██──██░░██─██░░██████░░██───██░░██───██░░██──██░░██──██░░██─
+-- ─██░░██──██░░██──██░░██─██░░░░░░░░░░██───██░░██───██░░██──██░░██──██░░██─
+-- ─██░░██──██████──██░░██─██░░██████░░██───██░░██───██░░██──██░░██──██░░██─
+-- ─██░░██──────────██░░██─██░░██──██░░██───██░░██───██░░██──██░░██████░░██─
+-- ─██░░██──────────██░░██─██░░██──██░░██─████░░████─██░░██──██░░░░░░░░░░██─
+-- ─██░░██──────────██░░██─██░░██──██░░██─██░░░░░░██─██░░██──██████████░░██─
+-- ─██████──────────██████─██████──██████─██████████─██████──────────██████─
+-- ─────────────────────────────────────────────────────────────────────────
+local function ExportMinimalCardData()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local HttpService = game:GetService("HttpService")
+    local cardsModule = require(ReplicatedStorage.TS.card.cards)
+
+    local function extractMinimalCardData(cards)
+        local result = {}
+
+        for key, card in pairs(cards) do
+            result[tostring(key)] = {
+                name = card.name,
+                index = card.index,
+                denominator = card.denominator,
+                id = card.id,
+                pureId = card.pureId,
+                isSupport = card.isSupport,
+                support = card.support,
+                stats = card.stats and {
+                    DAMAGE = card.stats.DAMAGE,
+                    HEALTH = card.stats.HEALTH
+                } or nil
+            }
+        end
+
+        return result
+    end
+
+    local function exportToJSON(data, fileName)
+        local folderPath = "ACL/DATA"
+        if not isfolder("ACL") then
+            makefolder("ACL")
+        end
+        if not isfolder(folderPath) then
+            makefolder(folderPath)
+        end
+
+        local success, encoded = pcall(function()
+            return HttpService:JSONEncode(data)
+        end)
+
+        if success then
+            writefile(folderPath .. "/" .. fileName, encoded)
+            print("✅ Đã xuất JSON tại:", folderPath .. "/" .. fileName)
+        else
+            warn("❌ Không thể encode JSON:", encoded)
+        end
+    end
+
+    if cardsModule and cardsModule.Cards then
+        local minimalData = extractMinimalCardData(cardsModule.Cards)
+        exportToJSON(minimalData, "cards_only.json")
+    else
+        warn("⚠️ Không tìm thấy cardsModule.Cards")
+    end
+end
+
+ExportMinimalCardData()
+-- ▀▀█▀▀ ─█▀▀█ ░█─▄▀ ░█▀▀▀ 　 ░█▀▀▄ ─█▀▀█ ▀▀█▀▀ ─█▀▀█
+-- ─░█── ░█▄▄█ ░█▀▄─ ░█▀▀▀ 　 ░█─░█ ░█▄▄█ ─░█── ░█▄▄█
+-- ─░█── ░█─░█ ░█─░█ ░█▄▄▄ 　 ░█▄▄▀ ░█─░█ ─░█── ░█─░█
+
+local vim = game:GetService("VirtualInputManager")
+
+local function pressKey(keyCode)
+    vim:SendKeyEvent(true, keyCode, false, game)
+    task.wait(0.1) -- giữ phím một chút
+    vim:SendKeyEvent(false, keyCode, false, game)
+end
+
+--Check summary UI, nếu có thì tự động tắt///////////////////////////////////
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+task.spawn(function()
+    while true do
+        if playerGui:FindFirstChild("infinite-tower-floor-summary") then
+            pressKey(Enum.KeyCode.BackSlash)
+            task.wait(1)
+            pressKey(Enum.KeyCode.Return)
+        end
+        task.wait(0.5) -- Kiểm tra mỗi 0.5 giây
+    end
+end)
+
+--/////////////////////////////////////////////////////////////////////////////
+
+local function OpenExplorationUI()
+    local prompt = workspace:FindFirstChild("lobby") and workspace.lobby:FindFirstChild("npc") and
+        workspace.lobby.npc:FindFirstChild("exploration") and
+        workspace.lobby.npc.exploration:FindFirstChild("HumanoidRootPart") and
+        workspace.lobby.npc.exploration.HumanoidRootPart:FindFirstChildWhichIsA("ProximityPrompt")
+
+    if prompt then
+        fireproximityprompt(prompt)
+        task.wait(1.5)
+    end
+end
+
+local explorationData = {} -- Biến toàn cục để lưu dữ liệu exploration
+
+local function TakeDataExploration()
+    local HttpService = game:GetService("HttpService")
+    local Players = game:GetService("Players")
+
+    -- Hàm loại bỏ thẻ HTML như <b>...</b>
+    local function stripHTML(str)
+        return str:gsub("<.->", ""):match("^%s*(.-)%s*$")
+    end
+
+    -- Truy cập ScrollingFrame
+    local scrollingFrame = Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame
+        .Frame.ScrollingFrame
+
+    -- Gom các TextButton lại với LayoutOrder
+    local buttonsWithLayer = {}
+
+    for _, child in ipairs(scrollingFrame:GetChildren()) do
+        if child:IsA("TextButton") then
+            table.insert(buttonsWithLayer, {
+                button = child,
+                layerOrder = child.LayoutOrder
+            })
+        end
+    end
+
+    -- Sắp xếp theo LayoutOrder
+    table.sort(buttonsWithLayer, function(a, b)
+        return a.layerOrder < b.layerOrder
+    end)
+
+    -- Mảng gốc chứa raw text
+    local explorationList = {}
+
+    for _, item in ipairs(buttonsWithLayer) do
+        local textButton = item.button
+        local layer = item.layerOrder
+
+        local challengeData = {
+            layerOrder = layer,
+            details = {}
+        }
+
+        for _, subChild in ipairs(textButton:GetChildren()) do
+            if subChild:IsA("TextLabel") then
+                local lines = string.split(subChild.Text, "\n")
+                for _, line in ipairs(lines) do
+                    if not string.find(line:lower(), "click to see details") then
+                        table.insert(challengeData.details, line)
+                    end
+                end
+            end
+        end
+
+        table.insert(explorationList, challengeData)
+    end
+
+    -- Biến lưu kết quả cuối cùng theo định dạng mong muốn
+    explorationData = {}
+
+    for _, entry in ipairs(explorationList) do
+        local details = entry.details
+        if #details >= 3 then
+            local difficulty = stripHTML(details[1])
+            local rarity = ""
+            local duration = ""
+            local remainingtime = ""
+
+            for _, line in ipairs(details) do
+                local cleanLine = stripHTML(line):lower()
+
+                if cleanLine:find("minimum required rarity") then
+                    rarity = line:match(":%s*<b>(.-)</b>") or stripHTML(line:match(":%s*(.+)"))
+                elseif cleanLine:find("duration") then
+                    duration = line:match(":%s*<b>(.-)</b>") or stripHTML(line:match(":%s*(.+)"))
+                elseif cleanLine:find("ends in") then
+                    -- remainingtime = line:match("<b>(.-)</b>") or stripHTML(line:match("in%s*(.+)"))
+                    local timeText = line:match("<b>(.-)</b>") or stripHTML(line:match("in%s*(.+)"))
+                    if timeText then
+                        local hours = tonumber(timeText:match("(%d+)h")) or 0
+                        local minutes = tonumber(timeText:match("(%d+)m")) or 0
+                        local seconds = tonumber(timeText:match("(%d+)s")) or 0
+                        remainingtime = tostring(hours * 3600 + minutes * 60 + seconds)
+                    end
+                elseif cleanLine == "available" then
+                    remainingtime = "AVAILABLE"
+                elseif cleanLine == "ready to claim" then
+                    remainingtime = "READY TO CLAIM"
+                end
+            end
+
+            explorationData[difficulty] = {
+                difficulty = difficulty,
+                minimumrequired = rarity,
+                duration = duration,
+                remainingtime = remainingtime
+            }
+        end
+    end
+
+    -- In ra màn hình nội dung của explorationData
+    -- for difficulty, data in pairs(explorationData) do
+    --     print("Difficulty: " .. difficulty)
+    --     print("  Minimum Required Rarity: " .. (data.minimumrequired or "N/A"))
+    --     print("  Duration: " .. (data.duration or "N/A"))
+    --     print("  Remaining Time: " .. (data.remainingtime or "N/A"))
+    --     print("-----------------------------")
+    -- end
+
+    -- -- Chuyển sang JSON
+    -- local jsonResult = HttpService:JSONEncode(explorationData)
+
+    -- -- Ghi vào file
+    -- local fileName = "explorationObjectData.json"
+    -- writefile(fileName, jsonResult)
+
+    -- print("✅ Dữ liệu đã được lưu vào file: " .. fileName)
+
+    pressKey(Enum.KeyCode.BackSlash)
+    task.wait(0.1) -- đợi một chút
+    pressKey(Enum.KeyCode.Return)
+    -- task.spawn(UpdateParagraphInfo)
+end
+
+-- local function UpdateRemainingTime()
+--     local lastUpdate = os.clock() -- Lấy thời gian hiện tại
+--     while true do
+--         local currentTime = os.clock()
+--         local elapsedTime = currentTime - lastUpdate -- Tính thời gian đã trôi qua
+--         if elapsedTime >= 1 then
+--             for _, data in pairs(explorationData) do
+--                 if tonumber(data.remainingtime) then
+--                     local timeLeft = tonumber(data.remainingtime)
+--                     if timeLeft > 0 then
+--                         data.remainingtime = tostring(timeLeft - math.floor(elapsedTime))
+--                     elseif timeLeft <= 0 then
+--                         data.remainingtime = "READY TO CLAIM"
+--                     end
+--                 end
+--             end
+--             lastUpdate = currentTime -- Cập nhật thời gian lần cuối
+--         end
+--         task.wait(0.1)               -- Chờ một chút để giảm tải CPU
+--     end
+-- end
+
+local function UpdateRemainingTime()
+    local lastUpdate = os.time() -- thời gian thực (UNIX timestamp)
+    while true do
+        local currentTime = os.time()
+        local elapsedTime = currentTime - lastUpdate
+        if elapsedTime >= 1 then
+            for _, data in pairs(explorationData) do
+                if tonumber(data.remainingtime) then
+                    local timeLeft = tonumber(data.remainingtime)
+                    if timeLeft > 0 then
+                        timeLeft = timeLeft - elapsedTime
+                        if timeLeft <= 0 then
+                            data.remainingtime = "READY TO CLAIM"
+                        else
+                            data.remainingtime = tostring(timeLeft)
+                        end
+                    end
+                end
+            end
+            lastUpdate = currentTime
+        end
+        task.wait(0.2)
+    end
+end
+
+
+local function formatCardName(name)
+    -- Chuyển chữ thường, loại bỏ khoảng trắng đầu/cuối
+    name = name:lower():gsub("^%s*(.-)%s*$", "%1")
+    -- Thay dấu cách bằng dấu gạch dưới
+    name = name:gsub("%s+", "_")
+    -- Loại bỏ ký tự đặc biệt (nếu cần, tuỳ yêu cầu game)
+    name = name:gsub("[^a-z0-9_]", "")
+    return name
+end
+
+local Main = Window:CreateTab("MAIN", 4483362458)
+local Paragraph = Main:CreateParagraph({
+    Title = "DATA",
+    Content = "Lấy dữ liệu về EXPLORATION."
+})
+local Button = Main:CreateButton({
+    Name = "Take Data Exploration",
+    Callback = function()
+        OpenExplorationUI()
+        TakeDataExploration()
+        -- UpdateRemainingTime()
+        -- ExportMinimalCardData()
+    end
+})
+
+task.spawn(function()
+    task.wait(1)
+    print("🔄 Đang tự động lấy dữ liệu Exploration...")
+
+    OpenExplorationUI()
+
+    task.wait(1)
+
+    TakeDataExploration()
+
+    task.spawn(UpdateRemainingTime)
+
+    print("✅ Dữ liệu Exploration đã được lấy tự động.")
+end)
+
+local Divider = Main:CreateDivider()
+-- ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- ─██████████████─████████──████████─██████████████─██████─────────██████████████─████████████████───██████████████─██████████████─██████████─██████████████─██████──────────██████─
+-- ─██░░░░░░░░░░██─██░░░░██──██░░░░██─██░░░░░░░░░░██─██░░██─────────██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░██─██░░░░░░░░░░██─██░░██████████──██░░██─
+-- ─██░░██████████─████░░██──██░░████─██░░██████░░██─██░░██─────────██░░██████░░██─██░░████████░░██───██░░██████░░██─██████░░██████─████░░████─██░░██████░░██─██░░░░░░░░░░██──██░░██─
+-- ─██░░██───────────██░░░░██░░░░██───██░░██──██░░██─██░░██─────────██░░██──██░░██─██░░██────██░░██───██░░██──██░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██████░░██──██░░██─
+-- ─██░░██████████───████░░░░░░████───██░░██████░░██─██░░██─────────██░░██──██░░██─██░░████████░░██───██░░██████░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██──██░░██─
+-- ─██░░░░░░░░░░██─────██░░░░░░██─────██░░░░░░░░░░██─██░░██─────────██░░██──██░░██─██░░░░░░░░░░░░██───██░░░░░░░░░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██──██░░██─
+-- ─██░░██████████───████░░░░░░████───██░░██████████─██░░██─────────██░░██──██░░██─██░░██████░░████───██░░██████░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██──██░░██─
+-- ─██░░██───────────██░░░░██░░░░██───██░░██─────────██░░██─────────██░░██──██░░██─██░░██──██░░██─────██░░██──██░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██████░░██─
+-- ─██░░██████████─████░░██──██░░████─██░░██─────────██░░██████████─██░░██████░░██─██░░██──██░░██████─██░░██──██░░██─────██░░██─────████░░████─██░░██████░░██─██░░██──██░░░░░░░░░░██─
+-- ─██░░░░░░░░░░██─██░░░░██──██░░░░██─██░░██─────────██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██──██░░░░░░██─██░░██──██░░██─────██░░██─────██░░░░░░██─██░░░░░░░░░░██─██░░██──██████████░░██─
+-- ─██████████████─████████──████████─██████─────────██████████████─██████████████─██████──██████████─██████──██████─────██████─────██████████─██████████████─██████──────────██████─
+-- ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+-- ░█▀▀▄ ░█▀▀▀ ░█─── ░█▀▀▀█ ░█──░█
+-- ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
+-- ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
+local HttpService = game:GetService("HttpService")
+
+-- Đọc dữ liệu từ file JSON
+local function loadCardData()
+    local filePath = "ACL/DATA/cards_only.json"
+    if isfile(filePath) then
+        local jsonContent = readfile(filePath)
+        return HttpService:JSONDecode(jsonContent)
+    else
+        warn("❌ Không tìm thấy file cards_only.json")
+        return {}
+    end
+end
+
+local cardData = loadCardData()
+
+local function getDenominator(cardId)
+    for _, data in pairs(cardData) do
+        if data.id == cardId then
+            return data.denominator
+        end
+    end
+    return 0
+end
+
+-- -- Hàm chuyển tên nhập thành định dạng card chuẩn (vd: "fire dragon" -> "fire_dragon")
+-- local function formatCardName(name)
+--     return string.lower(name):gsub("%s+", "_")
+-- end
+
+-- Yêu cầu tối thiểu theo độ khó
+local minimumRequired = {
+    easy = 10000,
+    medium = 1000000,
+    hard = 10000000,
+    extreme = 100000000,
+    nightmare = 1000000000
+}
+
+-- UI Rayfield
+local Exploration = Window:CreateTab("EXPLORATION", 4483362458)
+
+local ParagraphInfo = Exploration:CreateParagraph({
+    Title = "📊 INFORMATION",
+    Content = "🔄 Loading data..."
+})
+
+-- Hàm chuyển đổi thời gian từ giây sang định dạng h m s
+local function formatTime(seconds)
+    seconds = tonumber(seconds) or 0
+    local hours = math.floor(seconds / 3600)
+    local minutes = math.floor((seconds % 3600) / 60)
+    local secs = seconds % 60
+    return string.format("%02dh %02dm %02ds", hours, minutes, secs)
+end
+
+local function UpdateParagraphInfo()
+    while true do
+        local content = "📋 Exploration Status\n\n"
+
+        -- Duyệt qua từng độ khó và lấy remainingtime
+        for difficulty, data in pairs(explorationData) do
+            local timeText = data.remainingtime or "N/A"
+
+            -- Chuyển đổi thời gian nếu remainingtime là số
+            if tonumber(timeText) then
+                timeText = formatTime(tonumber(timeText))
+            end
+
+            content = content .. "🌟 " .. difficulty .. ": `" .. timeText .. "`\n"
+        end
+
+        -- Cập nhật nội dung của ParagraphInfo
+        ParagraphInfo:Set({
+            Title = "📊 INFORMATION",
+            Content = content
+        })
+
+        task.wait(1) -- Cập nhật mỗi giây
+    end
+end
+
+local Paragraph = Exploration:CreateParagraph({
+    Title = "DELOY",
+    Content = "Deploy thẻ vào từng độ khó tương ứng."
+})
+
+local difficulties = { "EASY", "MEDIUM", "HARD", "EXTREME", "NIGHTMARE" }
+local rarities = { "basic", "gold", "rainbow", "secret" }
+local deployInputs = {} -- key: difficulty, value: {cardInputs = {}, rarityDropdowns = {}}
+
+for _, difficulty in ipairs(difficulties) do
+    local section = Exploration:CreateSection("🔄 Deploy - " .. difficulty)
+    local cardInputs = {}
+    local rarityDropdowns = {}
+
+    -- Gắn dữ liệu input + dropdown vào deployInputs
+    deployInputs[difficulty] = {
+        cardInputs = cardInputs,
+        rarityDropdowns = rarityDropdowns
+    }
+
+    for i = 1, 4 do
+        table.insert(cardInputs, Exploration:CreateInput({
+            Name = "🃏 Card " .. i .. " Name",
+            PlaceholderText = "Enter card name",
+            RemoveTextAfterFocusLost = false,
+            Callback = function(value)
+                cardInputs[i].Value = value
+            end
+        }))
+
+        table.insert(rarityDropdowns, Exploration:CreateDropdown({
+            Name = "↘️ Card " .. i .. " Rarity",
+            Options = rarities,
+            CurrentOption = { "basic" },
+            MultipleOptions = false,
+            Callback = function(option)
+                local value
+                if type(option) == "table" then
+                    value = option.Name or option.Value or option[1]
+                elseif type(option) == "string" then
+                    value = option
+                end
+                rarityDropdowns[i].Value = tostring(value or "basic")
+            end
+        }))
+    end
+
+    Exploration:CreateButton({
+        Name = "Deploy to " .. difficulty,
+        Callback = function()
+            local difficultyKey = string.lower(difficulty)
+            local minRequired = minimumRequired[difficultyKey]
+            local args = { difficultyKey, {} }
+
+            for i = 1, 4 do
+                local rawName = cardInputs[i].Value or ""
+                local name = formatCardName(rawName)
+                local rarity = rarityDropdowns[i].Value or "basic"
+
+                -- print("🔍 Card Input " .. i .. ":", rawName)
+                -- print("🔍 Formatted Name:", name)
+                -- print("🔍 Rarity:", rarity)
+
+                local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
+                -- print("🔍 FullId:", fullId)
+
+                local denom = getDenominator(fullId)
+                -- print("Thẻ '" .. fullId .. "' có denominator: " .. denom)
+
+                -- Nếu denom = 0, chỉ Notify và dừng lại
+                if denom == 0 then
+                    Rayfield:Notify({
+                        Title = "Card Not Found",
+                        Content = "The card ID **'" .. fullId ..
+                            "'** does not exist in the data. Please check the card name and rarity.",
+                        Duration = 6.5,
+                        Image = "AlertCircle" -- Lucide Icon for warning
+                    })
+                    return                    -- Dừng lại nếu không tìm thấy cardId
+                end
+
+                if denom < minRequired then
+                    -- warn("⚠️ Thẻ '" .. fullId .. "' không đủ sức mạnh để deploy vào " .. difficulty)
+                    Rayfield:Notify({
+                        Title = "Not Enough Denom",
+                        Content = "Thẻ '" .. fullId .. "' không đủ sức mạnh để deploy vào " .. difficulty,
+                        Duration = 6.5,
+                        Image = "triangle-alert"
+                    })
+                    return
+                end
+
+                table.insert(args[2], fullId)
+            end
+
+            game:GetService("ReplicatedStorage"):WaitForChild("JZ0")
+                :WaitForChild("171e5a3a-8c09-493b-8c8e-c1f2cf4376bd"):FireServer(unpack(args))
+
+            print("✅ Deploy sent for", difficulty)
+        end
+    })
+    local Divider = Exploration:CreateDivider()
+
+    -- local testCardId = "green_bomber:secret"
+    -- local denom = getDenominator(testCardId)
+    -- print("Denominator for '" .. testCardId .. "': " .. denom)
+end
+
+-- ─█▀▀█ ░█─░█ ▀▀█▀▀ ░█▀▀▀█ 　 ░█▀▀▄ ░█▀▀▀ ░█─── ░█▀▀▀█ ░█──░█
+-- ░█▄▄█ ░█─░█ ─░█── ░█──░█ 　 ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
+-- ░█─░█ ─▀▄▄▀ ─░█── ░█▄▄▄█ 　 ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
+local Paragraph = Exploration:CreateParagraph({
+    Title = "AUTO DELOY",
+    Content = "Tự động triển khai thẻ vào từng độ khó tương ứng."
+})
+
+-- Tạo Toggle cho Auto Deploy
+local autoDeployEnabled = false
+local autoDeployTask = nil
+
+-- Hàm chuyển đổi thời gian từ định dạng "6h", "2d", "5m" thành giây
+local function convertDurationToSeconds(duration)
+    local hours, days, minutes = 0, 0, 0
+
+    -- Kiểm tra xem duration có phải là dạng "6h", "2d", "5m" hay không và phân tích nó
+    if string.match(duration, "h$") then
+        hours = tonumber(string.match(duration, "(%d+)h")) or 0
+    elseif string.match(duration, "d$") then
+        days = tonumber(string.match(duration, "(%d+)d")) or 0
+    elseif string.match(duration, "m$") then
+        minutes = tonumber(string.match(duration, "(%d+)m")) or 0
+    end
+
+    -- Tính ra giây từ giờ, ngày và phút
+    return (days * 24 * 3600) + (hours * 3600) + (minutes * 60)
+end
+
+local function startAutoDeployTask()
+    autoDeployTask = task.spawn(function()
+        print("🟢 AutoDeploy task đã bắt đầu!")
+
+        local deployQueue = {}
+
+        while autoDeployEnabled do
+            -- print("🔁 Check...")
+
+            -- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
+            if #deployQueue == 0 then
+                for difficulty, data in pairs(explorationData) do
+                    if data.remainingtime == "AVAILABLE" then
+                        table.insert(deployQueue, difficulty)
+                    end
+                end
+
+                if #deployQueue == 0 then
+                    -- print("❌ Không có Exploration nào AVAILABLE")
+                end
+            end
+
+            -- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
+            if #deployQueue > 0 then
+                local difficulty = table.remove(deployQueue, 1)
+                local data = explorationData[difficulty]
+                local success = true
+                local difficultyKey = string.lower(difficulty)
+                local minRequired = minimumRequired[difficultyKey]
+                local args = { difficultyKey, {} }
+
+                for i = 1, 4 do
+                    local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
+                    local name = formatCardName(rawName)
+                    local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
+                    local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
+                    local denom = getDenominator(fullId)
+
+                    if denom == 0 or denom < minRequired then
+                        success = false
+                        break
+                    end
+
+                    table.insert(args[2], fullId)
+                end
+
+                if success then
+                    -- game:GetService("ReplicatedStorage"):WaitForChild("kQR"):WaitForChild(
+                    --     "4971f60f-90ff-4142-bf88-5395122136c2"):FireServer(unpack(args))
+
+                    game:GetService("ReplicatedStorage"):WaitForChild("JZ0"):WaitForChild(
+                        "171e5a3a-8c09-493b-8c8e-c1f2cf4376bd"):FireServer(unpack(args))
+                    task.wait(0.3) -- đợi một chút
+                    print("✅ Deploy sent for", difficulty)
+                    Rayfield:Notify({
+                        Title = "Auto Deploy",
+                        Content = "Đã triển khai thẻ vào độ khó: " .. difficulty,
+                        Duration = 4,
+                        Image = "check"
+                    })
+
+                    -- Cập nhật lại remainingtime để không deploy lại nữa
+                    local durationInSeconds = convertDurationToSeconds(data.duration + 6)
+                    data.remainingtime = durationInSeconds
+                else
+                    -- print("❌ Không thể triển khai vào", difficulty, "do thẻ không hợp lệ hoặc quá yếu.")
+                end
+            end
+
+            -- Luôn chờ 1 giây mỗi vòng để đảm bảo gửi chậm rãi
+            task.wait(1)
+        end
+
+        print("🔴 AutoDeploy task đã dừng!")
+        autoDeployTask = nil
+    end)
+end
+
+-- Toggle UI để bật/tắt Auto Deploy
+Exploration:CreateToggle({
+    Name = "⚙️ Auto Deploy",
+    CurrentValue = false,
+    Callback = function(state)
+        autoDeployEnabled = state
+        print("⚙️ AutoDeploy hiện tại:", autoDeployEnabled and "🟢 BẬT" or "🔴 TẮT")
+
+        if autoDeployEnabled then
+            -- Kiểm tra xem có dữ liệu exploration không và bắt đầu auto deploy task
+            if next(explorationData) ~= nil then
+                startAutoDeployTask()
+            else
+                print("❌ Không có dữ liệu exploration. Không thể triển khai tự động.")
+            end
+        else
+            -- Dừng auto deploy nếu tắt toggle
+            if autoDeployTask then
+                print("🛑 Tắt AutoDeploy.")
+                autoDeployEnabled = false
+                task.cancel(autoDeployTask)
+                autoDeployTask = nil
+            end
+        end
+    end
+})
+
+local Divider = Exploration:CreateDivider()
+
+-- ─█▀▀█ ░█─░█ ▀▀█▀▀ ░█▀▀▀█ 　 ░█▀▀█ ░█─── ─█▀▀█ ▀█▀ ░█▀▄▀█
+-- ░█▄▄█ ░█─░█ ─░█── ░█──░█ 　 ░█─── ░█─── ░█▄▄█ ░█─ ░█░█░█
+-- ░█─░█ ─▀▄▄▀ ─░█── ░█▄▄▄█ 　 ░█▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█──░█
+
+local autoClaimEnabled = false
+local autoClaimTask = nil
+
+local function claimMission(info)
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local args = { info.difficulty:lower() }
+
+    local claimEvent = replicatedStorage:WaitForChild("JZ0"):WaitForChild("4964b823-bc36-4e56-a57e-8531f145d655")
+    claimEvent:FireServer(unpack(args))
+
+    task.wait(1)
+    pressKey(Enum.KeyCode.BackSlash)
+    task.wait(0.2) -- đợi một chút
+    pressKey(Enum.KeyCode.Return)
+
+    print("✅ → Đã claim nhiệm vụ:", info.difficulty)
+    -- Cập nhật trạng thái nhiệm vụ để tránh claim lại
+    -- info.remainingtime = "AVAILABLE"
+    explorationData[info.difficulty].remainingtime = "AVAILABLE"
+end
+
+local function startAutoClaimTask()
+    if autoClaimTask then
+        return
+    end
+
+    autoClaimTask = task.spawn(function()
+        print("🟢 AutoClaim task đã bắt đầu!")
+
+        local claimQueue = {}
+
+        while autoClaimEnabled do
+            -- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
+            if #claimQueue == 0 then
+                for _, info in pairs(explorationData) do
+                    if info.remainingtime == "READY TO CLAIM" then
+                        table.insert(claimQueue, info)
+                    end
+                end
+                if #claimQueue == 0 then
+                    -- print("❌ Không có nhiệm vụ nào READY TO CLAIM.")
+                end
+            end
+
+            -- Nếu có nhiệm vụ trong hàng đợi thì claim từng cái một
+            if #claimQueue > 0 then
+                local info = table.remove(claimQueue, 1)
+                claimMission(info)
+            end
+
+            task.wait(1) -- Delay để tránh spam server
+        end
+
+        print("🔴 AutoClaim task đã dừng!")
+        autoClaimTask = nil
+    end)
+end
+
+-- UI
+local Paragraph = Exploration:CreateParagraph({
+    Title = "AUTO CLAIM",
+    Content = "Tự động claim phần thưởng nhiệm vụ."
+})
+
+Exploration:CreateToggle({
+    Name = "⚙️ Auto Claim",
+    CurrentValue = false,
+    Callback = function(Value)
+        autoClaimEnabled = Value
+        print("⚙️ AutoClaim hiện tại:", autoClaimEnabled and "🟢 BẬT" or "🔴 TẮT")
+        if autoClaimEnabled then
+            startAutoClaimTask()
+        end
+    end
+})
+
+local Divider = Exploration:CreateDivider()
+
+-- ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- ─██████████████───██████████████─██████████████─██████████████─██████─────────██████████████────██████████████─██████████████─██████████████───
+-- ─██░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██─────────██░░░░░░░░░░██────██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██───
+-- ─██░░██████░░██───██░░██████░░██─██████░░██████─██████░░██████─██░░██─────────██░░██████████────██████░░██████─██░░██████░░██─██░░██████░░██───
+-- ─██░░██──██░░██───██░░██──██░░██─────██░░██─────────██░░██─────██░░██─────────██░░██────────────────██░░██─────██░░██──██░░██─██░░██──██░░██───
+-- ─██░░██████░░████─██░░██████░░██─────██░░██─────────██░░██─────██░░██─────────██░░██████████────────██░░██─────██░░██████░░██─██░░██████░░████─
+-- ─██░░░░░░░░░░░░██─██░░░░░░░░░░██─────██░░██─────────██░░██─────██░░██─────────██░░░░░░░░░░██────────██░░██─────██░░░░░░░░░░██─██░░░░░░░░░░░░██─
+-- ─██░░████████░░██─██░░██████░░██─────██░░██─────────██░░██─────██░░██─────────██░░██████████────────██░░██─────██░░██████░░██─██░░████████░░██─
+-- ─██░░██────██░░██─██░░██──██░░██─────██░░██─────────██░░██─────██░░██─────────██░░██────────────────██░░██─────██░░██──██░░██─██░░██────██░░██─
+-- ─██░░████████░░██─██░░██──██░░██─────██░░██─────────██░░██─────██░░██████████─██░░██████████────────██░░██─────██░░██──██░░██─██░░████████░░██─
+-- ─██░░░░░░░░░░░░██─██░░██──██░░██─────██░░██─────────██░░██─────██░░░░░░░░░░██─██░░░░░░░░░░██────────██░░██─────██░░██──██░░██─██░░░░░░░░░░░░██─
+-- ─████████████████─██████──██████─────██████─────────██████─────██████████████─██████████████────────██████─────██████──██████─████████████████─
+-- ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- UI Rayfield
+local Battle = Window:CreateTab("BATTLE", 4483362458)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- Cờ điều khiển
+local isAutoDeck = false
+local isAutoEternal = false
+local isAutoShadow = false
+local isAutoTower = false
+
+-- Deck đã chọn
+local deckSelections = {
+    eternal = "1",
+    shadow = "1",
+    tower = "1",
+    nightmare = "1"
+}
+
+-- Hàm equip deck
+local function equipDeck(deckNumber)
+    local args = { tonumber(deckNumber) }
+    -- ReplicatedStorage:WaitForChild("kQR"):WaitForChild("c845550a-9342-4afd-b7e0-5e5fa5a5b845"):FireServer(unpack(args))
+    ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9174b6a5-c4d5-4bd5-a793-9486b75f6f7f"):FireServer(unpack(args))
+end
+
+local Paragraph = Battle:CreateParagraph({
+    Title = "AUTO DECK",
+    Content = "Tự động trang bị deck cho từng chế độ.\n⚠️Chọn deck cho mỗi chế độ tại SELECT DECK."
+})
+
+-- AUTO DECK Toggle
+Battle:CreateToggle({
+    Name = "AUTO DECK",
+    CurrentValue = false,
+    Flag = "ToggleAutoDeck",
+    Callback = function(Value)
+        isAutoDeck = Value
+    end
+})
+
+local Divider = Battle:CreateDivider()
+local Paragraph = Battle:CreateParagraph({
+    Title = "SELECT DECK",
+    Content = "Chọn deck cho từng chế độ.\n⚠️ Để sử dụng hãy bật AUTO DECK."
+})
+
+-- Deck Dropdowns
+Battle.Dropdowns = {}
+
+Battle.Dropdowns["ENTERNAL DRAGON"] = Battle:CreateDropdown({
+    Name = "ENTERNAL DRAGON",
+    Options = { "1", "2", "3" },
+    CurrentOption = { deckSelections.eternal },
+    Callback = function(Options)
+        deckSelections.eternal = Options[1]
+    end
+})
+
+Battle.Dropdowns["SHADOW DRAGON"] = Battle:CreateDropdown({
+    Name = "SHADOW DRAGON",
+    Options = { "1", "2", "3" },
+    CurrentOption = { deckSelections.shadow },
+    Callback = function(Options)
+        deckSelections.shadow = Options[1]
+    end
+})
+
+Battle.Dropdowns["INFINITY TOWER"] = Battle:CreateDropdown({
+    Name = "INFINITY TOWER",
+    Options = { "1", "2", "3" },
+    CurrentOption = { deckSelections.tower },
+    Callback = function(Options)
+        deckSelections.tower = Options[1]
+    end
+})
+
+Battle.Dropdowns["NIGHTMARE TOWER"] = Battle:CreateDropdown({
+    Name = "NIGHTMARE TOWER",
+    Options = { "1", "2", "3" },
+    CurrentOption = { deckSelections.nightmare },
+    Callback = function(Options)
+        deckSelections.nightmare = Options[1]
+    end
+})
+
+local Divider = Battle:CreateDivider()
+local Paragraph = Battle:CreateParagraph({
+    Title = "AUTO BATTLE",
+    Content = "Tự động chiến đấu với các chế độ."
+})
+
+-- AUTO ETERNAL DRAGON
+Battle:CreateToggle({
+    Name = "ETERNAL DRAGON",
+    CurrentValue = false,
+    Flag = "ToggleEternalDragon",
+    Callback = function(Value)
+        isAutoEternal = Value
+        if Value then
+            task.spawn(function()
+                while isAutoEternal do
+                    if isAutoDeck then
+                        equipDeck(deckSelections.eternal)
+                        task.wait(1) -- chờ 1s cho chắc
+                    end
+                    local args = { "eternal_dragon" }
+                    ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9efaaa87-7d74-4d63-8466-8bb11b0391ad")
+                        :FireServer(unpack(args))
+                    task.wait(5)
+                end
+            end)
+        end
+    end
+})
+
+-- AUTO SHADOW DRAGON
+Battle:CreateToggle({
+    Name = "SHADOW DRAGON",
+    CurrentValue = false,
+    Flag = "ToggleShadowDragon",
+    Callback = function(Value)
+        isAutoShadow = Value
+        if Value then
+            task.spawn(function()
+                while isAutoShadow do
+                    if isAutoDeck then
+                        equipDeck(deckSelections.shadow)
+                        task.wait(1)
+                    end
+                    local args = { "shadow_dragon" }
+                    ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9efaaa87-7d74-4d63-8466-8bb11b0391ad")
+                        :FireServer(unpack(args))
+                    task.wait(5)
+                end
+            end)
+        end
+    end
+})
+
+-- AUTO NIGHTMARE TOWER
+Battle:CreateToggle({
+    Name = "NIGHTMARE TOWER",
+    CurrentValue = false,
+    Flag = "ToggleNightmareTower",
+    Callback = function(Value)
+        isAutoTower = Value
+        if Value then
+            task.spawn(function()
+                while isAutoTower do
+                    if isAutoDeck then
+                        equipDeck(deckSelections.nightmare)
+                        task.wait(1)
+                    end
+                    local args = { "nightmare_tower" }
+                    ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("8979e7ea-9775-4c4c-8568-ceac4fe26b11")
+                        :FireServer(unpack(args))
+                    task.wait(5)
+                end
+            end)
+        end
+    end
+})
+
+-- AUTO INFINITY TOWER
+Battle:CreateToggle({
+    Name = "INFINITY TOWER",
+    CurrentValue = false,
+    Flag = "ToggleInfinityTower",
+    Callback = function(Value)
+        isAutoTower = Value
+        if Value then
+            task.spawn(function()
+                while isAutoTower do
+                    if isAutoDeck then
+                        equipDeck(deckSelections.tower)
+                        task.wait(1)
+                    end
+                    ReplicatedStorage:WaitForChild("kQR"):WaitForChild("60ed7d69-2cac-467c-9695-6ab3e77159b9")
+                        :FireServer()
+                    task.wait(5)
+                end
+            end)
+        end
+    end
+})
+
+-- ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- ─██████████████─██████████████─██████──────────██████─██████████████─██████████─██████████████────██████████████─██████████████─██████████████───
+-- ─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██████████──██░░██─██░░░░░░░░░░██─██░░░░░░██─██░░░░░░░░░░██────██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██───
+-- ─██░░██████████─██░░██████░░██─██░░░░░░░░░░██──██░░██─██░░██████████─████░░████─██░░██████████────██████░░██████─██░░██████░░██─██░░██████░░██───
+-- ─██░░██─────────██░░██──██░░██─██░░██████░░██──██░░██─██░░██───────────██░░██───██░░██────────────────██░░██─────██░░██──██░░██─██░░██──██░░██───
+-- ─██░░██─────────██░░██──██░░██─██░░██──██░░██──██░░██─██░░██████████───██░░██───██░░██────────────────██░░██─────██░░██████░░██─██░░██████░░████─
+-- ─██░░██─────────██░░██──██░░██─██░░██──██░░██──██░░██─██░░░░░░░░░░██───██░░██───██░░██──██████────────██░░██─────██░░░░░░░░░░██─██░░░░░░░░░░░░██─
+-- ─██░░██─────────██░░██──██░░██─██░░██──██░░██──██░░██─██░░██████████───██░░██───██░░██──██░░██────────██░░██─────██░░██████░░██─██░░████████░░██─
+-- ─██░░██─────────██░░██──██░░██─██░░██──██░░██████░░██─██░░██───────────██░░██───██░░██──██░░██────────██░░██─────██░░██──██░░██─██░░██────██░░██─
+-- ─██░░██████████─██░░██████░░██─██░░██──██░░░░░░░░░░██─██░░██─────────████░░████─██░░██████░░██────────██░░██─────██░░██──██░░██─██░░████████░░██─
+-- ─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██──██████████░░██─██░░██─────────██░░░░░░██─██░░░░░░░░░░██────────██░░██─────██░░██──██░░██─██░░░░░░░░░░░░██─
+-- ─██████████████─██████████████─██████──────────██████─██████─────────██████████─██████████████────────██████─────██████──██████─████████████████─
+-- ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local playerName = Players.LocalPlayer.Name
+
+local configRoot = "ACL"
+local configFolder = configRoot .. "/UserConfig"
+local configDropdown, selectedConfig, newConfigName
+
+-- Tạo folder nếu chưa có
+if not isfolder(configRoot) then
+    makefolder(configRoot)
+end
+if not isfolder(configFolder) then
+    makefolder(configFolder)
+end
+
+-- Trả về đường dẫn đầy đủ đến file JSON
+local function getFilePath(fileName)
+    if type(fileName) ~= "string" or fileName == "" then
+        warn("⚠️ Tên file không hợp lệ:", fileName)
+        return nil
+    end
+    return configFolder .. "/" .. fileName .. ".json"
+end
+
+-- Hàm lấy dữ liệu từ InputCards (Input và Dropdown)
+local function getInputCardsData(deployInputs)
+    if type(deployInputs) ~= "table" then
+        warn("⚠️ deployInputs không hợp lệ. Phải là một bảng.")
+        return {}
+    end
+
+    local inputCardsData = {}
+    for difficulty, inputs in pairs(deployInputs) do
+        inputCardsData[difficulty] = {}
+        for i = 1, 4 do
+            local cardName = inputs.cardInputs[i] and inputs.cardInputs[i].Value or ""
+            local cardRarity = inputs.rarityDropdowns[i] and inputs.rarityDropdowns[i].Value or "basic"
+            table.insert(inputCardsData[difficulty], {
+                name = cardName,
+                rarity = cardRarity
+            })
+        end
+    end
+    return inputCardsData
+end
+
+-- Hàm điền lại dữ liệu vào InputCards
+local function setInputCardsData(deployInputs, data)
+    for difficulty, cards in pairs(data) do
+        if deployInputs[difficulty] then
+            for i, card in ipairs(cards) do
+                if deployInputs[difficulty].cardInputs[i] and deployInputs[difficulty].rarityDropdowns[i] then
+                    deployInputs[difficulty].cardInputs[i]:Set(card.name or "")
+                    deployInputs[difficulty].rarityDropdowns[i]:Set(card.rarity or "basic")
+                end
+            end
+        end
+    end
+end
+
+-- Hàm lưu JSON
+local function saveJSON(fileName, deployInputs)
+    local path = getFilePath(fileName)
+    if not path then
+        warn("❌ Không thể lưu file vì đường dẫn không hợp lệ.")
+        return
+    end
+
+    -- Kiểm tra deployInputs trước khi lấy dữ liệu
+    local inputCardsData = getInputCardsData(deployInputs)
+    local wrappedData = {
+        InputCards = inputCardsData,    -- Lưu thông tin InputCards
+        DeckSelections = deckSelections -- Lưu trạng thái của các dropdown
+    }
+
+    writefile(path, HttpService:JSONEncode(wrappedData))
+    print("📁 File đã được lưu tại:", path)
+end
+
+-- Hàm đọc JSON
+-- local function loadJSON(fileName, deployInputs)
+--     local path = getFilePath(fileName)
+--     if path and isfile(path) then
+--         local rawData = HttpService:JSONDecode(readfile(path))
+--         if rawData.InputCards then
+--             setInputCardsData(deployInputs, rawData.InputCards) -- Điền lại dữ liệu vào InputCards
+--         end
+--         return rawData.Deloy                                    -- Trả về dữ liệu bên trong "Deloy"
+--     end
+--     return nil
+-- end
+
+-- Hàm đọc JSON
+local function loadJSON(fileName, deployInputs)
+    local path = getFilePath(fileName)
+    if path and isfile(path) then
+        local rawData = HttpService:JSONDecode(readfile(path))
+
+        -- Điền lại dữ liệu vào InputCards
+        if rawData.InputCards then
+            setInputCardsData(deployInputs, rawData.InputCards)
+        end
+
+        -- Điền lại dữ liệu vào DeckSelections
+        if rawData.DeckSelections then
+            deckSelections = rawData.DeckSelections
+
+            -- Cập nhật giá trị của dropdowns
+            if Battle and Battle.Dropdowns then
+                if Battle.Dropdowns["ENTERNAL DRAGON"] then
+                    Battle.Dropdowns["ENTERNAL DRAGON"]:Set({ deckSelections.eternal or "1" })
+                end
+                if Battle.Dropdowns["SHADOW DRAGON"] then
+                    Battle.Dropdowns["SHADOW DRAGON"]:Set({ deckSelections.shadow or "1" })
+                end
+                if Battle.Dropdowns["INFINITY TOWER"] then
+                    Battle.Dropdowns["INFINITY TOWER"]:Set({ deckSelections.tower or "1" })
+                end
+                if Battle.Dropdowns["NIGHTMARE TOWER"] then
+                    Battle.Dropdowns["NIGHTMARE TOWER"]:Set({ deckSelections.nightmare or "1" })
+                end
+            end
+        end
+
+        print("✅ Đã load config:", fileName)
+        return rawData
+    end
+    return nil
+end
+
+-- Hàm xóa file JSON
+local function deleteJSON(fileName)
+    local path = getFilePath(fileName)
+    if path and isfile(path) then
+        delfile(path)
+    end
+end
+
+-- Lấy danh sách file JSON trong folder
+local function listConfigFiles()
+    local files = listfiles(configFolder)
+    local names = {}
+    for _, filePath in ipairs(files) do
+        local name = filePath:match("([^/\\]+)%.json$")
+        if name then
+            table.insert(names, name)
+        end
+    end
+    return names
+end
+
+-- UI Rayfield
+local Config = Window:CreateTab("CONFIG", 4483362458)
+
+local Paragraph = Config:CreateParagraph({
+    Title = "TẠO MỚI CONFIG",
+    Content = "Nhập tên và tạo mới config.\n⚠️ Tên config không được trùng lặp với các config đã có."
+})
+
+Config:CreateInput({
+    Name = "Nhập tên Config mới",
+    PlaceholderText = "VD: fireteam_alpha",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Value)
+        newConfigName = Value
+    end
+})
+
+Config:CreateButton({
+    Name = "🆕 Tạo Config Mới",
+    Callback = function()
+        if not newConfigName or newConfigName == "" then
+            warn("⚠️ Vui lòng nhập tên config!")
+            return
+        end
+
+        -- Làm mới lại deployInputs
+        for difficulty, inputs in pairs(deployInputs) do
+            for i = 1, 4 do
+                if inputs.cardInputs[i] then
+                    inputs.cardInputs[i]:Set("") -- Đặt lại giá trị input card name
+                end
+                if inputs.rarityDropdowns[i] then
+                    inputs.rarityDropdowns[i]:Set("basic") -- Đặt lại giá trị dropdown rarity
+                end
+            end
+        end
+
+        deckSelections = {
+            eternal = "1",
+            shadow = "1",
+            tower = "1",
+            nightmare = "1"
+        }
+
+        saveJSON(newConfigName, deployInputs)
+
+        Rayfield:Notify({
+            Title = "✅ Tạo Thành Công",
+            Content = "Đã tạo config: " .. newConfigName,
+            Duration = 3
+        })
+
+        configDropdown:Refresh(listConfigFiles(), true)
+    end
+})
+
+local Divider = Config:CreateDivider()
+local Paragraph = Config:CreateParagraph({
+    Title = "QUẢN LÝ CONFIG",
+    Content = "Chọn config để lưu, load hoặc xoá."
+})
+
+configDropdown = Config:CreateDropdown({
+    Name = "📂 Chọn Config",
+    Options = listConfigFiles(),
+    CurrentOption = nil,
+    Image = "folder",
+    Callback = function(Value)
+        if type(Value) == "table" then
+            selectedConfig = Value[1] or nil
+        elseif type(Value) == "string" then
+            selectedConfig = Value
+        else
+            warn("⚠️ Giá trị không hợp lệ từ dropdown:", typeof(Value))
+            selectedConfig = nil
+        end
+    end
+})
+
+Config:CreateButton({
+    Name = "💾 Lưu Config",
+    Callback = function()
+        if not selectedConfig then
+            warn("⚠️ Chưa chọn config để lưu!")
+            return
+        end
+
+        saveJSON(selectedConfig, deployInputs)
+
+        Rayfield:Notify({
+            Title = "✅ Đã Lưu",
+            Content = "Đã lưu config: " .. selectedConfig,
+            Duration = 3,
+            Image = "download"
+        })
+    end
+})
+
+Config:CreateButton({
+    Name = "🗑️ Xoá Config",
+    Callback = function()
+        if not selectedConfig then
+            warn("⚠️ Chưa chọn config để xoá!")
+            return
+        end
+
+        deleteJSON(selectedConfig)
+
+        Rayfield:Notify({
+            Title = "🗑️ Đã Xoá",
+            Content = "Đã xoá config: " .. selectedConfig,
+            Duration = 3,
+            Image = "eraser"
+        })
+
+        configDropdown:Refresh(listConfigFiles(), true)
+    end
+})
+
+Config:CreateButton({
+    Name = "📥 Load Config",
+    Callback = function()
+        if not selectedConfig then
+            warn("⚠️ Chưa chọn config để load!")
+            return
+        end
+
+        loadJSON(selectedConfig, deployInputs)
+
+        Rayfield:Notify({
+            Title = "✅ Đã Load",
+            Content = "Config đã được áp dụng.",
+            Duration = 3,
+            Image = "upload"
+        })
+    end
+})
+
+Divider = Config:CreateDivider()
+local VirtualUser = game:GetService("VirtualUser")
+local Players = game:GetService("Players")
+
+local antiAfkEnabled = false
+local afkConnection = nil
+
+-- Rayfield UI Section
+local Paragraph = Config:CreateParagraph({
+    Title = "ANTI AFK",
+    Content = "Ngăn bị kick khi không hoạt động."
+})
+
+Config:CreateToggle({
+    Name = "⚙️ Anti-AFK",
+    CurrentValue = false,
+    Callback = function(state)
+        antiAfkEnabled = state
+        print("⚙️ Anti-AFK hiện tại:", antiAfkEnabled and "🟢 BẬT" or "🔴 TẮT")
+
+        if antiAfkEnabled then
+            afkConnection = Players.LocalPlayer.Idled:Connect(function()
+                print("⚠️ Bị phát hiện AFK, đang xử lý...")
+
+                VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+                task.wait(1)
+                VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+
+                print("✅ Đã gửi tín hiệu giữ hoạt động.")
+            end)
+        else
+            if afkConnection then
+                afkConnection:Disconnect()
+                afkConnection = nil
+                print("🛑 Đã tắt Anti-AFK.")
+            end
+        end
+    end
+})
+
+UpdateParagraphInfo()
