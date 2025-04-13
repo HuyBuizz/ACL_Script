@@ -105,7 +105,7 @@ local function pressKey(keyCode)
     vim:SendKeyEvent(false, keyCode, false, game)
 end
 
---Check summary UI, nếu có thì tự động tắt///////////////////////////////////
+-- Check summary UI, nếu có thì tự động tắt///////////////////////////////////
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -121,13 +121,13 @@ task.spawn(function()
     end
 end)
 
---/////////////////////////////////////////////////////////////////////////////
+-- /////////////////////////////////////////////////////////////////////////////
 
 local function OpenExplorationUI()
     local prompt = workspace:FindFirstChild("lobby") and workspace.lobby:FindFirstChild("npc") and
-        workspace.lobby.npc:FindFirstChild("exploration") and
-        workspace.lobby.npc.exploration:FindFirstChild("HumanoidRootPart") and
-        workspace.lobby.npc.exploration.HumanoidRootPart:FindFirstChildWhichIsA("ProximityPrompt")
+                       workspace.lobby.npc:FindFirstChild("exploration") and
+                       workspace.lobby.npc.exploration:FindFirstChild("HumanoidRootPart") and
+                       workspace.lobby.npc.exploration.HumanoidRootPart:FindFirstChildWhichIsA("ProximityPrompt")
 
     if prompt then
         fireproximityprompt(prompt)
@@ -148,7 +148,7 @@ local function TakeDataExploration()
 
     -- Truy cập ScrollingFrame
     local scrollingFrame = Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame
-        .Frame.ScrollingFrame
+                               .Frame.ScrollingFrame
 
     -- Gom các TextButton lại với LayoutOrder
     local buttonsWithLayer = {}
@@ -307,7 +307,6 @@ local function UpdateRemainingTime()
     end
 end
 
-
 local function formatCardName(name)
     -- Chuyển chữ thường, loại bỏ khoảng trắng đầu/cuối
     name = name:lower():gsub("^%s*(.-)%s*$", "%1")
@@ -453,8 +452,8 @@ local Paragraph = Exploration:CreateParagraph({
     Content = "Deploy thẻ vào từng độ khó tương ứng."
 })
 
-local difficulties = { "EASY", "MEDIUM", "HARD", "EXTREME", "NIGHTMARE" }
-local rarities = { "basic", "gold", "rainbow", "secret" }
+local difficulties = {"EASY", "MEDIUM", "HARD", "EXTREME", "NIGHTMARE"}
+local rarities = {"basic", "gold", "rainbow", "secret"}
 local deployInputs = {} -- key: difficulty, value: {cardInputs = {}, rarityDropdowns = {}}
 
 for _, difficulty in ipairs(difficulties) do
@@ -481,7 +480,7 @@ for _, difficulty in ipairs(difficulties) do
         table.insert(rarityDropdowns, Exploration:CreateDropdown({
             Name = "↘️ Card " .. i .. " Rarity",
             Options = rarities,
-            CurrentOption = { "basic" },
+            CurrentOption = {"basic"},
             MultipleOptions = false,
             Callback = function(option)
                 local value
@@ -500,7 +499,7 @@ for _, difficulty in ipairs(difficulties) do
         Callback = function()
             local difficultyKey = string.lower(difficulty)
             local minRequired = minimumRequired[difficultyKey]
-            local args = { difficultyKey, {} }
+            local args = {difficultyKey, {}}
 
             for i = 1, 4 do
                 local rawName = cardInputs[i].Value or ""
@@ -526,7 +525,7 @@ for _, difficulty in ipairs(difficulties) do
                         Duration = 6.5,
                         Image = "AlertCircle" -- Lucide Icon for warning
                     })
-                    return                    -- Dừng lại nếu không tìm thấy cardId
+                    return -- Dừng lại nếu không tìm thấy cardId
                 end
 
                 if denom < minRequired then
@@ -614,7 +613,7 @@ local function startAutoDeployTask()
                 local success = true
                 local difficultyKey = string.lower(difficulty)
                 local minRequired = minimumRequired[difficultyKey]
-                local args = { difficultyKey, {} }
+                local args = {difficultyKey, {}}
 
                 for i = 1, 4 do
                     local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
@@ -647,7 +646,7 @@ local function startAutoDeployTask()
                     })
 
                     -- Cập nhật lại remainingtime để không deploy lại nữa
-                    local durationInSeconds = convertDurationToSeconds(data.duration + 6)
+                    local durationInSeconds = convertDurationToSeconds(data.duration) + 6
                     data.remainingtime = durationInSeconds
                 else
                     -- print("❌ Không thể triển khai vào", difficulty, "do thẻ không hợp lệ hoặc quá yếu.")
@@ -701,15 +700,15 @@ local autoClaimTask = nil
 
 local function claimMission(info)
     local replicatedStorage = game:GetService("ReplicatedStorage")
-    local args = { info.difficulty:lower() }
+    local args = {info.difficulty:lower()}
 
     local claimEvent = replicatedStorage:WaitForChild("JZ0"):WaitForChild("4964b823-bc36-4e56-a57e-8531f145d655")
     claimEvent:FireServer(unpack(args))
 
-    task.wait(1)
-    pressKey(Enum.KeyCode.BackSlash)
-    task.wait(0.2) -- đợi một chút
-    pressKey(Enum.KeyCode.Return)
+    -- task.wait(1)
+    -- pressKey(Enum.KeyCode.BackSlash)
+    -- task.wait(0.1) -- đợi một chút
+    -- pressKey(Enum.KeyCode.Return)
 
     print("✅ → Đã claim nhiệm vụ:", info.difficulty)
     -- Cập nhật trạng thái nhiệm vụ để tránh claim lại
@@ -807,7 +806,7 @@ local deckSelections = {
 
 -- Hàm equip deck
 local function equipDeck(deckNumber)
-    local args = { tonumber(deckNumber) }
+    local args = {tonumber(deckNumber)}
     -- ReplicatedStorage:WaitForChild("kQR"):WaitForChild("c845550a-9342-4afd-b7e0-5e5fa5a5b845"):FireServer(unpack(args))
     ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9174b6a5-c4d5-4bd5-a793-9486b75f6f7f"):FireServer(unpack(args))
 end
@@ -838,8 +837,8 @@ Battle.Dropdowns = {}
 
 Battle.Dropdowns["ENTERNAL DRAGON"] = Battle:CreateDropdown({
     Name = "ENTERNAL DRAGON",
-    Options = { "1", "2", "3" },
-    CurrentOption = { deckSelections.eternal },
+    Options = {"1", "2", "3"},
+    CurrentOption = {deckSelections.eternal},
     Callback = function(Options)
         deckSelections.eternal = Options[1]
     end
@@ -847,8 +846,8 @@ Battle.Dropdowns["ENTERNAL DRAGON"] = Battle:CreateDropdown({
 
 Battle.Dropdowns["SHADOW DRAGON"] = Battle:CreateDropdown({
     Name = "SHADOW DRAGON",
-    Options = { "1", "2", "3" },
-    CurrentOption = { deckSelections.shadow },
+    Options = {"1", "2", "3"},
+    CurrentOption = {deckSelections.shadow},
     Callback = function(Options)
         deckSelections.shadow = Options[1]
     end
@@ -856,8 +855,8 @@ Battle.Dropdowns["SHADOW DRAGON"] = Battle:CreateDropdown({
 
 Battle.Dropdowns["INFINITY TOWER"] = Battle:CreateDropdown({
     Name = "INFINITY TOWER",
-    Options = { "1", "2", "3" },
-    CurrentOption = { deckSelections.tower },
+    Options = {"1", "2", "3"},
+    CurrentOption = {deckSelections.tower},
     Callback = function(Options)
         deckSelections.tower = Options[1]
     end
@@ -865,8 +864,8 @@ Battle.Dropdowns["INFINITY TOWER"] = Battle:CreateDropdown({
 
 Battle.Dropdowns["NIGHTMARE TOWER"] = Battle:CreateDropdown({
     Name = "NIGHTMARE TOWER",
-    Options = { "1", "2", "3" },
-    CurrentOption = { deckSelections.nightmare },
+    Options = {"1", "2", "3"},
+    CurrentOption = {deckSelections.nightmare},
     Callback = function(Options)
         deckSelections.nightmare = Options[1]
     end
@@ -892,7 +891,7 @@ Battle:CreateToggle({
                         equipDeck(deckSelections.eternal)
                         task.wait(1) -- chờ 1s cho chắc
                     end
-                    local args = { "eternal_dragon" }
+                    local args = {"eternal_dragon"}
                     ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9efaaa87-7d74-4d63-8466-8bb11b0391ad")
                         :FireServer(unpack(args))
                     task.wait(5)
@@ -916,7 +915,7 @@ Battle:CreateToggle({
                         equipDeck(deckSelections.shadow)
                         task.wait(1)
                     end
-                    local args = { "shadow_dragon" }
+                    local args = {"shadow_dragon"}
                     ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9efaaa87-7d74-4d63-8466-8bb11b0391ad")
                         :FireServer(unpack(args))
                     task.wait(5)
@@ -940,7 +939,7 @@ Battle:CreateToggle({
                         equipDeck(deckSelections.nightmare)
                         task.wait(1)
                     end
-                    local args = { "nightmare_tower" }
+                    local args = {"nightmare_tower"}
                     ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("8979e7ea-9775-4c4c-8568-ceac4fe26b11")
                         :FireServer(unpack(args))
                     task.wait(5)
@@ -1059,7 +1058,7 @@ local function saveJSON(fileName, deployInputs)
     -- Kiểm tra deployInputs trước khi lấy dữ liệu
     local inputCardsData = getInputCardsData(deployInputs)
     local wrappedData = {
-        InputCards = inputCardsData,    -- Lưu thông tin InputCards
+        InputCards = inputCardsData, -- Lưu thông tin InputCards
         DeckSelections = deckSelections -- Lưu trạng thái của các dropdown
     }
 
@@ -1098,16 +1097,16 @@ local function loadJSON(fileName, deployInputs)
             -- Cập nhật giá trị của dropdowns
             if Battle and Battle.Dropdowns then
                 if Battle.Dropdowns["ENTERNAL DRAGON"] then
-                    Battle.Dropdowns["ENTERNAL DRAGON"]:Set({ deckSelections.eternal or "1" })
+                    Battle.Dropdowns["ENTERNAL DRAGON"]:Set({deckSelections.eternal or "1"})
                 end
                 if Battle.Dropdowns["SHADOW DRAGON"] then
-                    Battle.Dropdowns["SHADOW DRAGON"]:Set({ deckSelections.shadow or "1" })
+                    Battle.Dropdowns["SHADOW DRAGON"]:Set({deckSelections.shadow or "1"})
                 end
                 if Battle.Dropdowns["INFINITY TOWER"] then
-                    Battle.Dropdowns["INFINITY TOWER"]:Set({ deckSelections.tower or "1" })
+                    Battle.Dropdowns["INFINITY TOWER"]:Set({deckSelections.tower or "1"})
                 end
                 if Battle.Dropdowns["NIGHTMARE TOWER"] then
-                    Battle.Dropdowns["NIGHTMARE TOWER"]:Set({ deckSelections.nightmare or "1" })
+                    Battle.Dropdowns["NIGHTMARE TOWER"]:Set({deckSelections.nightmare or "1"})
                 end
             end
         end
