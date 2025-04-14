@@ -366,6 +366,7 @@ local Divider = Main:CreateDivider()
 -- ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
 -- ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
 local HttpService = game:GetService("HttpService")
+local isClaiming = false -- Cờ kiểm soát trạng thái CLAIM
 
 -- Đọc dữ liệu từ file JSON
 local function loadCardData()
@@ -584,6 +585,84 @@ local function convertDurationToSeconds(duration)
     return (days * 24 * 3600) + (hours * 3600) + (minutes * 60)
 end
 
+-- local function startAutoDeployTask()
+--     autoDeployTask = task.spawn(function()
+--         print("🟢 AutoDeploy task đã bắt đầu!")
+
+--         local deployQueue = {}
+
+--         while autoDeployEnabled do
+--             -- print("🔁 Check...")
+
+--             -- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
+--             if #deployQueue == 0 then
+--                 for difficulty, data in pairs(explorationData) do
+--                     if data.remainingtime == "AVAILABLE" then
+--                         table.insert(deployQueue, difficulty)
+--                     end
+--                 end
+
+--                 if #deployQueue == 0 then
+--                     -- print("❌ Không có Exploration nào AVAILABLE")
+--                 end
+--             end
+
+--             -- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
+--             if #deployQueue > 0 then
+--                 local difficulty = table.remove(deployQueue, 1)
+--                 local data = explorationData[difficulty]
+--                 local success = true
+--                 local difficultyKey = string.lower(difficulty)
+--                 local minRequired = minimumRequired[difficultyKey]
+--                 local args = {difficultyKey, {}}
+
+--                 for i = 1, 4 do
+--                     local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
+--                     local name = formatCardName(rawName)
+--                     local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
+--                     local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
+--                     local denom = getDenominator(fullId)
+
+--                     if denom == 0 or denom < minRequired then
+--                         success = false
+--                         break
+--                     end
+
+--                     table.insert(args[2], fullId)
+--                 end
+
+--                 if success then
+--                     -- game:GetService("ReplicatedStorage"):WaitForChild("kQR"):WaitForChild(
+--                     --     "4971f60f-90ff-4142-bf88-5395122136c2"):FireServer(unpack(args))
+
+--                     game:GetService("ReplicatedStorage"):WaitForChild("JZ0"):WaitForChild(
+--                         "171e5a3a-8c09-493b-8c8e-c1f2cf4376bd"):FireServer(unpack(args))
+--                     task.wait(0.3) -- đợi một chút
+--                     print("✅ Deploy sent for", difficulty)
+--                     Rayfield:Notify({
+--                         Title = "Auto Deploy",
+--                         Content = "Đã triển khai thẻ vào độ khó: " .. difficulty,
+--                         Duration = 4,
+--                         Image = "check"
+--                     })
+
+--                     -- Cập nhật lại remainingtime để không deploy lại nữa
+--                     local durationInSeconds = convertDurationToSeconds(data.duration) + 6
+--                     data.remainingtime = durationInSeconds
+--                 else
+--                     -- print("❌ Không thể triển khai vào", difficulty, "do thẻ không hợp lệ hoặc quá yếu.")
+--                 end
+--             end
+
+--             -- Luôn chờ 1 giây mỗi vòng để đảm bảo gửi chậm rãi
+--             task.wait(1)
+--         end
+
+--         print("🔴 AutoDeploy task đã dừng!")
+--         autoDeployTask = nil
+--     end)
+-- end
+
 local function startAutoDeployTask()
     autoDeployTask = task.spawn(function()
         print("🟢 AutoDeploy task đã bắt đầu!")
@@ -591,7 +670,14 @@ local function startAutoDeployTask()
         local deployQueue = {}
 
         while autoDeployEnabled do
-            -- print("🔁 Check...")
+            -- Nếu CLAIM đang hoạt động, chờ 1 giây rồi kiểm tra lại
+            for i = 1, 5 do
+                if i == 2 then
+                    goto continue
+                end
+                print(i)
+                ::continue::
+            end
 
             -- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
             if #deployQueue == 0 then
@@ -599,10 +685,6 @@ local function startAutoDeployTask()
                     if data.remainingtime == "AVAILABLE" then
                         table.insert(deployQueue, difficulty)
                     end
-                end
-
-                if #deployQueue == 0 then
-                    -- print("❌ Không có Exploration nào AVAILABLE")
                 end
             end
 
@@ -631,12 +713,9 @@ local function startAutoDeployTask()
                 end
 
                 if success then
-                    -- game:GetService("ReplicatedStorage"):WaitForChild("kQR"):WaitForChild(
-                    --     "4971f60f-90ff-4142-bf88-5395122136c2"):FireServer(unpack(args))
-
                     game:GetService("ReplicatedStorage"):WaitForChild("JZ0"):WaitForChild(
                         "171e5a3a-8c09-493b-8c8e-c1f2cf4376bd"):FireServer(unpack(args))
-                    task.wait(0.3) -- đợi một chút
+                    task.wait(0.3)
                     print("✅ Deploy sent for", difficulty)
                     Rayfield:Notify({
                         Title = "Auto Deploy",
@@ -645,15 +724,11 @@ local function startAutoDeployTask()
                         Image = "check"
                     })
 
-                    -- Cập nhật lại remainingtime để không deploy lại nữa
                     local durationInSeconds = convertDurationToSeconds(data.duration) + 6
                     data.remainingtime = durationInSeconds
-                else
-                    -- print("❌ Không thể triển khai vào", difficulty, "do thẻ không hợp lệ hoặc quá yếu.")
                 end
             end
 
-            -- Luôn chờ 1 giây mỗi vòng để đảm bảo gửi chậm rãi
             task.wait(1)
         end
 
@@ -698,22 +773,35 @@ local Divider = Exploration:CreateDivider()
 local autoClaimEnabled = false
 local autoClaimTask = nil
 
+-- local function claimMission(info)
+--     local replicatedStorage = game:GetService("ReplicatedStorage")
+--     local args = {info.difficulty:lower()}
+
+--     local claimEvent = replicatedStorage:WaitForChild("JZ0"):WaitForChild("4964b823-bc36-4e56-a57e-8531f145d655")
+--     claimEvent:FireServer(unpack(args))
+
+--     -- task.wait(1)
+--     -- pressKey(Enum.KeyCode.BackSlash)
+--     -- task.wait(0.1) -- đợi một chút
+--     -- pressKey(Enum.KeyCode.Return)
+
+--     print("✅ → Đã claim nhiệm vụ:", info.difficulty)
+--     -- Cập nhật trạng thái nhiệm vụ để tránh claim lại
+--     -- info.remainingtime = "AVAILABLE"
+--     explorationData[info.difficulty].remainingtime = "AVAILABLE"
+-- end
+
 local function claimMission(info)
+    isClaiming = true -- Bắt đầu CLAIM
     local replicatedStorage = game:GetService("ReplicatedStorage")
     local args = {info.difficulty:lower()}
 
     local claimEvent = replicatedStorage:WaitForChild("JZ0"):WaitForChild("4964b823-bc36-4e56-a57e-8531f145d655")
     claimEvent:FireServer(unpack(args))
 
-    -- task.wait(1)
-    -- pressKey(Enum.KeyCode.BackSlash)
-    -- task.wait(0.1) -- đợi một chút
-    -- pressKey(Enum.KeyCode.Return)
-
     print("✅ → Đã claim nhiệm vụ:", info.difficulty)
-    -- Cập nhật trạng thái nhiệm vụ để tránh claim lại
-    -- info.remainingtime = "AVAILABLE"
     explorationData[info.difficulty].remainingtime = "AVAILABLE"
+    isClaiming = false -- Kết thúc CLAIM
 end
 
 local function startAutoClaimTask()
