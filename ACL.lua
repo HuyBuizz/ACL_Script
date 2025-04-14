@@ -672,7 +672,7 @@ local function startAutoDeployTask()
         while autoDeployEnabled do
             -- Nếu CLAIM đang hoạt động, chờ 1 giây rồi kiểm tra lại
             if isClaiming then
-                task.wait(3)
+                task.wait(2)
             else
                 -- Các logic khác ở đây...
             end
