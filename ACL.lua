@@ -329,7 +329,9 @@ local Divider = Main:CreateDivider()
 -- ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
 -- ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
 local HttpService = game:GetService("HttpService")
-local isClaiming = false -- Cờ kiểm soát trạng thái CLAIM
+local isClaiming = false  -- Cờ kiểm soát trạng thái CLAIM
+local isDeploying = false -- Cờ kiểm soát trạng thái Deploy
+
 -- Đọc dữ liệu từ file JSON
 local function loadCardData()
     local filePath = "ACL/DATA/cards_only.json"
@@ -554,60 +556,62 @@ local function startAutoDeployTask()
         local deployQueue = {}
 
         while autoDeployEnabled do
-            -- Nếu CLAIM đang hoạt động, chờ 1 giây rồi kiểm tra lại
-            if isClaiming then
-                task.wait(2)
+            -- Nếu đang Claim hoặc Deploy thì chờ
+            if isClaiming or isDeploying then
+                task.wait(1)
             else
-                -- Các logic khác ở đây...
-            end
-
-            -- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
-            if #deployQueue == 0 then
-                for difficulty, data in pairs(explorationData) do
-                    if data.remainingtime == "AVAILABLE" then
-                        table.insert(deployQueue, difficulty)
+                -- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
+                if #deployQueue == 0 then
+                    for difficulty, data in pairs(explorationData) do
+                        if data.remainingtime == "AVAILABLE" then
+                            table.insert(deployQueue, difficulty)
+                        end
                     end
                 end
-            end
 
-            -- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
-            if #deployQueue > 0 then
-                local difficulty = table.remove(deployQueue, 1)
-                local data = explorationData[difficulty]
-                local success = true
-                local difficultyKey = string.lower(difficulty)
-                local minRequired = minimumRequired[difficultyKey]
-                local args = { difficultyKey, {} }
+                -- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
+                if #deployQueue > 0 and not isDeploying then
+                    isDeploying = true
 
-                for i = 1, 4 do
-                    local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
-                    local name = formatCardName(rawName)
-                    local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
-                    local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
-                    local denom = getDenominator(fullId)
+                    local difficulty = table.remove(deployQueue, 1)
+                    local data = explorationData[difficulty]
+                    local success = true
+                    local difficultyKey = string.lower(difficulty)
+                    local minRequired = minimumRequired[difficultyKey]
+                    local args = { difficultyKey, {} }
 
-                    if denom == 0 or denom < minRequired then
-                        success = false
-                        break
+                    for i = 1, 4 do
+                        local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
+                        local name = formatCardName(rawName)
+                        local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
+                        local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
+                        local denom = getDenominator(fullId)
+
+                        if denom == 0 or denom < minRequired then
+                            success = false
+                            break
+                        end
+
+                        table.insert(args[2], fullId)
                     end
 
-                    table.insert(args[2], fullId)
-                end
+                    if success then
+                        game:GetService("ReplicatedStorage"):WaitForChild("JZ0"):WaitForChild(
+                            "171e5a3a-8c09-493b-8c8e-c1f2cf4376bd"):FireServer(unpack(args))
+                        task.wait(0.3)
+                        print("✅ Deploy sent for", difficulty)
+                        Rayfield:Notify({
+                            Title = "Auto Deploy",
+                            Content = "Đã triển khai thẻ vào độ khó: " .. difficulty,
+                            Duration = 4,
+                            Image = "check"
+                        })
 
-                if success then
-                    game:GetService("ReplicatedStorage"):WaitForChild("JZ0"):WaitForChild(
-                        "171e5a3a-8c09-493b-8c8e-c1f2cf4376bd"):FireServer(unpack(args))
-                    task.wait(0.3)
-                    print("✅ Deploy sent for", difficulty)
-                    Rayfield:Notify({
-                        Title = "Auto Deploy",
-                        Content = "Đã triển khai thẻ vào độ khó: " .. difficulty,
-                        Duration = 4,
-                        Image = "check"
-                    })
+                        local durationInSeconds = convertDurationToSeconds(data.duration) + 6
+                        data.remainingtime = durationInSeconds
+                    end
 
-                    local durationInSeconds = convertDurationToSeconds(data.duration) + 6
-                    data.remainingtime = durationInSeconds
+                    isDeploying = false
                 end
             end
 
