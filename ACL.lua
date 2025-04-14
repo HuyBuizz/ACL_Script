@@ -105,7 +105,38 @@ local function pressKey(keyCode)
     vim:SendKeyEvent(false, keyCode, false, game)
 end
 
+--/////////////////////////////////////////////////////////////////////////////
+local function startRewardUICheck()
+    local player = game:GetService('Players').LocalPlayer
+    local playerGui = player:WaitForChild('PlayerGui')
+    local vim = game:GetService('VirtualInputManager')
 
+    local function pressKey(keyCode)
+        vim:SendKeyEvent(true, keyCode, false, game)
+        task.wait(0.1)
+        vim:SendKeyEvent(false, keyCode, false, game)
+    end
+
+    local lastState = false
+
+    -- Vòng lặp chạy dưới dạng task để không block luồng chính
+    task.spawn(function()
+        while true do
+            local hasUI = playerGui:FindFirstChild('reward-ui') ~= nil
+
+            if hasUI and not lastState then
+                pressKey(Enum.KeyCode.BackSlash)
+                task.wait(0.2)
+                pressKey(Enum.KeyCode.Return)
+                task.wait(0.2)
+            end
+
+            lastState = hasUI
+            task.wait(1)
+        end
+    end)
+end
+startRewardUICheck()
 -- /////////////////////////////////////////////////////////////////////////////
 
 local function OpenExplorationUI()
