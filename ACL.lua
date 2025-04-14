@@ -165,7 +165,8 @@ local function TakeDataExploration()
 
 	-- Truy cập ScrollingFrame
 	local scrollingFrame =
-		Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame.Frame.ScrollingFrame
+		Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame.Frame
+		.ScrollingFrame
 
 	-- Gom các TextButton lại với LayoutOrder
 	local buttonsWithLayer = {}
@@ -361,7 +362,7 @@ local Divider = Main:CreateDivider()
 -- ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
 -- ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
 local HttpService = game:GetService("HttpService")
-local isClaiming = false -- Cờ kiểm soát trạng thái CLAIM
+local isClaiming = false  -- Cờ kiểm soát trạng thái CLAIM
 local isDeploying = false -- Cờ kiểm soát trạng thái Deploy
 
 -- Đọc dữ liệu từ file JSON
@@ -529,7 +530,7 @@ for _, difficulty in ipairs(difficulties) do
 						Duration = 6.5,
 						Image = "AlertCircle", -- Lucide Icon for warning
 					})
-					return -- Dừng lại nếu không tìm thấy cardId
+					return   -- Dừng lại nếu không tìm thấy cardId
 				end
 
 				if denom < minRequired then
@@ -922,8 +923,8 @@ Battle:CreateToggle({
 						task.wait(1) -- chờ 1s cho chắc
 					end
 					local args = { "eternal_dragon" }
-					ReplicatedStorage:WaitForChild("JZ0")
-						:WaitForChild("9efaaa87-7d74-4d63-8466-8bb11b0391ad")
+					ReplicatedStorage:WaitForChild("aJv")
+						:WaitForChild("f8ea5400-f81a-4964-a0a1-c64a18f52f27")
 						:FireServer(unpack(args))
 					task.wait(5)
 				end
@@ -947,8 +948,8 @@ Battle:CreateToggle({
 						task.wait(1)
 					end
 					local args = { "shadow_dragon" }
-					ReplicatedStorage:WaitForChild("JZ0")
-						:WaitForChild("9efaaa87-7d74-4d63-8466-8bb11b0391ad")
+					ReplicatedStorage:WaitForChild("aJv")
+						:WaitForChild("f8ea5400-f81a-4964-a0a1-c64a18f52f27")
 						:FireServer(unpack(args))
 					task.wait(5)
 				end
@@ -973,9 +974,10 @@ Battle:CreateToggle({
 					end
 
 					local args = { "nightmare_tower" }
-					ReplicatedStorage:WaitForChild("JZ0")
-						:WaitForChild("8979e7ea-9775-4c4c-8568-ceac4fe26b11")
+					ReplicatedStorage:WaitForChild("aJv")
+						:WaitForChild("67d0dfdd-f5a4-4eb6-a985-fe9e03e6e245")
 						:FireServer(unpack(args))
+
 					task.wait(5)
 				end
 			end)
@@ -997,9 +999,11 @@ Battle:CreateToggle({
 						equipDeck(deckSelections.tower)
 						task.wait(1)
 					end
-					ReplicatedStorage:WaitForChild("kQR")
-						:WaitForChild("60ed7d69-2cac-467c-9695-6ab3e77159b9")
-						:FireServer()
+					local args = { "infinite_tower" }
+					ReplicatedStorage:WaitForChild("aJv")
+						:WaitForChild("67d0dfdd-f5a4-4eb6-a985-fe9e03e6e245")
+						:FireServer(unpack(args))
+
 					task.wait(5)
 				end
 			end)
