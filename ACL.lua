@@ -671,12 +671,10 @@ local function startAutoDeployTask()
 
         while autoDeployEnabled do
             -- Nếu CLAIM đang hoạt động, chờ 1 giây rồi kiểm tra lại
-            for i = 1, 5 do
-                if i == 2 then
-                    goto continue
-                end
-                print(i)
-                ::continue::
+            if isClaiming then
+                task.wait(1)
+            else
+                -- Các logic khác ở đây...
             end
 
             -- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
