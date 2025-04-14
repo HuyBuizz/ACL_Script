@@ -106,37 +106,37 @@ local function pressKey(keyCode)
 end
 
 --/////////////////////////////////////////////////////////////////////////////
-local function startRewardUICheck()
-	local player = game:GetService("Players").LocalPlayer
-	local playerGui = player:WaitForChild("PlayerGui")
-	local vim = game:GetService("VirtualInputManager")
+-- local function startRewardUICheck()
+-- 	local player = game:GetService("Players").LocalPlayer
+-- 	local playerGui = player:WaitForChild("PlayerGui")
+-- 	local vim = game:GetService("VirtualInputManager")
 
-	local function pressKey(keyCode)
-		vim:SendKeyEvent(true, keyCode, false, game)
-		task.wait(0.1)
-		vim:SendKeyEvent(false, keyCode, false, game)
-	end
+-- 	local function pressKey(keyCode)
+-- 		vim:SendKeyEvent(true, keyCode, false, game)
+-- 		task.wait(0.1)
+-- 		vim:SendKeyEvent(false, keyCode, false, game)
+-- 	end
 
-	local lastState = false
+-- 	local lastState = false
 
-	-- Vòng lặp chạy dưới dạng task để không block luồng chính
-	task.spawn(function()
-		while true do
-			local hasUI = playerGui:FindFirstChild("reward-ui") ~= nil
+-- 	-- Vòng lặp chạy dưới dạng task để không block luồng chính
+-- 	task.spawn(function()
+-- 		while true do
+-- 			local hasUI = playerGui:FindFirstChild("reward-ui") ~= nil
 
-			if hasUI and not lastState then
-				pressKey(Enum.KeyCode.BackSlash)
-				task.wait(0.2)
-				pressKey(Enum.KeyCode.Return)
-				task.wait(0.2)
-			end
+-- 			if hasUI and not lastState then
+-- 				pressKey(Enum.KeyCode.BackSlash)
+-- 				task.wait(0.2)
+-- 				pressKey(Enum.KeyCode.Return)
+-- 				task.wait(0.2)
+-- 			end
 
-			lastState = hasUI
-			task.wait(1)
-		end
-	end)
-end
-startRewardUICheck()
+-- 			lastState = hasUI
+-- 			task.wait(1)
+-- 		end
+-- 	end)
+-- end
+-- startRewardUICheck()
 -- /////////////////////////////////////////////////////////////////////////////
 
 local function OpenExplorationUI()
@@ -967,35 +967,6 @@ Battle:CreateToggle({
 		if Value then
 			task.spawn(function()
 				while isAutoTower do
-					local Players = game:GetService("Players")
-					local player = Players.LocalPlayer
-					local playerGui = player:WaitForChild("PlayerGui")
-					local summaryGui = playerGui:FindFirstChild("infinite-tower-floor-summary")
-					if summaryGui then
-						-- Tìm TextLabel trong TextButton
-						local textButton = summaryGui:FindFirstChild("Transition", true)
-							and summaryGui.Transition:FindFirstChild("Frame", true)
-							and summaryGui.Transition.Frame.Frame:GetChildren()[2]
-							and summaryGui.Transition.Frame.Frame:GetChildren()[2].Frame
-							and summaryGui.Transition.Frame.Frame:GetChildren()[2].Frame.Frame:GetChildren()[7]
-							and summaryGui.Transition.Frame.Frame
-								:GetChildren()[2].Frame.Frame
-								:GetChildren()[7]
-								:FindFirstChild("TextButton")
-
-						if textButton and textButton:FindFirstChild("TextLabel") then
-							local textLabel = textButton.TextLabel
-							if textLabel.Text == "RESTART" then
-								pressKey(Enum.KeyCode.BackSlash)
-								task.wait(0.1) -- đợi một chút
-								pressKey(Enum.KeyCode.Return)
-							else
-							end
-						else
-						end
-					else
-					end
-
 					if isAutoDeck then
 						equipDeck(deckSelections.nightmare)
 						task.wait(1)
