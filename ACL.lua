@@ -680,11 +680,47 @@ local function claimMission(info)
     claimEvent:FireServer(unpack(args))
 
     print("✅ → Đã claim nhiệm vụ:", info.difficulty)
-    task.wait(2)
     explorationData[info.difficulty].remainingtime = "AVAILABLE"
     task.wait(1)
     isClaiming = false -- Kết thúc CLAIM
 end
+
+-- local function startAutoClaimTask()
+--     if autoClaimTask then
+--         return
+--     end
+
+--     autoClaimTask = task.spawn(function()
+--         print("🟢 AutoClaim task đã bắt đầu!")
+
+--         local claimQueue = {}
+
+--         while autoClaimEnabled do
+--             -- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
+--             if #claimQueue == 0 then
+--                 for _, info in pairs(explorationData) do
+--                     if info.remainingtime == "READY TO CLAIM" then
+--                         table.insert(claimQueue, info)
+--                     end
+--                 end
+--                 if #claimQueue == 0 then
+--                     -- print("❌ Không có nhiệm vụ nào READY TO CLAIM.")
+--                 end
+--             end
+
+--             -- Nếu có nhiệm vụ trong hàng đợi thì claim từng cái một
+--             if #claimQueue > 0 then
+--                 local info = table.remove(claimQueue, 1)
+--                 claimMission(info)
+--             end
+
+--             task.wait(1) -- Delay để tránh spam server
+--         end
+
+--         print("🔴 AutoClaim task đã dừng!")
+--         autoClaimTask = nil
+--     end)
+-- end
 
 local function startAutoClaimTask()
     if autoClaimTask then
@@ -694,28 +730,23 @@ local function startAutoClaimTask()
     autoClaimTask = task.spawn(function()
         print("🟢 AutoClaim task đã bắt đầu!")
 
-        local claimQueue = {}
-
         while autoClaimEnabled do
-            -- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
-            if #claimQueue == 0 then
-                for _, info in pairs(explorationData) do
-                    if info.remainingtime == "READY TO CLAIM" then
-                        table.insert(claimQueue, info)
-                    end
-                end
-                if #claimQueue == 0 then
-                    -- print("❌ Không có nhiệm vụ nào READY TO CLAIM.")
+            local claimQueue = {}
+
+            -- Quét dữ liệu để tìm các nhiệm vụ "READY TO CLAIM"
+            for _, info in pairs(explorationData) do
+                if info.remainingtime == "READY TO CLAIM" then
+                    table.insert(claimQueue, info)
                 end
             end
 
-            -- Nếu có nhiệm vụ trong hàng đợi thì claim từng cái một
-            if #claimQueue > 0 then
-                local info = table.remove(claimQueue, 1)
-                claimMission(info)
+            -- Xử lý từng nhiệm vụ trong hàng đợi
+            for _, info in ipairs(claimQueue) do
+                claimMission(info) -- Gọi hàm claimMission để xử lý nhiệm vụ
+                task.wait(2) -- Thêm delay giữa các lần claim để tránh spam server
             end
 
-            task.wait(1) -- Delay để tránh spam server
+            task.wait(1) -- Delay để tránh quét liên tục
         end
 
         print("🔴 AutoClaim task đã dừng!")
