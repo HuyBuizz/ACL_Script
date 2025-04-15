@@ -469,7 +469,7 @@ for _, difficulty in ipairs(difficulties) do
 		table.insert(
 			cardInputs,
 			Exploration:CreateInput({
-				Name = "🃏 Card " .. i .. " Name",
+				Name = "🃏 Card " .. i .. " Name (" .. difficulty .. ")",
 				PlaceholderText = "Enter card name",
 				RemoveTextAfterFocusLost = false,
 				Callback = function(value)
@@ -481,7 +481,7 @@ for _, difficulty in ipairs(difficulties) do
 		table.insert(
 			rarityDropdowns,
 			Exploration:CreateDropdown({
-				Name = "↘️ Card " .. i .. " Rarity",
+				Name = "↘️ Card " .. i .. " Rarity (" .. difficulty .. ")",
 				Options = rarities,
 				CurrentOption = { "basic" },
 				MultipleOptions = false,
@@ -547,9 +547,7 @@ for _, difficulty in ipairs(difficulties) do
 				table.insert(args[2], fullId)
 			end
 
-			game:GetService("ReplicatedStorage")
-				:WaitForChild("JZ0")
-				:WaitForChild("171e5a3a-8c09-493b-8c8e-c1f2cf4376bd")
+			game:GetService("ReplicatedStorage"):WaitForChild("aJv"):WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
 				:FireServer(unpack(args))
 
 			print("✅ Deploy sent for", difficulty)
@@ -638,10 +636,8 @@ local function startAutoDeployTask()
 					end
 
 					if success then
-						game:GetService("ReplicatedStorage")
-							:WaitForChild("JZ0")
-							:WaitForChild("171e5a3a-8c09-493b-8c8e-c1f2cf4376bd")
-							:FireServer(unpack(args))
+						game:GetService("ReplicatedStorage"):WaitForChild("aJv"):WaitForChild(
+							"7e218913-87f3-4a0c-8337-ce1c31634afc"):FireServer(unpack(args))
 						task.wait(0.3)
 						print("✅ Deploy sent for", difficulty)
 						Rayfield:Notify({
@@ -708,7 +704,8 @@ local function claimMission(info)
 	local replicatedStorage = game:GetService("ReplicatedStorage")
 	local args = { info.difficulty:lower() }
 
-	local claimEvent = replicatedStorage:WaitForChild("JZ0"):WaitForChild("4964b823-bc36-4e56-a57e-8531f145d655")
+	local claimEvent = replicatedStorage:WaitForChild("aJv"):WaitForChild("dd4222d2-9feb-4f65-9937-16b4df7f81a3")
+
 	claimEvent:FireServer(unpack(args))
 
 	print("✅ → Đã claim nhiệm vụ:", info.difficulty)
