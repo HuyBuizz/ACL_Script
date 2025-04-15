@@ -574,6 +574,7 @@ local Paragraph = Exploration:CreateParagraph({
 -- Tạo Toggle cho Auto Deploy
 local autoDeployEnabled = false
 local autoDeployTask = nil
+local isClaimingAll = false
 
 -- Hàm chuyển đổi thời gian từ định dạng "6h", "2d", "5m" thành giây
 local function convertDurationToSeconds(duration)
@@ -592,6 +593,82 @@ local function convertDurationToSeconds(duration)
 	return (days * 24 * 3600) + (hours * 3600) + (minutes * 60)
 end
 
+-- local function startAutoDeployTask()
+-- 	autoDeployTask = task.spawn(function()
+-- 		print("🟢 AutoDeploy task has started!")
+
+-- 		local deployQueue = {}
+
+-- 		while autoDeployEnabled do
+-- 			-- Nếu đang Claim hoặc Deploy thì chờ
+-- 			if isClaiming or isDeploying then
+-- 				task.wait(1)
+-- 			else
+-- 				-- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
+-- 				if #deployQueue == 0 then
+-- 					for difficulty, data in pairs(explorationData) do
+-- 						if data.remainingtime == "AVAILABLE" then
+-- 							table.insert(deployQueue, difficulty)
+-- 						end
+-- 					end
+-- 				end
+
+-- 				-- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
+-- 				if #deployQueue > 0 and not isDeploying then
+-- 					isDeploying = true
+
+-- 					local difficulty = table.remove(deployQueue, 1)
+-- 					local data = explorationData[difficulty]
+-- 					local success = true
+-- 					local difficultyKey = string.lower(difficulty)
+-- 					local minRequired = minimumRequired[difficultyKey]
+-- 					local args = { difficultyKey, {} }
+
+-- 					for i = 1, 4 do
+-- 						local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
+-- 						local name = formatCardName(rawName)
+-- 						local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
+-- 						local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
+-- 						local denom = getDenominator(fullId)
+
+-- 						if denom == 0 or denom < minRequired then
+-- 							success = false
+-- 							break
+-- 						end
+
+-- 						table.insert(args[2], fullId)
+-- 					end
+
+-- 					if success then
+-- 						game:GetService("ReplicatedStorage")
+-- 							:WaitForChild("aJv")
+-- 							:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
+-- 							:FireServer(unpack(args))
+-- 						task.wait(0.3)
+-- 						print("✅ Deploy sent for", difficulty)
+-- 						Rayfield:Notify({
+-- 							Title = "Auto Deploy",
+-- 							Content = "Card deployed to difficulty:" .. difficulty,
+-- 							Duration = 4,
+-- 							Image = "check",
+-- 						})
+
+-- 						local durationInSeconds = convertDurationToSeconds(data.duration) + 6
+-- 						data.remainingtime = durationInSeconds
+-- 					end
+
+-- 					isDeploying = false
+-- 				end
+-- 			end
+
+-- 			task.wait(1)
+-- 		end
+
+-- 		print("🔴 AutoDeploy task has stopped!")
+-- 		autoDeployTask = nil
+-- 	end)
+-- end
+
 local function startAutoDeployTask()
 	autoDeployTask = task.spawn(function()
 		print("🟢 AutoDeploy task has started!")
@@ -599,64 +676,69 @@ local function startAutoDeployTask()
 		local deployQueue = {}
 
 		while autoDeployEnabled do
-			-- Nếu đang Claim hoặc Deploy thì chờ
-			if isClaiming or isDeploying then
+			-- Chờ cho đến khi quá trình claim tất cả hoàn tất
+			if isClaimingAll then
 				task.wait(1)
 			else
-				-- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
-				if #deployQueue == 0 then
-					for difficulty, data in pairs(explorationData) do
-						if data.remainingtime == "AVAILABLE" then
-							table.insert(deployQueue, difficulty)
+				-- Nếu đang Claim hoặc Deploy thì chờ
+				if isClaiming or isDeploying then
+					task.wait(1)
+				else
+					-- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
+					if #deployQueue == 0 then
+						for difficulty, data in pairs(explorationData) do
+							if data.remainingtime == "AVAILABLE" then
+								table.insert(deployQueue, difficulty)
+							end
 						end
 					end
-				end
 
-				-- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
-				if #deployQueue > 0 and not isDeploying then
-					isDeploying = true
+					-- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
+					if #deployQueue > 0 and not isDeploying then
+						isDeploying = true
 
-					local difficulty = table.remove(deployQueue, 1)
-					local data = explorationData[difficulty]
-					local success = true
-					local difficultyKey = string.lower(difficulty)
-					local minRequired = minimumRequired[difficultyKey]
-					local args = { difficultyKey, {} }
+						local difficulty = table.remove(deployQueue, 1)
+						local data = explorationData[difficulty]
+						local success = true
+						local difficultyKey = string.lower(difficulty)
+						local minRequired = minimumRequired[difficultyKey]
+						local args = { difficultyKey, {} }
 
-					for i = 1, 4 do
-						local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
-						local name = formatCardName(rawName)
-						local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
-						local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
-						local denom = getDenominator(fullId)
+						for i = 1, 4 do
+							local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
+							local name = formatCardName(rawName)
+							local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
+							local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
+							local denom = getDenominator(fullId)
 
-						if denom == 0 or denom < minRequired then
-							success = false
-							break
+							if denom == 0 or denom < minRequired then
+								success = false
+								break
+							end
+
+							table.insert(args[2], fullId)
 						end
 
-						table.insert(args[2], fullId)
+						if success then
+							game:GetService("ReplicatedStorage")
+								:WaitForChild("aJv")
+								:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
+								:FireServer(unpack(args))
+							task.wait(0.3)
+							print("✅ Deploy sent for", difficulty)
+							Rayfield:Notify({
+								Title = "Auto Deploy",
+								Content = "Card deployed to difficulty:" .. difficulty,
+								Duration = 4,
+								Image = "check",
+							})
+
+							local durationInSeconds = convertDurationToSeconds(data.duration) + 6
+							data.remainingtime = durationInSeconds
+						end
+
+						isDeploying = false
 					end
-
-					if success then
-						game:GetService("ReplicatedStorage")
-							:WaitForChild("aJv")
-							:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
-							:FireServer(unpack(args))
-						task.wait(0.3)
-						print("✅ Deploy sent for", difficulty)
-						Rayfield:Notify({
-							Title = "Auto Deploy",
-							Content = "Card deployed to difficulty:" .. difficulty,
-							Duration = 4,
-							Image = "check",
-						})
-
-						local durationInSeconds = convertDurationToSeconds(data.duration) + 6
-						data.remainingtime = durationInSeconds
-					end
-
-					isDeploying = false
 				end
 			end
 
@@ -719,6 +801,44 @@ local function claimMission(info)
 	isClaiming = false -- Kết thúc CLAIM
 end
 
+-- local function startAutoClaimTask()
+-- 	if autoClaimTask then
+-- 		return
+-- 	end
+
+-- 	autoClaimTask = task.spawn(function()
+-- 		print("🟢 AutoClaim task has started!")
+
+-- 		local claimQueue = {}
+
+-- 		while autoClaimEnabled do
+-- 			if isClaiming or isDeploying then
+-- 				task.wait(2) -- Nếu đang claim thì chờ
+-- 			end
+-- 			-- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
+-- 			if #claimQueue == 0 then
+-- 				for _, info in pairs(explorationData) do
+-- 					if info.remainingtime == "READY TO CLAIM" then
+-- 						table.insert(claimQueue, info)
+-- 					end
+-- 				end
+-- 			end
+
+-- 			-- Nếu có nhiệm vụ trong hàng đợi thì claim từng cái một
+-- 			if #claimQueue > 0 and not isClaiming  then
+-- 				local info = table.remove(claimQueue, 1)
+-- 				claimMission(info)
+-- 				task.wait(0.3) -- Thêm delay giữa các lần claim để tránh spam server
+-- 			end
+
+-- 			task.wait(1) -- Delay để tránh spam server
+-- 		end
+
+-- 		print("🔴 AutoClaim task has stopped!")
+-- 		autoClaimTask = nil
+-- 	end)
+-- end
+
 local function startAutoClaimTask()
 	if autoClaimTask then
 		return
@@ -726,10 +846,15 @@ local function startAutoClaimTask()
 
 	autoClaimTask = task.spawn(function()
 		print("🟢 AutoClaim task has started!")
+		isClaimingAll = true -- Bắt đầu quá trình claim tất cả
 
 		local claimQueue = {}
 
 		while autoClaimEnabled do
+			if isClaiming or isDeploying then
+				task.wait(2) -- Nếu đang claim hoặc deploy thì chờ
+			end
+
 			-- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
 			if #claimQueue == 0 then
 				for _, info in pairs(explorationData) do
@@ -746,6 +871,12 @@ local function startAutoClaimTask()
 				task.wait(0.3) -- Thêm delay giữa các lần claim để tránh spam server
 			end
 
+			-- Nếu không còn nhiệm vụ nào để claim, kết thúc quá trình claim
+			if #claimQueue == 0 then
+				isClaimingAll = false -- Đánh dấu đã claim xong
+				break
+			end
+
 			task.wait(1) -- Delay để tránh spam server
 		end
 
@@ -753,38 +884,6 @@ local function startAutoClaimTask()
 		autoClaimTask = nil
 	end)
 end
-
--- local function startAutoClaimTask()
---     if autoClaimTask then
---         return
---     end
-
---     autoClaimTask = task.spawn(function()
---         print("🟢 AutoClaim task đã bắt đầu!")
-
---         while autoClaimEnabled do
---             local claimQueue = {}
-
---             -- Quét dữ liệu để tìm các nhiệm vụ "READY TO CLAIM"
---             for _, info in pairs(explorationData) do
---                 if info.remainingtime == "READY TO CLAIM" then
---                     table.insert(claimQueue, info)
---                 end
---             end
-
---             -- Xử lý từng nhiệm vụ trong hàng đợi
---             for _, info in ipairs(claimQueue) do
---                 claimMission(info) -- Gọi hàm claimMission để xử lý nhiệm vụ
---                 task.wait(2)       -- Thêm delay giữa các lần claim để tránh spam server
---             end
-
---             task.wait(1) -- Delay để tránh quét liên tục
---         end
-
---         print("🔴 AutoClaim task đã dừng!")
---         autoClaimTask = nil
---     end)
--- end
 
 -- UI
 local Paragraph = Exploration:CreateParagraph({
