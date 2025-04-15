@@ -838,8 +838,7 @@ local deckSelections = {
 -- Hàm equip deck
 local function equipDeck(deckNumber)
 	local args = { tonumber(deckNumber) }
-	-- ReplicatedStorage:WaitForChild("kQR"):WaitForChild("c845550a-9342-4afd-b7e0-5e5fa5a5b845"):FireServer(unpack(args))
-	ReplicatedStorage:WaitForChild("JZ0"):WaitForChild("9174b6a5-c4d5-4bd5-a793-9486b75f6f7f"):FireServer(unpack(args))
+	ReplicatedStorage:WaitForChild("aJv"):WaitForChild("1f17caf8-2507-4b40-860b-fc74e2735d28"):FireServer(unpack(args))
 end
 
 local Paragraph = Battle:CreateParagraph({
