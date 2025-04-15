@@ -78,9 +78,9 @@ local function ExportMinimalCardData()
 
 		if success then
 			writefile(folderPath .. "/" .. fileName, encoded)
-			print("✅ Đã xuất JSON tại:", folderPath .. "/" .. fileName)
+			print("✅ JSON exported at:", folderPath .. "/" .. fileName)
 		else
-			warn("❌ Không thể encode JSON:", encoded)
+			warn("❌ Cannot encode JSON:", encoded)
 		end
 	end
 
@@ -88,7 +88,7 @@ local function ExportMinimalCardData()
 		local minimalData = extractMinimalCardData(cardsModule.Cards)
 		exportToJSON(minimalData, "cards_only.json")
 	else
-		warn("⚠️ Không tìm thấy cardsModule.Cards")
+		warn("⚠️ cardsModule.Cards not found")
 	end
 end
 
@@ -165,8 +165,7 @@ local function TakeDataExploration()
 
 	-- Truy cập ScrollingFrame
 	local scrollingFrame =
-		Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame.Frame
-		.ScrollingFrame
+		Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame.Frame.ScrollingFrame
 
 	-- Gom các TextButton lại với LayoutOrder
 	local buttonsWithLayer = {}
@@ -316,7 +315,8 @@ end
 local Main = Window:CreateTab("MAIN", 4483362458)
 local Paragraph = Main:CreateParagraph({
 	Title = "DATA",
-	Content = "Lấy dữ liệu về EXPLORATION.",
+	Content = "Retrieve Exploration Data. \n"
+		.. "‼️ Click the button below to get data (if not already available).",
 })
 local Button = Main:CreateButton({
 	Name = "Take Data Exploration",
@@ -330,7 +330,7 @@ local Button = Main:CreateButton({
 
 task.spawn(function()
 	task.wait(1)
-	print("🔄 Đang tự động lấy dữ liệu Exploration...")
+	print("🔄 Automatically retrieving Exploration data...")
 
 	OpenExplorationUI()
 
@@ -340,7 +340,7 @@ task.spawn(function()
 
 	task.spawn(UpdateRemainingTime)
 
-	print("✅ Dữ liệu Exploration đã được lấy tự động.")
+	print("✅ Exploration data has been retrieved automatically.")
 end)
 
 local Divider = Main:CreateDivider()
@@ -362,7 +362,7 @@ local Divider = Main:CreateDivider()
 -- ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
 -- ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
 local HttpService = game:GetService("HttpService")
-local isClaiming = false  -- Cờ kiểm soát trạng thái CLAIM
+local isClaiming = false -- Cờ kiểm soát trạng thái CLAIM
 local isDeploying = false -- Cờ kiểm soát trạng thái Deploy
 
 -- Đọc dữ liệu từ file JSON
@@ -372,7 +372,7 @@ local function loadCardData()
 		local jsonContent = readfile(filePath)
 		return HttpService:JSONDecode(jsonContent)
 	else
-		warn("❌ Không tìm thấy file cards_only.json")
+		warn("❌ File cards_only.json not found.")
 		return {}
 	end
 end
@@ -407,7 +407,7 @@ local Exploration = Window:CreateTab("EXPLORATION", 4483362458)
 
 local ParagraphInfo = Exploration:CreateParagraph({
 	Title = "📊 INFORMATION",
-	Content = "🔄 Loading data...",
+	Content = "🔄 Loading Data...",
 })
 
 -- Hàm chuyển đổi thời gian từ giây sang định dạng h m s
@@ -446,9 +446,10 @@ local function UpdateParagraphInfo()
 end
 
 local Paragraph = Exploration:CreateParagraph({
-	Title = "DELOY",
-	Content = "Deploy thẻ vào từng độ khó tương ứng.",
+	Title = "DEPLOY",
+	Content = "Deploy Cards Into Their Corresponding Difficulties.",
 })
+local Divider = Exploration:CreateDivider()
 
 local difficulties = { "EASY", "MEDIUM", "HARD", "EXTREME", "NIGHTMARE" }
 local rarities = { "basic", "gold", "rainbow", "secret" }
@@ -499,7 +500,7 @@ for _, difficulty in ipairs(difficulties) do
 	end
 
 	Exploration:CreateButton({
-		Name = "Deploy to " .. difficulty,
+		Name = "🚀 Deploy to " .. difficulty,
 		Callback = function()
 			local difficultyKey = string.lower(difficulty)
 			local minRequired = minimumRequired[difficultyKey]
@@ -530,14 +531,14 @@ for _, difficulty in ipairs(difficulties) do
 						Duration = 6.5,
 						Image = "AlertCircle", -- Lucide Icon for warning
 					})
-					return   -- Dừng lại nếu không tìm thấy cardId
+					return -- Dừng lại nếu không tìm thấy cardId
 				end
 
 				if denom < minRequired then
 					-- warn("⚠️ Thẻ '" .. fullId .. "' không đủ sức mạnh để deploy vào " .. difficulty)
 					Rayfield:Notify({
 						Title = "Not Enough Denom",
-						Content = "Thẻ '" .. fullId .. "' không đủ sức mạnh để deploy vào " .. difficulty,
+						Content = "Card '" .. fullId .. "' does not have enough power to deploy into " .. difficulty,
 						Duration = 6.5,
 						Image = "triangle-alert",
 					})
@@ -547,7 +548,9 @@ for _, difficulty in ipairs(difficulties) do
 				table.insert(args[2], fullId)
 			end
 
-			game:GetService("ReplicatedStorage"):WaitForChild("aJv"):WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
+			game:GetService("ReplicatedStorage")
+				:WaitForChild("aJv")
+				:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
 				:FireServer(unpack(args))
 
 			print("✅ Deploy sent for", difficulty)
@@ -565,7 +568,7 @@ end
 -- ░█─░█ ─▀▄▄▀ ─░█── ░█▄▄▄█ 　 ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
 local Paragraph = Exploration:CreateParagraph({
 	Title = "AUTO DELOY",
-	Content = "Tự động triển khai thẻ vào từng độ khó tương ứng.",
+	Content = "Automatically deploy cards into their corresponding difficulties.",
 })
 
 -- Tạo Toggle cho Auto Deploy
@@ -591,7 +594,7 @@ end
 
 local function startAutoDeployTask()
 	autoDeployTask = task.spawn(function()
-		print("🟢 AutoDeploy task đã bắt đầu!")
+		print("🟢 AutoDeploy task has started!")
 
 		local deployQueue = {}
 
@@ -636,13 +639,15 @@ local function startAutoDeployTask()
 					end
 
 					if success then
-						game:GetService("ReplicatedStorage"):WaitForChild("aJv"):WaitForChild(
-							"7e218913-87f3-4a0c-8337-ce1c31634afc"):FireServer(unpack(args))
+						game:GetService("ReplicatedStorage")
+							:WaitForChild("aJv")
+							:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
+							:FireServer(unpack(args))
 						task.wait(0.3)
 						print("✅ Deploy sent for", difficulty)
 						Rayfield:Notify({
 							Title = "Auto Deploy",
-							Content = "Đã triển khai thẻ vào độ khó: " .. difficulty,
+							Content = "Card deployed to difficulty:" .. difficulty,
 							Duration = 4,
 							Image = "check",
 						})
@@ -658,7 +663,7 @@ local function startAutoDeployTask()
 			task.wait(1)
 		end
 
-		print("🔴 AutoDeploy task đã dừng!")
+		print("🔴 AutoDeploy task has stopped!")
 		autoDeployTask = nil
 	end)
 end
@@ -669,19 +674,19 @@ Exploration:CreateToggle({
 	CurrentValue = false,
 	Callback = function(state)
 		autoDeployEnabled = state
-		print("⚙️ AutoDeploy hiện tại:", autoDeployEnabled and "🟢 BẬT" or "🔴 TẮT")
-
+		-- print("⚙️ AutoDeploy hiện tại:", autoDeployEnabled and "🟢 BẬT" or "🔴 TẮT")
+		print("⚙️ Current AutoDeploy:", autoDeployEnabled and "🟢 ON" or "🔴 OFF")
 		if autoDeployEnabled then
 			-- Kiểm tra xem có dữ liệu exploration không và bắt đầu auto deploy task
 			if next(explorationData) ~= nil then
 				startAutoDeployTask()
 			else
-				print("❌ Không có dữ liệu exploration. Không thể triển khai tự động.")
+				print("❌ No exploration data found. Cannot auto deploy.")
 			end
 		else
 			-- Dừng auto deploy nếu tắt toggle
 			if autoDeployTask then
-				print("🛑 Tắt AutoDeploy.")
+				print("🛑 AutoDeploy turned off.")
 				autoDeployEnabled = false
 				task.cancel(autoDeployTask)
 				autoDeployTask = nil
@@ -708,7 +713,7 @@ local function claimMission(info)
 
 	claimEvent:FireServer(unpack(args))
 
-	print("✅ → Đã claim nhiệm vụ:", info.difficulty)
+	print("✅ → Exploration claimed:", info.difficulty)
 	explorationData[info.difficulty].remainingtime = "AVAILABLE"
 	task.wait(1)
 	isClaiming = false -- Kết thúc CLAIM
@@ -720,7 +725,7 @@ local function startAutoClaimTask()
 	end
 
 	autoClaimTask = task.spawn(function()
-		print("🟢 AutoClaim task đã bắt đầu!")
+		print("🟢 AutoClaim task has started!")
 
 		local claimQueue = {}
 
@@ -744,7 +749,7 @@ local function startAutoClaimTask()
 			task.wait(1) -- Delay để tránh spam server
 		end
 
-		print("🔴 AutoClaim task đã dừng!")
+		print("🔴 AutoClaim task has stopped!")
 		autoClaimTask = nil
 	end)
 end
@@ -784,7 +789,7 @@ end
 -- UI
 local Paragraph = Exploration:CreateParagraph({
 	Title = "AUTO CLAIM",
-	Content = "Tự động claim phần thưởng nhiệm vụ.",
+	Content = "Automatically claim exploration rewards.",
 })
 
 Exploration:CreateToggle({
@@ -792,7 +797,7 @@ Exploration:CreateToggle({
 	CurrentValue = false,
 	Callback = function(Value)
 		autoClaimEnabled = Value
-		print("⚙️ AutoClaim hiện tại:", autoClaimEnabled and "🟢 BẬT" or "🔴 TẮT")
+		print("⚙️ Current AutoClaim:", autoClaimEnabled and "🟢 ON" or "🔴 OFF")
 		if autoClaimEnabled then
 			startAutoClaimTask()
 		end
@@ -840,12 +845,12 @@ end
 
 local Paragraph = Battle:CreateParagraph({
 	Title = "AUTO DECK",
-	Content = "Tự động trang bị deck cho từng chế độ.\n⚠️Chọn deck cho mỗi chế độ tại SELECT DECK.",
+	Content = "Automatically equip deck for each mode.\n⚠️ Select a deck for each mode at SELECT DECK.",
 })
 
 -- AUTO DECK Toggle
 Battle:CreateToggle({
-	Name = "AUTO DECK",
+	Name = "🔄 Auto Deck",
 	CurrentValue = false,
 	Flag = "ToggleAutoDeck",
 	Callback = function(Value)
@@ -856,7 +861,7 @@ Battle:CreateToggle({
 local Divider = Battle:CreateDivider()
 local Paragraph = Battle:CreateParagraph({
 	Title = "SELECT DECK",
-	Content = "Chọn deck cho từng chế độ.\n⚠️ Để sử dụng hãy bật AUTO DECK.",
+	Content = "Select a deck for each mode.\n⚠️ To use, please turn on AUTO DECK.",
 })
 
 -- Deck Dropdowns
@@ -901,7 +906,7 @@ Battle.Dropdowns["INFINITY TOWER"] = Battle:CreateDropdown({
 local Divider = Battle:CreateDivider()
 local Paragraph = Battle:CreateParagraph({
 	Title = "AUTO BATTLE",
-	Content = "Tự động chiến đấu với các chế độ.",
+	Content = "⚔️ Automatically fight in the modes.",
 })
 
 -- AUTO ETERNAL DRAGON
@@ -1040,7 +1045,7 @@ end
 -- Trả về đường dẫn đầy đủ đến file JSON
 local function getFilePath(fileName)
 	if type(fileName) ~= "string" or fileName == "" then
-		warn("⚠️ Tên file không hợp lệ:", fileName)
+		warn("⚠️ Invalid file name:", fileName)
 		return nil
 	end
 	return configFolder .. "/" .. fileName .. ".json"
@@ -1049,7 +1054,7 @@ end
 -- Hàm lấy dữ liệu từ InputCards (Input và Dropdown)
 local function getInputCardsData(deployInputs)
 	if type(deployInputs) ~= "table" then
-		warn("⚠️ deployInputs không hợp lệ. Phải là một bảng.")
+		warn("⚠️ deployInputs is invalid. It must be a table.")
 		return {}
 	end
 
@@ -1086,7 +1091,7 @@ end
 local function saveJSON(fileName, deployInputs)
 	local path = getFilePath(fileName)
 	if not path then
-		warn("❌ Không thể lưu file vì đường dẫn không hợp lệ.")
+		warn("❌ Cannot save file because the path is invalid.")
 		return
 	end
 
@@ -1098,7 +1103,7 @@ local function saveJSON(fileName, deployInputs)
 	}
 
 	writefile(path, HttpService:JSONEncode(wrappedData))
-	print("📁 File đã được lưu tại:", path)
+	print("📁 File has been saved at:", path)
 end
 
 -- Hàm đọc JSON
@@ -1146,7 +1151,7 @@ local function loadJSON(fileName, deployInputs)
 			end
 		end
 
-		print("✅ Đã load config:", fileName)
+		print("✅ Config loaded:", fileName)
 		return rawData
 	end
 	return nil
@@ -1177,12 +1182,12 @@ end
 local Config = Window:CreateTab("CONFIG", 4483362458)
 
 local Paragraph = Config:CreateParagraph({
-	Title = "TẠO MỚI CONFIG",
-	Content = "Nhập tên và tạo mới config.\n⚠️ Tên config không được trùng lặp với các config đã có.",
+	Title = "CREATE NEW CONFIG",
+	Content = "Enter a name and create a new config.\n⚠️ Config name must not duplicate existing configs.",
 })
 
 Config:CreateInput({
-	Name = "Nhập tên Config mới",
+	Name = "Enter new Config name",
 	PlaceholderText = "VD: fireteam_alpha",
 	RemoveTextAfterFocusLost = false,
 	Callback = function(Value)
@@ -1191,10 +1196,10 @@ Config:CreateInput({
 })
 
 Config:CreateButton({
-	Name = "🆕 Tạo Config Mới",
+	Name = "🆕 Create New Config",
 	Callback = function()
 		if not newConfigName or newConfigName == "" then
-			warn("⚠️ Vui lòng nhập tên config!")
+			warn("⚠️ Please enter a config name!")
 			return
 		end
 
@@ -1220,8 +1225,8 @@ Config:CreateButton({
 		saveJSON(newConfigName, deployInputs)
 
 		Rayfield:Notify({
-			Title = "✅ Tạo Thành Công",
-			Content = "Đã tạo config: " .. newConfigName,
+			Title = "✅ Created Successfully",
+			Content = "Config created: " .. newConfigName,
 			Duration = 3,
 		})
 
@@ -1231,12 +1236,12 @@ Config:CreateButton({
 
 local Divider = Config:CreateDivider()
 local Paragraph = Config:CreateParagraph({
-	Title = "QUẢN LÝ CONFIG",
-	Content = "Chọn config để lưu, load hoặc xoá.",
+	Title = "CONFIG MANAGEMENT",
+	Content = "Select a config to save, load, or delete.",
 })
 
 configDropdown = Config:CreateDropdown({
-	Name = "📂 Chọn Config",
+	Name = "📂 Select Config",
 	Options = listConfigFiles(),
 	CurrentOption = nil,
 	Image = "folder",
@@ -1246,25 +1251,25 @@ configDropdown = Config:CreateDropdown({
 		elseif type(Value) == "string" then
 			selectedConfig = Value
 		else
-			warn("⚠️ Giá trị không hợp lệ từ dropdown:", typeof(Value))
+			warn("⚠️ Invalid value from dropdown:", typeof(Value))
 			selectedConfig = nil
 		end
 	end,
 })
 
 Config:CreateButton({
-	Name = "💾 Lưu Config",
+	Name = "💾 Save Config",
 	Callback = function()
 		if not selectedConfig then
-			warn("⚠️ Chưa chọn config để lưu!")
+			warn("⚠️ No config selected to save!")
 			return
 		end
 
 		saveJSON(selectedConfig, deployInputs)
 
 		Rayfield:Notify({
-			Title = "✅ Đã Lưu",
-			Content = "Đã lưu config: " .. selectedConfig,
+			Title = "✅ Saved",
+			Content = "Config saved: " .. selectedConfig,
 			Duration = 3,
 			Image = "download",
 		})
@@ -1272,18 +1277,18 @@ Config:CreateButton({
 })
 
 Config:CreateButton({
-	Name = "🗑️ Xoá Config",
+	Name = "🗑️ Delete Config",
 	Callback = function()
 		if not selectedConfig then
-			warn("⚠️ Chưa chọn config để xoá!")
+			warn("⚠️ No config selected to delete!")
 			return
 		end
 
 		deleteJSON(selectedConfig)
 
 		Rayfield:Notify({
-			Title = "🗑️ Đã Xoá",
-			Content = "Đã xoá config: " .. selectedConfig,
+			Title = "🗑️ Deleted",
+			Content = "Config deleted: " .. selectedConfig,
 			Duration = 3,
 			Image = "eraser",
 		})
@@ -1296,15 +1301,15 @@ Config:CreateButton({
 	Name = "📥 Load Config",
 	Callback = function()
 		if not selectedConfig then
-			warn("⚠️ Chưa chọn config để load!")
+			warn("⚠️ No config selected to load!")
 			return
 		end
 
 		loadJSON(selectedConfig, deployInputs)
 
 		Rayfield:Notify({
-			Title = "✅ Đã Load",
-			Content = "Config đã được áp dụng.",
+			Title = "✅ Loaded",
+			Content = "Config has been applied.",
 			Duration = 3,
 			Image = "upload",
 		})
@@ -1321,7 +1326,7 @@ local afkConnection = nil
 -- Rayfield UI Section
 local Paragraph = Config:CreateParagraph({
 	Title = "ANTI AFK",
-	Content = "Ngăn bị kick khi không hoạt động.",
+	Content = "Prevents being kicked for inactivity.",
 })
 
 Config:CreateToggle({
@@ -1329,23 +1334,23 @@ Config:CreateToggle({
 	CurrentValue = false,
 	Callback = function(state)
 		antiAfkEnabled = state
-		print("⚙️ Anti-AFK hiện tại:", antiAfkEnabled and "🟢 BẬT" or "🔴 TẮT")
+		print("⚙️ Current Anti-AFK:", antiAfkEnabled and "🟢 ON" or "🔴 OFF")
 
 		if antiAfkEnabled then
 			afkConnection = Players.LocalPlayer.Idled:Connect(function()
-				print("⚠️ Bị phát hiện AFK, đang xử lý...")
+				print("⚠️ AFK detected, processing...")
 
 				VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 				task.wait(1)
 				VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
 
-				print("✅ Đã gửi tín hiệu giữ hoạt động.")
+				print("✅ Activity signal sent.")
 			end)
 		else
 			if afkConnection then
 				afkConnection:Disconnect()
 				afkConnection = nil
-				print("🛑 Đã tắt Anti-AFK.")
+				print("🛑 Anti-AFK turned off.")
 			end
 		end
 	end,
