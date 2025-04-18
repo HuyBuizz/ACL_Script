@@ -875,7 +875,7 @@ local function startAutoClaimTask()
 			-- Nếu không còn nhiệm vụ nào để claim, kết thúc quá trình claim
 			if #claimQueue == 0 then
 				isClaimingAll = false -- Đánh dấu đã claim xong
-				break
+				task.wait(2)
 			end
 
 			task.wait(1) -- Delay để tránh spam server
