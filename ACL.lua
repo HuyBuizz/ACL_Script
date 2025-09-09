@@ -1,60 +1,62 @@
 --=============================================================
--- HIEU HUB – ALL-IN-ONE SCRIPT (Clean Structured)
+-- ASTRAL HUB – ALL-IN-ONE (Clean & Structured)
 --  • MAIN (Global Boss)
 --  • AUTO RAID (Boss + Minion + Deck before fight)
 --  • AUTO TOWER (nightmare / potion / base + Deck)
---  • AUTO EXPLORATION (claim → start; per-diff inputs + single-run)
---  • CONFIG (Create/Reload/Save/Load/Delete)
+--  • AUTO EXPLORATION (claim → start; per-difficulty inputs + single-run)
+--  • MISC (Auto Claim, Auto Quest, Anti-AFK)
+--  • CONFIG (Create / Reload / Save / Load / Delete)
 --  • FULL Save/Load: AutoRaid, AutoExploration, AutoTower, GlobalBoss
 --=============================================================
 
 --====================[ Rayfield Window ]====================--
-local Rayfield           = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local Window             = Rayfield:CreateWindow({
-    Name = "Astral HUB",
-    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-    LoadingTitle = "Rayfield Interface Suite",
-    LoadingSubtitle = "by AczTeam",
-    ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
-    Theme = "Default",     -- Check https://docs.sirius.menu/rayfield/configuration/themes
+local Rayfield           = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
-    ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+local Window             = Rayfield:CreateWindow({
+    Name                   = "Astral HUB",
+    Icon                   = 0,
+    LoadingTitle           = "Rayfield Interface Suite",
+    LoadingSubtitle        = "by AczTeam",
+    ShowText               = "Rayfield",
+    Theme                  = "Default",
+    ToggleUIKeybind        = "K",
 
     DisableRayfieldPrompts = false,
-    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+    DisableBuildWarnings   = false,
 
-    ConfigurationSaving = {
-        Enabled = true,
-        FolderName = "AstralHub", -- Create a custom folder for your hub/game
-        FileName = "AstralHub"
+    ConfigurationSaving    = {
+        Enabled    = true,
+        FolderName = "AstralHub",
+        FileName   = "AstralHub"
     },
 
-    Discord = {
-        Enabled = false,         -- Prompt the user to join your Discord server if their executor supports it
-        Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-        RememberJoins = true     -- Set this to false to make them join the discord every time they load it up
+    Discord                = {
+        Enabled       = false,
+        Invite        = "noinvitelink",
+        RememberJoins = true
     },
 
-    KeySystem = true, -- Set this to true to use our key system
-    KeySettings = {
-        Title = "Untitled",
-        Subtitle = "Key System",
-        Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-        FileName = "AstralHubKey",                                    -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-        SaveKey = true,                                      -- The user's key will be saved, but if you change the key, they will be unable to use your script
-        GrabKeyFromSite = false,                             -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-        Key = { "Hello" }                                    -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    KeySystem              = true,
+    KeySettings            = {
+        Title           = "Untitled",
+        Subtitle        = "Key System",
+        Note            = "No method of obtaining the key is provided",
+        FileName        = "AstralHubKey",
+        SaveKey         = true,
+        GrabKeyFromSite = false,
+        Key             = { "Hello" }
     }
 })
 
 --====================[ Services & Remotes ]====================--
 local RS                 = game:GetService("ReplicatedStorage")
 local WS                 = game:GetService("Workspace")
+local Players            = game:GetService("Players")
 local HttpService        = game:GetService("HttpService")
 
 local Net                = RS:WaitForChild("shared/network@eventDefinitions")
 
--- Shared remotes
+-- Shared
 local RE_Forfeit         = Net:WaitForChild("forfeitBattle")
 local RE_SetPartySlot    = Net:WaitForChild("setPartySlot")
 
@@ -70,64 +72,81 @@ local RE_StartExpl       = Net:WaitForChild("startExploration")
 -- Tower (Infinite)
 local RE_ClaimInf        = Net:WaitForChild("claimInfinite")
 local RE_FightInf        = Net:WaitForChild("fightInfinite")
+local RE_PauseInf        = Net:WaitForChild("pauseInfinite")
 
 -- Global Boss (Main)
 local RE_FightGlobal     = Net:WaitForChild("fightGlobalBoss")
 
--- TouchedPickup
+-- Optional
 local RE_TouchPickup     = Net:FindFirstChild("touchedPickup")
 local RE_ClaimDailyQuest = Net:WaitForChild("claimDailyQuest")
 
---====================[ Small Utils ]====================--
+--====================[ Utilities ]====================--
 local function FireSafe(remote, ...)
     if not remote or typeof(remote.FireServer) ~= "function" then
-        -- warn("[HieuHub] Invalid remote:", remote and remote.Name)
         return false
     end
-    local ok, err = pcall(remote.FireServer, remote, ...)
-    if not ok then
-        -- warn("[HieuHub] Remote error", remote.Name, err)
-        return false
-    end
-    return true
+    local ok = pcall(remote.FireServer, remote, ...)
+    return ok
 end
 
 local function Trim(s) return (tostring(s or ""):gsub("^%s+", ""):gsub("%s+$", "")) end
 
---=============================================================
---                          TABS
---=============================================================
+local function notify(title, content, seconds, image)
+    if Rayfield and Rayfield.Notify then
+        Rayfield:Notify({
+            Title = title or "Notification",
+            Content = content or "",
+            Duration = seconds or 4,
+            Image =
+                image or "rewind"
+        })
+    end
+end
+
+-- Orchestrator: quản lý Forfeit khi chuyển tính năng
+local Orchestrator = {
+    skipForfeitOnce = false, -- bỏ qua 1 lần Forfeit tiếp theo
+    skipForfeitUntil = 0,    -- hoặc chặn Forfeit đến mốc thời gian này
+}
+
+local function ForfeitSafe()
+    -- Skip nếu vừa chuyển từ Tower sang tính năng khác
+    if Orchestrator.skipForfeitOnce then
+        Orchestrator.skipForfeitOnce = false
+        return false
+    end
+    -- Cooldown thời gian (tuỳ chọn)
+    if os.clock() < (Orchestrator.skipForfeitUntil or 0) then
+        return false
+    end
+    -- Thực sự forfeit
+    FireSafe(RE_Forfeit)
+    return true
+end
+
+--========================[ TABS ]========================--
 local TabMain            = Window:CreateTab("MAIN", 4483362458)
 local TabAutoRaid        = Window:CreateTab("AUTO RAID", 4483362458)
 local TabAutoTower       = Window:CreateTab("AUTO TOWER", 4483362458)
-local TabAutoExploration = Window:CreateTab("AUTO EXPLORAION", 4483362458)
+local TabAutoExploration = Window:CreateTab("AUTO EXPLORATION", 4483362458)
 local TabMisc            = Window:CreateTab("MISC", 4483362458)
 local TabConfig          = Window:CreateTab("CONFIG", 4483362458)
 
---=============================================================
---                          STATE
---=============================================================
--- AUTO RAID (bosses + minion)
-local BossAutos          = {} -- key -> {enabled, interval, postTeleportWait, bossId, raidName, isMinion?, deckSlot, toggleRef, deckDropdownRef}
+--========================[ STATE ]========================--
+-- Auto Raid
+local BossAutos          = {}
 
--- local function DisableOthers(exceptKey)
---     for key, s in pairs(BossAutos) do
---         if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
---             s.toggleRef:Set(false)
---         end
---     end
--- end
-
--- EXPLORATION
+-- Exploration
 local RARITIES           = { "basic", "gold", "rainbow", "secret" }
 local DIFFICULTIES       = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
 
 local AutoEX             = {
     enabled             = false,
-    betweenActions      = 0.5, -- claim→start
+    betweenActions      = 0.5,
     betweenDifficulties = 1.0,
     betweenCycles       = 3.0,
-    inputs              = {}, -- inputs[diff] = { {name,rarity} x4 }
+    inputs              = {},
     controls            = { sliders = {}, diffs = {} },
     _busy               = {},
 }
@@ -141,86 +160,123 @@ for _, diff in ipairs(DIFFICULTIES) do
     AutoEX._busy[diff] = false
 end
 
--- TOWER
+-- Tower
 local Tower = {
-    enabled           = false,
-    mode              = "nightmare", -- nightmare / potion / base
-    deckSlot          = 1,
-    afterForfeitWait  = 0.25,
-    afterClaimWait    = 0.35,
-    interval          = 2.0,
-    toggleRef         = nil,
-    deckDropdownRef   = nil,
-    modeDropdownRef   = nil,
-    intervalSliderRef = nil,
+    enabled                   = false,
+    mode                      = "nightmare", -- nightmare / potion / base
+    deckSlot                  = 1,
+    useForfeitOnStart         = false,       -- optional; can reset current battle if you want
+    afterForfeitWait          = 0.25,
+    -- afterClaimWait    = 0.35,
+    interval                  = 2.0, -- outer loop pacing
+
+    -- pause spam (catch immediate post-win window to preserve floor)
+    pauseSpamEnabled          = false,
+    pauseSpamDelay            = 0.5, -- seconds after fight start to begin spamming
+    pauseSpamEvery            = 0.2, -- cadence
+
+    toggleRef                 = nil,
+    deckDropdownRef           = nil,
+    modeDropdownRef           = nil,
+    intervalSliderRef         = nil,
+    useForfeitToggleRef       = nil,
+    pauseSpamEnabledToggleRef = nil,
+    pauseSpamDelaySliderRef   = nil,
+    pauseSpamEverySliderRef   = nil,
 }
 
--- MAIN (Global Boss)
+-- Global Boss
 local GlobalBoss = {
-    enabled           = false,
-    deckSlot          = 1,
-    afterForfeitWait  = 0.25,
-    interval          = 2.0,
-    bossId            = 446,
-    toggleRef         = nil,
-    deckDropdownRef   = nil,
-    intervalSliderRef = nil,
+    enabled                   = false,
+    deckSlot                  = 1,
+    afterForfeitWait          = 0.25,
+    interval                  = 2.0,
+    bossId                    = 446,
+    toggleRef                 = nil,
+    deckDropdownRef           = nil,
+    intervalSliderRef         = nil,
+    useForfeitToggleRef       = nil,
+    pauseSpamEnabledToggleRef = nil,
+    pauseSpamDelaySliderRef   = nil,
+    pauseSpamEverySliderRef   = nil,
 }
 
--- Hàm DisableOthers mở rộng
+--==================[ Cross-Feature Kill-Switch ]==================--
+-- forward declare so functions above can reference it
+local TryPauseInfinite
+
 local function DisableOthers(exceptKey)
-    -- Tắt tất cả Auto Raid khác
     for key, s in pairs(BossAutos) do
         if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
             s.toggleRef:Set(false)
         end
     end
-
-    -- Nếu exceptKey không phải Global thì tắt Auto Global Boss
     if exceptKey ~= "GLOBAL" and GlobalBoss.enabled and GlobalBoss.toggleRef and GlobalBoss.toggleRef.Set then
         GlobalBoss.toggleRef:Set(false)
     end
-
-    -- Nếu exceptKey không phải Tower thì tắt Auto Tower
     if exceptKey ~= "TOWER" and Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
+        if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
+        Orchestrator.skipForfeitOnce = true              -- bỏ qua đúng 1 lần Forfeit kế tiếp
+        Orchestrator.skipForfeitUntil = os.clock() + 3.0 -- thêm 3s an toàn (tùy chỉnh)
         Tower.toggleRef:Set(false)
     end
 end
 
---=============================================================
---                  AUTO RAID: BUILDERS
---=============================================================
+-- Helper: turn off all Auto Raid toggles (used by Auto Claim)
+local function DisableAllAutoRaid()
+    for key, s in pairs(BossAutos) do
+        if s.enabled and s.toggleRef and s.toggleRef.Set then
+            s.toggleRef:Set(false)
+        end
+    end
+end
+
+-- Graceful Tower pause helper: spam pauseInfinite within a short window
+TryPauseInfinite = function(totalTime, every)
+    totalTime = tonumber(totalTime) or 2.0
+    every = math.max(tonumber(every) or 0.15, 0.05)
+    local elapsed = 0
+    while elapsed < totalTime do
+        FireSafe(RE_PauseInf)
+        task.wait(every)
+        elapsed += every
+    end
+end
+
+
+
+--==================[ AUTO RAID: BUILDERS ]==================--
 local function CreateBossAuto(tab, key, prettyName, raidName, bossId)
     BossAutos[key] = {
-        enabled = false,
-        interval = 2.0,
+        enabled          = false,
+        interval         = 2.0,
         postTeleportWait = 2.0,
-        bossId = bossId,
-        raidName = raidName,
-        isMinion = false,
-        deckSlot = 1,
-        toggleRef = nil,
-        deckDropdownRef = nil,
+        bossId           = bossId,
+        raidName         = raidName,
+        isMinion         = false,
+        deckSlot         = 1,
+        toggleRef        = nil,
+        deckDropdownRef  = nil,
     }
 
     tab:CreateSection("Auto " .. prettyName)
 
     tab:CreateSlider({
-        Name = ("Delay FIGHT (%s) (s)"):format(prettyName),
-        Range = { 0.5, 10 },
-        Increment = 0.5,
-        Suffix = "s",
+        Name         = ("Delay FIGHT (%s) (s)"):format(prettyName),
+        Range        = { 0.5, 10 },
+        Increment    = 0.5,
+        Suffix       = "s",
         CurrentValue = BossAutos[key].interval,
-        Flag = key .. "_FightInterval",
-        Callback = function(v) BossAutos[key].interval = v end
+        Flag         = key .. "_FightInterval",
+        Callback     = function(v) BossAutos[key].interval = v end
     })
 
     local deckDD = tab:CreateDropdown({
-        Name = "Deck (1–8)",
-        Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+        Name          = "Deck (1–8)",
+        Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
         CurrentOption = tostring(BossAutos[key].deckSlot),
-        Flag = key .. "_DeckSlot",
-        Callback = function(opt)
+        Flag          = key .. "_DeckSlot",
+        Callback      = function(opt)
             if typeof(opt) == "table" then opt = opt[1] end
             BossAutos[key].deckSlot = tonumber(opt) or 1
         end
@@ -228,23 +284,26 @@ local function CreateBossAuto(tab, key, prettyName, raidName, bossId)
     BossAutos[key].deckDropdownRef = deckDD
 
     local toggle = tab:CreateToggle({
-        Name = "|🌟| Auto " .. prettyName,
+        Name         = "|🌟| Auto " .. prettyName,
         CurrentValue = false,
-        Flag = key .. "_AutoToggle",
-        Callback = function(state)
+        Flag         = key .. "_AutoToggle",
+        Callback     = function(state)
             local S = BossAutos[key]; S.enabled = state
             if state then
                 DisableOthers(key)
                 task.spawn(function()
-                    FireSafe(RE_Forfeit)
+                    -- FireSafe(RE_Forfeit)
+                    ForfeitSafe()
                     task.wait(0.25)
                     FireSafe(RE_Teleport, S.raidName)
                     task.wait(S.postTeleportWait)
+                    notify("Auto Raid", "Farming: " .. prettyName, 3, "rewind")
                     while S.enabled do
                         FireSafe(RE_SetPartySlot, ("slot_%d"):format(S.deckSlot or 1))
-                        task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                        task.wait(0.5)
                         FireSafe(RE_FightRaidBoss, S.bossId)
-                        local t = 0; while S.enabled and t < S.interval do
+                        local t = 0
+                        while S.enabled and t < S.interval do
                             task.wait(0.1); t += 0.1
                         end
                     end
@@ -275,34 +334,35 @@ end
 
 local function CreateMinionAuto(tab, key, prettyName, raidName, namePrefix)
     BossAutos[key] = {
-        enabled = false,
-        interval = 2.0,
+        enabled          = false,
+        interval         = 2.0,
         postTeleportWait = 2.0,
-        raidName = raidName,
-        namePrefix = namePrefix or "infernal",
-        isMinion = true,
-        deckSlot = 1,
-        toggleRef = nil,
-        deckDropdownRef = nil,
+        raidName         = raidName,
+        namePrefix       = namePrefix or "infernal",
+        isMinion         = true,
+        deckSlot         = 1,
+        toggleRef        = nil,
+        deckDropdownRef  = nil,
     }
 
     tab:CreateSection(prettyName)
+
     tab:CreateSlider({
-        Name = "Delay FIGHT Minion (s)",
-        Range = { 0.2, 10 },
-        Increment = 0.2,
-        Suffix = "s",
+        Name         = "Delay FIGHT Minion (s)",
+        Range        = { 0.2, 10 },
+        Increment    = 0.2,
+        Suffix       = "s",
         CurrentValue = BossAutos[key].interval,
-        Flag = key .. "_FightInterval",
-        Callback = function(v) BossAutos[key].interval = v end
+        Flag         = key .. "_FightInterval",
+        Callback     = function(v) BossAutos[key].interval = v end
     })
 
     local deckDD = tab:CreateDropdown({
-        Name = "Deck (1–8)",
-        Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+        Name          = "Deck (1–8)",
+        Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
         CurrentOption = tostring(BossAutos[key].deckSlot),
-        Flag = key .. "_DeckSlot",
-        Callback = function(opt)
+        Flag          = key .. "_DeckSlot",
+        Callback      = function(opt)
             if typeof(opt) == "table" then opt = opt[1] end
             BossAutos[key].deckSlot = tonumber(opt) or 1
         end
@@ -310,33 +370,37 @@ local function CreateMinionAuto(tab, key, prettyName, raidName, namePrefix)
     BossAutos[key].deckDropdownRef = deckDD
 
     local toggle = tab:CreateToggle({
-        Name = "|🌟| Auto Farm Minion (" .. BossAutos[key].namePrefix .. ")",
+        Name         = "|🌟| Auto Farm Minion (" .. BossAutos[key].namePrefix .. ")",
         CurrentValue = false,
-        Flag = key .. "_AutoToggle",
-        Callback = function(state)
+        Flag         = key .. "_AutoToggle",
+        Callback     = function(state)
             local S = BossAutos[key]; S.enabled = state
             if state then
                 DisableOthers(key)
                 task.spawn(function()
-                    FireSafe(RE_Forfeit)
+                    -- FireSafe(RE_Forfeit)
+                    ForfeitSafe()
                     task.wait(0.25)
                     FireSafe(RE_Teleport, S.raidName)
                     task.wait(S.postTeleportWait)
+                    notify("Auto Raid", "Farming minions: " .. prettyName, 3, "rewind")
 
                     local idx = 1
                     while S.enabled do
                         FireSafe(RE_SetPartySlot, ("slot_%d"):format(S.deckSlot or 1))
-                        task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                        task.wait(0.5)
                         local ids = CollectMinionIds_CoF(S.namePrefix)
                         if #ids == 0 then
-                            local d = math.max(0.5, S.interval * 0.5); local t = 0
+                            local d = math.max(0.5, S.interval * 0.5)
+                            local t = 0
                             while S.enabled and t < d do
                                 task.wait(0.1); t += 0.1
                             end
                         else
                             if idx > #ids then idx = 1 end
                             FireSafe(RE_FightMinion, ids[idx]); idx += 1
-                            local t = 0; while S.enabled and t < S.interval do
+                            local t = 0
+                            while S.enabled and t < S.interval do
                                 task.wait(0.1); t += 0.1
                             end
                         end
@@ -356,74 +420,49 @@ CreateBossAuto(TabAutoRaid, "Sword", "Sword Deity", "raid_sword_deity", 325)
 CreateBossAuto(TabAutoRaid, "CoF", "Creator of Flames", "raid_creator_of_flames", 384)
 CreateMinionAuto(TabAutoRaid, "CoFMinion", "Creator of Flames - Minions", "raid_creator_of_flames", "infernal")
 
---=============================================================
---                  MAIN (GLOBAL BOSS)
---=============================================================
+--==================[ MAIN (GLOBAL BOSS) ]==================--
 TabMain:CreateSection("Auto Global Boss")
 
 GlobalBoss.deckDropdownRef = TabMain:CreateDropdown({
-    Name = "Deck (1–8)",
-    Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    Name          = "Deck (1–8)",
+    Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
     CurrentOption = tostring(GlobalBoss.deckSlot),
-    Flag = "MAIN_Deck",
-    Callback = function(opt)
-        if typeof(opt) == "table" then opt = opt[1] end; GlobalBoss.deckSlot = tonumber(opt) or 1
+    Flag          = "MAIN_Deck",
+    Callback      = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end
+        GlobalBoss.deckSlot = tonumber(opt) or 1
     end
 })
+
 GlobalBoss.intervalSliderRef = TabMain:CreateSlider({
-    Name = "Fight Delay (s)",
-    Range = { 0.5, 10 },
-    Increment = 0.5,
-    Suffix = "s",
+    Name         = "Fight Delay (s)",
+    Range        = { 0.5, 10 },
+    Increment    = 0.5,
+    Suffix       = "s",
     CurrentValue = GlobalBoss.interval,
-    Flag = "MAIN_Interval",
-    Callback = function(v) GlobalBoss.interval = v end
+    Flag         = "MAIN_Interval",
+    Callback     = function(v) GlobalBoss.interval = v end
 })
--- GlobalBoss.toggleRef = TabMain:CreateToggle({
---     Name = "Auto Global Boss (Forfeit → Deck → Fight)",
---     CurrentValue = false,
---     Flag = "MAIN_Toggle",
---     Callback = function(state)
---         GlobalBoss.enabled = state
---         if not state then return end
---         task.spawn(function()
---             FireSafe(RE_Forfeit)
---             task.wait(GlobalBoss.afterForfeitWait)
---             while GlobalBoss.enabled do
---                 FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
---                 FireSafe(RE_FightGlobal, GlobalBoss.bossId)
---                 local t = 0; while GlobalBoss.enabled and t < GlobalBoss.interval do
---                     task.wait(0.1); t += 0.1
---                 end
---             end
---         end)
---     end
--- })
 
 GlobalBoss.toggleRef = TabMain:CreateToggle({
-    Name = "|💀| Auto Global Boss",
+    Name         = "|💀| Auto Global Boss",
     CurrentValue = false,
-    Flag = "MAIN_Toggle",
-    Callback = function(state)
+    Flag         = "MAIN_Toggle",
+    Callback     = function(state)
         GlobalBoss.enabled = state
         if state then
-            -- Tắt Auto Raid khác
             DisableOthers("GLOBAL")
-
-            -- Tắt Auto Tower nếu đang bật
-            if Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
-                Tower.toggleRef:Set(false)
-            end
-
-            -- Vòng lặp fight
             task.spawn(function()
-                FireSafe(RE_Forfeit)
+                -- FireSafe(RE_Forfeit)
+                ForfeitSafe()
                 task.wait(GlobalBoss.afterForfeitWait)
+                notify("Global Boss", "Automation started.", 3, "rewind")
                 while GlobalBoss.enabled do
                     FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
-                    task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                    task.wait(0.5)
                     FireSafe(RE_FightGlobal, GlobalBoss.bossId)
-                    local t = 0; while GlobalBoss.enabled and t < GlobalBoss.interval do
+                    local t = 0
+                    while GlobalBoss.enabled and t < GlobalBoss.interval do
                         task.wait(0.1); t += 0.1
                     end
                 end
@@ -432,101 +471,169 @@ GlobalBoss.toggleRef = TabMain:CreateToggle({
     end
 })
 
---=============================================================
---                       AUTO TOWER
---=============================================================
+--==================[ AUTO TOWER ]==================--
 TabAutoTower:CreateSection("Auto Tower (Nightmare / Potion / Base)")
 
 Tower.modeDropdownRef = TabAutoTower:CreateDropdown({
-    Name = "Mode",
-    Options = { "nightmare", "potion", "base" },
+    Name          = "Mode",
+    Options       = { "nightmare", "potion", "base", "ninja_village", "green_planet", "shibuya_station", "titans_city",
+        "dimensional_fortress", "candy_island", "solo_city",
+        "eminence_lookout", "invaded_ninja_village", "necromancer_graveyard" },
     CurrentOption = Tower.mode,
-    Flag = "TOWER_Mode",
-    Callback = function(opt)
-        if typeof(opt) == "table" then opt = opt[1] end; Tower.mode = tostring(opt or "nightmare")
+    Flag          = "TOWER_Mode",
+    Callback      = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end
+        local newMode = tostring(opt or "nightmare")
+        if Tower.enabled and newMode ~= Tower.mode then
+            -- Pause gracefully before switching Tower mode
+            if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
+        end
+        Tower.mode = newMode
     end
 })
+
 Tower.deckDropdownRef = TabAutoTower:CreateDropdown({
-    Name = "Deck (1–8)",
-    Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    Name          = "Deck (1–8)",
+    Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
     CurrentOption = tostring(Tower.deckSlot),
-    Flag = "TOWER_Deck",
-    Callback = function(opt)
-        if typeof(opt) == "table" then opt = opt[1] end; Tower.deckSlot = tonumber(opt) or 1
+    Flag          = "TOWER_Deck",
+    Callback      = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end
+        Tower.deckSlot = tonumber(opt) or 1
     end
 })
-TabAutoTower:CreateSlider({
-    Name = "Delay Claim → Fight (s)",
-    Range = { 0.1, 3 },
+
+-- TabAutoTower:CreateSlider({
+--     Name         = "Delay Claim → Fight (s)",
+--     Range        = { 0.1, 3 },
+--     Increment    = 0.05,
+--     Suffix       = "s",
+--     CurrentValue = Tower.afterClaimWait,
+--     Flag         = "TOWER_AfterClaim",
+--     Callback     = function(v) Tower.afterClaimWait = v end
+-- })
+
+-- Extra controls for pauseInfinite strategy
+Tower.useForfeitToggleRef = TabAutoTower:CreateToggle({
+    Name = "Use Forfeit on Start (reset current battle)",
+    CurrentValue = Tower.useForfeitOnStart,
+    Flag = "TOWER_UseForfeitOnStart",
+    Callback = function(v) Tower.useForfeitOnStart = v and true or false end
+})
+
+Tower.pauseSpamEnabledToggleRef = TabAutoTower:CreateToggle({
+    Name = "Pause Spam Enabled (preserve floor with pauseInfinite)",
+    CurrentValue = Tower.pauseSpamEnabled,
+    Flag = "TOWER_PauseSpamEnabled",
+    Callback = function(v) Tower.pauseSpamEnabled = v and true or false end
+})
+
+Tower.pauseSpamDelaySliderRef = TabAutoTower:CreateSlider({
+    Name = "Pause Spam – Start After (s)",
+    Range = { 0, 8 },
+    Increment = 0.1,
+    Suffix = "s",
+    CurrentValue = Tower.pauseSpamDelay,
+    Flag = "TOWER_PauseSpamDelay",
+    Callback = function(v) Tower.pauseSpamDelay = v end
+})
+
+Tower.pauseSpamEverySliderRef = TabAutoTower:CreateSlider({
+    Name = "Pause Spam – Every (s)",
+    Range = { 0.1, 1.0 },
     Increment = 0.05,
     Suffix = "s",
-    CurrentValue = Tower.afterClaimWait,
-    Flag = "TOWER_AfterClaim",
-    Callback = function(v) Tower.afterClaimWait = v end
+    CurrentValue = Tower.pauseSpamEvery,
+    Flag = "TOWER_PauseSpamEvery",
+    Callback = function(v) Tower.pauseSpamEvery = v end
 })
+
 Tower.intervalSliderRef = TabAutoTower:CreateSlider({
-    Name = "Fight Interval (s)",
-    Range = { 0.5, 10 },
-    Increment = 0.5,
-    Suffix = "s",
+    Name         = "Fight Interval (s)",
+    Range        = { 0.5, 10 },
+    Increment    = 0.5,
+    Suffix       = "s",
     CurrentValue = Tower.interval,
-    Flag = "TOWER_Interval",
-    Callback = function(v) Tower.interval = v end
+    Flag         = "TOWER_Interval",
+    Callback     = function(v) Tower.interval = v end
 })
+
 Tower.toggleRef = TabAutoTower:CreateToggle({
-    Name = "|📔| Auto Tower",
+    Name         = "|📔| Auto Tower",
     CurrentValue = false,
-    Flag = "TOWER_Toggle",
-    Callback = function(state)
+    Flag         = "TOWER_Toggle",
+    Callback     = function(state)
+        if Tower.enabled and not state then
+            -- Turning Tower OFF: pause gracefully so progress is kept
+            if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
+        end
         Tower.enabled = state
         if not state then return end
-        -- Tắt Auto Raid khác
         DisableOthers("TOWER")
         task.spawn(function()
-            FireSafe(RE_Forfeit); task.wait(Tower.afterForfeitWait)
+            if Tower.useForfeitOnStart then
+                -- FireSafe(RE_Forfeit)
+                ForfeitSafe()
+                task.wait(Tower.afterForfeitWait)
+            end
+            notify("Auto Tower", "Automation started.", 3, "rewind")
             while Tower.enabled do
-                FireSafe(RE_ClaimInf, Tower.mode); task.wait(Tower.afterClaimWait)
+                -- FireSafe(RE_ClaimInf, Tower.mode)
+                -- task.wait(Tower.afterClaimWait)
                 FireSafe(RE_SetPartySlot, ("slot_%d"):format(Tower.deckSlot or 1))
-                task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                task.wait(0.5)
                 FireSafe(RE_FightInf, Tower.mode)
-                local t = 0; while Tower.enabled and t < Tower.interval do
-                    task.wait(0.1); t += 0.1
+
+                -- Spam pauseInfinite after a short delay to catch the post-win window without resetting floor
+                local elapsed = 0
+                local spamTimer = 0
+                while Tower.enabled and elapsed < Tower.interval do
+                    task.wait(0.1)
+                    elapsed += 0.1
+                    if Tower.pauseSpamEnabled and elapsed >= Tower.pauseSpamDelay then
+                        spamTimer += 0.1
+                        if spamTimer >= Tower.pauseSpamEvery then
+                            spamTimer = 0
+                            FireSafe(RE_PauseInf)
+                        end
+                    end
                 end
             end
         end)
     end
 })
 
---=============================================================
---                     AUTO EXPLORATION
---=============================================================
+--==================[ AUTO EXPLORATION ]==================--
 TabAutoExploration:CreateSection("Global Delays")
+
 AutoEX.controls.sliders.betweenActions = TabAutoExploration:CreateSlider({
-    Name = "Delay Claim → Start (s)",
-    Range = { 0.1, 3 },
-    Increment = 0.1,
-    Suffix = "s",
+    Name         = "Delay Claim → Start (s)",
+    Range        = { 0.1, 3 },
+    Increment    = 0.1,
+    Suffix       = "s",
     CurrentValue = AutoEX.betweenActions,
-    Flag = "EX_betweenActions",
-    Callback = function(v) AutoEX.betweenActions = v end
+    Flag         = "EX_betweenActions",
+    Callback     = function(v) AutoEX.betweenActions = v end
 })
+
 AutoEX.controls.sliders.betweenDifficulties = TabAutoExploration:CreateSlider({
-    Name = "Delay Between Difficulties (s)",
-    Range = { 0.2, 5 },
-    Increment = 0.1,
-    Suffix = "s",
+    Name         = "Delay Between Difficulties (s)",
+    Range        = { 0.2, 5 },
+    Increment    = 0.1,
+    Suffix       = "s",
     CurrentValue = AutoEX.betweenDifficulties,
-    Flag = "EX_betweenDiffs",
-    Callback = function(v) AutoEX.betweenDifficulties = v end
+    Flag         = "EX_betweenDiffs",
+    Callback     = function(v) AutoEX.betweenDifficulties = v end
 })
+
 AutoEX.controls.sliders.betweenCycles = TabAutoExploration:CreateSlider({
-    Name = "Delay Between Cycles (s)",
-    Range = { 1, 20 },
-    Increment = 0.5,
-    Suffix = "s",
+    Name         = "Delay Between Cycles (s)",
+    Range        = { 1, 20 },
+    Increment    = 0.5,
+    Suffix       = "s",
     CurrentValue = AutoEX.betweenCycles,
-    Flag = "EX_betweenCycles",
-    Callback = function(v) AutoEX.betweenCycles = v end
+    Flag         = "EX_betweenCycles",
+    Callback     = function(v) AutoEX.betweenCycles = v end
 })
 
 local function NormalizeRarity(r)
@@ -536,12 +643,13 @@ local function NormalizeRarity(r)
     return r
 end
 
-local function BuildPicks(conf) -- returns {"name:rarity", x4} or nil,err
+local function BuildPicks(conf)
     local arr = {}
     for i = 1, 4 do
-        local e = conf[i] or {}
-        local nm = Trim(e.name); local rr = NormalizeRarity(e.rarity)
-        if nm == "" then return nil, ("Thiếu tên thẻ #%d"):format(i) end
+        local e  = conf[i] or {}
+        local nm = Trim(e.name)
+        local rr = NormalizeRarity(e.rarity)
+        if nm == "" then return nil, ("Missing card name #%d"):format(i) end
         table.insert(arr, nm .. ":" .. rr)
     end
     return arr
@@ -553,20 +661,21 @@ local function MakeExplorationUI(tab, diffKey)
 
     for i = 1, 4 do
         local ic = tab:CreateInput({
-            Name = ("|🃏| Card Name #%d"):format(i),
-            PlaceholderText = "vd: shadow_knight",
+            Name                     = ("|🃏| Card Name #%d"):format(i),
+            PlaceholderText          = "e.g. shadow_knight",
             RemoveTextAfterFocusLost = false,
-            Flag = ("EX_%s_name_%d"):format(diffKey, i),
-            CurrentValue = AutoEX.inputs[diffKey][i].name or "",
-            Callback = function(txt) AutoEX.inputs[diffKey][i].name = txt or "" end
+            Flag                     = ("EX_%s_name_%d"):format(diffKey, i),
+            CurrentValue             = AutoEX.inputs[diffKey][i].name or "",
+            Callback                 = function(txt) AutoEX.inputs[diffKey][i].name = txt or "" end
         })
         local dd = tab:CreateDropdown({
-            Name = ("|🛠️| Rarity #%d"):format(i),
-            Options = RARITIES,
+            Name          = ("|🛠️| Rarity #%d"):format(i),
+            Options       = RARITIES,
             CurrentOption = AutoEX.inputs[diffKey][i].rarity or "basic",
-            Flag = ("EX_%s_rarity_%d"):format(diffKey, i),
-            Callback = function(opt)
-                if typeof(opt) == "table" then opt = opt[1] end; AutoEX.inputs[diffKey][i].rarity = NormalizeRarity(opt)
+            Flag          = ("EX_%s_rarity_%d"):format(diffKey, i),
+            Callback      = function(opt)
+                if typeof(opt) == "table" then opt = opt[1] end
+                AutoEX.inputs[diffKey][i].rarity = NormalizeRarity(opt)
             end
         })
         AutoEX.controls.diffs[diffKey][i] = { input = ic, dropdown = dd }
@@ -576,7 +685,7 @@ local function MakeExplorationUI(tab, diffKey)
         Name = "Run Single: " .. string.upper(diffKey),
         Callback = function()
             if AutoEX._busy[diffKey] then
-                warn("[Exploration] Đang chạy: " .. diffKey); return
+                warn("[Exploration] Busy: " .. diffKey); return
             end
             AutoEX._busy[diffKey] = true
             task.spawn(function()
@@ -585,8 +694,10 @@ local function MakeExplorationUI(tab, diffKey)
                 local picks, err = BuildPicks(AutoEX.inputs[diffKey])
                 if picks then
                     FireSafe(RE_StartExpl, diffKey, picks)
+                    notify("Exploration", string.upper(diffKey) .. " started.", 3, "rewind")
                 else
-                    warn("[Exploration] " .. diffKey .. " lỗi: " .. tostring(err))
+                    warn("[Exploration] " .. diffKey .. " error: " .. tostring(err))
+                    notify("Exploration", "Error: " .. tostring(err), 4, "rewind")
                 end
                 task.wait(0.25)
                 AutoEX._busy[diffKey] = false
@@ -601,13 +712,14 @@ end
 
 TabAutoExploration:CreateSection("Automation")
 TabAutoExploration:CreateToggle({
-    Name = "|✈️| Auto Exploration",
+    Name         = "|✈️| Auto Exploration",
     CurrentValue = false,
-    Flag = "EX_AutoToggle",
-    Callback = function(state)
+    Flag         = "EX_AutoToggle",
+    Callback     = function(state)
         AutoEX.enabled = state
         if not state then return end
         task.spawn(function()
+            notify("Exploration", "Auto cycle started.", 3, "rewind")
             while AutoEX.enabled do
                 for _, diff in ipairs(DIFFICULTIES) do
                     if not AutoEX.enabled then break end
@@ -616,15 +728,14 @@ TabAutoExploration:CreateToggle({
                     local picks, err = BuildPicks(AutoEX.inputs[diff])
                     if picks then
                         FireSafe(RE_StartExpl, diff, picks)
-                    else
-                        warn("[Exploration] " ..
-                            diff .. " lỗi: " .. tostring(err))
                     end
-                    local t = 0; while AutoEX.enabled and t < AutoEX.betweenDifficulties do
+                    local t = 0
+                    while AutoEX.enabled and t < AutoEX.betweenDifficulties do
                         task.wait(0.1); t += 0.1
                     end
                 end
-                local t = 0; while AutoEX.enabled and t < AutoEX.betweenCycles do
+                local t = 0
+                while AutoEX.enabled and t < AutoEX.betweenCycles do
                     task.wait(0.1); t += 0.1
                 end
             end
@@ -632,15 +743,11 @@ TabAutoExploration:CreateToggle({
     end
 })
 
---=============================================================
---                         CONFIG TAB
---=============================================================
+--==================[ CONFIG ]==================--
 local CONFIG_FOLDER = "AstralHub"
 
 local function HH_EnsureFolder()
-    if isfolder and not isfolder(CONFIG_FOLDER) then
-        makefolder(CONFIG_FOLDER)
-    end
+    if isfolder and not isfolder(CONFIG_FOLDER) then makefolder(CONFIG_FOLDER) end
 end
 HH_EnsureFolder()
 
@@ -651,9 +758,7 @@ local function HH_ListConfigs()
     if listfiles and isfolder and isfolder(CONFIG_FOLDER) then
         for _, p in ipairs(listfiles(CONFIG_FOLDER)) do
             local name = p:match(".+[\\/](.+)$") or p
-            if name and name:lower():match("%.json$") then
-                table.insert(opts, name)
-            end
+            if name and name:lower():match("%.json$") then table.insert(opts, name) end
         end
     end
     table.sort(opts)
@@ -664,36 +769,17 @@ end
 local function HH_SaveTableToJson(tbl, file)
     HH_EnsureFolder()
     local ok, data = pcall(HttpService.JSONEncode, HttpService, tbl)
-    if not ok then
-        -- warn("[HieuHub] JSONEncode error:", data)
-        return false
-    end
-    if not writefile then
-        -- warn("[HieuHub] Executor không hỗ trợ writefile")
-        return false
-    end
+    if not ok or not writefile then return false end
     writefile(HH_Path(file), data)
-    -- print("[HieuHub] Saved:", HH_Path(file))
     return true
 end
 
 local function HH_LoadTableFromJson(file)
     local path = HH_Path(file)
-    if not (isfile and isfile(path)) then
-        -- warn("[HieuHub] Không tìm thấy:", path)
-        return nil
-    end
-    if not readfile then
-        -- warn("[HieuHub] Executor không hỗ trợ readfile")
-        return nil
-    end
+    if not (isfile and isfile(path)) or not readfile then return nil end
     local data = readfile(path)
     local ok, tbl = pcall(HttpService.JSONDecode, HttpService, data)
-    if not ok then
-        -- warn("[HieuHub] JSONDecode error:", tbl)
-        return nil
-    end
-    -- print("[HieuHub] Loaded:", path)
+    if not ok then return nil end
     return tbl
 end
 
@@ -701,15 +787,19 @@ local function HH_CollectCurrentConfig()
     local cfg = {
         AutoRaid = { Bosses = {} },
         AutoExploration = {
-            betweenActions = AutoEX.betweenActions,
+            betweenActions      = AutoEX.betweenActions,
             betweenDifficulties = AutoEX.betweenDifficulties,
-            betweenCycles = AutoEX.betweenCycles,
-            inputs = {},
+            betweenCycles       = AutoEX.betweenCycles,
+            inputs              = {},
         },
         AutoTower = {
-            mode = Tower.mode,
-            deckSlot = Tower.deckSlot,
-            interval = Tower.interval,
+            mode              = Tower.mode,
+            deckSlot          = Tower.deckSlot,
+            interval          = Tower.interval,
+            useForfeitOnStart = Tower.useForfeitOnStart,
+            pauseSpamEnabled  = Tower.pauseSpamEnabled,
+            pauseSpamDelay    = Tower.pauseSpamDelay,
+            pauseSpamEvery    = Tower.pauseSpamEvery,
         },
         GlobalBoss = {
             deckSlot = GlobalBoss.deckSlot,
@@ -761,7 +851,6 @@ local function HH_ApplyConfig(tbl)
                         S.deckDropdownRef:Set({ tostring(S.deckSlot) })
                     end
                 end
-                -- không tự bật toggle để an toàn
             end
         end
     end
@@ -807,20 +896,47 @@ local function HH_ApplyConfig(tbl)
 
     -- AutoTower
     if tbl.AutoTower then
+        if type(tbl.AutoTower.useForfeitOnStart) == "boolean" then
+            Tower.useForfeitOnStart = tbl.AutoTower
+                .useForfeitOnStart
+        end
+        if type(tbl.AutoTower.pauseSpamEnabled) == "boolean" then
+            Tower.pauseSpamEnabled = tbl.AutoTower
+                .pauseSpamEnabled
+        end
+        if type(tbl.AutoTower.pauseSpamDelay) == "number" then Tower.pauseSpamDelay = tbl.AutoTower.pauseSpamDelay end
+        if type(tbl.AutoTower.pauseSpamEvery) == "number" then Tower.pauseSpamEvery = tbl.AutoTower.pauseSpamEvery end
+        -- Reflect new Tower settings into UI
+        if Tower.useForfeitToggleRef and Tower.useForfeitToggleRef.Set then
+            Tower.useForfeitToggleRef:Set(Tower.useForfeitOnStart and true or false)
+        end
+        if Tower.pauseSpamEnabledToggleRef and Tower.pauseSpamEnabledToggleRef.Set then
+            Tower.pauseSpamEnabledToggleRef:Set(Tower.pauseSpamEnabled and true or false)
+        end
+        if Tower.pauseSpamDelaySliderRef and Tower.pauseSpamDelaySliderRef.Set then
+            Tower.pauseSpamDelaySliderRef:Set(Tower.pauseSpamDelay)
+        end
+        if Tower.pauseSpamEverySliderRef and Tower.pauseSpamEverySliderRef.Set then
+            Tower.pauseSpamEverySliderRef:Set(Tower.pauseSpamEvery)
+        end
+
         if type(tbl.AutoTower.mode) == "string" then
             Tower.mode = tbl.AutoTower.mode
-            if Tower.modeDropdownRef and Tower.modeDropdownRef.Set then Tower.modeDropdownRef:Set({ Tower.mode }) end
+            if Tower.modeDropdownRef and Tower.modeDropdownRef.Set then
+                Tower.modeDropdownRef:Set({ Tower.mode })
+            end
         end
         if type(tbl.AutoTower.deckSlot) == "number" then
             Tower.deckSlot = tbl.AutoTower.deckSlot
             if Tower.deckDropdownRef and Tower.deckDropdownRef.Set then
-                Tower.deckDropdownRef:Set({ tostring(Tower
-                    .deckSlot) })
+                Tower.deckDropdownRef:Set({ tostring(Tower.deckSlot) })
             end
         end
         if type(tbl.AutoTower.interval) == "number" then
             Tower.interval = tbl.AutoTower.interval
-            if Tower.intervalSliderRef and Tower.intervalSliderRef.Set then Tower.intervalSliderRef:Set(Tower.interval) end
+            if Tower.intervalSliderRef and Tower.intervalSliderRef.Set then
+                Tower.intervalSliderRef:Set(Tower.interval)
+            end
         end
     end
 
@@ -829,21 +945,19 @@ local function HH_ApplyConfig(tbl)
         if type(tbl.GlobalBoss.deckSlot) == "number" then
             GlobalBoss.deckSlot = tbl.GlobalBoss.deckSlot
             if GlobalBoss.deckDropdownRef and GlobalBoss.deckDropdownRef.Set then
-                GlobalBoss.deckDropdownRef:Set({
-                    tostring(GlobalBoss.deckSlot) })
+                GlobalBoss.deckDropdownRef:Set({ tostring(GlobalBoss.deckSlot) })
             end
         end
         if type(tbl.GlobalBoss.interval) == "number" then
             GlobalBoss.interval = tbl.GlobalBoss.interval
             if GlobalBoss.intervalSliderRef and GlobalBoss.intervalSliderRef.Set then
-                GlobalBoss.intervalSliderRef:Set(
-                    GlobalBoss.interval)
+                GlobalBoss.intervalSliderRef:Set(GlobalBoss.interval)
             end
         end
     end
 end
 
---========================[ CONFIG UI ]========================
+--==================[ CONFIG UI ]==================--
 TabConfig:CreateSection("Create new config in folder: " .. CONFIG_FOLDER)
 
 local NewName = ""
@@ -861,9 +975,7 @@ local Dropdown_Config
 local function HH_BuildDropdown(initialSelect)
     local opts = HH_ListConfigs()
     local pick = initialSelect
-    if not pick or not table.find(opts, pick) then
-        pick = opts[1]
-    end
+    if not pick or not table.find(opts, pick) then pick = opts[1] end
     Dropdown_Config = TabConfig:CreateDropdown({
         Name = "Configs in " .. CONFIG_FOLDER,
         Options = opts,
@@ -877,7 +989,7 @@ local function HH_BuildDropdown(initialSelect)
     SelectedFile = (pick == "(no configs)") and nil or pick
 end
 
-function HH_RefreshDropdown(selectName)
+local function HH_RefreshDropdown(selectName)
     local opts = HH_ListConfigs()
     local pick = selectName
     if not pick or not table.find(opts, pick) then pick = opts[1] end
@@ -897,19 +1009,14 @@ TabConfig:CreateButton({
     Name = "|🗃️| Create",
     Callback = function()
         local fn = (NewName:gsub("%s+", ""))
-        if fn == "" then
-            -- warn("[HieuHub] Vui lòng nhập tên file");
-            return
-        end
+        if fn == "" then return end
         if not fn:lower():match("%.json$") then fn = fn .. ".json" end
         HH_EnsureFolder()
-        local path = HH_Path(fn)
-        if isfile and isfile(path) then
-            -- warn("[HieuHub] File đã tồn tại:", path);
-            return
-        end
+        local path = CONFIG_FOLDER .. "/" .. fn
+        if isfile and isfile(path) then return end
         if HH_SaveTableToJson(HH_CollectCurrentConfig(), fn) then
             HH_RefreshDropdown(fn)
+            notify("Config", "Created: " .. fn, 3, "rewind")
         end
     end
 })
@@ -921,53 +1028,38 @@ TabConfig:CreateButton({
     Name = "Reload Config List",
     Callback = function()
         HH_RefreshDropdown(SelectedFile)
-        if Rayfield and Rayfield.Notify then
-            Rayfield:Notify({ Title = "Notification", Content = "Reload Successful", Duration = 4, Image = "rewind" })
-        end
+        notify("Config", "Reload Successful", 3, "rewind")
     end
 })
 
 TabConfig:CreateSection("Actions")
+
 TabConfig:CreateButton({
     Name = "|📁| Save to Selected Config",
     Callback = function()
-        if not SelectedFile or SelectedFile == "" then
-            -- warn("[HieuHub] Chưa chọn file");
-            return
-        end
+        if not SelectedFile or SelectedFile == "" then return end
         if HH_SaveTableToJson(HH_CollectCurrentConfig(), SelectedFile) then
-            if Rayfield and Rayfield.Notify then
-                Rayfield:Notify({ Title = "Notification", Content = "Save Successful", Duration = 4, Image = "rewind" })
-            end
-        end
-    end
-})
-TabConfig:CreateButton({
-    Name = "|⬇️| Load from Selected Config",
-    Callback = function()
-        if not SelectedFile or SelectedFile == "" then
-            -- warn("[HieuHub] Chưa chọn file");
-            return
-        end
-        local cfg = HH_LoadTableFromJson(SelectedFile)
-        HH_ApplyConfig(cfg)
-        if Rayfield and Rayfield.Notify then
-            Rayfield:Notify({ Title = "Notification", Content = "Load Successful", Duration = 4, Image = "rewind" })
+            notify("Config", "Save Successful", 3, "rewind")
         end
     end
 })
 
--- Delete support
-local function HH_Delete(file)
-    local path = HH_Path(file)
-    if not (isfile and isfile(path)) then
-        -- warn("[HieuHub] Không tìm thấy:", path);
-        return false
+TabConfig:CreateButton({
+    Name = "|⬇️| Load from Selected Config",
+    Callback = function()
+        if not SelectedFile or SelectedFile == "" then return end
+        local cfg = HH_LoadTableFromJson(SelectedFile)
+        HH_ApplyConfig(cfg)
+        notify("Config", "Load Successful", 3, "rewind")
     end
+})
+
+local function HH_Delete(file)
+    local path = CONFIG_FOLDER .. "/" .. file
+    if not (isfile and isfile(path)) then return false end
     if delfile then
-        delfile(path); print("[HieuHub] Deleted:", path); return true
+        delfile(path); return true
     else
-        -- warn("[HieuHub] Executor không hỗ trợ delfile");
         return false
     end
 end
@@ -976,50 +1068,147 @@ local _deleteArmed = false
 TabConfig:CreateButton({
     Name = "|❌| Delete Selected Config (Press Twice to Confirm)",
     Callback = function()
-        if not SelectedFile or SelectedFile == "" or SelectedFile == "(no configs)" then
-            -- warn("[HieuHub] Chưa chọn file hợp lệ để xóa");
-            return
-        end
+        if not SelectedFile or SelectedFile == "" or SelectedFile == "(no configs)" then return end
         if not _deleteArmed then
             _deleteArmed = true
-            if Rayfield and Rayfield.Notify then
-                Rayfield:Notify({
-                    Title = "Delete Confirmation",
-                    Content = "Press Delete again within 5s to confirm: : " ..
-                        SelectedFile,
-                    Duration = 5,
-                    Image = "rewind"
-                })
-            end
+            notify("Delete Confirmation", "Press Delete again within 5s to confirm: " .. SelectedFile, 5, "rewind")
             task.delay(5, function() _deleteArmed = false end)
             return
         end
         _deleteArmed = false
         if HH_Delete(SelectedFile) then
             SelectedFile = nil; HH_RefreshDropdown(nil)
-            if Rayfield and Rayfield.Notify then
-                Rayfield:Notify({ Title = "Notification", Content = "Delete Successful", Duration = 4, Image = "rewind" })
-            end
+            notify("Config", "Delete Successful", 3, "rewind")
         end
     end
 })
 
---=============================================================
---                         MISC TAB
---=============================================================
-TabMisc:CreateSection("Miscellaneous Settings")
--- Auto Claim Box and Potion in Workspace
 
-local Players = game:GetService("Players")
-local WS = game:GetService("Workspace")
+-- ==================[ Win Summary Detectors ]==================
+-- Goal: Pause exactly when the Infinite Tower Summary pops (modal.current == 21)
+
+local SummaryDetector = {
+    enabled = true,
+    debounceTs = 0,
+    debounceGap = 1.0, -- seconds between triggers
+}
+
+local function TriggerPauseFromSummary()
+    local now = os.clock()
+    if now - (SummaryDetector.debounceTs or 0) < (SummaryDetector.debounceGap or 1.0) then
+        return
+    end
+    SummaryDetector.debounceTs = now
+    -- short, dense spam to reliably hit the server window
+    if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
+end
+
+local function StartModalWatcher()
+    -- Try to read producer store (reflex/rodux) to watch modal.current==21
+    local ok, producer = pcall(require,
+        game:GetService("ReplicatedStorage"):WaitForChild("shared"):WaitForChild("producer"))
+    if not ok or type(producer) ~= "table" then return end
+
+    -- Try common APIs: getState(), changed, subscribe()
+    local prevModal
+    local function check()
+        local stateOk, state = pcall(function()
+            if type(producer.getState) == "function" then
+                return producer.getState()
+            elseif type(producer.store) == "table" and type(producer.store.getState) == "function" then
+                return producer.store.getState()
+            end
+        end)
+        if not stateOk or type(state) ~= "table" then return end
+        local cur = state.modal and state.modal.current
+        if cur ~= prevModal then
+            -- edge: transitioning into summary (21)
+            if cur == 21 then
+                TriggerPauseFromSummary()
+            end
+            prevModal = cur
+        end
+    end
+
+    -- Evented if possible
+    if typeof(producer.changed) == "RBXScriptSignal" then
+        producer.changed:Connect(function(...)
+            check()
+        end)
+    elseif type(producer.subscribe) == "function" then
+        -- expected to call our callback on any state change
+        producer.subscribe(check)
+    else
+        -- fallback polling
+        task.spawn(function()
+            while true do
+                check()
+                task.wait(0.05)
+            end
+        end)
+    end
+end
+
+local function StartReactGuiWatcher()
+    local pg = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+    local reactGui = pg:FindFirstChild("react")
+    if not reactGui then
+        -- in some games, react might mount a bit later
+        pg.ChildAdded:Connect(function(child)
+            if child.Name == "react" then
+                reactGui = child
+            end
+        end)
+    end
+
+    local function isSummaryUi(inst)
+        -- Heuristics: look at names containing "infinite", "summary", "tower"
+        local n = string.lower(inst.Name or "")
+        if n:find("summary") and (n:find("infinite") or n:find("tower")) then return true end
+        -- also inspect ScreenGui/Frame parent chains
+        local p = inst.Parent
+        local depth = 0
+        while p and depth < 4 do
+            local pn = string.lower(p.Name or "")
+            if pn:find("summary") and (pn:find("infinite") or pn:find("tower")) then
+                return true
+            end
+            p = p.Parent; depth += 1
+        end
+        return false
+    end
+
+    local function hook(container)
+        if not container then return end
+        container.DescendantAdded:Connect(function(inst)
+            if SummaryDetector.enabled and isSummaryUi(inst) then
+                TriggerPauseFromSummary()
+            end
+        end)
+    end
+
+    hook(pg)
+    if reactGui then hook(reactGui) end
+end
+
+-- Start both detectors (they're cheap; modal watcher is preferred, GUI watcher is fallback)
+task.spawn(StartModalWatcher)
+task.spawn(StartReactGuiWatcher)
+
+-- ============================================================
+
+--==================[ MISC ]==================--
+TabMisc:CreateSection("Miscellaneous Settings")
+
+-- Auto Claim Box/Potion
 local LocalPlayer = Players.LocalPlayer
 
 local function TouchPickups()
     local pickups = {}
     for _, obj in pairs(WS:GetChildren()) do
         if obj:IsA("Model") then
-            local name = obj.Name:lower()
-            if name:match("^potion_%d+$") or name:match("^box_%d+$") then
+            local lname = obj.Name:lower()
+            if lname:match("^potion_%d+$") or lname:match("^box_%d+$") then
                 table.insert(pickups, obj)
             end
         end
@@ -1027,91 +1216,79 @@ local function TouchPickups()
     return pickups
 end
 
--- Hàm dịch chuyển
 local function TeleportTo(obj)
-    local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-    if hrp and obj:FindFirstChild("PrimaryPart") then
-        hrp.CFrame = obj.PrimaryPart.CFrame + Vector3.new(0, 5, 0) -- dịch lên 5 để tránh kẹt
-    elseif hrp and obj.PrimaryPart then
-        hrp.CFrame = obj.PrimaryPart.CFrame + Vector3.new(0, 5, 0)
-    elseif hrp then
+    local char = LocalPlayer.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+    local primary = obj.PrimaryPart or (obj:IsA("Model") and obj.PrimaryPart) or nil
+    if primary then
+        hrp.CFrame = primary.CFrame + Vector3.new(0, 5, 0)
+    elseif obj.GetModelCFrame then
         hrp.CFrame = obj:GetModelCFrame() + Vector3.new(0, 5, 0)
     end
 end
 
--- Auto toggle
 local autoClaim = false
-
 TabMisc:CreateToggle({
-    Name = "Auto Claim Box/Potion",
+    Name         = "Auto Claim Box/Potion",
     CurrentValue = false,
-    Flag = "AutoClaim",
-    Callback = function(Value)
+    Flag         = "AutoClaim",
+    Callback     = function(Value)
         autoClaim = Value
         if autoClaim then
+            DisableAllAutoRaid() -- ensure all Auto Raid toggles are off
             task.spawn(function()
+                notify("Auto Claim", "Enabled", 2, "rewind")
                 while autoClaim do
                     local pickups = TouchPickups()
                     for _, obj in ipairs(pickups) do
                         TeleportTo(obj)
-                        task.wait(1) -- đứng lại 0.5s để server kịp detect "touch"
+                        task.wait(1)
                     end
-                    task.wait(2)     -- refresh danh sách mỗi 2s
+                    task.wait(2)
                 end
             end)
         end
     end
 })
 
---=============================================================
---                     AUTO CLAIM QUEST
---=============================================================
+-- Auto Claim Daily Quests
 local autoQuest = false
-
 TabMisc:CreateToggle({
-    Name = "Auto Claim Quest",
+    Name         = "Auto Claim Quest",
     CurrentValue = false,
-    Flag = "AutoQuest",
-    Callback = function(Value)
+    Flag         = "AutoQuest",
+    Callback     = function(Value)
         autoQuest = Value
         if autoQuest then
             task.spawn(function()
+                notify("Auto Quest", "Enabled", 2, "rewind")
                 local questId = 1
                 while autoQuest do
-                    local args = { questId }
-                    RE_ClaimDailyQuest:FireServer(unpack(args))
-                    -- print("Claimed Quest", questId)
-
-                    -- tăng questId, reset về 1 khi > 6
-                    questId = questId + 1
-                    if questId > 6 then
-                        questId = 1
-                    end
-
-                    task.wait(2) -- thời gian delay giữa mỗi lần claim (tùy chỉnh)
+                    if RE_ClaimDailyQuest then RE_ClaimDailyQuest:FireServer(questId) end
+                    questId = (questId % 6) + 1
+                    task.wait(2)
                 end
             end)
         end
     end
 })
 
---=============================================================
---                     ANTI AFK
---=============================================================
+-- Anti AFK
 local antiAFK = false
-local VU = game:GetService("VirtualUser")
-local Player = game:GetService("Players").LocalPlayer
+local VU      = game:GetService("VirtualUser")
+local Player  = Players.LocalPlayer
 
 TabMisc:CreateToggle({
-    Name = "Anti AFK",
+    Name         = "Anti AFK",
     CurrentValue = false,
-    Flag = "AntiAFK",
-    Callback = function(Value)
+    Flag         = "AntiAFK",
+    Callback     = function(Value)
         antiAFK = Value
         if antiAFK then
             task.spawn(function()
+                notify("Anti AFK", "Enabled", 2, "rewind")
                 while antiAFK do
-                    -- Khi server phát hiện Idle thì tự click chuột
                     Player.Idled:Wait()
                     if antiAFK then
                         VU:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
