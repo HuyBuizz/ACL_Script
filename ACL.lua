@@ -11,10 +11,10 @@
 --====================[ Rayfield Window ]====================--
 local Rayfield           = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window             = Rayfield:CreateWindow({
-    Name = "Rayfield Example Window",
+    Name = "Astral HUB",
     Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
     LoadingTitle = "Rayfield Interface Suite",
-    LoadingSubtitle = "by Sirius",
+    LoadingSubtitle = "by AczTeam",
     ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
     Theme = "Default",     -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
@@ -25,8 +25,8 @@ local Window             = Rayfield:CreateWindow({
 
     ConfigurationSaving = {
         Enabled = true,
-        FolderName = "HieuHUB", -- Create a custom folder for your hub/game
-        FileName = "BigHub"
+        FolderName = "AstralHub", -- Create a custom folder for your hub/game
+        FileName = "AstralHub"
     },
 
     Discord = {
@@ -35,12 +35,12 @@ local Window             = Rayfield:CreateWindow({
         RememberJoins = true     -- Set this to false to make them join the discord every time they load it up
     },
 
-    KeySystem = false, -- Set this to true to use our key system
+    KeySystem = true, -- Set this to true to use our key system
     KeySettings = {
         Title = "Untitled",
         Subtitle = "Key System",
         Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-        FileName = "Key",                                    -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+        FileName = "AstralHubKey",                                    -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
         SaveKey = true,                                      -- The user's key will be saved, but if you change the key, they will be unable to use your script
         GrabKeyFromSite = false,                             -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
         Key = { "Hello" }                                    -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
@@ -81,12 +81,12 @@ local RE_ClaimDailyQuest = Net:WaitForChild("claimDailyQuest")
 --====================[ Small Utils ]====================--
 local function FireSafe(remote, ...)
     if not remote or typeof(remote.FireServer) ~= "function" then
-        warn("[HieuHub] Invalid remote:", remote and remote.Name)
+        -- warn("[HieuHub] Invalid remote:", remote and remote.Name)
         return false
     end
     local ok, err = pcall(remote.FireServer, remote, ...)
     if not ok then
-        warn("[HieuHub] Remote error", remote.Name, err)
+        -- warn("[HieuHub] Remote error", remote.Name, err)
         return false
     end
     return true
@@ -635,7 +635,7 @@ TabAutoExploration:CreateToggle({
 --=============================================================
 --                         CONFIG TAB
 --=============================================================
-local CONFIG_FOLDER = "HieuHub"
+local CONFIG_FOLDER = "AstralHub"
 
 local function HH_EnsureFolder()
     if isfolder and not isfolder(CONFIG_FOLDER) then
@@ -665,35 +665,35 @@ local function HH_SaveTableToJson(tbl, file)
     HH_EnsureFolder()
     local ok, data = pcall(HttpService.JSONEncode, HttpService, tbl)
     if not ok then
-        warn("[HieuHub] JSONEncode error:", data)
+        -- warn("[HieuHub] JSONEncode error:", data)
         return false
     end
     if not writefile then
-        warn("[HieuHub] Executor không hỗ trợ writefile")
+        -- warn("[HieuHub] Executor không hỗ trợ writefile")
         return false
     end
     writefile(HH_Path(file), data)
-    print("[HieuHub] Saved:", HH_Path(file))
+    -- print("[HieuHub] Saved:", HH_Path(file))
     return true
 end
 
 local function HH_LoadTableFromJson(file)
     local path = HH_Path(file)
     if not (isfile and isfile(path)) then
-        warn("[HieuHub] Không tìm thấy:", path)
+        -- warn("[HieuHub] Không tìm thấy:", path)
         return nil
     end
     if not readfile then
-        warn("[HieuHub] Executor không hỗ trợ readfile")
+        -- warn("[HieuHub] Executor không hỗ trợ readfile")
         return nil
     end
     local data = readfile(path)
     local ok, tbl = pcall(HttpService.JSONDecode, HttpService, data)
     if not ok then
-        warn("[HieuHub] JSONDecode error:", tbl)
+        -- warn("[HieuHub] JSONDecode error:", tbl)
         return nil
     end
-    print("[HieuHub] Loaded:", path)
+    -- print("[HieuHub] Loaded:", path)
     return tbl
 end
 
@@ -898,13 +898,15 @@ TabConfig:CreateButton({
     Callback = function()
         local fn = (NewName:gsub("%s+", ""))
         if fn == "" then
-            warn("[HieuHub] Vui lòng nhập tên file"); return
+            -- warn("[HieuHub] Vui lòng nhập tên file");
+            return
         end
         if not fn:lower():match("%.json$") then fn = fn .. ".json" end
         HH_EnsureFolder()
         local path = HH_Path(fn)
         if isfile and isfile(path) then
-            warn("[HieuHub] File đã tồn tại:", path); return
+            -- warn("[HieuHub] File đã tồn tại:", path);
+            return
         end
         if HH_SaveTableToJson(HH_CollectCurrentConfig(), fn) then
             HH_RefreshDropdown(fn)
@@ -930,7 +932,8 @@ TabConfig:CreateButton({
     Name = "|📁| Save to Selected Config",
     Callback = function()
         if not SelectedFile or SelectedFile == "" then
-            warn("[HieuHub] Chưa chọn file"); return
+            -- warn("[HieuHub] Chưa chọn file");
+            return
         end
         if HH_SaveTableToJson(HH_CollectCurrentConfig(), SelectedFile) then
             if Rayfield and Rayfield.Notify then
@@ -943,7 +946,8 @@ TabConfig:CreateButton({
     Name = "|⬇️| Load from Selected Config",
     Callback = function()
         if not SelectedFile or SelectedFile == "" then
-            warn("[HieuHub] Chưa chọn file"); return
+            -- warn("[HieuHub] Chưa chọn file");
+            return
         end
         local cfg = HH_LoadTableFromJson(SelectedFile)
         HH_ApplyConfig(cfg)
@@ -957,12 +961,14 @@ TabConfig:CreateButton({
 local function HH_Delete(file)
     local path = HH_Path(file)
     if not (isfile and isfile(path)) then
-        warn("[HieuHub] Không tìm thấy:", path); return false
+        -- warn("[HieuHub] Không tìm thấy:", path);
+        return false
     end
     if delfile then
         delfile(path); print("[HieuHub] Deleted:", path); return true
     else
-        warn("[HieuHub] Executor không hỗ trợ delfile"); return false
+        -- warn("[HieuHub] Executor không hỗ trợ delfile");
+        return false
     end
 end
 
@@ -971,7 +977,8 @@ TabConfig:CreateButton({
     Name = "|❌| Delete Selected Config (Press Twice to Confirm)",
     Callback = function()
         if not SelectedFile or SelectedFile == "" or SelectedFile == "(no configs)" then
-            warn("[HieuHub] Chưa chọn file hợp lệ để xóa"); return
+            -- warn("[HieuHub] Chưa chọn file hợp lệ để xóa");
+            return
         end
         if not _deleteArmed then
             _deleteArmed = true
@@ -1007,7 +1014,7 @@ local Players = game:GetService("Players")
 local WS = game:GetService("Workspace")
 local LocalPlayer = Players.LocalPlayer
 
-local function GeRE_TouchPickups()
+local function TouchPickups()
     local pickups = {}
     for _, obj in pairs(WS:GetChildren()) do
         if obj:IsA("Model") then
@@ -1044,7 +1051,7 @@ TabMisc:CreateToggle({
         if autoClaim then
             task.spawn(function()
                 while autoClaim do
-                    local pickups = GeRE_TouchPickups()
+                    local pickups = TouchPickups()
                     for _, obj in ipairs(pickups) do
                         TeleportTo(obj)
                         task.wait(1) -- đứng lại 0.5s để server kịp detect "touch"
