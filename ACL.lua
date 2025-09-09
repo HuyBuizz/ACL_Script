@@ -1,1459 +1,1118 @@
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
-local Window = Rayfield:CreateWindow({
-	Name = "Anime Card Clash - HieuHUB",
-	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-	LoadingTitle = "Rayfield Interface Suite",
-	LoadingSubtitle = "by DuckHieu",
-	Theme = "DarkBlue", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+--=============================================================
+-- HIEU HUB – ALL-IN-ONE SCRIPT (Clean Structured)
+--  • MAIN (Global Boss)
+--  • AUTO RAID (Boss + Minion + Deck before fight)
+--  • AUTO TOWER (nightmare / potion / base + Deck)
+--  • AUTO EXPLORATION (claim → start; per-diff inputs + single-run)
+--  • CONFIG (Create/Reload/Save/Load/Delete)
+--  • FULL Save/Load: AutoRaid, AutoExploration, AutoTower, GlobalBoss
+--=============================================================
 
-	DisableRayfieldPrompts = false,
-	DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+--====================[ Rayfield Window ]====================--
+local Rayfield           = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window             = Rayfield:CreateWindow({
+    Name = "Rayfield Example Window",
+    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+    LoadingTitle = "Rayfield Interface Suite",
+    LoadingSubtitle = "by Sirius",
+    ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
+    Theme = "Default",     -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
-	ConfigurationSaving = {
-		Enabled = true,
-		FolderName = nil, -- Create a custom folder for your hub/game
-		FileName = "Big Hub",
-	},
+    ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
 
-	Discord = {
-		Enabled = false,
-		Invite = "noinvitelink",
-		RememberJoins = true,
-	},
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
 
-	KeySystem = false, -- Set this to true to use our key system
-})
--- ─────────────────────────────────────────────────────────────────────────
--- ─██████──────────██████─██████████████─██████████─██████──────────██████─
--- ─██░░██████████████░░██─██░░░░░░░░░░██─██░░░░░░██─██░░██████████──██░░██─
--- ─██░░░░░░░░░░░░░░░░░░██─██░░██████░░██─████░░████─██░░░░░░░░░░██──██░░██─
--- ─██░░██████░░██████░░██─██░░██──██░░██───██░░██───██░░██████░░██──██░░██─
--- ─██░░██──██░░██──██░░██─██░░██████░░██───██░░██───██░░██──██░░██──██░░██─
--- ─██░░██──██░░██──██░░██─██░░░░░░░░░░██───██░░██───██░░██──██░░██──██░░██─
--- ─██░░██──██████──██░░██─██░░██████░░██───██░░██───██░░██──██░░██──██░░██─
--- ─██░░██──────────██░░██─██░░██──██░░██───██░░██───██░░██──██░░██████░░██─
--- ─██░░██──────────██░░██─██░░██──██░░██─████░░████─██░░██──██░░░░░░░░░░██─
--- ─██░░██──────────██░░██─██░░██──██░░██─██░░░░░░██─██░░██──██████████░░██─
--- ─██████──────────██████─██████──██████─██████████─██████──────────██████─
--- ─────────────────────────────────────────────────────────────────────────
-local function ExportMinimalCardData()
-	local ReplicatedStorage = game:GetService("ReplicatedStorage")
-	local HttpService = game:GetService("HttpService")
-	local cardsModule = require(ReplicatedStorage.TS.card.cards)
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = "HieuHUB", -- Create a custom folder for your hub/game
+        FileName = "BigHub"
+    },
 
-	local function extractMinimalCardData(cards)
-		local result = {}
+    Discord = {
+        Enabled = false,         -- Prompt the user to join your Discord server if their executor supports it
+        Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+        RememberJoins = true     -- Set this to false to make them join the discord every time they load it up
+    },
 
-		for key, card in pairs(cards) do
-			result[tostring(key)] = {
-				name = card.name,
-				index = card.index,
-				denominator = card.denominator,
-				id = card.id,
-				pureId = card.pureId,
-				isSupport = card.isSupport,
-				support = card.support,
-				stats = card.stats and {
-					DAMAGE = card.stats.DAMAGE,
-					HEALTH = card.stats.HEALTH,
-				} or nil,
-			}
-		end
-
-		return result
-	end
-
-	local function exportToJSON(data, fileName)
-		local folderPath = "ACL/DATA"
-		if not isfolder("ACL") then
-			makefolder("ACL")
-		end
-		if not isfolder(folderPath) then
-			makefolder(folderPath)
-		end
-
-		local success, encoded = pcall(function()
-			return HttpService:JSONEncode(data)
-		end)
-
-		if success then
-			writefile(folderPath .. "/" .. fileName, encoded)
-			print("✅ JSON exported at:", folderPath .. "/" .. fileName)
-		else
-			warn("❌ Cannot encode JSON:", encoded)
-		end
-	end
-
-	if cardsModule and cardsModule.Cards then
-		local minimalData = extractMinimalCardData(cardsModule.Cards)
-		exportToJSON(minimalData, "cards_only.json")
-	else
-		warn("⚠️ cardsModule.Cards not found")
-	end
-end
-
-ExportMinimalCardData()
--- ▀▀█▀▀ ─█▀▀█ ░█─▄▀ ░█▀▀▀ 　 ░█▀▀▄ ─█▀▀█ ▀▀█▀▀ ─█▀▀█
--- ─░█── ░█▄▄█ ░█▀▄─ ░█▀▀▀ 　 ░█─░█ ░█▄▄█ ─░█── ░█▄▄█
--- ─░█── ░█─░█ ░█─░█ ░█▄▄▄ 　 ░█▄▄▀ ░█─░█ ─░█── ░█─░█
-
-local vim = game:GetService("VirtualInputManager")
-
-local function pressKey(keyCode)
-	vim:SendKeyEvent(true, keyCode, false, game)
-	task.wait(0.1) -- giữ phím một chút
-	vim:SendKeyEvent(false, keyCode, false, game)
-end
-
---/////////////////////////////////////////////////////////////////////////////
--- local function startRewardUICheck()
--- 	local player = game:GetService("Players").LocalPlayer
--- 	local playerGui = player:WaitForChild("PlayerGui")
--- 	local vim = game:GetService("VirtualInputManager")
-
--- 	local function pressKey(keyCode)
--- 		vim:SendKeyEvent(true, keyCode, false, game)
--- 		task.wait(0.1)
--- 		vim:SendKeyEvent(false, keyCode, false, game)
--- 	end
-
--- 	local lastState = false
-
--- 	-- Vòng lặp chạy dưới dạng task để không block luồng chính
--- 	task.spawn(function()
--- 		while true do
--- 			local hasUI = playerGui:FindFirstChild("reward-ui") ~= nil
-
--- 			if hasUI and not lastState then
--- 				pressKey(Enum.KeyCode.BackSlash)
--- 				task.wait(0.2)
--- 				pressKey(Enum.KeyCode.Return)
--- 				task.wait(0.2)
--- 			end
-
--- 			lastState = hasUI
--- 			task.wait(1)
--- 		end
--- 	end)
--- end
--- startRewardUICheck()
--- /////////////////////////////////////////////////////////////////////////////
-
-local function OpenExplorationUI()
-	local prompt = workspace:FindFirstChild("lobby")
-		and workspace.lobby:FindFirstChild("npc")
-		and workspace.lobby.npc:FindFirstChild("exploration")
-		and workspace.lobby.npc.exploration:FindFirstChild("HumanoidRootPart")
-		and workspace.lobby.npc.exploration.HumanoidRootPart:FindFirstChildWhichIsA("ProximityPrompt")
-
-	if prompt then
-		fireproximityprompt(prompt)
-		task.wait(1.5)
-	end
-end
-
-local explorationData = {} -- Biến toàn cục để lưu dữ liệu exploration
-
-local function TakeDataExploration()
-	local HttpService = game:GetService("HttpService")
-	local Players = game:GetService("Players")
-
-	-- Hàm loại bỏ thẻ HTML như <b>...</b>
-	local function stripHTML(str)
-		return str:gsub("<.->", ""):match("^%s*(.-)%s*$")
-	end
-
-	-- Truy cập ScrollingFrame
-	local scrollingFrame =
-		Players.LocalPlayer.PlayerGui.exploration.Transition.Frame.Frame:GetChildren()[2].Frame.Frame.Frame.ScrollingFrame
-
-	-- Gom các TextButton lại với LayoutOrder
-	local buttonsWithLayer = {}
-
-	for _, child in ipairs(scrollingFrame:GetChildren()) do
-		if child:IsA("TextButton") then
-			table.insert(buttonsWithLayer, {
-				button = child,
-				layerOrder = child.LayoutOrder,
-			})
-		end
-	end
-
-	-- Sắp xếp theo LayoutOrder
-	table.sort(buttonsWithLayer, function(a, b)
-		return a.layerOrder < b.layerOrder
-	end)
-
-	-- Mảng gốc chứa raw text
-	local explorationList = {}
-
-	for _, item in ipairs(buttonsWithLayer) do
-		local textButton = item.button
-		local layer = item.layerOrder
-
-		local challengeData = {
-			layerOrder = layer,
-			details = {},
-		}
-
-		for _, subChild in ipairs(textButton:GetChildren()) do
-			if subChild:IsA("TextLabel") then
-				local lines = string.split(subChild.Text, "\n")
-				for _, line in ipairs(lines) do
-					if not string.find(line:lower(), "click to see details") then
-						table.insert(challengeData.details, line)
-					end
-				end
-			end
-		end
-
-		table.insert(explorationList, challengeData)
-	end
-
-	-- Biến lưu kết quả cuối cùng theo định dạng mong muốn
-	explorationData = {}
-
-	for _, entry in ipairs(explorationList) do
-		local details = entry.details
-		if #details >= 3 then
-			local difficulty = stripHTML(details[1])
-			local rarity = ""
-			local duration = ""
-			local remainingtime = ""
-
-			for _, line in ipairs(details) do
-				local cleanLine = stripHTML(line):lower()
-
-				if cleanLine:find("minimum required rarity") then
-					rarity = line:match(":%s*<b>(.-)</b>") or stripHTML(line:match(":%s*(.+)"))
-				elseif cleanLine:find("duration") then
-					duration = line:match(":%s*<b>(.-)</b>") or stripHTML(line:match(":%s*(.+)"))
-				elseif cleanLine:find("ends in") then
-					-- remainingtime = line:match("<b>(.-)</b>") or stripHTML(line:match("in%s*(.+)"))
-					local timeText = line:match("<b>(.-)</b>") or stripHTML(line:match("in%s*(.+)"))
-					if timeText then
-						local hours = tonumber(timeText:match("(%d+)h")) or 0
-						local minutes = tonumber(timeText:match("(%d+)m")) or 0
-						local seconds = tonumber(timeText:match("(%d+)s")) or 0
-						remainingtime = tostring(hours * 3600 + minutes * 60 + seconds)
-					end
-				elseif cleanLine == "available" then
-					remainingtime = "AVAILABLE"
-				elseif cleanLine == "ready to claim" then
-					remainingtime = "READY TO CLAIM"
-				end
-			end
-
-			explorationData[difficulty] = {
-				difficulty = difficulty,
-				minimumrequired = rarity,
-				duration = duration,
-				remainingtime = remainingtime,
-			}
-		end
-	end
-
-	-- In ra màn hình nội dung của explorationData
-	-- for difficulty, data in pairs(explorationData) do
-	--     print("Difficulty: " .. difficulty)
-	--     print("  Minimum Required Rarity: " .. (data.minimumrequired or "N/A"))
-	--     print("  Duration: " .. (data.duration or "N/A"))
-	--     print("  Remaining Time: " .. (data.remainingtime or "N/A"))
-	--     print("-----------------------------")
-	-- end
-
-	-- -- Chuyển sang JSON
-	-- local jsonResult = HttpService:JSONEncode(explorationData)
-
-	-- -- Ghi vào file
-	-- local fileName = "explorationObjectData.json"
-	-- writefile(fileName, jsonResult)
-
-	-- print("✅ Dữ liệu đã được lưu vào file: " .. fileName)
-
-	pressKey(Enum.KeyCode.BackSlash)
-	task.wait(0.1) -- đợi một chút
-	pressKey(Enum.KeyCode.Return)
-	-- task.spawn(UpdateParagraphInfo)
-end
-
-local function UpdateRemainingTime()
-	local lastUpdate = os.time() -- thời gian thực (UNIX timestamp)
-	while true do
-		local currentTime = os.time()
-		local elapsedTime = currentTime - lastUpdate
-		if elapsedTime >= 1 then
-			for _, data in pairs(explorationData) do
-				if tonumber(data.remainingtime) then
-					local timeLeft = tonumber(data.remainingtime)
-					if timeLeft > 0 then
-						timeLeft = timeLeft - elapsedTime
-						if timeLeft <= 0 then
-							data.remainingtime = "READY TO CLAIM"
-						else
-							data.remainingtime = tostring(timeLeft)
-						end
-					end
-				end
-			end
-			lastUpdate = currentTime
-		end
-		task.wait(0.2)
-	end
-end
-
-local function formatCardName(name)
-	-- Chuyển chữ thường, loại bỏ khoảng trắng đầu/cuối
-	name = name:lower():gsub("^%s*(.-)%s*$", "%1")
-	-- Thay dấu cách bằng dấu gạch dưới
-	name = name:gsub("%s+", "_")
-	-- Loại bỏ ký tự đặc biệt (nếu cần, tuỳ yêu cầu game)
-	name = name:gsub("[^a-z0-9_]", "")
-	return name
-end
-
-local Main = Window:CreateTab("MAIN", 4483362458)
-local Paragraph = Main:CreateParagraph({
-	Title = "DATA",
-	Content = "Retrieve Exploration Data. \n"
-		.. "‼️ Click the button below to get data (if not already available).",
-})
-local Button = Main:CreateButton({
-	Name = "Take Data Exploration",
-	Callback = function()
-		OpenExplorationUI()
-		TakeDataExploration()
-		-- UpdateRemainingTime()
-		-- ExportMinimalCardData()
-	end,
+    KeySystem = false, -- Set this to true to use our key system
+    KeySettings = {
+        Title = "Untitled",
+        Subtitle = "Key System",
+        Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+        FileName = "Key",                                    -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+        SaveKey = true,                                      -- The user's key will be saved, but if you change the key, they will be unable to use your script
+        GrabKeyFromSite = false,                             -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+        Key = { "Hello" }                                    -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    }
 })
 
-task.spawn(function()
-	task.wait(1)
-	print("🔄 Automatically retrieving Exploration data...")
+--====================[ Services & Remotes ]====================--
+local RS                 = game:GetService("ReplicatedStorage")
+local WS                 = game:GetService("Workspace")
+local HttpService        = game:GetService("HttpService")
 
-	OpenExplorationUI()
+local Net                = RS:WaitForChild("shared/network@eventDefinitions")
 
-	task.wait(1)
+-- Shared remotes
+local RE_Forfeit         = Net:WaitForChild("forfeitBattle")
+local RE_SetPartySlot    = Net:WaitForChild("setPartySlot")
 
-	TakeDataExploration()
+-- Auto Raid
+local RE_Teleport        = Net:WaitForChild("teleport")
+local RE_FightRaidBoss   = Net:WaitForChild("fightRaidBoss")
+local RE_FightMinion     = Net:WaitForChild("fightRaidMinion")
 
-	task.spawn(UpdateRemainingTime)
+-- Exploration
+local RE_ClaimExpl       = Net:WaitForChild("claimExploration")
+local RE_StartExpl       = Net:WaitForChild("startExploration")
 
-	print("✅ Exploration data has been retrieved automatically.")
-end)
+-- Tower (Infinite)
+local RE_ClaimInf        = Net:WaitForChild("claimInfinite")
+local RE_FightInf        = Net:WaitForChild("fightInfinite")
 
-local Divider = Main:CreateDivider()
--- ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
--- ─██████████████─████████──████████─██████████████─██████─────────██████████████─████████████████───██████████████─██████████████─██████████─██████████████─██████──────────██████─
--- ─██░░░░░░░░░░██─██░░░░██──██░░░░██─██░░░░░░░░░░██─██░░██─────────██░░░░░░░░░░██─██░░░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░██─██░░░░░░░░░░██─██░░██████████──██░░██─
--- ─██░░██████████─████░░██──██░░████─██░░██████░░██─██░░██─────────██░░██████░░██─██░░████████░░██───██░░██████░░██─██████░░██████─████░░████─██░░██████░░██─██░░░░░░░░░░██──██░░██─
--- ─██░░██───────────██░░░░██░░░░██───██░░██──██░░██─██░░██─────────██░░██──██░░██─██░░██────██░░██───██░░██──██░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██████░░██──██░░██─
--- ─██░░██████████───████░░░░░░████───██░░██████░░██─██░░██─────────██░░██──██░░██─██░░████████░░██───██░░██████░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██──██░░██─
--- ─██░░░░░░░░░░██─────██░░░░░░██─────██░░░░░░░░░░██─██░░██─────────██░░██──██░░██─██░░░░░░░░░░░░██───██░░░░░░░░░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██──██░░██─
--- ─██░░██████████───████░░░░░░████───██░░██████████─██░░██─────────██░░██──██░░██─██░░██████░░████───██░░██████░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██──██░░██─
--- ─██░░██───────────██░░░░██░░░░██───██░░██─────────██░░██─────────██░░██──██░░██─██░░██──██░░██─────██░░██──██░░██─────██░░██───────██░░██───██░░██──██░░██─██░░██──██░░██████░░██─
--- ─██░░██████████─████░░██──██░░████─██░░██─────────██░░██████████─██░░██████░░██─██░░██──██░░██████─██░░██──██░░██─────██░░██─────████░░████─██░░██████░░██─██░░██──██░░░░░░░░░░██─
--- ─██░░░░░░░░░░██─██░░░░██──██░░░░██─██░░██─────────██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██──██░░░░░░██─██░░██──██░░██─────██░░██─────██░░░░░░██─██░░░░░░░░░░██─██░░██──██████████░░██─
--- ─██████████████─████████──████████─██████─────────██████████████─██████████████─██████──██████████─██████──██████─────██████─────██████████─██████████████─██████──────────██████─
--- ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+-- Global Boss (Main)
+local RE_FightGlobal     = Net:WaitForChild("fightGlobalBoss")
 
--- ░█▀▀▄ ░█▀▀▀ ░█─── ░█▀▀▀█ ░█──░█
--- ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
--- ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
-local HttpService = game:GetService("HttpService")
-local isClaiming = false -- Cờ kiểm soát trạng thái CLAIM
-local isDeploying = false -- Cờ kiểm soát trạng thái Deploy
+-- TouchedPickup
+local RE_TouchPickup     = Net:FindFirstChild("touchedPickup")
+local RE_ClaimDailyQuest = Net:WaitForChild("claimDailyQuest")
 
--- Đọc dữ liệu từ file JSON
-local function loadCardData()
-	local filePath = "ACL/DATA/cards_only.json"
-	if isfile(filePath) then
-		local jsonContent = readfile(filePath)
-		return HttpService:JSONDecode(jsonContent)
-	else
-		warn("❌ File cards_only.json not found.")
-		return {}
-	end
+--====================[ Small Utils ]====================--
+local function FireSafe(remote, ...)
+    if not remote or typeof(remote.FireServer) ~= "function" then
+        warn("[HieuHub] Invalid remote:", remote and remote.Name)
+        return false
+    end
+    local ok, err = pcall(remote.FireServer, remote, ...)
+    if not ok then
+        warn("[HieuHub] Remote error", remote.Name, err)
+        return false
+    end
+    return true
 end
 
-local cardData = loadCardData()
-
-local function getDenominator(cardId)
-	for _, data in pairs(cardData) do
-		if data.id == cardId then
-			return data.denominator
-		end
-	end
-	return 0
-end
-
--- -- Hàm chuyển tên nhập thành định dạng card chuẩn (vd: "fire dragon" -> "fire_dragon")
--- local function formatCardName(name)
---     return string.lower(name):gsub("%s+", "_")
--- end
-
--- Yêu cầu tối thiểu theo độ khó
-local minimumRequired = {
-	easy = 10000,
-	medium = 1000000,
-	hard = 10000000,
-	extreme = 100000000,
-	nightmare = 1000000000,
-}
-
--- UI Rayfield
-local Exploration = Window:CreateTab("EXPLORATION", 4483362458)
-
-local ParagraphInfo = Exploration:CreateParagraph({
-	Title = "📊 INFORMATION",
-	Content = "🔄 Loading Data...",
-})
-
--- Hàm chuyển đổi thời gian từ giây sang định dạng h m s
-local function formatTime(seconds)
-	seconds = tonumber(seconds) or 0
-	local hours = math.floor(seconds / 3600)
-	local minutes = math.floor((seconds % 3600) / 60)
-	local secs = seconds % 60
-	return string.format("%02dh %02dm %02ds", hours, minutes, secs)
-end
-
-local function UpdateParagraphInfo()
-	while true do
-		local content = "📋 Exploration Status\n\n"
-
-		-- Duyệt qua từng độ khó và lấy remainingtime
-		for difficulty, data in pairs(explorationData) do
-			local timeText = data.remainingtime or "N/A"
-
-			-- Chuyển đổi thời gian nếu remainingtime là số
-			if tonumber(timeText) then
-				timeText = formatTime(tonumber(timeText))
-			end
-
-			content = content .. "🌟 " .. difficulty .. ": `" .. timeText .. "`\n"
-		end
-
-		-- Cập nhật nội dung của ParagraphInfo
-		ParagraphInfo:Set({
-			Title = "📊 INFORMATION",
-			Content = content,
-		})
-
-		task.wait(1) -- Cập nhật mỗi giây
-	end
-end
-
-local Paragraph = Exploration:CreateParagraph({
-	Title = "DEPLOY",
-	Content = "Deploy Cards Into Their Corresponding Difficulties.",
-})
-local Divider = Exploration:CreateDivider()
-
-local difficulties = { "EASY", "MEDIUM", "HARD", "EXTREME", "NIGHTMARE" }
-local rarities = { "basic", "gold", "rainbow", "secret" }
-local deployInputs = {} -- key: difficulty, value: {cardInputs = {}, rarityDropdowns = {}}
-
-for _, difficulty in ipairs(difficulties) do
-	local section = Exploration:CreateSection("🔄 Deploy - " .. difficulty)
-	local cardInputs = {}
-	local rarityDropdowns = {}
-
-	-- Gắn dữ liệu input + dropdown vào deployInputs
-	deployInputs[difficulty] = {
-		cardInputs = cardInputs,
-		rarityDropdowns = rarityDropdowns,
-	}
-
-	for i = 1, 4 do
-		table.insert(
-			cardInputs,
-			Exploration:CreateInput({
-				Name = "🃏 Card " .. i .. " Name (" .. difficulty .. ")",
-				PlaceholderText = "Enter card name",
-				RemoveTextAfterFocusLost = false,
-				Callback = function(value)
-					cardInputs[i].Value = value
-				end,
-			})
-		)
-
-		table.insert(
-			rarityDropdowns,
-			Exploration:CreateDropdown({
-				Name = "↘️ Card " .. i .. " Rarity (" .. difficulty .. ")",
-				Options = rarities,
-				CurrentOption = { "basic" },
-				MultipleOptions = false,
-				Callback = function(option)
-					local value
-					if type(option) == "table" then
-						value = option.Name or option.Value or option[1]
-					elseif type(option) == "string" then
-						value = option
-					end
-					rarityDropdowns[i].Value = tostring(value or "basic")
-				end,
-			})
-		)
-	end
-
-	Exploration:CreateButton({
-		Name = "🚀 Deploy to " .. difficulty,
-		Callback = function()
-			local difficultyKey = string.lower(difficulty)
-			local minRequired = minimumRequired[difficultyKey]
-			local args = { difficultyKey, {} }
-
-			for i = 1, 4 do
-				local rawName = cardInputs[i].Value or ""
-				local name = formatCardName(rawName)
-				local rarity = rarityDropdowns[i].Value or "basic"
-
-				-- print("🔍 Card Input " .. i .. ":", rawName)
-				-- print("🔍 Formatted Name:", name)
-				-- print("🔍 Rarity:", rarity)
-
-				local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
-				-- print("🔍 FullId:", fullId)
-
-				local denom = getDenominator(fullId)
-				-- print("Thẻ '" .. fullId .. "' có denominator: " .. denom)
-
-				-- Nếu denom = 0, chỉ Notify và dừng lại
-				if denom == 0 then
-					Rayfield:Notify({
-						Title = "Card Not Found",
-						Content = "The card ID **'"
-							.. fullId
-							.. "'** does not exist in the data. Please check the card name and rarity.",
-						Duration = 6.5,
-						Image = "AlertCircle", -- Lucide Icon for warning
-					})
-					return -- Dừng lại nếu không tìm thấy cardId
-				end
-
-				if denom < minRequired then
-					-- warn("⚠️ Thẻ '" .. fullId .. "' không đủ sức mạnh để deploy vào " .. difficulty)
-					Rayfield:Notify({
-						Title = "Not Enough Denom",
-						Content = "Card '" .. fullId .. "' does not have enough power to deploy into " .. difficulty,
-						Duration = 6.5,
-						Image = "triangle-alert",
-					})
-					return
-				end
-
-				table.insert(args[2], fullId)
-			end
-
-			game:GetService("ReplicatedStorage")
-				:WaitForChild("aJv")
-				:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
-				:FireServer(unpack(args))
-
-			print("✅ Deploy sent for", difficulty)
-		end,
-	})
-	local Divider = Exploration:CreateDivider()
-
-	-- local testCardId = "green_bomber:secret"
-	-- local denom = getDenominator(testCardId)
-	-- print("Denominator for '" .. testCardId .. "': " .. denom)
-end
-
--- ─█▀▀█ ░█─░█ ▀▀█▀▀ ░█▀▀▀█ 　 ░█▀▀▄ ░█▀▀▀ ░█─── ░█▀▀▀█ ░█──░█
--- ░█▄▄█ ░█─░█ ─░█── ░█──░█ 　 ░█─░█ ░█▀▀▀ ░█─── ░█──░█ ░█▄▄▄█
--- ░█─░█ ─▀▄▄▀ ─░█── ░█▄▄▄█ 　 ░█▄▄▀ ░█▄▄▄ ░█▄▄█ ░█▄▄▄█ ──░█──
-local Paragraph = Exploration:CreateParagraph({
-	Title = "AUTO DELOY",
-	Content = "Automatically deploy cards into their corresponding difficulties.",
-})
-
--- Tạo Toggle cho Auto Deploy
-local autoDeployEnabled = false
-local autoDeployTask = nil
-local isClaimingAll = false
-
--- Hàm chuyển đổi thời gian từ định dạng "6h", "2d", "5m" thành giây
-local function convertDurationToSeconds(duration)
-	local hours, days, minutes = 0, 0, 0
-
-	-- Kiểm tra xem duration có phải là dạng "6h", "2d", "5m" hay không và phân tích nó
-	if string.match(duration, "h$") then
-		hours = tonumber(string.match(duration, "(%d+)h")) or 0
-	elseif string.match(duration, "d$") then
-		days = tonumber(string.match(duration, "(%d+)d")) or 0
-	elseif string.match(duration, "m$") then
-		minutes = tonumber(string.match(duration, "(%d+)m")) or 0
-	end
-
-	-- Tính ra giây từ giờ, ngày và phút
-	return (days * 24 * 3600) + (hours * 3600) + (minutes * 60)
-end
-
-local function startAutoDeployTask()
-	autoDeployTask = task.spawn(function()
-		print("🟢 AutoDeploy task has started!")
-
-		local deployQueue = {}
-
-		while autoDeployEnabled do
-			-- Nếu đang Claim hoặc Deploy thì chờ
-			if isClaiming or isDeploying then
-				task.wait(1)
-			else
-				-- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
-				if #deployQueue == 0 then
-					for difficulty, data in pairs(explorationData) do
-						if data.remainingtime == "AVAILABLE" then
-							table.insert(deployQueue, difficulty)
-						end
-					end
-				end
-
-				-- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
-				if #deployQueue > 0 and not isDeploying then
-					isDeploying = true
-
-					local difficulty = table.remove(deployQueue, 1)
-					local data = explorationData[difficulty]
-					local success = true
-					local difficultyKey = string.lower(difficulty)
-					local minRequired = minimumRequired[difficultyKey]
-					local args = { difficultyKey, {} }
-
-					for i = 1, 4 do
-						local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
-						local name = formatCardName(rawName)
-						local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
-						local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
-						local denom = getDenominator(fullId)
-
-						if denom == 0 or denom < minRequired then
-							success = false
-							break
-						end
-
-						table.insert(args[2], fullId)
-					end
-
-					if success then
-						task.wait(1)
-						game:GetService("ReplicatedStorage")
-							:WaitForChild("aJv")
-							:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
-							:FireServer(unpack(args))
-						task.wait(0.3)
-						print("✅ Deploy sent for", difficulty)
-						Rayfield:Notify({
-							Title = "Auto Deploy",
-							Content = "Card deployed to difficulty:" .. difficulty,
-							Duration = 4,
-							Image = "check",
-						})
-
-						local durationInSeconds = convertDurationToSeconds(data.duration) + 6
-						data.remainingtime = durationInSeconds
-					end
-					isDeploying = false
-				end
-			end
-			task.wait(1)
-		end
-
-		print("🔴 AutoDeploy task has stopped!")
-		autoDeployTask = nil
-	end)
-end
-
--- local function startAutoDeployTask()
--- 	autoDeployTask = task.spawn(function()
--- 		print("🟢 AutoDeploy task has started!")
-
--- 		local deployQueue = {}
-
--- 		while autoDeployEnabled do
--- 			-- Chờ cho đến khi quá trình claim tất cả hoàn tất
--- 			while isClaimingAll do
--- 				task.wait(0.5) -- Chờ 0.5 giây để kiểm tra lại trạng thái
--- 			end
-
--- 			-- Nếu đang Claim hoặc Deploy thì chờ
--- 			if isClaiming or isDeploying then
--- 				task.wait(1)
--- 			else
--- 				-- Nếu hàng đợi trống, quét explorationData để tìm các nhiệm vụ AVAILABLE
--- 				if #deployQueue == 0 then
--- 					for difficulty, data in pairs(explorationData) do
--- 						if data.remainingtime == "AVAILABLE" then
--- 							table.insert(deployQueue, difficulty)
--- 						end
--- 					end
--- 				end
-
--- 				-- Nếu có nhiệm vụ trong hàng đợi thì xử lý từng cái một
--- 				if #deployQueue > 0 and not isDeploying then
--- 					isDeploying = true
-
--- 					local difficulty = table.remove(deployQueue, 1)
--- 					local data = explorationData[difficulty]
--- 					local success = true
--- 					local difficultyKey = string.lower(difficulty)
--- 					local minRequired = minimumRequired[difficultyKey]
--- 					local args = { difficultyKey, {} }
-
--- 					for i = 1, 4 do
--- 						local rawName = deployInputs[difficulty].cardInputs[i].Value or ""
--- 						local name = formatCardName(rawName)
--- 						local rarity = deployInputs[difficulty].rarityDropdowns[i].Value or "basic"
--- 						local fullId = (rarity == "basic") and name or (name .. ":" .. rarity)
--- 						local denom = getDenominator(fullId)
-
--- 						if denom == 0 or denom < minRequired then
--- 							success = false
--- 							print("❌ Deploy failed for", difficulty, "- Card:", fullId, "does not meet requirements.")
--- 							break
--- 						end
-
--- 						table.insert(args[2], fullId)
--- 					end
-
--- 					if success then
--- 						game:GetService("ReplicatedStorage")
--- 							:WaitForChild("aJv")
--- 							:WaitForChild("7e218913-87f3-4a0c-8337-ce1c31634afc")
--- 							:FireServer(unpack(args))
--- 						task.wait(0.3)
--- 						print("✅ Deploy sent for", difficulty)
--- 						Rayfield:Notify({
--- 							Title = "Auto Deploy",
--- 							Content = "Card deployed to difficulty: " .. difficulty,
--- 							Duration = 4,
--- 							Image = "check",
--- 						})
-
--- 						local durationInSeconds = convertDurationToSeconds(data.duration) + 6
--- 						data.remainingtime = durationInSeconds
--- 					end
-
--- 					isDeploying = false
--- 				else
--- 					-- Nếu không có nhiệm vụ nào để deploy
--- 					-- print("ℹ️ No tasks available for deployment.")
--- 					task.wait(1)
--- 				end
--- 			end
--- 		end
-
--- 		print("🔴 AutoDeploy task has stopped!")
--- 		autoDeployTask = nil
--- 	end)
--- end
--- Toggle UI để bật/tắt Auto Deploy
-Exploration:CreateToggle({
-	Name = "⚙️ Auto Deploy",
-	CurrentValue = false,
-	Callback = function(state)
-		autoDeployEnabled = state
-		-- print("⚙️ AutoDeploy hiện tại:", autoDeployEnabled and "🟢 BẬT" or "🔴 TẮT")
-		print("⚙️ Current AutoDeploy:", autoDeployEnabled and "🟢 ON" or "🔴 OFF")
-		if autoDeployEnabled then
-			-- Kiểm tra xem có dữ liệu exploration không và bắt đầu auto deploy task
-			if next(explorationData) ~= nil then
-				startAutoDeployTask()
-			else
-				print("❌ No exploration data found. Cannot auto deploy.")
-			end
-		else
-			-- Dừng auto deploy nếu tắt toggle
-			if autoDeployTask then
-				print("🛑 AutoDeploy turned off.")
-				autoDeployEnabled = false
-				task.cancel(autoDeployTask)
-				autoDeployTask = nil
-			end
-		end
-	end,
-})
-
-local Divider = Exploration:CreateDivider()
-
--- ─█▀▀█ ░█─░█ ▀▀█▀▀ ░█▀▀▀█ 　 ░█▀▀█ ░█─── ─█▀▀█ ▀█▀ ░█▀▄▀█
--- ░█▄▄█ ░█─░█ ─░█── ░█──░█ 　 ░█─── ░█─── ░█▄▄█ ░█─ ░█░█░█
--- ░█─░█ ─▀▄▄▀ ─░█── ░█▄▄▄█ 　 ░█▄▄█ ░█▄▄█ ░█─░█ ▄█▄ ░█──░█
-
-local autoClaimEnabled = false
-local autoClaimTask = nil
-
-local function claimMission(info)
-	isClaiming = true -- Bắt đầu CLAIM
-	local replicatedStorage = game:GetService("ReplicatedStorage")
-	local args = { info.difficulty:lower() }
-
-	local claimEvent = replicatedStorage:WaitForChild("aJv"):WaitForChild("dd4222d2-9feb-4f65-9937-16b4df7f81a3")
-
-	claimEvent:FireServer(unpack(args))
-
-	print("✅ → Exploration claimed:", info.difficulty)
-	explorationData[info.difficulty].remainingtime = "AVAILABLE"
-	task.wait(1)
-	isClaiming = false -- Kết thúc CLAIM
-end
-
--- local function startAutoClaimTask()
--- 	if autoClaimTask then
--- 		return
--- 	end
-
--- 	autoClaimTask = task.spawn(function()
--- 		print("🟢 AutoClaim task has started!")
-
--- 		local claimQueue = {}
-
--- 		while autoClaimEnabled do
--- 			if isClaiming or isDeploying then
--- 				task.wait(2) -- Nếu đang claim thì chờ
--- 			end
--- 			-- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
--- 			if #claimQueue == 0 then
--- 				for _, info in pairs(explorationData) do
--- 					if info.remainingtime == "READY TO CLAIM" then
--- 						table.insert(claimQueue, info)
--- 					end
--- 				end
--- 			end
-
--- 			-- Nếu có nhiệm vụ trong hàng đợi thì claim từng cái một
--- 			if #claimQueue > 0 and not isClaiming  then
--- 				local info = table.remove(claimQueue, 1)
--- 				claimMission(info)
--- 				task.wait(0.3) -- Thêm delay giữa các lần claim để tránh spam server
--- 			end
-
--- 			task.wait(1) -- Delay để tránh spam server
--- 		end
-
--- 		print("🔴 AutoClaim task has stopped!")
--- 		autoClaimTask = nil
--- 	end)
--- end
-
-local function startAutoClaimTask()
-	if autoClaimTask then
-		return
-	end
-
-	autoClaimTask = task.spawn(function()
-		print("🟢 AutoClaim task has started!")
-		isClaimingAll = true -- Bắt đầu quá trình claim tất cả
-
-		local claimQueue = {}
-
-		while autoClaimEnabled do
-			if isClaiming or isDeploying then
-				task.wait(2) -- Nếu đang claim hoặc deploy thì chờ
-			end
-
-			-- Nếu hàng đợi trống thì quét dữ liệu để tìm các nhiệm vụ READY TO CLAIM
-			if #claimQueue == 0 then
-				for _, info in pairs(explorationData) do
-					if info.remainingtime == "READY TO CLAIM" then
-						table.insert(claimQueue, info)
-					end
-				end
-			end
-
-			-- Nếu có nhiệm vụ trong hàng đợi thì claim từng cái một
-			if #claimQueue > 0 and not isClaiming then
-				local info = table.remove(claimQueue, 1)
-				claimMission(info)
-				task.wait(0.3) -- Thêm delay giữa các lần claim để tránh spam server
-			end
-
-			-- Nếu không còn nhiệm vụ nào để claim, kết thúc quá trình claim
-			if #claimQueue == 0 then
-				isClaimingAll = false -- Đánh dấu đã claim xong
-				task.wait(2)
-			end
-
-			task.wait(1) -- Delay để tránh spam server
-		end
-
-		print("🔴 AutoClaim task has stopped!")
-		autoClaimTask = nil
-	end)
-end
-
--- UI
-local Paragraph = Exploration:CreateParagraph({
-	Title = "AUTO CLAIM",
-	Content = "Automatically claim exploration rewards.",
-})
-
-Exploration:CreateToggle({
-	Name = "⚙️ Auto Claim",
-	CurrentValue = false,
-	Callback = function(Value)
-		autoClaimEnabled = Value
-		print("⚙️ Current AutoClaim:", autoClaimEnabled and "🟢 ON" or "🔴 OFF")
-		if autoClaimEnabled then
-			startAutoClaimTask()
-		end
-	end,
-})
-
-local Divider = Exploration:CreateDivider()
-
--- ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
--- ─██████████████───██████████████─██████████████─██████████████─██████─────────██████████████────██████████████─██████████████─██████████████───
--- ─██░░░░░░░░░░██───██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██─────────██░░░░░░░░░░██────██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██───
--- ─██░░██████░░██───██░░██████░░██─██████░░██████─██████░░██████─██░░██─────────██░░██████████────██████░░██████─██░░██████░░██─██░░██████░░██───
--- ─██░░██──██░░██───██░░██──██░░██─────██░░██─────────██░░██─────██░░██─────────██░░██────────────────██░░██─────██░░██──██░░██─██░░██──██░░██───
--- ─██░░██████░░████─██░░██████░░██─────██░░██─────────██░░██─────██░░██─────────██░░██████████────────██░░██─────██░░██████░░██─██░░██████░░████─
--- ─██░░░░░░░░░░░░██─██░░░░░░░░░░██─────██░░██─────────██░░██─────██░░██─────────██░░░░░░░░░░██────────██░░██─────██░░░░░░░░░░██─██░░░░░░░░░░░░██─
--- ─██░░████████░░██─██░░██████░░██─────██░░██─────────██░░██─────██░░██─────────██░░██████████────────██░░██─────██░░██████░░██─██░░████████░░██─
--- ─██░░██────██░░██─██░░██──██░░██─────██░░██─────────██░░██─────██░░██─────────██░░██────────────────██░░██─────██░░██──██░░██─██░░██────██░░██─
--- ─██░░████████░░██─██░░██──██░░██─────██░░██─────────██░░██─────██░░██████████─██░░██████████────────██░░██─────██░░██──██░░██─██░░████████░░██─
--- ─██░░░░░░░░░░░░██─██░░██──██░░██─────██░░██─────────██░░██─────██░░░░░░░░░░██─██░░░░░░░░░░██────────██░░██─────██░░██──██░░██─██░░░░░░░░░░░░██─
--- ─████████████████─██████──██████─────██████─────────██████─────██████████████─██████████████────────██████─────██████──██████─████████████████─
--- ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
--- UI Rayfield
-local Battle = Window:CreateTab("BATTLE", 4483362458)
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
--- Cờ điều khiển
-local isAutoDeck = false
-local isAutoEternal = false
-local isAutoShadow = false
-local isAutoTower = false
-
--- Deck đã chọn
-local deckSelections = {
-	eternal = "1",
-	shadow = "1",
-	tower = "1",
-	nightmare = "1",
-}
-
--- Hàm equip deck
-local function equipDeck(deckNumber)
-	local args = { tonumber(deckNumber) }
-	ReplicatedStorage:WaitForChild("aJv"):WaitForChild("1f17caf8-2507-4b40-860b-fc74e2735d28"):FireServer(unpack(args))
-end
-
-local Paragraph = Battle:CreateParagraph({
-	Title = "AUTO DECK",
-	Content = "Automatically equip deck for each mode.\n⚠️ Select a deck for each mode at SELECT DECK.",
-})
-
--- AUTO DECK Toggle
-Battle:CreateToggle({
-	Name = "🔄 Auto Deck",
-	CurrentValue = false,
-	Flag = "ToggleAutoDeck",
-	Callback = function(Value)
-		isAutoDeck = Value
-	end,
-})
-
-local Divider = Battle:CreateDivider()
-local Paragraph = Battle:CreateParagraph({
-	Title = "SELECT DECK",
-	Content = "Select a deck for each mode.\n⚠️ To use, please turn on AUTO DECK.",
-})
-
--- Deck Dropdowns
-Battle.Dropdowns = {}
-
-Battle.Dropdowns["ENTERNAL DRAGON"] = Battle:CreateDropdown({
-	Name = "ENTERNAL DRAGON",
-	Options = { "1", "2", "3" },
-	CurrentOption = { deckSelections.eternal },
-	Callback = function(Options)
-		deckSelections.eternal = Options[1]
-	end,
-})
-
-Battle.Dropdowns["SHADOW DRAGON"] = Battle:CreateDropdown({
-	Name = "SHADOW DRAGON",
-	Options = { "1", "2", "3" },
-	CurrentOption = { deckSelections.shadow },
-	Callback = function(Options)
-		deckSelections.shadow = Options[1]
-	end,
-})
-
-Battle.Dropdowns["NIGHTMARE TOWER"] = Battle:CreateDropdown({
-	Name = "NIGHTMARE TOWER",
-	Options = { "1", "2", "3" },
-	CurrentOption = { deckSelections.nightmare },
-	Callback = function(Options)
-		deckSelections.nightmare = Options[1]
-	end,
-})
-
-Battle.Dropdowns["INFINITY TOWER"] = Battle:CreateDropdown({
-	Name = "INFINITY TOWER",
-	Options = { "1", "2", "3" },
-	CurrentOption = { deckSelections.tower },
-	Callback = function(Options)
-		deckSelections.tower = Options[1]
-	end,
-})
-
-local Divider = Battle:CreateDivider()
-local Paragraph = Battle:CreateParagraph({
-	Title = "AUTO BATTLE",
-	Content = "⚔️ Automatically fight in the modes.",
-})
-
--- AUTO ETERNAL DRAGON
-Battle:CreateToggle({
-	Name = "ETERNAL DRAGON",
-	CurrentValue = false,
-	Flag = "ToggleEternalDragon",
-	Callback = function(Value)
-		isAutoEternal = Value
-		if Value then
-			task.spawn(function()
-				while isAutoEternal do
-					if isAutoDeck then
-						equipDeck(deckSelections.eternal)
-						task.wait(1) -- chờ 1s cho chắc
-					end
-					local args = { "eternal_dragon" }
-					ReplicatedStorage:WaitForChild("aJv")
-						:WaitForChild("f8ea5400-f81a-4964-a0a1-c64a18f52f27")
-						:FireServer(unpack(args))
-					task.wait(5)
-				end
-			end)
-		end
-	end,
-})
-
--- AUTO SHADOW DRAGON
-Battle:CreateToggle({
-	Name = "SHADOW DRAGON",
-	CurrentValue = false,
-	Flag = "ToggleShadowDragon",
-	Callback = function(Value)
-		isAutoShadow = Value
-		if Value then
-			task.spawn(function()
-				while isAutoShadow do
-					if isAutoDeck then
-						equipDeck(deckSelections.shadow)
-						task.wait(1)
-					end
-					local args = { "shadow_dragon" }
-					ReplicatedStorage:WaitForChild("aJv")
-						:WaitForChild("f8ea5400-f81a-4964-a0a1-c64a18f52f27")
-						:FireServer(unpack(args))
-					task.wait(5)
-				end
-			end)
-		end
-	end,
-})
-
--- AUTO NIGHTMARE TOWER
-Battle:CreateToggle({
-	Name = "NIGHTMARE TOWER",
-	CurrentValue = false,
-	Flag = "ToggleNightmareTower",
-	Callback = function(Value)
-		isAutoTower = Value
-		if Value then
-			task.spawn(function()
-				while isAutoTower do
-					if isAutoDeck then
-						equipDeck(deckSelections.nightmare)
-						task.wait(1)
-					end
-
-					local args = { "nightmare_tower" }
-					ReplicatedStorage:WaitForChild("aJv")
-						:WaitForChild("67d0dfdd-f5a4-4eb6-a985-fe9e03e6e245")
-						:FireServer(unpack(args))
-
-					task.wait(5)
-				end
-			end)
-		end
-	end,
-})
-
--- AUTO INFINITY TOWER
-Battle:CreateToggle({
-	Name = "INFINITY TOWER",
-	CurrentValue = false,
-	Flag = "ToggleInfinityTower",
-	Callback = function(Value)
-		isAutoTower = Value
-		if Value then
-			task.spawn(function()
-				while isAutoTower do
-					if isAutoDeck then
-						equipDeck(deckSelections.tower)
-						task.wait(1)
-					end
-					local args = { "infinite_tower" }
-					ReplicatedStorage:WaitForChild("aJv")
-						:WaitForChild("67d0dfdd-f5a4-4eb6-a985-fe9e03e6e245")
-						:FireServer(unpack(args))
-
-					task.wait(5)
-				end
-			end)
-		end
-	end,
-})
-
--- ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
--- ─██████████████─██████████████─██████──────────██████─██████████████─██████████─██████████████────██████████████─██████████████─██████████████───
--- ─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██████████──██░░██─██░░░░░░░░░░██─██░░░░░░██─██░░░░░░░░░░██────██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██───
--- ─██░░██████████─██░░██████░░██─██░░░░░░░░░░██──██░░██─██░░██████████─████░░████─██░░██████████────██████░░██████─██░░██████░░██─██░░██████░░██───
--- ─██░░██─────────██░░██──██░░██─██░░██████░░██──██░░██─██░░██───────────██░░██───██░░██────────────────██░░██─────██░░██──██░░██─██░░██──██░░██───
--- ─██░░██─────────██░░██──██░░██─██░░██──██░░██──██░░██─██░░██████████───██░░██───██░░██────────────────██░░██─────██░░██████░░██─██░░██████░░████─
--- ─██░░██─────────██░░██──██░░██─██░░██──██░░██──██░░██─██░░░░░░░░░░██───██░░██───██░░██──██████────────██░░██─────██░░░░░░░░░░██─██░░░░░░░░░░░░██─
--- ─██░░██─────────██░░██──██░░██─██░░██──██░░██──██░░██─██░░██████████───██░░██───██░░██──██░░██────────██░░██─────██░░██████░░██─██░░████████░░██─
--- ─██░░██─────────██░░██──██░░██─██░░██──██░░██████░░██─██░░██───────────██░░██───██░░██──██░░██────────██░░██─────██░░██──██░░██─██░░██────██░░██─
--- ─██░░██████████─██░░██████░░██─██░░██──██░░░░░░░░░░██─██░░██─────────████░░████─██░░██████░░██────────██░░██─────██░░██──██░░██─██░░████████░░██─
--- ─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░██──██████████░░██─██░░██─────────██░░░░░░██─██░░░░░░░░░░██────────██░░██─────██░░██──██░░██─██░░░░░░░░░░░░██─
--- ─██████████████─██████████████─██████──────────██████─██████─────────██████████─██████████████────────██████─────██████──██████─████████████████─
--- ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local playerName = Players.LocalPlayer.Name
-
-local configRoot = "ACL"
-local configFolder = configRoot .. "/UserConfig"
-local configDropdown, selectedConfig, newConfigName
-
--- Tạo folder nếu chưa có
-if not isfolder(configRoot) then
-	makefolder(configRoot)
-end
-if not isfolder(configFolder) then
-	makefolder(configFolder)
-end
-
--- Trả về đường dẫn đầy đủ đến file JSON
-local function getFilePath(fileName)
-	if type(fileName) ~= "string" or fileName == "" then
-		warn("⚠️ Invalid file name:", fileName)
-		return nil
-	end
-	return configFolder .. "/" .. fileName .. ".json"
-end
-
--- Hàm lấy dữ liệu từ InputCards (Input và Dropdown)
-local function getInputCardsData(deployInputs)
-	if type(deployInputs) ~= "table" then
-		warn("⚠️ deployInputs is invalid. It must be a table.")
-		return {}
-	end
-
-	local inputCardsData = {}
-	for difficulty, inputs in pairs(deployInputs) do
-		inputCardsData[difficulty] = {}
-		for i = 1, 4 do
-			local cardName = inputs.cardInputs[i] and inputs.cardInputs[i].Value or ""
-			local cardRarity = inputs.rarityDropdowns[i] and inputs.rarityDropdowns[i].Value or "basic"
-			table.insert(inputCardsData[difficulty], {
-				name = cardName,
-				rarity = cardRarity,
-			})
-		end
-	end
-	return inputCardsData
-end
-
--- Hàm điền lại dữ liệu vào InputCards
-local function setInputCardsData(deployInputs, data)
-	for difficulty, cards in pairs(data) do
-		if deployInputs[difficulty] then
-			for i, card in ipairs(cards) do
-				if deployInputs[difficulty].cardInputs[i] and deployInputs[difficulty].rarityDropdowns[i] then
-					deployInputs[difficulty].cardInputs[i]:Set(card.name or "")
-					deployInputs[difficulty].rarityDropdowns[i]:Set(card.rarity or "basic")
-				end
-			end
-		end
-	end
-end
-
--- Hàm lưu JSON
-local function saveJSON(fileName, deployInputs)
-	local path = getFilePath(fileName)
-	if not path then
-		warn("❌ Cannot save file because the path is invalid.")
-		return
-	end
-
-	-- Kiểm tra deployInputs trước khi lấy dữ liệu
-	local inputCardsData = getInputCardsData(deployInputs)
-	local wrappedData = {
-		InputCards = inputCardsData, -- Lưu thông tin InputCards
-		DeckSelections = deckSelections, -- Lưu trạng thái của các dropdown
-	}
-
-	writefile(path, HttpService:JSONEncode(wrappedData))
-	print("📁 File has been saved at:", path)
-end
-
--- Hàm đọc JSON
--- local function loadJSON(fileName, deployInputs)
---     local path = getFilePath(fileName)
---     if path and isfile(path) then
---         local rawData = HttpService:JSONDecode(readfile(path))
---         if rawData.InputCards then
---             setInputCardsData(deployInputs, rawData.InputCards) -- Điền lại dữ liệu vào InputCards
+local function Trim(s) return (tostring(s or ""):gsub("^%s+", ""):gsub("%s+$", "")) end
+
+--=============================================================
+--                          TABS
+--=============================================================
+local TabMain            = Window:CreateTab("MAIN", 4483362458)
+local TabAutoRaid        = Window:CreateTab("AUTO RAID", 4483362458)
+local TabAutoTower       = Window:CreateTab("AUTO TOWER", 4483362458)
+local TabAutoExploration = Window:CreateTab("AUTO EXPLORAION", 4483362458)
+local TabMisc            = Window:CreateTab("MISC", 4483362458)
+local TabConfig          = Window:CreateTab("CONFIG", 4483362458)
+
+--=============================================================
+--                          STATE
+--=============================================================
+-- AUTO RAID (bosses + minion)
+local BossAutos          = {} -- key -> {enabled, interval, postTeleportWait, bossId, raidName, isMinion?, deckSlot, toggleRef, deckDropdownRef}
+
+-- local function DisableOthers(exceptKey)
+--     for key, s in pairs(BossAutos) do
+--         if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
+--             s.toggleRef:Set(false)
 --         end
---         return rawData.Deloy                                    -- Trả về dữ liệu bên trong "Deloy"
 --     end
---     return nil
 -- end
 
--- Hàm đọc JSON
-local function loadJSON(fileName, deployInputs)
-	local path = getFilePath(fileName)
-	if path and isfile(path) then
-		local rawData = HttpService:JSONDecode(readfile(path))
+-- EXPLORATION
+local RARITIES           = { "basic", "gold", "rainbow", "secret" }
+local DIFFICULTIES       = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
 
-		-- Điền lại dữ liệu vào InputCards
-		if rawData.InputCards then
-			setInputCardsData(deployInputs, rawData.InputCards)
-		end
-
-		-- Điền lại dữ liệu vào DeckSelections
-		if rawData.DeckSelections then
-			deckSelections = rawData.DeckSelections
-
-			-- Cập nhật giá trị của dropdowns
-			if Battle and Battle.Dropdowns then
-				if Battle.Dropdowns["ENTERNAL DRAGON"] then
-					Battle.Dropdowns["ENTERNAL DRAGON"]:Set({ deckSelections.eternal or "1" })
-				end
-				if Battle.Dropdowns["SHADOW DRAGON"] then
-					Battle.Dropdowns["SHADOW DRAGON"]:Set({ deckSelections.shadow or "1" })
-				end
-				if Battle.Dropdowns["INFINITY TOWER"] then
-					Battle.Dropdowns["INFINITY TOWER"]:Set({ deckSelections.tower or "1" })
-				end
-				if Battle.Dropdowns["NIGHTMARE TOWER"] then
-					Battle.Dropdowns["NIGHTMARE TOWER"]:Set({ deckSelections.nightmare or "1" })
-				end
-			end
-		end
-
-		print("✅ Config loaded:", fileName)
-		return rawData
-	end
-	return nil
+local AutoEX             = {
+    enabled             = false,
+    betweenActions      = 0.5, -- claim→start
+    betweenDifficulties = 1.0,
+    betweenCycles       = 3.0,
+    inputs              = {}, -- inputs[diff] = { {name,rarity} x4 }
+    controls            = { sliders = {}, diffs = {} },
+    _busy               = {},
+}
+for _, diff in ipairs(DIFFICULTIES) do
+    AutoEX.inputs[diff] = {
+        { name = "", rarity = "basic" },
+        { name = "", rarity = "basic" },
+        { name = "", rarity = "basic" },
+        { name = "", rarity = "basic" },
+    }
+    AutoEX._busy[diff] = false
 end
 
--- Hàm xóa file JSON
-local function deleteJSON(fileName)
-	local path = getFilePath(fileName)
-	if path and isfile(path) then
-		delfile(path)
-	end
+-- TOWER
+local Tower = {
+    enabled           = false,
+    mode              = "nightmare", -- nightmare / potion / base
+    deckSlot          = 1,
+    afterForfeitWait  = 0.25,
+    afterClaimWait    = 0.35,
+    interval          = 2.0,
+    toggleRef         = nil,
+    deckDropdownRef   = nil,
+    modeDropdownRef   = nil,
+    intervalSliderRef = nil,
+}
+
+-- MAIN (Global Boss)
+local GlobalBoss = {
+    enabled           = false,
+    deckSlot          = 1,
+    afterForfeitWait  = 0.25,
+    interval          = 2.0,
+    bossId            = 446,
+    toggleRef         = nil,
+    deckDropdownRef   = nil,
+    intervalSliderRef = nil,
+}
+
+-- Hàm DisableOthers mở rộng
+local function DisableOthers(exceptKey)
+    -- Tắt tất cả Auto Raid khác
+    for key, s in pairs(BossAutos) do
+        if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
+            s.toggleRef:Set(false)
+        end
+    end
+
+    -- Nếu exceptKey không phải Global thì tắt Auto Global Boss
+    if exceptKey ~= "GLOBAL" and GlobalBoss.enabled and GlobalBoss.toggleRef and GlobalBoss.toggleRef.Set then
+        GlobalBoss.toggleRef:Set(false)
+    end
+
+    -- Nếu exceptKey không phải Tower thì tắt Auto Tower
+    if exceptKey ~= "TOWER" and Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
+        Tower.toggleRef:Set(false)
+    end
 end
 
--- Lấy danh sách file JSON trong folder
-local function listConfigFiles()
-	local files = listfiles(configFolder)
-	local names = {}
-	for _, filePath in ipairs(files) do
-		local name = filePath:match("([^/\\]+)%.json$")
-		if name then
-			table.insert(names, name)
-		end
-	end
-	return names
+--=============================================================
+--                  AUTO RAID: BUILDERS
+--=============================================================
+local function CreateBossAuto(tab, key, prettyName, raidName, bossId)
+    BossAutos[key] = {
+        enabled = false,
+        interval = 2.0,
+        postTeleportWait = 2.0,
+        bossId = bossId,
+        raidName = raidName,
+        isMinion = false,
+        deckSlot = 1,
+        toggleRef = nil,
+        deckDropdownRef = nil,
+    }
+
+    tab:CreateSection("Auto " .. prettyName)
+
+    tab:CreateSlider({
+        Name = ("Delay FIGHT (%s) (s)"):format(prettyName),
+        Range = { 0.5, 10 },
+        Increment = 0.5,
+        Suffix = "s",
+        CurrentValue = BossAutos[key].interval,
+        Flag = key .. "_FightInterval",
+        Callback = function(v) BossAutos[key].interval = v end
+    })
+
+    local deckDD = tab:CreateDropdown({
+        Name = "Deck (1–8)",
+        Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+        CurrentOption = tostring(BossAutos[key].deckSlot),
+        Flag = key .. "_DeckSlot",
+        Callback = function(opt)
+            if typeof(opt) == "table" then opt = opt[1] end
+            BossAutos[key].deckSlot = tonumber(opt) or 1
+        end
+    })
+    BossAutos[key].deckDropdownRef = deckDD
+
+    local toggle = tab:CreateToggle({
+        Name = "|🌟| Auto " .. prettyName,
+        CurrentValue = false,
+        Flag = key .. "_AutoToggle",
+        Callback = function(state)
+            local S = BossAutos[key]; S.enabled = state
+            if state then
+                DisableOthers(key)
+                task.spawn(function()
+                    FireSafe(RE_Forfeit)
+                    task.wait(0.25)
+                    FireSafe(RE_Teleport, S.raidName)
+                    task.wait(S.postTeleportWait)
+                    while S.enabled do
+                        FireSafe(RE_SetPartySlot, ("slot_%d"):format(S.deckSlot or 1))
+                        task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                        FireSafe(RE_FightRaidBoss, S.bossId)
+                        local t = 0; while S.enabled and t < S.interval do
+                            task.wait(0.1); t += 0.1
+                        end
+                    end
+                end)
+            end
+        end
+    })
+    BossAutos[key].toggleRef = toggle
+    TabAutoRaid:CreateDivider()
 end
 
--- UI Rayfield
-local Config = Window:CreateTab("CONFIG", 4483362458)
+local function CollectMinionIds_CoF(prefix)
+    local ids = {}
+    local folder = WS:FindFirstChild("raid_creator_of_flames") or WS:WaitForChild("raid_creator_of_flames", 5)
+    if not folder then return ids end
+    prefix = string.lower(prefix or "infernal")
+    for _, child in ipairs(folder:GetChildren()) do
+        if child:IsA("Model") then
+            local nameLower = string.lower(child.Name)
+            if string.sub(nameLower, 1, #prefix) == prefix then
+                local sid = child:GetAttribute("serverEntityId")
+                if typeof(sid) == "number" then table.insert(ids, sid) end
+            end
+        end
+    end
+    return ids
+end
 
-local Paragraph = Config:CreateParagraph({
-	Title = "CREATE NEW CONFIG",
-	Content = "Enter a name and create a new config.\n⚠️ Config name must not duplicate existing configs.",
+local function CreateMinionAuto(tab, key, prettyName, raidName, namePrefix)
+    BossAutos[key] = {
+        enabled = false,
+        interval = 2.0,
+        postTeleportWait = 2.0,
+        raidName = raidName,
+        namePrefix = namePrefix or "infernal",
+        isMinion = true,
+        deckSlot = 1,
+        toggleRef = nil,
+        deckDropdownRef = nil,
+    }
+
+    tab:CreateSection(prettyName)
+    tab:CreateSlider({
+        Name = "Delay FIGHT Minion (s)",
+        Range = { 0.2, 10 },
+        Increment = 0.2,
+        Suffix = "s",
+        CurrentValue = BossAutos[key].interval,
+        Flag = key .. "_FightInterval",
+        Callback = function(v) BossAutos[key].interval = v end
+    })
+
+    local deckDD = tab:CreateDropdown({
+        Name = "Deck (1–8)",
+        Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+        CurrentOption = tostring(BossAutos[key].deckSlot),
+        Flag = key .. "_DeckSlot",
+        Callback = function(opt)
+            if typeof(opt) == "table" then opt = opt[1] end
+            BossAutos[key].deckSlot = tonumber(opt) or 1
+        end
+    })
+    BossAutos[key].deckDropdownRef = deckDD
+
+    local toggle = tab:CreateToggle({
+        Name = "|🌟| Auto Farm Minion (" .. BossAutos[key].namePrefix .. ")",
+        CurrentValue = false,
+        Flag = key .. "_AutoToggle",
+        Callback = function(state)
+            local S = BossAutos[key]; S.enabled = state
+            if state then
+                DisableOthers(key)
+                task.spawn(function()
+                    FireSafe(RE_Forfeit)
+                    task.wait(0.25)
+                    FireSafe(RE_Teleport, S.raidName)
+                    task.wait(S.postTeleportWait)
+
+                    local idx = 1
+                    while S.enabled do
+                        FireSafe(RE_SetPartySlot, ("slot_%d"):format(S.deckSlot or 1))
+                        task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                        local ids = CollectMinionIds_CoF(S.namePrefix)
+                        if #ids == 0 then
+                            local d = math.max(0.5, S.interval * 0.5); local t = 0
+                            while S.enabled and t < d do
+                                task.wait(0.1); t += 0.1
+                            end
+                        else
+                            if idx > #ids then idx = 1 end
+                            FireSafe(RE_FightMinion, ids[idx]); idx += 1
+                            local t = 0; while S.enabled and t < S.interval do
+                                task.wait(0.1); t += 0.1
+                            end
+                        end
+                    end
+                end)
+            end
+        end
+    })
+    BossAutos[key].toggleRef = toggle
+    TabAutoRaid:CreateDivider()
+end
+
+-- Build Auto Raid sections
+CreateBossAuto(TabAutoRaid, "ED", "Eternal Dragon", "raid_eternal_dragon", 373)
+CreateBossAuto(TabAutoRaid, "SD", "Shadow Dragon", "raid_shadow_dragon", 370)
+CreateBossAuto(TabAutoRaid, "Sword", "Sword Deity", "raid_sword_deity", 325)
+CreateBossAuto(TabAutoRaid, "CoF", "Creator of Flames", "raid_creator_of_flames", 384)
+CreateMinionAuto(TabAutoRaid, "CoFMinion", "Creator of Flames - Minions", "raid_creator_of_flames", "infernal")
+
+--=============================================================
+--                  MAIN (GLOBAL BOSS)
+--=============================================================
+TabMain:CreateSection("Auto Global Boss")
+
+GlobalBoss.deckDropdownRef = TabMain:CreateDropdown({
+    Name = "Deck (1–8)",
+    Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    CurrentOption = tostring(GlobalBoss.deckSlot),
+    Flag = "MAIN_Deck",
+    Callback = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end; GlobalBoss.deckSlot = tonumber(opt) or 1
+    end
+})
+GlobalBoss.intervalSliderRef = TabMain:CreateSlider({
+    Name = "Fight Delay (s)",
+    Range = { 0.5, 10 },
+    Increment = 0.5,
+    Suffix = "s",
+    CurrentValue = GlobalBoss.interval,
+    Flag = "MAIN_Interval",
+    Callback = function(v) GlobalBoss.interval = v end
+})
+-- GlobalBoss.toggleRef = TabMain:CreateToggle({
+--     Name = "Auto Global Boss (Forfeit → Deck → Fight)",
+--     CurrentValue = false,
+--     Flag = "MAIN_Toggle",
+--     Callback = function(state)
+--         GlobalBoss.enabled = state
+--         if not state then return end
+--         task.spawn(function()
+--             FireSafe(RE_Forfeit)
+--             task.wait(GlobalBoss.afterForfeitWait)
+--             while GlobalBoss.enabled do
+--                 FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
+--                 FireSafe(RE_FightGlobal, GlobalBoss.bossId)
+--                 local t = 0; while GlobalBoss.enabled and t < GlobalBoss.interval do
+--                     task.wait(0.1); t += 0.1
+--                 end
+--             end
+--         end)
+--     end
+-- })
+
+GlobalBoss.toggleRef = TabMain:CreateToggle({
+    Name = "|💀| Auto Global Boss",
+    CurrentValue = false,
+    Flag = "MAIN_Toggle",
+    Callback = function(state)
+        GlobalBoss.enabled = state
+        if state then
+            -- Tắt Auto Raid khác
+            DisableOthers("GLOBAL")
+
+            -- Tắt Auto Tower nếu đang bật
+            if Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
+                Tower.toggleRef:Set(false)
+            end
+
+            -- Vòng lặp fight
+            task.spawn(function()
+                FireSafe(RE_Forfeit)
+                task.wait(GlobalBoss.afterForfeitWait)
+                while GlobalBoss.enabled do
+                    FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
+                    task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                    FireSafe(RE_FightGlobal, GlobalBoss.bossId)
+                    local t = 0; while GlobalBoss.enabled and t < GlobalBoss.interval do
+                        task.wait(0.1); t += 0.1
+                    end
+                end
+            end)
+        end
+    end
 })
 
-Config:CreateInput({
-	Name = "Enter new Config name",
-	PlaceholderText = "VD: fireteam_alpha",
-	RemoveTextAfterFocusLost = false,
-	Callback = function(Value)
-		newConfigName = Value
-	end,
+--=============================================================
+--                       AUTO TOWER
+--=============================================================
+TabAutoTower:CreateSection("Auto Tower (Nightmare / Potion / Base)")
+
+Tower.modeDropdownRef = TabAutoTower:CreateDropdown({
+    Name = "Mode",
+    Options = { "nightmare", "potion", "base" },
+    CurrentOption = Tower.mode,
+    Flag = "TOWER_Mode",
+    Callback = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end; Tower.mode = tostring(opt or "nightmare")
+    end
+})
+Tower.deckDropdownRef = TabAutoTower:CreateDropdown({
+    Name = "Deck (1–8)",
+    Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    CurrentOption = tostring(Tower.deckSlot),
+    Flag = "TOWER_Deck",
+    Callback = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end; Tower.deckSlot = tonumber(opt) or 1
+    end
+})
+TabAutoTower:CreateSlider({
+    Name = "Delay Claim → Fight (s)",
+    Range = { 0.1, 3 },
+    Increment = 0.05,
+    Suffix = "s",
+    CurrentValue = Tower.afterClaimWait,
+    Flag = "TOWER_AfterClaim",
+    Callback = function(v) Tower.afterClaimWait = v end
+})
+Tower.intervalSliderRef = TabAutoTower:CreateSlider({
+    Name = "Fight Interval (s)",
+    Range = { 0.5, 10 },
+    Increment = 0.5,
+    Suffix = "s",
+    CurrentValue = Tower.interval,
+    Flag = "TOWER_Interval",
+    Callback = function(v) Tower.interval = v end
+})
+Tower.toggleRef = TabAutoTower:CreateToggle({
+    Name = "|📔| Auto Tower",
+    CurrentValue = false,
+    Flag = "TOWER_Toggle",
+    Callback = function(state)
+        Tower.enabled = state
+        if not state then return end
+        -- Tắt Auto Raid khác
+        DisableOthers("TOWER")
+        task.spawn(function()
+            FireSafe(RE_Forfeit); task.wait(Tower.afterForfeitWait)
+            while Tower.enabled do
+                FireSafe(RE_ClaimInf, Tower.mode); task.wait(Tower.afterClaimWait)
+                FireSafe(RE_SetPartySlot, ("slot_%d"):format(Tower.deckSlot or 1))
+                task.wait(0.5) -- đợi 0.5s để server kịp nhận set deck
+                FireSafe(RE_FightInf, Tower.mode)
+                local t = 0; while Tower.enabled and t < Tower.interval do
+                    task.wait(0.1); t += 0.1
+                end
+            end
+        end)
+    end
 })
 
-Config:CreateButton({
-	Name = "🆕 Create New Config",
-	Callback = function()
-		if not newConfigName or newConfigName == "" then
-			warn("⚠️ Please enter a config name!")
-			return
-		end
-
-		-- Làm mới lại deployInputs
-		for difficulty, inputs in pairs(deployInputs) do
-			for i = 1, 4 do
-				if inputs.cardInputs[i] then
-					inputs.cardInputs[i]:Set("") -- Đặt lại giá trị input card name
-				end
-				if inputs.rarityDropdowns[i] then
-					inputs.rarityDropdowns[i]:Set("basic") -- Đặt lại giá trị dropdown rarity
-				end
-			end
-		end
-
-		deckSelections = {
-			eternal = "1",
-			shadow = "1",
-			tower = "1",
-			nightmare = "1",
-		}
-
-		saveJSON(newConfigName, deployInputs)
-
-		Rayfield:Notify({
-			Title = "✅ Created Successfully",
-			Content = "Config created: " .. newConfigName,
-			Duration = 3,
-		})
-
-		configDropdown:Refresh(listConfigFiles(), true)
-	end,
+--=============================================================
+--                     AUTO EXPLORATION
+--=============================================================
+TabAutoExploration:CreateSection("Global Delays")
+AutoEX.controls.sliders.betweenActions = TabAutoExploration:CreateSlider({
+    Name = "Delay Claim → Start (s)",
+    Range = { 0.1, 3 },
+    Increment = 0.1,
+    Suffix = "s",
+    CurrentValue = AutoEX.betweenActions,
+    Flag = "EX_betweenActions",
+    Callback = function(v) AutoEX.betweenActions = v end
+})
+AutoEX.controls.sliders.betweenDifficulties = TabAutoExploration:CreateSlider({
+    Name = "Delay Between Difficulties (s)",
+    Range = { 0.2, 5 },
+    Increment = 0.1,
+    Suffix = "s",
+    CurrentValue = AutoEX.betweenDifficulties,
+    Flag = "EX_betweenDiffs",
+    Callback = function(v) AutoEX.betweenDifficulties = v end
+})
+AutoEX.controls.sliders.betweenCycles = TabAutoExploration:CreateSlider({
+    Name = "Delay Between Cycles (s)",
+    Range = { 1, 20 },
+    Increment = 0.5,
+    Suffix = "s",
+    CurrentValue = AutoEX.betweenCycles,
+    Flag = "EX_betweenCycles",
+    Callback = function(v) AutoEX.betweenCycles = v end
 })
 
-local Divider = Config:CreateDivider()
-local Paragraph = Config:CreateParagraph({
-	Title = "CONFIG MANAGEMENT",
-	Content = "Select a config to save, load, or delete.",
+local function NormalizeRarity(r)
+    if typeof(r) == "table" then r = r[1] end
+    r = tostring(r or ""):lower()
+    if not table.find(RARITIES, r) then r = "basic" end
+    return r
+end
+
+local function BuildPicks(conf) -- returns {"name:rarity", x4} or nil,err
+    local arr = {}
+    for i = 1, 4 do
+        local e = conf[i] or {}
+        local nm = Trim(e.name); local rr = NormalizeRarity(e.rarity)
+        if nm == "" then return nil, ("Thiếu tên thẻ #%d"):format(i) end
+        table.insert(arr, nm .. ":" .. rr)
+    end
+    return arr
+end
+
+local function MakeExplorationUI(tab, diffKey)
+    tab:CreateSection("Exploration – " .. string.upper(diffKey))
+    AutoEX.controls.diffs[diffKey] = {}
+
+    for i = 1, 4 do
+        local ic = tab:CreateInput({
+            Name = ("|🃏| Card Name #%d"):format(i),
+            PlaceholderText = "vd: shadow_knight",
+            RemoveTextAfterFocusLost = false,
+            Flag = ("EX_%s_name_%d"):format(diffKey, i),
+            CurrentValue = AutoEX.inputs[diffKey][i].name or "",
+            Callback = function(txt) AutoEX.inputs[diffKey][i].name = txt or "" end
+        })
+        local dd = tab:CreateDropdown({
+            Name = ("|🛠️| Rarity #%d"):format(i),
+            Options = RARITIES,
+            CurrentOption = AutoEX.inputs[diffKey][i].rarity or "basic",
+            Flag = ("EX_%s_rarity_%d"):format(diffKey, i),
+            Callback = function(opt)
+                if typeof(opt) == "table" then opt = opt[1] end; AutoEX.inputs[diffKey][i].rarity = NormalizeRarity(opt)
+            end
+        })
+        AutoEX.controls.diffs[diffKey][i] = { input = ic, dropdown = dd }
+    end
+
+    tab:CreateButton({
+        Name = "Run Single: " .. string.upper(diffKey),
+        Callback = function()
+            if AutoEX._busy[diffKey] then
+                warn("[Exploration] Đang chạy: " .. diffKey); return
+            end
+            AutoEX._busy[diffKey] = true
+            task.spawn(function()
+                FireSafe(RE_ClaimExpl, diffKey)
+                task.wait(AutoEX.betweenActions)
+                local picks, err = BuildPicks(AutoEX.inputs[diffKey])
+                if picks then
+                    FireSafe(RE_StartExpl, diffKey, picks)
+                else
+                    warn("[Exploration] " .. diffKey .. " lỗi: " .. tostring(err))
+                end
+                task.wait(0.25)
+                AutoEX._busy[diffKey] = false
+            end)
+        end
+    })
+end
+
+for _, diff in ipairs(DIFFICULTIES) do
+    MakeExplorationUI(TabAutoExploration, diff)
+end
+
+TabAutoExploration:CreateSection("Automation")
+TabAutoExploration:CreateToggle({
+    Name = "|✈️| Auto Exploration",
+    CurrentValue = false,
+    Flag = "EX_AutoToggle",
+    Callback = function(state)
+        AutoEX.enabled = state
+        if not state then return end
+        task.spawn(function()
+            while AutoEX.enabled do
+                for _, diff in ipairs(DIFFICULTIES) do
+                    if not AutoEX.enabled then break end
+                    FireSafe(RE_ClaimExpl, diff)
+                    task.wait(AutoEX.betweenActions)
+                    local picks, err = BuildPicks(AutoEX.inputs[diff])
+                    if picks then
+                        FireSafe(RE_StartExpl, diff, picks)
+                    else
+                        warn("[Exploration] " ..
+                            diff .. " lỗi: " .. tostring(err))
+                    end
+                    local t = 0; while AutoEX.enabled and t < AutoEX.betweenDifficulties do
+                        task.wait(0.1); t += 0.1
+                    end
+                end
+                local t = 0; while AutoEX.enabled and t < AutoEX.betweenCycles do
+                    task.wait(0.1); t += 0.1
+                end
+            end
+        end)
+    end
 })
 
-configDropdown = Config:CreateDropdown({
-	Name = "📂 Select Config",
-	Options = listConfigFiles(),
-	CurrentOption = nil,
-	Image = "folder",
-	Callback = function(Value)
-		if type(Value) == "table" then
-			selectedConfig = Value[1] or nil
-		elseif type(Value) == "string" then
-			selectedConfig = Value
-		else
-			warn("⚠️ Invalid value from dropdown:", typeof(Value))
-			selectedConfig = nil
-		end
-	end,
+--=============================================================
+--                         CONFIG TAB
+--=============================================================
+local CONFIG_FOLDER = "HieuHub"
+
+local function HH_EnsureFolder()
+    if isfolder and not isfolder(CONFIG_FOLDER) then
+        makefolder(CONFIG_FOLDER)
+    end
+end
+HH_EnsureFolder()
+
+local function HH_Path(file) return CONFIG_FOLDER .. "/" .. file end
+
+local function HH_ListConfigs()
+    local opts = {}
+    if listfiles and isfolder and isfolder(CONFIG_FOLDER) then
+        for _, p in ipairs(listfiles(CONFIG_FOLDER)) do
+            local name = p:match(".+[\\/](.+)$") or p
+            if name and name:lower():match("%.json$") then
+                table.insert(opts, name)
+            end
+        end
+    end
+    table.sort(opts)
+    if #opts == 0 then return { "(no configs)" } end
+    return opts
+end
+
+local function HH_SaveTableToJson(tbl, file)
+    HH_EnsureFolder()
+    local ok, data = pcall(HttpService.JSONEncode, HttpService, tbl)
+    if not ok then
+        warn("[HieuHub] JSONEncode error:", data)
+        return false
+    end
+    if not writefile then
+        warn("[HieuHub] Executor không hỗ trợ writefile")
+        return false
+    end
+    writefile(HH_Path(file), data)
+    print("[HieuHub] Saved:", HH_Path(file))
+    return true
+end
+
+local function HH_LoadTableFromJson(file)
+    local path = HH_Path(file)
+    if not (isfile and isfile(path)) then
+        warn("[HieuHub] Không tìm thấy:", path)
+        return nil
+    end
+    if not readfile then
+        warn("[HieuHub] Executor không hỗ trợ readfile")
+        return nil
+    end
+    local data = readfile(path)
+    local ok, tbl = pcall(HttpService.JSONDecode, HttpService, data)
+    if not ok then
+        warn("[HieuHub] JSONDecode error:", tbl)
+        return nil
+    end
+    print("[HieuHub] Loaded:", path)
+    return tbl
+end
+
+local function HH_CollectCurrentConfig()
+    local cfg = {
+        AutoRaid = { Bosses = {} },
+        AutoExploration = {
+            betweenActions = AutoEX.betweenActions,
+            betweenDifficulties = AutoEX.betweenDifficulties,
+            betweenCycles = AutoEX.betweenCycles,
+            inputs = {},
+        },
+        AutoTower = {
+            mode = Tower.mode,
+            deckSlot = Tower.deckSlot,
+            interval = Tower.interval,
+        },
+        GlobalBoss = {
+            deckSlot = GlobalBoss.deckSlot,
+            interval = GlobalBoss.interval,
+        }
+    }
+
+    for key, s in pairs(BossAutos) do
+        cfg.AutoRaid.Bosses[key] = {
+            interval         = s.interval,
+            postTeleportWait = s.postTeleportWait,
+            raidName         = s.raidName,
+            bossId           = s.bossId,
+            isMinion         = s.isMinion or false,
+            enabled          = s.enabled and true or false,
+            deckSlot         = tonumber(s.deckSlot) or 1,
+        }
+    end
+
+    for diff, arr in pairs(AutoEX.inputs or {}) do
+        cfg.AutoExploration.inputs[diff] = {}
+        for i = 1, 4 do
+            local e = arr[i] or {}
+            cfg.AutoExploration.inputs[diff][i] = {
+                name   = tostring(e.name or ""),
+                rarity = tostring(e.rarity or "basic"),
+            }
+        end
+    end
+
+    return cfg
+end
+
+local function HH_ApplyConfig(tbl)
+    if not tbl then return end
+
+    -- AutoRaid
+    if tbl.AutoRaid and tbl.AutoRaid.Bosses then
+        for key, v in pairs(tbl.AutoRaid.Bosses) do
+            local S = BossAutos[key]
+            if S then
+                if type(v.interval) == "number" then S.interval = v.interval end
+                if type(v.postTeleportWait) == "number" then S.postTeleportWait = v.postTeleportWait end
+                if type(v.raidName) == "string" then S.raidName = v.raidName end
+                if type(v.bossId) == "number" then S.bossId = v.bossId end
+                if type(v.deckSlot) == "number" then
+                    S.deckSlot = v.deckSlot
+                    if S.deckDropdownRef and S.deckDropdownRef.Set then
+                        S.deckDropdownRef:Set({ tostring(S.deckSlot) })
+                    end
+                end
+                -- không tự bật toggle để an toàn
+            end
+        end
+    end
+
+    -- AutoExploration
+    if tbl.AutoExploration then
+        local ex = tbl.AutoExploration
+        if type(ex.betweenActions) == "number" then
+            AutoEX.betweenActions = ex.betweenActions
+            if AutoEX.controls.sliders.betweenActions then
+                AutoEX.controls.sliders.betweenActions:Set(AutoEX.betweenActions)
+            end
+        end
+        if type(ex.betweenDifficulties) == "number" then
+            AutoEX.betweenDifficulties = ex.betweenDifficulties
+            if AutoEX.controls.sliders.betweenDifficulties then
+                AutoEX.controls.sliders.betweenDifficulties:Set(AutoEX.betweenDifficulties)
+            end
+        end
+        if type(ex.betweenCycles) == "number" then
+            AutoEX.betweenCycles = ex.betweenCycles
+            if AutoEX.controls.sliders.betweenCycles then
+                AutoEX.controls.sliders.betweenCycles:Set(AutoEX.betweenCycles)
+            end
+        end
+        if type(ex.inputs) == "table" then
+            for diff, arr in pairs(ex.inputs) do
+                AutoEX.inputs[diff] = AutoEX.inputs[diff] or {}
+                for i = 1, 4 do
+                    AutoEX.inputs[diff][i]        = AutoEX.inputs[diff][i] or { name = "", rarity = "basic" }
+                    local src                     = arr[i] or {}
+                    AutoEX.inputs[diff][i].name   = tostring(src.name or "")
+                    AutoEX.inputs[diff][i].rarity = tostring(src.rarity or "basic")
+                    local refs                    = AutoEX.controls.diffs[diff] and AutoEX.controls.diffs[diff][i]
+                    if refs then
+                        if refs.input and refs.input.Set then refs.input:Set(AutoEX.inputs[diff][i].name) end
+                        if refs.dropdown and refs.dropdown.Set then refs.dropdown:Set({ AutoEX.inputs[diff][i].rarity }) end
+                    end
+                end
+            end
+        end
+    end
+
+    -- AutoTower
+    if tbl.AutoTower then
+        if type(tbl.AutoTower.mode) == "string" then
+            Tower.mode = tbl.AutoTower.mode
+            if Tower.modeDropdownRef and Tower.modeDropdownRef.Set then Tower.modeDropdownRef:Set({ Tower.mode }) end
+        end
+        if type(tbl.AutoTower.deckSlot) == "number" then
+            Tower.deckSlot = tbl.AutoTower.deckSlot
+            if Tower.deckDropdownRef and Tower.deckDropdownRef.Set then
+                Tower.deckDropdownRef:Set({ tostring(Tower
+                    .deckSlot) })
+            end
+        end
+        if type(tbl.AutoTower.interval) == "number" then
+            Tower.interval = tbl.AutoTower.interval
+            if Tower.intervalSliderRef and Tower.intervalSliderRef.Set then Tower.intervalSliderRef:Set(Tower.interval) end
+        end
+    end
+
+    -- GlobalBoss
+    if tbl.GlobalBoss then
+        if type(tbl.GlobalBoss.deckSlot) == "number" then
+            GlobalBoss.deckSlot = tbl.GlobalBoss.deckSlot
+            if GlobalBoss.deckDropdownRef and GlobalBoss.deckDropdownRef.Set then
+                GlobalBoss.deckDropdownRef:Set({
+                    tostring(GlobalBoss.deckSlot) })
+            end
+        end
+        if type(tbl.GlobalBoss.interval) == "number" then
+            GlobalBoss.interval = tbl.GlobalBoss.interval
+            if GlobalBoss.intervalSliderRef and GlobalBoss.intervalSliderRef.Set then
+                GlobalBoss.intervalSliderRef:Set(
+                    GlobalBoss.interval)
+            end
+        end
+    end
+end
+
+--========================[ CONFIG UI ]========================
+TabConfig:CreateSection("Create new config in folder: " .. CONFIG_FOLDER)
+
+local NewName = ""
+TabConfig:CreateInput({
+    Name = "Config File Name (without .json)",
+    PlaceholderText = "e.g. MySetup",
+    RemoveTextAfterFocusLost = false,
+    CurrentValue = "",
+    Callback = function(txt) NewName = tostring(txt or "") end
 })
 
-Config:CreateButton({
-	Name = "💾 Save Config",
-	Callback = function()
-		if not selectedConfig then
-			warn("⚠️ No config selected to save!")
-			return
-		end
+local SelectedFile = nil
+local Dropdown_Config
 
-		saveJSON(selectedConfig, deployInputs)
+local function HH_BuildDropdown(initialSelect)
+    local opts = HH_ListConfigs()
+    local pick = initialSelect
+    if not pick or not table.find(opts, pick) then
+        pick = opts[1]
+    end
+    Dropdown_Config = TabConfig:CreateDropdown({
+        Name = "Configs in " .. CONFIG_FOLDER,
+        Options = opts,
+        CurrentOption = pick,
+        Callback = function(opt)
+            if typeof(opt) == "table" then opt = opt[1] end
+            opt = tostring(opt or "")
+            SelectedFile = (opt == "(no configs)") and nil or opt
+        end
+    })
+    SelectedFile = (pick == "(no configs)") and nil or pick
+end
 
-		Rayfield:Notify({
-			Title = "✅ Saved",
-			Content = "Config saved: " .. selectedConfig,
-			Duration = 3,
-			Image = "download",
-		})
-	end,
+function HH_RefreshDropdown(selectName)
+    local opts = HH_ListConfigs()
+    local pick = selectName
+    if not pick or not table.find(opts, pick) then pick = opts[1] end
+    if Dropdown_Config and Dropdown_Config.Refresh then
+        Dropdown_Config:Refresh(opts, (pick ~= "(no configs)") and pick or true)
+        if pick ~= "(no configs)" and Dropdown_Config.Set then
+            Dropdown_Config:Set(pick); SelectedFile = pick
+        else
+            SelectedFile = nil
+        end
+    else
+        HH_BuildDropdown(pick)
+    end
+end
+
+TabConfig:CreateButton({
+    Name = "|🗃️| Create",
+    Callback = function()
+        local fn = (NewName:gsub("%s+", ""))
+        if fn == "" then
+            warn("[HieuHub] Vui lòng nhập tên file"); return
+        end
+        if not fn:lower():match("%.json$") then fn = fn .. ".json" end
+        HH_EnsureFolder()
+        local path = HH_Path(fn)
+        if isfile and isfile(path) then
+            warn("[HieuHub] File đã tồn tại:", path); return
+        end
+        if HH_SaveTableToJson(HH_CollectCurrentConfig(), fn) then
+            HH_RefreshDropdown(fn)
+        end
+    end
 })
 
-Config:CreateButton({
-	Name = "🗑️ Delete Config",
-	Callback = function()
-		if not selectedConfig then
-			warn("⚠️ No config selected to delete!")
-			return
-		end
+TabConfig:CreateSection("Select config")
+HH_BuildDropdown(nil)
 
-		deleteJSON(selectedConfig)
-
-		Rayfield:Notify({
-			Title = "🗑️ Deleted",
-			Content = "Config deleted: " .. selectedConfig,
-			Duration = 3,
-			Image = "eraser",
-		})
-
-		configDropdown:Refresh(listConfigFiles(), true)
-	end,
+TabConfig:CreateButton({
+    Name = "Reload Config List",
+    Callback = function()
+        HH_RefreshDropdown(SelectedFile)
+        if Rayfield and Rayfield.Notify then
+            Rayfield:Notify({ Title = "Notification", Content = "Reload Successful", Duration = 4, Image = "rewind" })
+        end
+    end
 })
 
-Config:CreateButton({
-	Name = "📥 Load Config",
-	Callback = function()
-		if not selectedConfig then
-			warn("⚠️ No config selected to load!")
-			return
-		end
-
-		loadJSON(selectedConfig, deployInputs)
-
-		Rayfield:Notify({
-			Title = "✅ Loaded",
-			Content = "Config has been applied.",
-			Duration = 3,
-			Image = "upload",
-		})
-	end,
+TabConfig:CreateSection("Actions")
+TabConfig:CreateButton({
+    Name = "|📁| Save to Selected Config",
+    Callback = function()
+        if not SelectedFile or SelectedFile == "" then
+            warn("[HieuHub] Chưa chọn file"); return
+        end
+        if HH_SaveTableToJson(HH_CollectCurrentConfig(), SelectedFile) then
+            if Rayfield and Rayfield.Notify then
+                Rayfield:Notify({ Title = "Notification", Content = "Save Successful", Duration = 4, Image = "rewind" })
+            end
+        end
+    end
+})
+TabConfig:CreateButton({
+    Name = "|⬇️| Load from Selected Config",
+    Callback = function()
+        if not SelectedFile or SelectedFile == "" then
+            warn("[HieuHub] Chưa chọn file"); return
+        end
+        local cfg = HH_LoadTableFromJson(SelectedFile)
+        HH_ApplyConfig(cfg)
+        if Rayfield and Rayfield.Notify then
+            Rayfield:Notify({ Title = "Notification", Content = "Load Successful", Duration = 4, Image = "rewind" })
+        end
+    end
 })
 
-Divider = Config:CreateDivider()
-local VirtualUser = game:GetService("VirtualUser")
+-- Delete support
+local function HH_Delete(file)
+    local path = HH_Path(file)
+    if not (isfile and isfile(path)) then
+        warn("[HieuHub] Không tìm thấy:", path); return false
+    end
+    if delfile then
+        delfile(path); print("[HieuHub] Deleted:", path); return true
+    else
+        warn("[HieuHub] Executor không hỗ trợ delfile"); return false
+    end
+end
+
+local _deleteArmed = false
+TabConfig:CreateButton({
+    Name = "|❌| Delete Selected Config (Press Twice to Confirm)",
+    Callback = function()
+        if not SelectedFile or SelectedFile == "" or SelectedFile == "(no configs)" then
+            warn("[HieuHub] Chưa chọn file hợp lệ để xóa"); return
+        end
+        if not _deleteArmed then
+            _deleteArmed = true
+            if Rayfield and Rayfield.Notify then
+                Rayfield:Notify({
+                    Title = "Delete Confirmation",
+                    Content = "Press Delete again within 5s to confirm: : " ..
+                        SelectedFile,
+                    Duration = 5,
+                    Image = "rewind"
+                })
+            end
+            task.delay(5, function() _deleteArmed = false end)
+            return
+        end
+        _deleteArmed = false
+        if HH_Delete(SelectedFile) then
+            SelectedFile = nil; HH_RefreshDropdown(nil)
+            if Rayfield and Rayfield.Notify then
+                Rayfield:Notify({ Title = "Notification", Content = "Delete Successful", Duration = 4, Image = "rewind" })
+            end
+        end
+    end
+})
+
+--=============================================================
+--                         MISC TAB
+--=============================================================
+TabMisc:CreateSection("Miscellaneous Settings")
+-- Auto Claim Box and Potion in Workspace
+
 local Players = game:GetService("Players")
+local WS = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
 
-local antiAfkEnabled = false
-local afkConnection = nil
+local function GeRE_TouchPickups()
+    local pickups = {}
+    for _, obj in pairs(WS:GetChildren()) do
+        if obj:IsA("Model") then
+            local name = obj.Name:lower()
+            if name:match("^potion_%d+$") or name:match("^box_%d+$") then
+                table.insert(pickups, obj)
+            end
+        end
+    end
+    return pickups
+end
 
--- Rayfield UI Section
-local Paragraph = Config:CreateParagraph({
-	Title = "ANTI AFK",
-	Content = "Prevents being kicked for inactivity.",
+-- Hàm dịch chuyển
+local function TeleportTo(obj)
+    local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if hrp and obj:FindFirstChild("PrimaryPart") then
+        hrp.CFrame = obj.PrimaryPart.CFrame + Vector3.new(0, 5, 0) -- dịch lên 5 để tránh kẹt
+    elseif hrp and obj.PrimaryPart then
+        hrp.CFrame = obj.PrimaryPart.CFrame + Vector3.new(0, 5, 0)
+    elseif hrp then
+        hrp.CFrame = obj:GetModelCFrame() + Vector3.new(0, 5, 0)
+    end
+end
+
+-- Auto toggle
+local autoClaim = false
+
+TabMisc:CreateToggle({
+    Name = "Auto Claim Box/Potion",
+    CurrentValue = false,
+    Flag = "AutoClaim",
+    Callback = function(Value)
+        autoClaim = Value
+        if autoClaim then
+            task.spawn(function()
+                while autoClaim do
+                    local pickups = GeRE_TouchPickups()
+                    for _, obj in ipairs(pickups) do
+                        TeleportTo(obj)
+                        task.wait(1) -- đứng lại 0.5s để server kịp detect "touch"
+                    end
+                    task.wait(2)     -- refresh danh sách mỗi 2s
+                end
+            end)
+        end
+    end
 })
 
-Config:CreateToggle({
-	Name = "⚙️ Anti-AFK",
-	CurrentValue = false,
-	Callback = function(state)
-		antiAfkEnabled = state
-		print("⚙️ Current Anti-AFK:", antiAfkEnabled and "🟢 ON" or "🔴 OFF")
+--=============================================================
+--                     AUTO CLAIM QUEST
+--=============================================================
+local autoQuest = false
 
-		if antiAfkEnabled then
-			afkConnection = Players.LocalPlayer.Idled:Connect(function()
-				print("⚠️ AFK detected, processing...")
+TabMisc:CreateToggle({
+    Name = "Auto Claim Quest",
+    CurrentValue = false,
+    Flag = "AutoQuest",
+    Callback = function(Value)
+        autoQuest = Value
+        if autoQuest then
+            task.spawn(function()
+                local questId = 1
+                while autoQuest do
+                    local args = { questId }
+                    RE_ClaimDailyQuest:FireServer(unpack(args))
+                    -- print("Claimed Quest", questId)
 
-				VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-				task.wait(1)
-				VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+                    -- tăng questId, reset về 1 khi > 6
+                    questId = questId + 1
+                    if questId > 6 then
+                        questId = 1
+                    end
 
-				print("✅ Activity signal sent.")
-			end)
-		else
-			if afkConnection then
-				afkConnection:Disconnect()
-				afkConnection = nil
-				print("🛑 Anti-AFK turned off.")
-			end
-		end
-	end,
+                    task.wait(2) -- thời gian delay giữa mỗi lần claim (tùy chỉnh)
+                end
+            end)
+        end
+    end
 })
 
-UpdateParagraphInfo()
+--=============================================================
+--                     ANTI AFK
+--=============================================================
+local antiAFK = false
+local VU = game:GetService("VirtualUser")
+local Player = game:GetService("Players").LocalPlayer
+
+TabMisc:CreateToggle({
+    Name = "Anti AFK",
+    CurrentValue = false,
+    Flag = "AntiAFK",
+    Callback = function(Value)
+        antiAFK = Value
+        if antiAFK then
+            task.spawn(function()
+                while antiAFK do
+                    -- Khi server phát hiện Idle thì tự click chuột
+                    Player.Idled:Wait()
+                    if antiAFK then
+                        VU:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+                        task.wait(0.5)
+                        VU:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+                    end
+                end
+            end)
+        end
+    end
+})
