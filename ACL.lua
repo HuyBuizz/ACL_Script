@@ -81,6 +81,11 @@ local RE_FightGlobal     = Net:WaitForChild("fightGlobalBoss")
 local RE_TouchPickup     = Net:FindFirstChild("touchedPickup")
 local RE_ClaimDailyQuest = Net:WaitForChild("claimDailyQuest")
 
+-- Story
+local RE_FightStory      = Net:WaitForChild("fightStoryBoss")
+
+local VIM                = game:GetService("VirtualInputManager")
+
 --====================[ Utilities ]====================--
 local function FireSafe(remote, ...)
     if not remote or typeof(remote.FireServer) ~= "function" then
@@ -126,12 +131,13 @@ local function ForfeitSafe()
 end
 
 --========================[ TABS ]========================--
-local TabMain            = Window:CreateTab("MAIN", 4483362458)
-local TabAutoRaid        = Window:CreateTab("AUTO RAID", 4483362458)
-local TabAutoTower       = Window:CreateTab("AUTO TOWER", 4483362458)
-local TabAutoExploration = Window:CreateTab("AUTO EXPLORATION", 4483362458)
-local TabMisc            = Window:CreateTab("MISC", 4483362458)
-local TabConfig          = Window:CreateTab("CONFIG", 4483362458)
+local TabMain            = Window:CreateTab("MAIN", "frame")
+local TabAutoRaid        = Window:CreateTab("AUTO RAID", "shield-alert")
+local TabAutoTower       = Window:CreateTab("AUTO TOWER", "tower-control")
+local TabAutoExploration = Window:CreateTab("AUTO EXPLORATION", "plane")
+local TabAutoStory       = Window:CreateTab("AUTO STORY", "book-open")
+local TabMisc            = Window:CreateTab("MISC", "dice-3")
+local TabConfig          = Window:CreateTab("CONFIG", "file-cog")
 
 --========================[ STATE ]========================--
 -- Auto Raid
@@ -205,6 +211,23 @@ local GlobalBoss = {
 -- forward declare so functions above can reference it
 local TryPauseInfinite
 
+-- local function DisableOthers(exceptKey)
+--     for key, s in pairs(BossAutos) do
+--         if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
+--             s.toggleRef:Set(false)
+--         end
+--     end
+--     if exceptKey ~= "GLOBAL" and GlobalBoss.enabled and GlobalBoss.toggleRef and GlobalBoss.toggleRef.Set then
+--         GlobalBoss.toggleRef:Set(false)
+--     end
+--     if exceptKey ~= "TOWER" and Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
+--         if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
+--         Orchestrator.skipForfeitOnce = true              -- bỏ qua đúng 1 lần Forfeit kế tiếp
+--         Orchestrator.skipForfeitUntil = os.clock() + 3.0 -- thêm 3s an toàn (tùy chỉnh)
+--         Tower.toggleRef:Set(false)
+--     end
+-- end
+
 local function DisableOthers(exceptKey)
     for key, s in pairs(BossAutos) do
         if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
@@ -216,11 +239,16 @@ local function DisableOthers(exceptKey)
     end
     if exceptKey ~= "TOWER" and Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
         if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
-        Orchestrator.skipForfeitOnce = true              -- bỏ qua đúng 1 lần Forfeit kế tiếp
-        Orchestrator.skipForfeitUntil = os.clock() + 3.0 -- thêm 3s an toàn (tùy chỉnh)
+        Orchestrator.skipForfeitOnce = true
+        Orchestrator.skipForfeitUntil = os.clock() + 3.0
         Tower.toggleRef:Set(false)
     end
+    -- ⬇️ NEW: Auto Story
+    if exceptKey ~= "STORY" and AutoStory and AutoStory.enabled and AutoStory.toggleRef and AutoStory.toggleRef.Set then
+        AutoStory.toggleRef:Set(false)
+    end
 end
+
 
 -- Helper: turn off all Auto Raid toggles (used by Auto Claim)
 local function DisableAllAutoRaid()
@@ -230,6 +258,29 @@ local function DisableAllAutoRaid()
         end
     end
 end
+
+-- local function AS_ClickAnywhereCenter()
+--     local cam = workspace.CurrentCamera
+--     if not cam then return end
+--     local vp = cam.ViewportSize
+--     local x, y = math.floor(vp.X * 0.5), math.floor(vp.Y * 0.5)
+--     VIM:SendMouseMoveEvent(x, y, game)
+--     VIM:SendMouseButtonEvent(x, y, 0, true, game, 0)
+--     task.wait(0.02)
+--     VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
+-- end
+
+local function AS_ClickAnywhereCenter()
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local vp = cam.ViewportSize
+    local x, y = math.floor(vp.X * 0.5), math.floor(vp.Y * 0.9)
+    VIM:SendMouseMoveEvent(x, y, game)
+    VIM:SendMouseButtonEvent(x, y, 0, true, game, 0)
+    task.wait(0.02)
+    VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
+end
+
 
 -- Graceful Tower pause helper: spam pauseInfinite within a short window
 TryPauseInfinite = function(totalTime, every)
@@ -297,7 +348,7 @@ local function CreateBossAuto(tab, key, prettyName, raidName, bossId)
                     task.wait(0.25)
                     FireSafe(RE_Teleport, S.raidName)
                     task.wait(S.postTeleportWait)
-                    notify("Auto Raid", "Farming: " .. prettyName, 3, "rewind")
+                    notify("Auto Raid", "Farming: " .. prettyName, 3, "tractor")
                     while S.enabled do
                         FireSafe(RE_SetPartySlot, ("slot_%d"):format(S.deckSlot or 1))
                         task.wait(0.5)
@@ -383,7 +434,7 @@ local function CreateMinionAuto(tab, key, prettyName, raidName, namePrefix)
                     task.wait(0.25)
                     FireSafe(RE_Teleport, S.raidName)
                     task.wait(S.postTeleportWait)
-                    notify("Auto Raid", "Farming minions: " .. prettyName, 3, "rewind")
+                    notify("Auto Raid", "Farming minions: " .. prettyName, 3, "tractor")
 
                     local idx = 1
                     while S.enabled do
@@ -456,7 +507,7 @@ GlobalBoss.toggleRef = TabMain:CreateToggle({
                 -- FireSafe(RE_Forfeit)
                 ForfeitSafe()
                 task.wait(GlobalBoss.afterForfeitWait)
-                notify("Global Boss", "Automation started.", 3, "rewind")
+                notify("Global Boss", "Automation started.", 3, "paw-print")
                 while GlobalBoss.enabled do
                     FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
                     task.wait(0.5)
@@ -576,7 +627,7 @@ Tower.toggleRef = TabAutoTower:CreateToggle({
                 ForfeitSafe()
                 task.wait(Tower.afterForfeitWait)
             end
-            notify("Auto Tower", "Automation started.", 3, "rewind")
+            notify("Auto Tower", "Automation started.", 3, "tower-control")
             while Tower.enabled do
                 -- FireSafe(RE_ClaimInf, Tower.mode)
                 -- task.wait(Tower.afterClaimWait)
@@ -694,7 +745,7 @@ local function MakeExplorationUI(tab, diffKey)
                 local picks, err = BuildPicks(AutoEX.inputs[diffKey])
                 if picks then
                     FireSafe(RE_StartExpl, diffKey, picks)
-                    notify("Exploration", string.upper(diffKey) .. " started.", 3, "rewind")
+                    notify("Exploration", string.upper(diffKey) .. " started.", 3, "circle-play")
                 else
                     warn("[Exploration] " .. diffKey .. " error: " .. tostring(err))
                     notify("Exploration", "Error: " .. tostring(err), 4, "rewind")
@@ -719,7 +770,7 @@ TabAutoExploration:CreateToggle({
         AutoEX.enabled = state
         if not state then return end
         task.spawn(function()
-            notify("Exploration", "Auto cycle started.", 3, "rewind")
+            notify("Exploration", "Auto cycle started.", 3, "telescope")
             while AutoEX.enabled do
                 for _, diff in ipairs(DIFFICULTIES) do
                     if not AutoEX.enabled then break end
@@ -829,6 +880,23 @@ local function HH_CollectCurrentConfig()
             }
         end
     end
+
+
+    -- Auto Story
+    cfg.AutoStory = {
+        deckSlot = AutoStory.deckSlot,
+        intervalBetweenPlays = AutoStory.intervalBetweenPlays,
+        outcomeTimeout = AutoStory.outcomeTimeout,
+        pollEvery = AutoStory.pollEvery,
+        chainNextOnCountdown = AutoStory.chainNextOnCountdown,
+        countdownCheckDelay = AutoStory.countdownCheckDelay,
+        countdownChildrenThresh = AutoStory.countdownChildrenThresh,
+        retryDelayOnLost = AutoStory.retryDelayOnLost,
+        autoDismissAfterWin = AutoStory.autoDismissAfterWin,
+        autoDismissDelay = AutoStory.autoDismissDelay,
+        bossIds = AutoStory.bossIds,
+        diffOrder = AutoStory.diffOrder,
+    }
 
     return cfg
 end
@@ -940,6 +1008,74 @@ local function HH_ApplyConfig(tbl)
         end
     end
 
+    -- AutoStory
+    if tbl.AutoStory then
+        local S = tbl.AutoStory
+        if type(S.deckSlot) == "number" then
+            AutoStory.deckSlot = S.deckSlot
+            if AutoStory.deckDropdownRef and AutoStory.deckDropdownRef.Set then
+                AutoStory.deckDropdownRef:Set({ tostring(AutoStory.deckSlot) })
+            end
+        end
+        if type(S.intervalBetweenPlays) == "number" then
+            AutoStory.intervalBetweenPlays = S.intervalBetweenPlays
+            if AutoStory.intervalSliderRef and AutoStory.intervalSliderRef.Set then
+                AutoStory.intervalSliderRef:Set(AutoStory.intervalBetweenPlays)
+            end
+        end
+        if type(S.outcomeTimeout) == "number" then
+            AutoStory.outcomeTimeout = S.outcomeTimeout
+            if AutoStory.outcomeTimeoutSliderRef and AutoStory.outcomeTimeoutSliderRef.Set then
+                AutoStory.outcomeTimeoutSliderRef:Set(AutoStory.outcomeTimeout)
+            end
+        end
+        if type(S.pollEvery) == "number" then
+            AutoStory.pollEvery = S.pollEvery
+        end
+        if type(S.chainNextOnCountdown) == "boolean" then
+            AutoStory.chainNextOnCountdown = S.chainNextOnCountdown
+            if AutoStory.chainToggleRef and AutoStory.chainToggleRef.Set then
+                AutoStory.chainToggleRef:Set(AutoStory.chainNextOnCountdown and true or false)
+            end
+        end
+        if type(S.countdownCheckDelay) == "number" then
+            AutoStory.countdownCheckDelay = S.countdownCheckDelay
+            if AutoStory.countdownDelaySliderRef and AutoStory.countdownDelaySliderRef.Set then
+                AutoStory.countdownDelaySliderRef:Set(AutoStory.countdownCheckDelay)
+            end
+        end
+        if type(S.countdownChildrenThresh) == "number" then
+            AutoStory.countdownChildrenThresh = S.countdownChildrenThresh
+            if AutoStory.countdownThreshSliderRef and AutoStory.countdownThreshSliderRef.Set then
+                AutoStory.countdownThreshSliderRef:Set(AutoStory.countdownChildrenThresh)
+            end
+        end
+        if type(S.retryDelayOnLost) == "number" then
+            AutoStory.retryDelayOnLost = S.retryDelayOnLost
+            if AutoStory.retryDelaySliderRef and AutoStory.retryDelaySliderRef.Set then
+                AutoStory.retryDelaySliderRef:Set(AutoStory.retryDelayOnLost)
+            end
+        end
+        if type(S.autoDismissAfterWin) == "boolean" then
+            AutoStory.autoDismissAfterWin = S.autoDismissAfterWin
+            if AutoStory.dismissAfterWinToggleRef and AutoStory.dismissAfterWinToggleRef.Set then
+                AutoStory.dismissAfterWinToggleRef:Set(AutoStory.autoDismissAfterWin and true or false)
+            end
+        end
+        if type(S.autoDismissDelay) == "number" then
+            AutoStory.autoDismissDelay = S.autoDismissDelay
+            if AutoStory.dismissDelaySliderRef and AutoStory.dismissDelaySliderRef.Set then
+                AutoStory.dismissDelaySliderRef:Set(AutoStory.autoDismissDelay)
+            end
+        end
+        if type(S.bossIds) == "table" then
+            AutoStory.bossIds = S.bossIds
+        end
+        if type(S.diffOrder) == "table" then
+            AutoStory.diffOrder = S.diffOrder
+        end
+    end
+
     -- GlobalBoss
     if tbl.GlobalBoss then
         if type(tbl.GlobalBoss.deckSlot) == "number" then
@@ -1016,7 +1152,7 @@ TabConfig:CreateButton({
         if isfile and isfile(path) then return end
         if HH_SaveTableToJson(HH_CollectCurrentConfig(), fn) then
             HH_RefreshDropdown(fn)
-            notify("Config", "Created: " .. fn, 3, "rewind")
+            notify("Config", "Created: " .. fn, 3, "badge-plus")
         end
     end
 })
@@ -1028,7 +1164,7 @@ TabConfig:CreateButton({
     Name = "Reload Config List",
     Callback = function()
         HH_RefreshDropdown(SelectedFile)
-        notify("Config", "Reload Successful", 3, "rewind")
+        notify("Config", "Reload Successful", 3, "refresh-ccw")
     end
 })
 
@@ -1050,7 +1186,7 @@ TabConfig:CreateButton({
         if not SelectedFile or SelectedFile == "" then return end
         local cfg = HH_LoadTableFromJson(SelectedFile)
         HH_ApplyConfig(cfg)
-        notify("Config", "Load Successful", 3, "rewind")
+        notify("Config", "Load Successful", 3, "cog")
     end
 })
 
@@ -1071,14 +1207,14 @@ TabConfig:CreateButton({
         if not SelectedFile or SelectedFile == "" or SelectedFile == "(no configs)" then return end
         if not _deleteArmed then
             _deleteArmed = true
-            notify("Delete Confirmation", "Press Delete again within 5s to confirm: " .. SelectedFile, 5, "rewind")
+            notify("Delete Confirmation", "Press Delete again within 5s to confirm: " .. SelectedFile, 5, "trash")
             task.delay(5, function() _deleteArmed = false end)
             return
         end
         _deleteArmed = false
         if HH_Delete(SelectedFile) then
             SelectedFile = nil; HH_RefreshDropdown(nil)
-            notify("Config", "Delete Successful", 3, "rewind")
+            notify("Config", "Delete Successful", 3, "trash")
         end
     end
 })
@@ -1300,3 +1436,297 @@ TabMisc:CreateToggle({
         end
     end
 })
+
+--==================[ AUTO STORY ]==================--
+-- Tab mới + toggle chạy chuỗi boss theo độ khó: normal → medium → hard → extreme
+-- (Tab created earlier in TABS section): TabAutoStory
+
+-- Utils nhỏ, tránh nil-error khi dò UI react
+local function AS_CountChildrenSafe(obj)
+    if not obj or typeof(obj) ~= "Instance" then return 0 end
+    local ok, kids = pcall(function() return obj:GetChildren() end)
+    return ok and #kids or 0
+end
+
+local function AS_GetReact()
+    local pg = Players.LocalPlayer and Players.LocalPlayer:FindFirstChild("PlayerGui")
+    if not pg then return nil end
+    return pg:FindFirstChild("react")
+end
+
+local function AS_IsWin()
+    -- Win khi: react.rewardsPopup["2"]["2"] có >1 children
+    local react = AS_GetReact(); if not react then return false end
+    local rewards = react:FindFirstChild("rewardsPopup"); if not rewards then return false end
+    local f2 = rewards:FindFirstChild("2"); if not f2 then return false end
+    local inner = f2:FindFirstChild("2"); if not inner then return false end
+    return AS_CountChildrenSafe(inner) > 1
+end
+
+local function AS_IsLost()
+    -- Lost khi: xuất hiện react.battleEndScreen
+    local react = AS_GetReact(); if not react then return false end
+    return react:FindFirstChild("battleEndScreen") ~= nil
+end
+
+local function AS_NotificationsChildren()
+    local react = AS_GetReact(); if not react then return 0 end
+    local notifications = react:FindFirstChild("notifications"); if not notifications then return 0 end
+    return AS_CountChildrenSafe(notifications)
+end
+
+-- Trạng thái & thiết lập
+AutoStory = {
+    enabled                  = false,
+    deckSlot                 = 1,
+    intervalBetweenPlays     = 1.0,   -- nhịp giữa các lần gửi event (an toàn)
+    outcomeTimeout           = 120.0, -- timeout chờ kết quả (s)
+    pollEvery                = 0.2,   -- nhịp dò UI kết quả
+
+    -- COUNTDOWN (nhảy độ khó kế sau ~2s nếu notifications > ngưỡng)
+    chainNextOnCountdown     = true,
+    countdownCheckDelay      = 2.0, -- ⬅️ theo góp ý của bạn (đợi ~2s rồi mới check)
+    countdownChildrenThresh  = 2,
+
+    -- LOST → đánh lại
+    retryDelayOnLost         = 1.0,
+
+    -- ⬇️ THÊM Ở ĐÂY
+    autoDismissAfterWin      = true,
+    autoDismissDelay         = 1.5,
+
+    -- Danh sách boss tĩnh (SỬA THEO BẠN)
+    -- Gợi ý: thêm/đổi id tuỳ ý; mặc định đưa ví dụ 308, 376.
+    bossIds                  = { 308, 376, 331, 358, 458, 349, 322, 300, 363, 338 },
+
+    -- Thứ tự độ khó
+    diffOrder                = { "normal", "medium", "hard", "extreme" },
+
+    -- Con trỏ hiện tại
+    _bossIdx                 = 1,
+    _diffIdx                 = 1,
+
+    -- UI handles
+    toggleRef                = nil,
+    deckDropdownRef          = nil,
+    intervalSliderRef        = nil,
+    outcomeTimeoutSliderRef  = nil,
+    retryDelaySliderRef      = nil,
+    chainToggleRef           = nil,
+    countdownDelaySliderRef  = nil,
+    countdownThreshSliderRef = nil,
+}
+
+-- Helper: tiến độ độ khó/boss
+local function AS_NextDifficultyOrBoss()
+    AutoStory._diffIdx += 1
+    if AutoStory._diffIdx > #AutoStory.diffOrder then
+        AutoStory._diffIdx = 1
+        AutoStory._bossIdx += 1
+        if AutoStory._bossIdx > #AutoStory.bossIds then
+            AutoStory._bossIdx = 1 -- lặp lại từ đầu danh sách boss
+        end
+    end
+end
+
+local function AS_CurrentBossAndDiff()
+    local bossId = AutoStory.bossIds[AutoStory._bossIdx]
+    local diff   = AutoStory.diffOrder[AutoStory._diffIdx]
+    return bossId, diff
+end
+
+-- UI
+TabAutoStory:CreateSection("Auto Story – Chain Boss by Difficulties")
+
+AutoStory.deckDropdownRef = TabAutoStory:CreateDropdown({
+    Name          = "Deck (1–8)",
+    Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    CurrentOption = tostring(AutoStory.deckSlot),
+    Flag          = "STORY_Deck",
+    Callback      = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end
+        AutoStory.deckSlot = tonumber(opt) or 1
+    end
+})
+
+AutoStory.intervalSliderRef = TabAutoStory:CreateSlider({
+    Name         = "Delay between attempts (s)",
+    Range        = { 0.2, 5 },
+    Increment    = 0.1,
+    Suffix       = "s",
+    CurrentValue = AutoStory.intervalBetweenPlays,
+    Flag         = "STORY_Interval",
+    Callback     = function(v) AutoStory.intervalBetweenPlays = v end
+})
+
+AutoStory.outcomeTimeoutSliderRef = TabAutoStory:CreateSlider({
+    Name         = "Outcome Timeout (s)",
+    Range        = { 10, 300 },
+    Increment    = 5,
+    Suffix       = "s",
+    CurrentValue = AutoStory.outcomeTimeout,
+    Flag         = "STORY_OutcomeTimeout",
+    Callback     = function(v) AutoStory.outcomeTimeout = v end
+})
+
+AutoStory.retryDelaySliderRef = TabAutoStory:CreateSlider({
+    Name         = "Retry Delay on LOST (s)",
+    Range        = { 0.2, 5 },
+    Increment    = 0.1,
+    Suffix       = "s",
+    CurrentValue = AutoStory.retryDelayOnLost,
+    Flag         = "STORY_RetryDelay",
+    Callback     = function(v) AutoStory.retryDelayOnLost = v end
+})
+
+TabAutoStory:CreateSection("Countdown Logic")
+AutoStory.chainToggleRef = TabAutoStory:CreateToggle({
+    Name         = "Chain next on COUNTDOWN",
+    CurrentValue = AutoStory.chainNextOnCountdown,
+    Flag         = "STORY_ChainOnCountdown",
+    Callback     = function(v) AutoStory.chainNextOnCountdown = v and true or false end
+})
+
+AutoStory.countdownDelaySliderRef = TabAutoStory:CreateSlider({
+    Name         = "COUNTDOWN Check Delay (s)",
+    Range        = { 0.5, 5 },
+    Increment    = 0.1,
+    Suffix       = "s",
+    CurrentValue = AutoStory.countdownCheckDelay,
+    Flag         = "STORY_CountdownDelay",
+    Callback     = function(v) AutoStory.countdownCheckDelay = v end
+})
+
+AutoStory.countdownThreshSliderRef = TabAutoStory:CreateSlider({
+    Name         = "notifications children > (threshold)",
+    Range        = { 1, 6 },
+    Increment    = 1,
+    CurrentValue = AutoStory.countdownChildrenThresh,
+    Flag         = "STORY_CountdownThresh",
+    Callback     = function(v) AutoStory.countdownChildrenThresh = math.floor(v) end
+})
+
+TabAutoStory:CreateSection("Rewards Auto Dismiss")
+AutoStory.dismissAfterWinToggleRef = TabAutoStory:CreateToggle({
+    Name = "Auto click to dismiss after WIN",
+    CurrentValue = AutoStory.autoDismissAfterWin,
+    Flag = "STORY_AutoDismissAfterWin",
+    Callback = function(v) AutoStory.autoDismissAfterWin = v and true or false end
+})
+
+AutoStory.dismissDelaySliderRef = TabAutoStory:CreateSlider({
+    Name         = "Dismiss delay after WIN (s)",
+    Range        = { 0.5, 5 },
+    Increment    = 0.1,
+    Suffix       = "s",
+    CurrentValue = AutoStory.autoDismissDelay,
+    Flag         = "STORY_AutoDismissDelay",
+    Callback     = function(v) AutoStory.autoDismissDelay = v end
+})
+
+
+AutoStory.toggleRef = TabAutoStory:CreateToggle({
+    Name         = "|📖| Auto Story",
+    CurrentValue = false,
+    Flag         = "STORY_Toggle",
+    Callback     = function(state)
+        AutoStory.enabled = state
+        if not state then return end
+
+        DisableOthers("STORY")
+
+        task.spawn(function()
+            notify("Auto Story", "Automation started.", 3, "book-open")
+            -- reset con trỏ vòng chain
+            AutoStory._bossIdx = 1
+            AutoStory._diffIdx = 1
+
+            while AutoStory.enabled do
+                local bossId, diff = AS_CurrentBossAndDiff()
+
+                -- Set Deck trước khi FIGHT
+                FireSafe(RE_SetPartySlot, ("slot_%d"):format(AutoStory.deckSlot or 1))
+                task.wait(0.25)
+
+                -- Gửi fight
+                FireSafe(RE_FightStory, bossId, diff)
+                notify("Auto Story",
+                    ("FIGHT boss %d @ %s"):format(tonumber(bossId or 0), tostring(diff)),
+                    2, "swords")
+
+                -- 1) COUNTDOWN: sau ~2s check notifications > thresh → chain NGAY độ khó kế
+                local chainedByCountdown = false
+                if AutoStory.chainNextOnCountdown then
+                    task.wait(AutoStory.countdownCheckDelay)
+                    if AS_NotificationsChildren() > (AutoStory.countdownChildrenThresh or 2) then
+                        local curDiffIdx = AutoStory._diffIdx
+                        AS_NextDifficultyOrBoss()
+                        local _, nextDiff = AS_CurrentBossAndDiff()
+                        notify("Auto Story",
+                            ("COUNTDOWN detected → queued next: %s"):format(curDiffIdx == #AutoStory.diffOrder and
+                                "next boss" or nextDiff),
+                            2, "fast-forward")
+                        chainedByCountdown = true
+                    end
+                end
+
+                if not chainedByCountdown then
+                    -- 2) Đợi outcome: WIN/LOST
+                    local t = 0
+                    local outcome -- "win" | "lost" | nil
+                    while AutoStory.enabled and t < (AutoStory.outcomeTimeout or 120) do
+                        if AS_IsWin() then
+                            outcome = "win"; break
+                        end
+                        if AS_IsLost() then
+                            outcome = "lost"; break
+                        end
+                        task.wait(AutoStory.pollEvery); t += AutoStory.pollEvery
+                    end
+
+                    if outcome == "win" then
+                        -- ⬇️ ĐỢI X GIÂY RỒI CLICK BẤT KỲ ĐỂ ĐÓNG REWARDS
+                        if AutoStory.autoDismissAfterWin then
+                            task.spawn(function()
+                                task.wait(AutoStory.autoDismissDelay or 1.5)
+                                AS_ClickAnywhereCenter()
+                            end)
+                        end
+                        task.wait(1) -- đợi UI ổn định
+                        local lastWasExtreme = (AutoStory._diffIdx == #AutoStory.diffOrder)
+                        AS_NextDifficultyOrBoss()
+                        notify("Auto Story",
+                            lastWasExtreme and "WIN → next boss" or "WIN → next difficulty",
+                            2, "trophy")
+                    elseif outcome == "lost" then
+                        notify("Auto Story", "LOST → retry same boss & difficulty", 2, "rotate-ccw")
+                        task.wait(AutoStory.retryDelayOnLost or 1.0)
+                        -- không đổi con trỏ; loop sẽ gửi lại cùng boss/diff
+                    else
+                        -- Timeout: không thấy win/lost (có thể UI thay đổi), cứ thử độ khó kế tiếp để không kẹt
+                        AS_NextDifficultyOrBoss()
+                        notify("Auto Story", "Timeout outcome → moving on", 2, "alert-octagon")
+                    end
+                end
+
+                -- Nhịp an toàn giữa các lần gửi
+                local t2 = 0
+                while AutoStory.enabled and t2 < (AutoStory.intervalBetweenPlays or 1.0) do
+                    task.wait(0.1); t2 += 0.1
+                end
+            end
+        end)
+    end
+})
+
+-- Gợi ý hiển thị nhanh danh sách boss đang cấu hình
+TabAutoStory:CreateSection("Boss List (static in code)")
+TabAutoStory:CreateButton({
+    Name = ("Current: %s"):format(table.concat(AutoStory.bossIds, ", ")),
+    Callback = function()
+        notify("Auto Story",
+            "Để thay đổi bossIds, sửa trực tiếp trong code: AutoStory.bossIds = { ... }",
+            5, "info")
+    end
+})
+--==================[ /AUTO STORY ]==================--
