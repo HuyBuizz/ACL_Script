@@ -13,7 +13,7 @@
 local Rayfield           = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window             = Rayfield:CreateWindow({
-    Name                   = "Astral HUB",
+    Name                   = "Astral HUB - Ver 1.0.4",
     Icon                   = 0,
     LoadingTitle           = "Rayfield Interface Suite",
     LoadingSubtitle        = "by AczTeam",
@@ -155,13 +155,13 @@ local TabConfig          = Window:CreateTab("CONFIG", "file-cog")
 --  \$$    $$  | $$   | $$  | $$  | $$   | $$     \
 --   \$$$$$$    \$$    \$$   \$$   \$$    \$$$$$$$$
 -- Auto Raid
-local BossAutos    = {}
+local BossAutos          = {}
 
 -- Exploration
-local RARITIES     = { "basic", "gold", "rainbow", "secret" }
-local DIFFICULTIES = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
+local RARITIES           = { "basic", "gold", "rainbow", "secret" }
+local DIFFICULTIES       = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
 
-local AutoEX       = {
+local AutoEX             = {
     enabled             = false,
     betweenActions      = 0.5,
     betweenDifficulties = 1.0,
@@ -296,17 +296,7 @@ local function AS_ClickAnywhereCenter()
 end
 
 -- Helper: lấy TextLabel outcome trong battleEndScreen
-local function AS_GetBattleEndLabel()
-    local react = AS_GetReact(); if not react then return nil end
-    local bes = react:FindFirstChild("battleEndScreen"); if not bes then return nil end
-    local f3 = bes:FindFirstChild("3"); if not f3 then return nil end
-    local lbl = f3:FindFirstChild("2"); if not lbl then return nil end
-    -- đảm bảo là TextLabel (phòng khi UI đổi class)
-    if lbl.ClassName == "TextLabel" or (typeof(lbl) == "Instance" and lbl:IsA("TextLabel")) then
-        return lbl
-    end
-    return nil
-end
+
 
 -- Graceful Tower pause helper: spam pauseInfinite within a short window
 TryPauseInfinite = function(totalTime, every)
@@ -1476,6 +1466,18 @@ local function AS_GetReact()
     local pg = Players.LocalPlayer and Players.LocalPlayer:FindFirstChild("PlayerGui")
     if not pg then return nil end
     return pg:FindFirstChild("react")
+end
+
+local function AS_GetBattleEndLabel()
+    local react = AS_GetReact(); if not react then return nil end
+    local bes = react:FindFirstChild("battleEndScreen"); if not bes then return nil end
+    local f3 = bes:FindFirstChild("3"); if not f3 then return nil end
+    local lbl = f3:FindFirstChild("2"); if not lbl then return nil end
+    -- đảm bảo là TextLabel (phòng khi UI đổi class)
+    if lbl.ClassName == "TextLabel" or (typeof(lbl) == "Instance" and lbl:IsA("TextLabel")) then
+        return lbl
+    end
+    return nil
 end
 
 -- local function AS_IsWin()
