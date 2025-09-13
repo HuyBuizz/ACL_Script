@@ -129,8 +129,15 @@ local function ForfeitSafe()
     FireSafe(RE_Forfeit)
     return true
 end
-
---========================[ TABS ]========================--
+--  ________   ______   _______
+-- |        \ /      \ |       \
+--  \$$$$$$$$|  $$$$$$\| $$$$$$$\
+--    | $$   | $$__| $$| $$__/ $$
+--    | $$   | $$    $$| $$    $$
+--    | $$   | $$$$$$$$| $$$$$$$\
+--    | $$   | $$  | $$| $$__/ $$
+--    | $$   | $$  | $$| $$    $$
+--     \$$    \$$   \$$ \$$$$$$$
 local TabMain            = Window:CreateTab("MAIN", "frame")
 local TabAutoRaid        = Window:CreateTab("AUTO RAID", "shield-alert")
 local TabAutoTower       = Window:CreateTab("AUTO TOWER", "tower-control")
@@ -138,16 +145,23 @@ local TabAutoExploration = Window:CreateTab("AUTO EXPLORATION", "plane")
 local TabAutoStory       = Window:CreateTab("AUTO STORY", "book-open")
 local TabMisc            = Window:CreateTab("MISC", "dice-3")
 local TabConfig          = Window:CreateTab("CONFIG", "file-cog")
-
---========================[ STATE ]========================--
+--   ______  ________   ______  ________  ________
+--  /      \|        \ /      \|        \|        \
+-- |  $$$$$$\\$$$$$$$$|  $$$$$$\\$$$$$$$$| $$$$$$$$
+-- | $$___\$$  | $$   | $$__| $$  | $$   | $$__
+--  \$$    \   | $$   | $$    $$  | $$   | $$  \
+--  _\$$$$$$\  | $$   | $$$$$$$$  | $$   | $$$$$
+-- |  \__| $$  | $$   | $$  | $$  | $$   | $$_____
+--  \$$    $$  | $$   | $$  | $$  | $$   | $$     \
+--   \$$$$$$    \$$    \$$   \$$   \$$    \$$$$$$$$
 -- Auto Raid
-local BossAutos          = {}
+local BossAutos    = {}
 
 -- Exploration
-local RARITIES           = { "basic", "gold", "rainbow", "secret" }
-local DIFFICULTIES       = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
+local RARITIES     = { "basic", "gold", "rainbow", "secret" }
+local DIFFICULTIES = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
 
-local AutoEX             = {
+local AutoEX       = {
     enabled             = false,
     betweenActions      = 0.5,
     betweenDifficulties = 1.0,
@@ -274,13 +288,25 @@ local function AS_ClickAnywhereCenter()
     local cam = workspace.CurrentCamera
     if not cam then return end
     local vp = cam.ViewportSize
-    local x, y = math.floor(vp.X * 0.5), math.floor(vp.Y * 0.9)
+    local x, y = math.floor(vp.X * 0.5), math.floor(vp.Y * 0.98)
     VIM:SendMouseMoveEvent(x, y, game)
     VIM:SendMouseButtonEvent(x, y, 0, true, game, 0)
     task.wait(0.02)
     VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
 end
 
+-- Helper: lấy TextLabel outcome trong battleEndScreen
+local function AS_GetBattleEndLabel()
+    local react = AS_GetReact(); if not react then return nil end
+    local bes = react:FindFirstChild("battleEndScreen"); if not bes then return nil end
+    local f3 = bes:FindFirstChild("3"); if not f3 then return nil end
+    local lbl = f3:FindFirstChild("2"); if not lbl then return nil end
+    -- đảm bảo là TextLabel (phòng khi UI đổi class)
+    if lbl.ClassName == "TextLabel" or (typeof(lbl) == "Instance" and lbl:IsA("TextLabel")) then
+        return lbl
+    end
+    return nil
+end
 
 -- Graceful Tower pause helper: spam pauseInfinite within a short window
 TryPauseInfinite = function(totalTime, every)
@@ -293,8 +319,6 @@ TryPauseInfinite = function(totalTime, every)
         elapsed += every
     end
 end
-
-
 
 --==================[ AUTO RAID: BUILDERS ]==================--
 local function CreateBossAuto(tab, key, prettyName, raidName, bossId)
@@ -1454,19 +1478,36 @@ local function AS_GetReact()
     return pg:FindFirstChild("react")
 end
 
+-- local function AS_IsWin()
+--     -- Win khi: react.rewardsPopup["2"]["2"] có >1 children
+--     local react = AS_GetReact(); if not react then return false end
+--     local rewards = react:FindFirstChild("rewardsPopup"); if not rewards then return false end
+--     local f2 = rewards:FindFirstChild("2"); if not f2 then return false end
+--     local inner = f2:FindFirstChild("2"); if not inner then return false end
+--     return AS_CountChildrenSafe(inner) > 1
+-- end
+
+-- local function AS_IsLost()
+--     -- Lost khi: xuất hiện react.battleEndScreen
+--     local react = AS_GetReact(); if not react then return false end
+--     return react:FindFirstChild("battleEndScreen") ~= nil
+-- end
+
+-- WIN khi: battleEndScreen xuất hiện và label = "Victory"
 local function AS_IsWin()
-    -- Win khi: react.rewardsPopup["2"]["2"] có >1 children
-    local react = AS_GetReact(); if not react then return false end
-    local rewards = react:FindFirstChild("rewardsPopup"); if not rewards then return false end
-    local f2 = rewards:FindFirstChild("2"); if not f2 then return false end
-    local inner = f2:FindFirstChild("2"); if not inner then return false end
-    return AS_CountChildrenSafe(inner) > 1
+    local lbl = AS_GetBattleEndLabel()
+    if not lbl then return false end
+    -- trim để tránh khoảng trắng vô tình
+    local txt = tostring(lbl.Text or ""):gsub("^%s+", ""):gsub("%s+$", "")
+    return txt == "Victory"
 end
 
+-- LOST khi: battleEndScreen xuất hiện và label = "Defeat"
 local function AS_IsLost()
-    -- Lost khi: xuất hiện react.battleEndScreen
-    local react = AS_GetReact(); if not react then return false end
-    return react:FindFirstChild("battleEndScreen") ~= nil
+    local lbl = AS_GetBattleEndLabel()
+    if not lbl then return false end
+    local txt = tostring(lbl.Text or ""):gsub("^%s+", ""):gsub("%s+$", "")
+    return txt == "Defeat"
 end
 
 local function AS_NotificationsChildren()
