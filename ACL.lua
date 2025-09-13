@@ -1083,7 +1083,20 @@ local function HH_ApplyConfig(tbl)
             end
         end
         if type(S.bossIds) == "table" then
-            AutoStory.bossIds = S.bossIds
+            -- Chỉ cần set lại danh sách + tick dropdown
+            if tbl.AutoStory.bossIds then
+                AutoStory.bossIds  = tbl.AutoStory.bossIds
+                AutoStory._bossIdx = 1
+                AutoStory._diffIdx = 1
+
+                if AutoStory.bossDropdownRef and AutoStory.bossDropdownRef.Set then
+                    AutoStory.bossDropdownRef:Set(AutoStory.bossIds) -- tick lại theo danh sách load được
+                end
+                -- (tuỳ bản Rayfield, có thể cần dòng dưới; nếu không có thì bỏ)
+                if AutoStory.bossDropdownRef and AutoStory.bossDropdownRef.Refresh and AutoStory.allBossIds then
+                    AutoStory.bossDropdownRef:Refresh(AutoStory.allBossIds, AutoStory.bossIds)
+                end
+            end
         end
         if type(S.diffOrder) == "table" then
             AutoStory.diffOrder = S.diffOrder
@@ -1520,27 +1533,29 @@ end
 
 -- Trạng thái & thiết lập
 AutoStory = {
-    enabled                  = false,
-    deckSlot                 = 1,
-    intervalBetweenPlays     = 1.0,   -- nhịp giữa các lần gửi event (an toàn)
-    outcomeTimeout           = 120.0, -- timeout chờ kết quả (s)
-    pollEvery                = 0.2,   -- nhịp dò UI kết quả
+    enabled                 = false,
+    deckSlot                = 1,
+    intervalBetweenPlays    = 1.0,   -- nhịp giữa các lần gửi event (an toàn)
+    outcomeTimeout          = 120.0, -- timeout chờ kết quả (s)
+    pollEvery               = 0.2,   -- nhịp dò UI kết quả
 
     -- COUNTDOWN (nhảy độ khó kế sau ~2s nếu notifications > ngưỡng)
-    chainNextOnCountdown     = true,
-    countdownCheckDelay      = 2.0, -- ⬅️ theo góp ý của bạn (đợi ~2s rồi mới check)
-    countdownChildrenThresh  = 2,
+    chainNextOnCountdown    = true,
+    countdownCheckDelay     = 2.0, -- ⬅️ theo góp ý của bạn (đợi ~2s rồi mới check)
+    countdownChildrenThresh = 2,
 
     -- LOST → đánh lại
-    retryDelayOnLost         = 1.0,
+    retryDelayOnLost        = 1.0,
 
     -- ⬇️ THÊM Ở ĐÂY
-    autoDismissAfterWin      = true,
-    autoDismissDelay         = 1.5,
+    autoDismissAfterWin     = true,
+    autoDismissDelay        = 1.5,
 
     -- Danh sách boss tĩnh (SỬA THEO BẠN)
     -- Gợi ý: thêm/đổi id tuỳ ý; mặc định đưa ví dụ 308, 376.
-    bossIds                  = { 308, 376, 331, 358, 458, 349, 322, 300, 363, 338 },
+    allBossIds              = { 308, 376, 331, 358, 458, 349, 322, 300, 363, 338 },
+    bossIds                 = { 308, 376, 331 }, -- mặc định những con tick sẵn
+
 
     -- Thứ tự độ khó
     diffOrder                = { "normal", "medium", "hard", "extreme" },
@@ -1589,6 +1604,25 @@ AutoStory.deckDropdownRef = TabAutoStory:CreateDropdown({
     Callback      = function(opt)
         if typeof(opt) == "table" then opt = opt[1] end
         AutoStory.deckSlot = tonumber(opt) or 1
+    end
+})
+
+AutoStory.bossDropdownRef = TabAutoStory:CreateDropdown({
+    Name = "Select Bosses",
+    Options = AutoStory.allBossIds,    -- danh sách đầy đủ
+    MultipleOptions = true,            -- ⬅️ cho phép chọn nhiều
+    CurrentOption = AutoStory.bossIds, -- những con mặc định tick sẵn
+    Flag = "STORY_BossSelection",
+    Callback = function(selected)
+        if typeof(selected) == "table" then
+            AutoStory.bossIds = selected
+        else
+            AutoStory.bossIds = { selected } -- fallback
+        end
+        -- reset con trỏ khi thay đổi danh sách
+        AutoStory._bossIdx = 1
+        AutoStory._diffIdx = 1
+        notify("Auto Story", ("Selected bosses: %s"):format(table.concat(AutoStory.bossIds, ", ")), 3, "info")
     end
 })
 
@@ -1691,6 +1725,14 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
                 FireSafe(RE_SetPartySlot, ("slot_%d"):format(AutoStory.deckSlot or 1))
                 task.wait(0.25)
 
+                --==========================================
+                local bossId = AutoStory.bossIds[AutoStory._bossIdx]
+                if not bossId then
+                    notify("Auto Story", "No boss selected! Enable at least one boss.", 3, "alert-octagon")
+                    break
+                end
+                --==========================================
+
                 -- Gửi fight
                 FireSafe(RE_FightStory, bossId, diff)
                 notify("Auto Story",
@@ -1741,14 +1783,16 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
                         notify("Auto Story",
                             lastWasExtreme and "WIN → next boss" or "WIN → next difficulty",
                             2, "trophy")
+                        print("Moving to next boss/difficulty")
                     elseif outcome == "lost" then
                         notify("Auto Story", "LOST → retry same boss & difficulty", 2, "rotate-ccw")
                         task.wait(AutoStory.retryDelayOnLost or 1.0)
                         -- không đổi con trỏ; loop sẽ gửi lại cùng boss/diff
+                        print("Retrying boss")
                     else
                         -- Timeout: không thấy win/lost (có thể UI thay đổi), cứ thử độ khó kế tiếp để không kẹt
                         AS_NextDifficultyOrBoss()
-                        notify("Auto Story", "Timeout outcome → moving on", 2, "alert-octagon")
+                        -- notify("Auto Story", "Timeout outcome → moving on", 2, "alert-octagon")
                     end
                 end
 
@@ -1762,14 +1806,5 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
     end
 })
 
--- Gợi ý hiển thị nhanh danh sách boss đang cấu hình
-TabAutoStory:CreateSection("Boss List (static in code)")
-TabAutoStory:CreateButton({
-    Name = ("Current: %s"):format(table.concat(AutoStory.bossIds, ", ")),
-    Callback = function()
-        notify("Auto Story",
-            "Để thay đổi bossIds, sửa trực tiếp trong code: AutoStory.bossIds = { ... }",
-            5, "info")
-    end
-})
+
 --==================[ /AUTO STORY ]==================--
