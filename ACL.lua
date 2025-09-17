@@ -9,11 +9,27 @@
 --  • FULL Save/Load: AutoRaid, AutoExploration, AutoTower, GlobalBoss
 --=============================================================
 
---====================[ Rayfield Window ]====================--
-local Rayfield           = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
-local Window             = Rayfield:CreateWindow({
-    Name                   = "Astral HUB - Ver 1.0.4",
+--=============================================================
+-- REBLOCKED (single-file) per requested order
+-- 1. Reyfield UI
+-- 2. Helpers & Declarations (scoped & global)
+-- 3. Tab Main: Raid Global Boss
+-- 4. Tab Auto Raid
+-- 5. Tab Auto Tower
+-- 6. Tab Auto Exploration
+-- 7. Tab Auto Story
+-- 8. Tab Misc
+-- 9. Tab Config
+--=============================================================
+
+--============ Reyfield UI ============--
+
+--====================[ Rayfield Window ]====================--
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local Window   = Rayfield:CreateWindow({
+    Name                   = "Astral HUB - Ver 1.0.6",
     Icon                   = 0,
     LoadingTitle           = "Rayfield Interface Suite",
     LoadingSubtitle        = "by AczTeam",
@@ -48,6 +64,10 @@ local Window             = Rayfield:CreateWindow({
     }
 })
 
+
+--============ Helpers & Declarations ============--
+
+-- ---- Services & Remotes (GLOBAL) ----
 --====================[ Services & Remotes ]====================--
 local RS                 = game:GetService("ReplicatedStorage")
 local WS                 = game:GetService("Workspace")
@@ -86,6 +106,8 @@ local RE_FightStory      = Net:WaitForChild("fightStoryBoss")
 
 local VIM                = game:GetService("VirtualInputManager")
 
+
+-- ---- Utilities (GLOBAL) ----
 --====================[ Utilities ]====================--
 local function FireSafe(remote, ...)
     if not remote or typeof(remote.FireServer) ~= "function" then
@@ -129,15 +151,7 @@ local function ForfeitSafe()
     FireSafe(RE_Forfeit)
     return true
 end
---  ________   ______   _______
--- |        \ /      \ |       \
---  \$$$$$$$$|  $$$$$$\| $$$$$$$\
---    | $$   | $$__| $$| $$__/ $$
---    | $$   | $$    $$| $$    $$
---    | $$   | $$$$$$$$| $$$$$$$\
---    | $$   | $$  | $$| $$__/ $$
---    | $$   | $$  | $$| $$    $$
---     \$$    \$$   \$$ \$$$$$$$
+
 local TabMain            = Window:CreateTab("MAIN", "frame")
 local TabAutoRaid        = Window:CreateTab("AUTO RAID", "shield-alert")
 local TabAutoTower       = Window:CreateTab("AUTO TOWER", "tower-control")
@@ -145,15 +159,7 @@ local TabAutoExploration = Window:CreateTab("AUTO EXPLORATION", "plane")
 local TabAutoStory       = Window:CreateTab("AUTO STORY", "book-open")
 local TabMisc            = Window:CreateTab("MISC", "dice-3")
 local TabConfig          = Window:CreateTab("CONFIG", "file-cog")
---   ______  ________   ______  ________  ________
---  /      \|        \ /      \|        \|        \
--- |  $$$$$$\\$$$$$$$$|  $$$$$$\\$$$$$$$$| $$$$$$$$
--- | $$___\$$  | $$   | $$__| $$  | $$   | $$__
---  \$$    \   | $$   | $$    $$  | $$   | $$  \
---  _\$$$$$$\  | $$   | $$$$$$$$  | $$   | $$$$$
--- |  \__| $$  | $$   | $$  | $$  | $$   | $$_____
---  \$$    $$  | $$   | $$  | $$  | $$   | $$     \
---   \$$$$$$    \$$    \$$   \$$   \$$    \$$$$$$$$
+
 -- Auto Raid
 local BossAutos          = {}
 
@@ -221,26 +227,11 @@ local GlobalBoss = {
     pauseSpamEverySliderRef   = nil,
 }
 
+
+-- ---- Cross-Feature Kill-Switch (GLOBAL) ----
 --==================[ Cross-Feature Kill-Switch ]==================--
 -- forward declare so functions above can reference it
 local TryPauseInfinite
-
--- local function DisableOthers(exceptKey)
---     for key, s in pairs(BossAutos) do
---         if key ~= exceptKey and s.enabled and s.toggleRef and s.toggleRef.Set then
---             s.toggleRef:Set(false)
---         end
---     end
---     if exceptKey ~= "GLOBAL" and GlobalBoss.enabled and GlobalBoss.toggleRef and GlobalBoss.toggleRef.Set then
---         GlobalBoss.toggleRef:Set(false)
---     end
---     if exceptKey ~= "TOWER" and Tower.enabled and Tower.toggleRef and Tower.toggleRef.Set then
---         if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
---         Orchestrator.skipForfeitOnce = true              -- bỏ qua đúng 1 lần Forfeit kế tiếp
---         Orchestrator.skipForfeitUntil = os.clock() + 3.0 -- thêm 3s an toàn (tùy chỉnh)
---         Tower.toggleRef:Set(false)
---     end
--- end
 
 local function DisableOthers(exceptKey)
     for key, s in pairs(BossAutos) do
@@ -273,19 +264,8 @@ local function DisableAllAutoRaid()
     end
 end
 
--- local function AS_ClickAnywhereCenter()
---     local cam = workspace.CurrentCamera
---     if not cam then return end
---     local vp = cam.ViewportSize
---     local x, y = math.floor(vp.X * 0.5), math.floor(vp.Y * 0.5)
---     VIM:SendMouseMoveEvent(x, y, game)
---     VIM:SendMouseButtonEvent(x, y, 0, true, game, 0)
---     task.wait(0.02)
---     VIM:SendMouseButtonEvent(x, y, 0, false, game, 0)
--- end
-
-local function AS_ClickAnywhereCenter()
-    local cam = workspace.CurrentCamera
+local function AS_ClickAnywhereBottom()
+    local cam = WS.CurrentCamera
     if not cam then return end
     local vp = cam.ViewportSize
     local x, y = math.floor(vp.X * 0.5), math.floor(vp.Y * 0.98)
@@ -309,6 +289,565 @@ TryPauseInfinite = function(totalTime, every)
         elapsed += every
     end
 end
+
+
+-- ---- Win Summary Detectors (GLOBAL/Story/Tower) ----
+-- ==================[ Win Summary Detectors ]==================
+-- Goal: Pause exactly when the Infinite Tower Summary pops (modal.current == 21)
+
+local SummaryDetector = {
+    enabled = true,
+    debounceTs = 0,
+    debounceGap = 1.0, -- seconds between triggers
+}
+
+local function TriggerPauseFromSummary()
+    local now = os.clock()
+    if now - (SummaryDetector.debounceTs or 0) < (SummaryDetector.debounceGap or 1.0) then
+        return
+    end
+    SummaryDetector.debounceTs = now
+    -- short, dense spam to reliably hit the server window
+    if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
+end
+
+local function StartModalWatcher()
+    -- Try to read producer store (reflex/rodux) to watch modal.current==21
+    local ok, producer = pcall(require,
+        game:GetService("ReplicatedStorage"):WaitForChild("shared"):WaitForChild("producer"))
+    if not ok or type(producer) ~= "table" then return end
+
+    -- Try common APIs: getState(), changed, subscribe()
+    local prevModal
+    local function check()
+        local stateOk, state = pcall(function()
+            if type(producer.getState) == "function" then
+                return producer.getState()
+            elseif type(producer.store) == "table" and type(producer.store.getState) == "function" then
+                return producer.store.getState()
+            end
+        end)
+        if not stateOk or type(state) ~= "table" then return end
+        local cur = state.modal and state.modal.current
+        if cur ~= prevModal then
+            -- edge: transitioning into summary (21)
+            if cur == 21 then
+                TriggerPauseFromSummary()
+            end
+            prevModal = cur
+        end
+    end
+
+    -- Evented if possible
+    if typeof(producer.changed) == "RBXScriptSignal" then
+        producer.changed:Connect(function(...)
+            check()
+        end)
+    elseif type(producer.subscribe) == "function" then
+        -- expected to call our callback on any state change
+        producer.subscribe(check)
+    else
+        -- fallback polling
+        task.spawn(function()
+            while true do
+                check()
+                task.wait(0.05)
+            end
+        end)
+    end
+end
+
+local function StartReactGuiWatcher()
+    local pg = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+    local reactGui = pg:FindFirstChild("react")
+    if not reactGui then
+        -- in some games, react might mount a bit later
+        pg.ChildAdded:Connect(function(child)
+            if child.Name == "react" then
+                reactGui = child
+            end
+        end)
+    end
+
+    local function isSummaryUi(inst)
+        -- Heuristics: look at names containing "infinite", "summary", "tower"
+        local n = string.lower(inst.Name or "")
+        if n:find("summary") and (n:find("infinite") or n:find("tower")) then return true end
+        -- also inspect ScreenGui/Frame parent chains
+        local p = inst.Parent
+        local depth = 0
+        while p and depth < 4 do
+            local pn = string.lower(p.Name or "")
+            if pn:find("summary") and (pn:find("infinite") or pn:find("tower")) then
+                return true
+            end
+            p = p.Parent; depth += 1
+        end
+        return false
+    end
+
+    local function hook(container)
+        if not container then return end
+        container.DescendantAdded:Connect(function(inst)
+            if SummaryDetector.enabled and isSummaryUi(inst) then
+                TriggerPauseFromSummary()
+            end
+        end)
+    end
+
+    hook(pg)
+    if reactGui then hook(reactGui) end
+end
+
+-- Start both detectors (they're cheap; modal watcher is preferred, GUI watcher is fallback)
+task.spawn(StartModalWatcher)
+task.spawn(StartReactGuiWatcher)
+
+
+-- ---- React helpers (GLOBAL) ----
+--==================== React helpers ====================--
+local function AS_GetReact()
+    local pg = Players.LocalPlayer and Players.LocalPlayer:FindFirstChild("PlayerGui")
+    if not pg then return nil end
+    return pg:FindFirstChild("react")
+end
+
+local function AS_GetBattleEndLabel()
+    local react = AS_GetReact(); if not react then return nil end
+    local bes = react:FindFirstChild("battleEndScreen"); if not bes then return nil end
+    local f3 = bes:FindFirstChild("3"); if not f3 then return nil end
+    local lbl = f3:FindFirstChild("2"); if not lbl then return nil end
+    if lbl.ClassName == "TextLabel" or (typeof(lbl) == "Instance" and lbl:IsA("TextLabel")) then
+        return lbl
+    end
+    return nil
+end
+
+local function AS_IsWin()
+    local lbl = AS_GetBattleEndLabel()
+    if not lbl then return false end
+    local txt = tostring(lbl.Text or ""):gsub("^%s+", ""):gsub("%s+$", "")
+    return txt == "Victory"
+end
+
+local function AS_IsLost()
+    local lbl = AS_GetBattleEndLabel()
+    if not lbl then return false end
+    local txt = tostring(lbl.Text or ""):gsub("^%s+", ""):gsub("%s+$", "")
+    return txt == "Defeat"
+end
+
+
+-- ---- COUNTDOWN by TEXT (Story) ----
+--==================== COUNTDOWN by TEXT ====================--
+local function AS_GetNotifications()
+    local react = AS_GetReact(); if not react then return nil end
+    return react:FindFirstChild("notifications")
+end
+
+local function AS_NormalizeText(s)
+    s = tostring(s or ""):gsub("%s+", " "):gsub("%s+,", ",")
+    return s
+end
+
+local function AS_GetLabelTextSafe(lbl)
+    if not lbl or typeof(lbl) ~= "Instance" then return nil end
+    local ok, txt = pcall(function() return lbl.ContentText end)
+    if not ok or not txt or txt == "" then
+        ok, txt = pcall(function() return lbl.Text end)
+    end
+    return txt
+end
+
+local AS_COOLDOWN_PREFIXES = {
+    "Error: On cooldown, unlocks in",
+    "Error: On cooldown , unlocks in",
+}
+
+local function AS_LabelHasCooldown(lbl)
+    local txt = AS_GetLabelTextSafe(lbl)
+    if not txt or txt == "" then return false end
+    txt = AS_NormalizeText(txt)
+    for _, pref in ipairs(AS_COOLDOWN_PREFIXES) do
+        if txt:sub(1, #pref) == pref then
+            return true
+        end
+    end
+    return false
+end
+
+local function AS_ScanNotificationsForCooldown()
+    local notifications = AS_GetNotifications()
+    if not notifications then return false end
+    local ok, nodes = pcall(function() return notifications:GetDescendants() end)
+    if not ok or not nodes then return false end
+    for _, d in ipairs(nodes) do
+        if d:IsA("TextLabel") or d:IsA("TextButton") or d:IsA("TextBox") then
+            if AS_LabelHasCooldown(d) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local function AS_IsCountdownActive()
+    task.wait(AutoStory.countdownCheckDelay or 2.0)
+    return AS_ScanNotificationsForCooldown()
+end
+
+
+-- ---- STATE / SETTINGS (Cross-feature) ----
+--==================== STATE / SETTINGS ====================--
+AutoStory = AutoStory or {
+    enabled                 = false,
+
+    -- Optional deck selection from UI; if nil → keep current deck unless an override applies
+    deckSlot                = nil,
+
+    intervalBetweenPlays    = 1.0,
+    outcomeTimeout          = 300.0,
+    pollEvery               = 0.2,
+
+    chainNextOnCountdown    = true,
+    countdownCheckDelay     = 2.0,
+
+    retryDelayOnLost        = 2.0,
+
+    autoDismissAfterWin     = true,
+    autoDismissDelay        = 1.5,
+
+    -- Full boss pool and currently selected route (IDs)
+    allBossIds              = { 308, 376, 331, 358, 458, 349, 322, 300, 363, 338 },
+    bossIds                 = { 308, 376, 331, 363 },
+
+    -- Aliases (id → name). Fill as you like.
+    bossAliases             = {
+        [308] = "bijuu_beast",
+        [376] = "awakened_galactic_tyrant",
+        [331] = "king_of_curses",
+        [358] = "combat_giant",
+        [458] = "awakened_pale_demon_lord",
+        [349] = "soul_queen",
+        [322] = "awakened_shadow_monarch",
+        [300] = "lord_of_eminence",
+        [363] = "celestial_sovereign",
+        [338] = "undead_king",
+    },
+
+    diffOrder               = { "normal", "medium", "hard", "extreme" },
+
+    _bossIdx                = 1,
+    _diffIdx                = 1,
+
+    -- Deck overrides: bossId → number | { diff → number | all/*/default → number }
+    deckOverrides           = {
+        [363] = { hard = 1 }, -- example: boss 363 @ hard → slot 1
+    },
+
+    -- UI refs
+    toggleRef               = nil,
+    deckDropdownRef         = nil,
+    bossDropdownRef         = nil,
+    chainToggleRef          = nil,
+    countdownDelaySliderRef = nil,
+
+    ovBossRef               = nil,
+    ovDiffRef               = nil,
+    ovSlotRef               = nil,
+    ovRemoveRef             = nil,
+}
+
+
+-- ---- Boss alias helpers (Story) ----
+--==================== Boss alias helpers ====================--
+local function AS_GetBossName(id)
+    local n = AutoStory.bossAliases and AutoStory.bossAliases[id]
+    if typeof(n) == "string" and #n > 0 then return n end
+    return "unknown"
+end
+
+local function AS_BossLabel(id)
+    return ("%s [%d]"):format(AS_GetBossName(id), tonumber(id) or 0)
+end
+
+local function AS_BuildBossOptions(idList)
+    local labels, reverse = {}, {}
+    for _, id in ipairs(idList) do
+        local label = AS_BossLabel(id)
+        table.insert(labels, label)
+        reverse[label] = id
+    end
+    return labels, reverse
+end
+
+local _BossOptions, _BossReverse = AS_BuildBossOptions(AutoStory.allBossIds)
+
+
+-- ---- UI helpers (GLOBAL) ----
+--==================== UI helpers (multi-library safe) ====================--
+local function AS_DropdownGetValue(ref)
+    if not ref then return nil end
+    local v = rawget(ref, "Value") or rawget(ref, "CurrentOption") or rawget(ref, "CurrentValue")
+    if v == nil and typeof(ref.Get) == "function" then
+        local ok, got = pcall(function() return ref:Get() end)
+        if ok then v = got end
+    end
+    if typeof(v) == "table" then
+        if v[1] ~= nil then
+            v = v[1]
+        else
+            for k, val in pairs(v) do
+                if val == true then
+                    v = k; break
+                end
+            end
+        end
+    end
+    return v
+end
+
+local function AS_DropdownSetOptions(ref, opts)
+    if not ref then return end
+    if typeof(ref.SetOptions) == "function" then
+        ref:SetOptions(opts)
+    elseif typeof(ref.SetValues) == "function" then
+        ref:SetValues(opts)
+    elseif typeof(ref.Refresh) == "function" then
+        ref:Refresh(opts)
+    elseif typeof(ref.LoadValues) == "function" then
+        ref:LoadValues(opts)
+    else
+        -- no API → ignore
+    end
+end
+
+local function AS_RefreshBossOptions()
+    _BossOptions, _BossReverse = AS_BuildBossOptions(AutoStory.allBossIds)
+    AS_DropdownSetOptions(AutoStory.bossDropdownRef, _BossOptions)
+    AS_DropdownSetOptions(AutoStory.ovBossRef, _BossOptions)
+end
+
+local function AS_NormalizeBossSelection(selection, reverseMap)
+    local function toId(x)
+        if typeof(x) == "number" then return x end
+        if typeof(x) == "string" then
+            return reverseMap[x] or tonumber(x)
+        end
+        return nil
+    end
+
+    if typeof(selection) == "table" then
+        local out = {}
+        for _, v in ipairs(selection) do
+            local id = toId(v)
+            if id then table.insert(out, id) end
+        end
+        return out
+    else
+        local id = toId(selection)
+        if id then return { id } end
+        return {}
+    end
+end
+
+local function AS_GetSelectedOverrideBossId()
+    local v = AS_DropdownGetValue(AutoStory.ovBossRef)
+    if not v then return nil end
+    local id = _BossReverse[v] or tonumber(v)
+    if not id then
+        local s = tostring(v)
+        local cap = s:match("%[(%d+)%]")
+        if cap then id = tonumber(cap) end
+    end
+    return id
+end
+
+
+-- ---- Deck resolve (Story) ----
+--==================== Deck resolve ====================--
+local function AS_SanitizeSlot(n)
+    local x = tonumber(n)
+    if not x then return nil end
+    x = math.floor(x)
+    if x < 1 or x > 8 then return nil end
+    return x
+end
+
+-- override only; no default here
+local function AS_ResolveDeckOverride(bossId, diff)
+    local o = AutoStory.deckOverrides and AutoStory.deckOverrides[bossId]
+    if typeof(o) == "number" then
+        return AS_SanitizeSlot(o)
+    elseif typeof(o) == "table" then
+        local v = o[diff] or o["all"] or o["*"] or o["default"]
+        return AS_SanitizeSlot(v)
+    end
+    return nil
+end
+
+local function AS_SetDeckOverride(bossId, diff, slot)
+    local b = tonumber(bossId); if not b then return false, "Invalid boss" end
+    local s = AS_SanitizeSlot(slot); if not s then return false, "Invalid slot" end
+    diff = tostring(diff or "all")
+
+    AutoStory.deckOverrides = AutoStory.deckOverrides or {}
+    local cur = AutoStory.deckOverrides[b]
+
+    if diff == "all" then
+        AutoStory.deckOverrides[b] = s
+    else
+        if typeof(cur) == "number" then
+            cur = { all = cur }
+        elseif typeof(cur) ~= "table" then
+            cur = {}
+        end
+        cur[diff] = s
+        AutoStory.deckOverrides[b] = cur
+    end
+    return true
+end
+
+local function AS_ListOverridesAsOptions()
+    local opts = {}
+    for b, v in pairs(AutoStory.deckOverrides or {}) do
+        if typeof(v) == "number" then
+            table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, "all"))
+        elseif typeof(v) == "table" then
+            for dk, _ in pairs(v) do
+                table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, tostring(dk)))
+            end
+        end
+    end
+    table.sort(opts)
+    if #opts == 0 then
+        opts = { "— (no overrides) —" }
+    end
+    return opts
+end
+
+local function AS_ExtractIdAndDiffFromLabel(label)
+    if not label or label == "— (no overrides) —" then return nil, nil end
+    local idStr, diff = tostring(label):match("%[(%d+)%]:(.+)$")
+    if not idStr then return nil, nil end
+    return tonumber(idStr), diff
+end
+
+local function AS_RemoveDeckOverrideKey(label)
+    local b, diff = AS_ExtractIdAndDiffFromLabel(label)
+    if not b then return false end
+
+    local cur = AutoStory.deckOverrides and AutoStory.deckOverrides[b]
+    if not cur then return false end
+
+    if diff == "all" and typeof(cur) == "number" then
+        AutoStory.deckOverrides[b] = nil
+        return true
+    end
+
+    if typeof(cur) == "table" then
+        if cur[diff] ~= nil then
+            cur[diff] = nil
+            local hasAny = false
+            for _k, _v in pairs(cur) do
+                hasAny = true
+                break
+            end
+            AutoStory.deckOverrides[b] = hasAny and cur or nil
+            return true
+        end
+        if diff == "all" and cur["all"] ~= nil then
+            cur["all"] = nil
+            local hasAny = false
+            for _k, _v in pairs(cur) do
+                hasAny = true
+                break
+            end
+            AutoStory.deckOverrides[b] = hasAny and cur or nil
+            return true
+        end
+    end
+    return false
+end
+
+
+-- ---- Progress helpers (Story) ----
+--==================== Progress helpers ====================--
+local function AS_NextDifficultyOrBoss()
+    AutoStory._diffIdx += 1
+    if AutoStory._diffIdx > #AutoStory.diffOrder then
+        AutoStory._diffIdx = 1
+        AutoStory._bossIdx += 1
+        if AutoStory._bossIdx > #AutoStory.bossIds then
+            AutoStory._bossIdx = 1
+        end
+    end
+end
+
+local function AS_CurrentBossAndDiff()
+    local bossId = AutoStory.bossIds[AutoStory._bossIdx]
+    local diff   = AutoStory.diffOrder[AutoStory._diffIdx]
+    return bossId, diff
+end
+
+
+--============ Tabs (Bottom) ============--
+
+--============ Tab Main: Raid Global Boss ============--
+
+--==================[ MAIN (GLOBAL BOSS) ]==================--
+TabMain:CreateSection("Auto Global Boss")
+
+GlobalBoss.deckDropdownRef = TabMain:CreateDropdown({
+    Name          = "Deck (1–8)",
+    Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    CurrentOption = tostring(GlobalBoss.deckSlot),
+    Flag          = "MAIN_Deck",
+    Callback      = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end
+        GlobalBoss.deckSlot = tonumber(opt) or 1
+    end
+})
+
+GlobalBoss.intervalSliderRef = TabMain:CreateSlider({
+    Name         = "Fight Delay (s)",
+    Range        = { 0.5, 10 },
+    Increment    = 0.5,
+    Suffix       = "s",
+    CurrentValue = GlobalBoss.interval,
+    Flag         = "MAIN_Interval",
+    Callback     = function(v) GlobalBoss.interval = v end
+})
+
+GlobalBoss.toggleRef = TabMain:CreateToggle({
+    Name         = "|💀| Auto Global Boss",
+    CurrentValue = false,
+    Flag         = "MAIN_Toggle",
+    Callback     = function(state)
+        GlobalBoss.enabled = state
+        if state then
+            DisableOthers("GLOBAL")
+            task.spawn(function()
+                -- FireSafe(RE_Forfeit)
+                ForfeitSafe()
+                task.wait(GlobalBoss.afterForfeitWait)
+                notify("Global Boss", "Automation started.", 3, "paw-print")
+                while GlobalBoss.enabled do
+                    FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
+                    task.wait(0.5)
+                    FireSafe(RE_FightGlobal, GlobalBoss.bossId)
+                    local t = 0
+                    while GlobalBoss.enabled and t < GlobalBoss.interval do
+                        task.wait(0.1); t += 0.1
+                    end
+                end
+            end)
+        end
+    end
+})
+
+
+--============ Tab Auto Raid ============--
 
 --==================[ AUTO RAID: BUILDERS ]==================--
 local function CreateBossAuto(tab, key, prettyName, raidName, bossId)
@@ -485,56 +1024,8 @@ CreateBossAuto(TabAutoRaid, "Sword", "Sword Deity", "raid_sword_deity", 325)
 CreateBossAuto(TabAutoRaid, "CoF", "Creator of Flames", "raid_creator_of_flames", 384)
 CreateMinionAuto(TabAutoRaid, "CoFMinion", "Creator of Flames - Minions", "raid_creator_of_flames", "infernal")
 
---==================[ MAIN (GLOBAL BOSS) ]==================--
-TabMain:CreateSection("Auto Global Boss")
 
-GlobalBoss.deckDropdownRef = TabMain:CreateDropdown({
-    Name          = "Deck (1–8)",
-    Options       = { "1", "2", "3", "4", "5", "6", "7", "8" },
-    CurrentOption = tostring(GlobalBoss.deckSlot),
-    Flag          = "MAIN_Deck",
-    Callback      = function(opt)
-        if typeof(opt) == "table" then opt = opt[1] end
-        GlobalBoss.deckSlot = tonumber(opt) or 1
-    end
-})
-
-GlobalBoss.intervalSliderRef = TabMain:CreateSlider({
-    Name         = "Fight Delay (s)",
-    Range        = { 0.5, 10 },
-    Increment    = 0.5,
-    Suffix       = "s",
-    CurrentValue = GlobalBoss.interval,
-    Flag         = "MAIN_Interval",
-    Callback     = function(v) GlobalBoss.interval = v end
-})
-
-GlobalBoss.toggleRef = TabMain:CreateToggle({
-    Name         = "|💀| Auto Global Boss",
-    CurrentValue = false,
-    Flag         = "MAIN_Toggle",
-    Callback     = function(state)
-        GlobalBoss.enabled = state
-        if state then
-            DisableOthers("GLOBAL")
-            task.spawn(function()
-                -- FireSafe(RE_Forfeit)
-                ForfeitSafe()
-                task.wait(GlobalBoss.afterForfeitWait)
-                notify("Global Boss", "Automation started.", 3, "paw-print")
-                while GlobalBoss.enabled do
-                    FireSafe(RE_SetPartySlot, ("slot_%d"):format(GlobalBoss.deckSlot or 1))
-                    task.wait(0.5)
-                    FireSafe(RE_FightGlobal, GlobalBoss.bossId)
-                    local t = 0
-                    while GlobalBoss.enabled and t < GlobalBoss.interval do
-                        task.wait(0.1); t += 0.1
-                    end
-                end
-            end)
-        end
-    end
-})
+--============ Tab Auto Tower ============--
 
 --==================[ AUTO TOWER ]==================--
 TabAutoTower:CreateSection("Auto Tower (Nightmare / Potion / Base)")
@@ -667,6 +1158,9 @@ Tower.toggleRef = TabAutoTower:CreateToggle({
         end)
     end
 })
+
+
+--============ Tab Auto Exploration ============--
 
 --==================[ AUTO EXPLORATION ]==================--
 TabAutoExploration:CreateSection("Global Delays")
@@ -808,6 +1302,450 @@ TabAutoExploration:CreateToggle({
     end
 })
 
+
+--============ Tab Auto Story ============--
+
+TabAutoStory:CreateSection("Auto Story – Chain Boss by Difficulties")
+
+-- Deck (optional): "Keep current" hoặc chọn 1–8
+AutoStory.deckDropdownRef = TabAutoStory:CreateDropdown({
+    Name          = "Deck (optional)",
+    Options       = { "Keep current", "1", "2", "3", "4", "5", "6", "7", "8" },
+    CurrentOption = AutoStory.deckSlot and tostring(AutoStory.deckSlot) or "Keep current",
+    Flag          = "STORY_Deck",
+    Callback      = function(opt)
+        if typeof(opt) == "table" then opt = opt[1] end
+        if opt == "Keep current" then
+            AutoStory.deckSlot = nil
+        else
+            AutoStory.deckSlot = AS_SanitizeSlot(opt)
+        end
+    end
+})
+
+-- 🔰 forward declare để callback bắt đúng upvalue
+local SelectedBossList
+local RefreshSelectedBossList
+
+-- Boss selection (multi) with alias labels
+AutoStory.bossDropdownRef = TabAutoStory:CreateDropdown({
+    Name = "Select Bosses (alias)",
+    Options = _BossOptions,
+    MultipleOptions = true,
+    CurrentOption = (function()
+        local labels = {}
+        for _, id in ipairs(AutoStory.bossIds or {}) do
+            table.insert(labels, AS_BossLabel(id))
+        end
+        return labels
+    end)(),
+    Flag = "STORY_BossSelectionAlias",
+    Callback = function(selected)
+        -- local ids = AS_NormalizeBossSelection(selected, _BossReverse)
+        -- if #ids == 0 then
+        --     notify("Auto Story", "No valid boss selected.", 3, "alert-octagon")
+        --     return
+        -- end
+        local ids = AS_NormalizeBossSelection(selected or {}, _BossReverse) or {}
+        AutoStory.bossIds = ids
+        AutoStory._bossIdx = 1
+        AutoStory._diffIdx = 1
+
+        local labs = {}
+        for _, id in ipairs(ids) do table.insert(labs, AS_BossLabel(id)) end
+        -- notify("Auto Story", ("Selected bosses: %s"):format(table.concat(labs, ", ")), 4, "info")
+
+        -- ✅ upvalue đã tồn tại; nếu đã được gán thì gọi
+        if RefreshSelectedBossList then
+            RefreshSelectedBossList()
+        end
+    end
+})
+
+--================= Boss đã chọn =================--
+-- ✅ GÁN vào upvalue đã declare (KHÔNG thêm 'local' nữa)
+SelectedBossList = TabAutoStory:CreateParagraph({
+    Title   = "Boss đã chọn",
+    Content = "(chưa chọn)"
+})
+
+-- ✅ GÁN vào upvalue đã declare (KHÔNG dùng 'local function'; dùng một trong hai cách dưới)
+-- Cách A:
+RefreshSelectedBossList = function()
+    local ids = AutoStory.bossIds or {}
+    if #ids == 0 then
+        SelectedBossList:Set({ Title = "Boss đã chọn", Content = "(chưa chọn)" })
+        return
+    end
+    local lines = {}
+    for i, id in ipairs(ids) do
+        table.insert(lines, string.format("%d) %s", i, AS_BossLabel(id)))
+    end
+    SelectedBossList:Set({ Title = "Boss đã chọn", Content = table.concat(lines, "\n") })
+end
+
+-- (Hoặc Cách B tương đương):
+-- function RefreshSelectedBossList()
+--     ... (nội dung y hệt)
+-- end
+
+-- Đồng bộ lần đầu sau khi mọi thứ đã gán xong
+task.defer(function()
+    if RefreshSelectedBossList then RefreshSelectedBossList() end
+end)
+--================= End Boss đã chọn =================--
+
+TabAutoStory:CreateSection("Countdown Logic")
+AutoStory.chainToggleRef = TabAutoStory:CreateToggle({
+    Name         = "Chain next on COUNTDOWN (by text)",
+    CurrentValue = AutoStory.chainNextOnCountdown,
+    Flag         = "STORY_ChainOnCountdown",
+    Callback     = function(v) AutoStory.chainNextOnCountdown = v and true or false end
+})
+
+AutoStory.countdownDelaySliderRef = TabAutoStory:CreateSlider({
+    Name         = "COUNTDOWN Check Delay (s)",
+    Range        = { 0.5, 5 },
+    Increment    = 0.1,
+    Suffix       = "s",
+    CurrentValue = AutoStory.countdownCheckDelay,
+    Flag         = "STORY_CountdownDelay",
+    Callback     = function(v) AutoStory.countdownCheckDelay = v end
+})
+
+-- ===== Deck Overrides (UI) =====
+TabAutoStory:CreateSection("Deck Overrides (UI)")
+
+AutoStory.ovBossRef = TabAutoStory:CreateDropdown({
+    Name = "Override Boss (alias)",
+    Options = _BossOptions,
+    CurrentOption = AS_BossLabel(AutoStory.bossIds[1] or AutoStory.allBossIds[1]),
+    Flag = "STORY_OV_Boss_Alias",
+    Callback = function(_) end
+})
+
+AutoStory.ovDiffRef = TabAutoStory:CreateDropdown({
+    Name = "Override Difficulty",
+    Options = { "all", "normal", "medium", "hard", "extreme" },
+    CurrentOption = "hard",
+    Flag = "STORY_OV_Diff",
+    Callback = function(_) end
+})
+
+AutoStory.ovSlotRef = TabAutoStory:CreateDropdown({
+    Name = "Override Deck Slot",
+    Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
+    CurrentOption = "1",
+    Flag = "STORY_OV_Slot",
+    Callback = function(_) end
+})
+
+local function AS_RefreshOverrideRemoveDropdown()
+    local opts = AS_ListOverridesAsOptions()
+    AS_DropdownSetOptions(AutoStory.ovRemoveRef, opts)
+end
+
+if typeof(TabAutoStory.CreateButton) == "function" then
+    TabAutoStory:CreateButton({
+        Name = "Add / Update Override",
+        Callback = function()
+            local bossId = AS_GetSelectedOverrideBossId() or AutoStory.allBossIds[1]
+            local diffOpt = AS_DropdownGetValue(AutoStory.ovDiffRef) or "all"
+            local slotOpt = AS_DropdownGetValue(AutoStory.ovSlotRef) or "1"
+
+            local ok, err = AS_SetDeckOverride(tonumber(bossId), tostring(diffOpt), tonumber(slotOpt))
+            if ok then
+                notify("Auto Story", ("Override saved: %s [%d] @ %s → slot %s"):format(
+                    AS_GetBossName(bossId), bossId, tostring(diffOpt), tostring(slotOpt)), 3, "layers")
+                AS_RefreshOverrideRemoveDropdown()
+            else
+                notify("Auto Story", ("Override failed: %s"):format(tostring(err or "unknown")), 3, "alert-octagon")
+            end
+        end
+    })
+
+    AutoStory.ovRemoveRef = TabAutoStory:CreateDropdown({
+        Name = "Remove Override",
+        Options = AS_ListOverridesAsOptions(),
+        CurrentOption = "— (no overrides) —",
+        Flag = "STORY_OV_Remove",
+        Callback = function(_) end
+    })
+
+    TabAutoStory:CreateButton({
+        Name = "Remove Selected Override",
+        Callback = function()
+            local key = AS_DropdownGetValue(AutoStory.ovRemoveRef)
+            if AS_RemoveDeckOverrideKey(key) then
+                notify("Auto Story", ("Override removed: %s"):format(tostring(key)), 3, "trash-2")
+                AS_RefreshOverrideRemoveDropdown()
+            else
+                notify("Auto Story", "Nothing removed.", 2, "info")
+            end
+        end
+    })
+
+    TabAutoStory:CreateButton({
+        Name = "Clear All Overrides",
+        Callback = function()
+            AutoStory.deckOverrides = {}
+            notify("Auto Story", "All overrides cleared.", 3, "trash")
+            AS_RefreshOverrideRemoveDropdown()
+            -- Optional: reset lựa chọn hiện tại về placeholder nếu lib hỗ trợ
+            if AutoStory.ovRemoveRef and type(AutoStory.ovRemoveRef.Set) == "function" then
+                AutoStory.ovRemoveRef:Set("— (no overrides) —")
+            end
+        end
+    })
+
+
+    TabAutoStory:CreateButton({
+        Name = "Refresh Boss Labels",
+        Callback = function()
+            AS_RefreshBossOptions()
+            notify("Auto Story", "Boss labels refreshed.", 2, "refresh-ccw")
+        end
+    })
+end
+
+-- ✅ Hậu kiểm: nếu Load chạy trước UI, giờ UI đã sẵn sàng thì refresh dropdown remove
+task.defer(function()
+    if AutoStory._pendingUIRefresh and AutoStory._pendingUIRefresh.overrides then
+        if type(AS_RefreshOverrideRemoveDropdown) == "function" then
+            AS_RefreshOverrideRemoveDropdown()
+        else
+            -- fallback: gọi trực tiếp SetOptions nếu lib không có hàm refresh riêng
+            if AutoStory.ovRemoveRef
+                and type(AutoStory.ovRemoveRef.SetOptions) == "function"
+                and type(AS_ListOverridesAsOptions) == "function" then
+                AutoStory.ovRemoveRef:SetOptions(AS_ListOverridesAsOptions())
+            end
+        end
+        AutoStory._pendingUIRefresh.overrides = nil
+    end
+end)
+
+
+--==================== Runner ====================--
+AutoStory.toggleRef = TabAutoStory:CreateToggle({
+    Name         = "|📖| Auto Story",
+    CurrentValue = false,
+    Flag         = "STORY_Toggle",
+    Callback     = function(state)
+        AutoStory.enabled = state
+        if not state then return end
+
+        DisableOthers("STORY")
+
+        task.spawn(function()
+            notify("Auto Story", "Automation started.", 3, "book-open")
+            AutoStory._bossIdx = 1
+            AutoStory._diffIdx = 1
+
+            while AutoStory.enabled do
+                local bossId, diff = AS_CurrentBossAndDiff()
+                if not bossId then
+                    notify("Auto Story", "No boss selected! Enable at least one boss.", 3, "alert-octagon")
+                    break
+                end
+
+                -- Deck choose: override > optional deckSlot > keep current
+                local slotSrc = "keep current"
+                local slot = AS_ResolveDeckOverride(bossId, diff)
+                if not slot then
+                    slot = AS_SanitizeSlot(AutoStory.deckSlot)
+                    if slot then slotSrc = "UI deck" end
+                else
+                    slotSrc = "override"
+                end
+
+                if slot then
+                    FireSafe(RE_SetPartySlot, ("slot_%d"):format(slot))
+                    task.wait(0.25)
+                end
+
+                FireSafe(RE_FightStory, bossId, diff)
+                notify("Auto Story",
+                    ("FIGHT %s @ %s%s • deck source: %s"):format(
+                        AS_BossLabel(bossId),
+                        tostring(diff),
+                        slot and (" (slot " .. slot .. ")") or "",
+                        slotSrc
+                    ),
+                    2, "swords"
+                )
+
+                -- Check COUNTDOWN and chain ahead if active
+                local chainedByCountdown = false
+                if AutoStory.chainNextOnCountdown and AS_IsCountdownActive() then
+                    local curDiffIdx = AutoStory._diffIdx
+                    AS_NextDifficultyOrBoss()
+                    local _, nextDiff = AS_CurrentBossAndDiff()
+                    notify("Auto Story",
+                        ("COUNTDOWN detected → queued next: %s"):format(
+                            curDiffIdx == #AutoStory.diffOrder and "next boss" or nextDiff),
+                        2, "fast-forward")
+                    chainedByCountdown = true
+                end
+
+                if not chainedByCountdown then
+                    -- Wait for outcome
+                    local t, outcome = 0, nil
+                    while AutoStory.enabled and t < (AutoStory.outcomeTimeout or 120) do
+                        if AS_IsWin() then
+                            outcome = "win"; break
+                        end
+                        if AS_IsLost() then
+                            outcome = "lost"; break
+                        end
+                        task.wait(AutoStory.pollEvery); t += AutoStory.pollEvery
+                    end
+
+                    if outcome == "win" then
+                        if AutoStory.autoDismissAfterWin then
+                            task.spawn(function()
+                                task.wait(AutoStory.autoDismissDelay or 1.5)
+                                if typeof(AS_ClickAnywhereBottom) == "function" then AS_ClickAnywhereBottom() end
+                            end)
+                        end
+                        task.wait(1)
+                        local lastWasExtreme = (AutoStory._diffIdx == #AutoStory.diffOrder)
+                        AS_NextDifficultyOrBoss()
+                        notify("Auto Story", lastWasExtreme and "WIN → next boss" or "WIN → next difficulty", 2, "trophy")
+                    elseif outcome == "lost" then
+                        notify("Auto Story", "LOST → retry same boss & difficulty", 2, "rotate-ccw")
+                        task.wait(AutoStory.retryDelayOnLost or 1.0)
+                        -- do NOT advance; loop will retry same boss/diff
+                    else
+                        -- timeout → skip ahead
+                        AS_NextDifficultyOrBoss()
+                        notify("Auto Story", "Outcome timeout → skip to next", 2, "clock")
+                    end
+                end
+
+                -- pacing
+                local t2 = 0
+                while AutoStory.enabled and t2 < (AutoStory.intervalBetweenPlays or 1.0) do
+                    task.wait(0.1); t2 += 0.1
+                end
+            end
+        end)
+    end
+})
+
+--=============================================================
+-- END
+--=============================================================
+
+--============ Tab Misc ============--
+
+--==================[ MISC ]==================--
+TabMisc:CreateSection("Miscellaneous Settings")
+
+-- Auto Claim Box/Potion
+local LocalPlayer = Players.LocalPlayer
+
+local function TouchPickups()
+    local pickups = {}
+    for _, obj in pairs(WS:GetChildren()) do
+        if obj:IsA("Model") then
+            local lname = obj.Name:lower()
+            if lname:match("^potion_%d+$") or lname:match("^box_%d+$") then
+                table.insert(pickups, obj)
+            end
+        end
+    end
+    return pickups
+end
+
+local function TeleportTo(obj)
+    local char = LocalPlayer.Character
+    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+    local primary = obj.PrimaryPart or (obj:IsA("Model") and obj.PrimaryPart) or nil
+    if primary then
+        hrp.CFrame = primary.CFrame + Vector3.new(0, 5, 0)
+    elseif obj.GetModelCFrame then
+        hrp.CFrame = obj:GetModelCFrame() + Vector3.new(0, 5, 0)
+    end
+end
+
+local autoClaim = false
+TabMisc:CreateToggle({
+    Name         = "Auto Claim Box/Potion",
+    CurrentValue = false,
+    Flag         = "AutoClaim",
+    Callback     = function(Value)
+        autoClaim = Value
+        if autoClaim then
+            DisableAllAutoRaid() -- ensure all Auto Raid toggles are off
+            task.spawn(function()
+                notify("Auto Claim", "Enabled", 2, "rewind")
+                while autoClaim do
+                    local pickups = TouchPickups()
+                    for _, obj in ipairs(pickups) do
+                        TeleportTo(obj)
+                        task.wait(1)
+                    end
+                    task.wait(2)
+                end
+            end)
+        end
+    end
+})
+
+-- Auto Claim Daily Quests
+local autoQuest = false
+TabMisc:CreateToggle({
+    Name         = "Auto Claim Quest",
+    CurrentValue = false,
+    Flag         = "AutoQuest",
+    Callback     = function(Value)
+        autoQuest = Value
+        if autoQuest then
+            task.spawn(function()
+                notify("Auto Quest", "Enabled", 2, "rewind")
+                local questId = 1
+                while autoQuest do
+                    if RE_ClaimDailyQuest then RE_ClaimDailyQuest:FireServer(questId) end
+                    questId = (questId % 6) + 1
+                    task.wait(2)
+                end
+            end)
+        end
+    end
+})
+
+-- Anti AFK
+local antiAFK = false
+local VU      = game:GetService("VirtualUser")
+local Player  = Players.LocalPlayer
+
+TabMisc:CreateToggle({
+    Name         = "Anti AFK",
+    CurrentValue = false,
+    Flag         = "AntiAFK",
+    Callback     = function(Value)
+        antiAFK = Value
+        if antiAFK then
+            task.spawn(function()
+                notify("Anti AFK", "Enabled", 2, "rewind")
+                while antiAFK do
+                    Player.Idled:Wait()
+                    if antiAFK then
+                        VU:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+                        task.wait(0.5)
+                        VU:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+                    end
+                end
+            end)
+        end
+    end
+})
+
+
+--============ Tab Config ============--
+
 --==================[ CONFIG ]==================--
 local CONFIG_FOLDER = "AstralHub"
 
@@ -895,23 +1833,39 @@ local function HH_CollectCurrentConfig()
         end
     end
 
-
     -- Auto Story
     cfg.AutoStory = {
-        deckSlot = AutoStory.deckSlot,
-        intervalBetweenPlays = AutoStory.intervalBetweenPlays,
-        outcomeTimeout = AutoStory.outcomeTimeout,
-        pollEvery = AutoStory.pollEvery,
-        chainNextOnCountdown = AutoStory.chainNextOnCountdown,
-        countdownCheckDelay = AutoStory.countdownCheckDelay,
+        deckSlot                = AutoStory.deckSlot,
+        intervalBetweenPlays    = AutoStory.intervalBetweenPlays,
+        outcomeTimeout          = AutoStory.outcomeTimeout,
+        pollEvery               = AutoStory.pollEvery,
+        chainNextOnCountdown    = AutoStory.chainNextOnCountdown,
+        countdownCheckDelay     = AutoStory.countdownCheckDelay,
         countdownChildrenThresh = AutoStory.countdownChildrenThresh,
-        retryDelayOnLost = AutoStory.retryDelayOnLost,
-        autoDismissAfterWin = AutoStory.autoDismissAfterWin,
-        autoDismissDelay = AutoStory.autoDismissDelay,
-        bossIds = AutoStory.bossIds,
-        diffOrder = AutoStory.diffOrder,
-    }
+        retryDelayOnLost        = AutoStory.retryDelayOnLost,
+        autoDismissAfterWin     = AutoStory.autoDismissAfterWin,
+        autoDismissDelay        = AutoStory.autoDismissDelay,
+        bossIds                 = AutoStory.bossIds,
+        diffOrder               = AutoStory.diffOrder,
 
+        -- NEW: serialize deckOverrides (bossId keys -> string để JSON an toàn)
+        deckOverrides           = (function()
+            local out = {}
+            for bossId, v in pairs(AutoStory.deckOverrides or {}) do
+                local k = tostring(bossId)
+                if typeof(v) == "number" then
+                    out[k] = v
+                elseif typeof(v) == "table" then
+                    out[k] = {}
+                    for dk, slot in pairs(v) do
+                        -- lưu thẳng, sẽ ràng lọc khi Load
+                        out[k][tostring(dk)] = slot
+                    end
+                end
+            end
+            return out
+        end)(),
+    }
     return cfg
 end
 
@@ -1101,6 +2055,56 @@ local function HH_ApplyConfig(tbl)
         if type(S.diffOrder) == "table" then
             AutoStory.diffOrder = S.diffOrder
         end
+        -- NEW: load & normalize deckOverrides
+        if type(S.deckOverrides) == "table" then
+            local function sanitizeSlot(n)
+                local x = tonumber(n)
+                if not x then return nil end
+                x = math.floor(x)
+                if x < 1 or x > 8 then return nil end
+                return x
+            end
+            local validDiff = { all = true, ["*"] = true, default = true, normal = true, medium = true, hard = true, extreme = true }
+
+            local norm = {}
+            for k, v in pairs(S.deckOverrides) do
+                local b = tonumber(k) or (type(v) == "table" and tonumber(v.bossId)) -- bossId key có thể là "363"
+                if b then
+                    if type(v) == "number" then
+                        local s = sanitizeSlot(v)
+                        if s then norm[b] = s end
+                    elseif type(v) == "table" then
+                        local t = {}
+                        for dk, slot in pairs(v) do
+                            local s = sanitizeSlot(slot)
+                            local dkstr = tostring(dk)
+                            if s and validDiff[dkstr] then
+                                t[dkstr] = s
+                            end
+                        end
+                        if next(t) then norm[b] = t end
+                    end
+                end
+            end
+
+            -- áp overrides đã chuẩn hoá
+            AutoStory.deckOverrides = norm
+
+            -- Thử refresh ngay nếu UI đã tồn tại
+            local canRefreshNow = AutoStory.ovRemoveRef
+                and type(AutoStory.ovRemoveRef.SetOptions) == "function"
+                and type(AS_ListOverridesAsOptions) == "function"
+
+            if canRefreshNow then
+                pcall(function()
+                    AutoStory.ovRemoveRef:SetOptions(AS_ListOverridesAsOptions())
+                end)
+            else
+                -- đánh dấu cần refresh UI sau khi UI khởi tạo xong
+                AutoStory._pendingUIRefresh = AutoStory._pendingUIRefresh or {}
+                AutoStory._pendingUIRefresh.overrides = true
+            end
+        end
     end
 
     -- GlobalBoss
@@ -1119,6 +2123,7 @@ local function HH_ApplyConfig(tbl)
         end
     end
 end
+
 
 --==================[ CONFIG UI ]==================--
 TabConfig:CreateSection("Create new config in folder: " .. CONFIG_FOLDER)
@@ -1245,837 +2250,3 @@ TabConfig:CreateButton({
         end
     end
 })
-
-
--- ==================[ Win Summary Detectors ]==================
--- Goal: Pause exactly when the Infinite Tower Summary pops (modal.current == 21)
-
-local SummaryDetector = {
-    enabled = true,
-    debounceTs = 0,
-    debounceGap = 1.0, -- seconds between triggers
-}
-
-local function TriggerPauseFromSummary()
-    local now = os.clock()
-    if now - (SummaryDetector.debounceTs or 0) < (SummaryDetector.debounceGap or 1.0) then
-        return
-    end
-    SummaryDetector.debounceTs = now
-    -- short, dense spam to reliably hit the server window
-    if TryPauseInfinite then TryPauseInfinite(2.0, 0.15) end
-end
-
-local function StartModalWatcher()
-    -- Try to read producer store (reflex/rodux) to watch modal.current==21
-    local ok, producer = pcall(require,
-        game:GetService("ReplicatedStorage"):WaitForChild("shared"):WaitForChild("producer"))
-    if not ok or type(producer) ~= "table" then return end
-
-    -- Try common APIs: getState(), changed, subscribe()
-    local prevModal
-    local function check()
-        local stateOk, state = pcall(function()
-            if type(producer.getState) == "function" then
-                return producer.getState()
-            elseif type(producer.store) == "table" and type(producer.store.getState) == "function" then
-                return producer.store.getState()
-            end
-        end)
-        if not stateOk or type(state) ~= "table" then return end
-        local cur = state.modal and state.modal.current
-        if cur ~= prevModal then
-            -- edge: transitioning into summary (21)
-            if cur == 21 then
-                TriggerPauseFromSummary()
-            end
-            prevModal = cur
-        end
-    end
-
-    -- Evented if possible
-    if typeof(producer.changed) == "RBXScriptSignal" then
-        producer.changed:Connect(function(...)
-            check()
-        end)
-    elseif type(producer.subscribe) == "function" then
-        -- expected to call our callback on any state change
-        producer.subscribe(check)
-    else
-        -- fallback polling
-        task.spawn(function()
-            while true do
-                check()
-                task.wait(0.05)
-            end
-        end)
-    end
-end
-
-local function StartReactGuiWatcher()
-    local pg = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-    local reactGui = pg:FindFirstChild("react")
-    if not reactGui then
-        -- in some games, react might mount a bit later
-        pg.ChildAdded:Connect(function(child)
-            if child.Name == "react" then
-                reactGui = child
-            end
-        end)
-    end
-
-    local function isSummaryUi(inst)
-        -- Heuristics: look at names containing "infinite", "summary", "tower"
-        local n = string.lower(inst.Name or "")
-        if n:find("summary") and (n:find("infinite") or n:find("tower")) then return true end
-        -- also inspect ScreenGui/Frame parent chains
-        local p = inst.Parent
-        local depth = 0
-        while p and depth < 4 do
-            local pn = string.lower(p.Name or "")
-            if pn:find("summary") and (pn:find("infinite") or pn:find("tower")) then
-                return true
-            end
-            p = p.Parent; depth += 1
-        end
-        return false
-    end
-
-    local function hook(container)
-        if not container then return end
-        container.DescendantAdded:Connect(function(inst)
-            if SummaryDetector.enabled and isSummaryUi(inst) then
-                TriggerPauseFromSummary()
-            end
-        end)
-    end
-
-    hook(pg)
-    if reactGui then hook(reactGui) end
-end
-
--- Start both detectors (they're cheap; modal watcher is preferred, GUI watcher is fallback)
-task.spawn(StartModalWatcher)
-task.spawn(StartReactGuiWatcher)
-
--- ============================================================
-
---==================[ MISC ]==================--
-TabMisc:CreateSection("Miscellaneous Settings")
-
--- Auto Claim Box/Potion
-local LocalPlayer = Players.LocalPlayer
-
-local function TouchPickups()
-    local pickups = {}
-    for _, obj in pairs(WS:GetChildren()) do
-        if obj:IsA("Model") then
-            local lname = obj.Name:lower()
-            if lname:match("^potion_%d+$") or lname:match("^box_%d+$") then
-                table.insert(pickups, obj)
-            end
-        end
-    end
-    return pickups
-end
-
-local function TeleportTo(obj)
-    local char = LocalPlayer.Character
-    local hrp = char and char:FindFirstChild("HumanoidRootPart")
-    if not hrp then return end
-    local primary = obj.PrimaryPart or (obj:IsA("Model") and obj.PrimaryPart) or nil
-    if primary then
-        hrp.CFrame = primary.CFrame + Vector3.new(0, 5, 0)
-    elseif obj.GetModelCFrame then
-        hrp.CFrame = obj:GetModelCFrame() + Vector3.new(0, 5, 0)
-    end
-end
-
-local autoClaim = false
-TabMisc:CreateToggle({
-    Name         = "Auto Claim Box/Potion",
-    CurrentValue = false,
-    Flag         = "AutoClaim",
-    Callback     = function(Value)
-        autoClaim = Value
-        if autoClaim then
-            DisableAllAutoRaid() -- ensure all Auto Raid toggles are off
-            task.spawn(function()
-                notify("Auto Claim", "Enabled", 2, "rewind")
-                while autoClaim do
-                    local pickups = TouchPickups()
-                    for _, obj in ipairs(pickups) do
-                        TeleportTo(obj)
-                        task.wait(1)
-                    end
-                    task.wait(2)
-                end
-            end)
-        end
-    end
-})
-
--- Auto Claim Daily Quests
-local autoQuest = false
-TabMisc:CreateToggle({
-    Name         = "Auto Claim Quest",
-    CurrentValue = false,
-    Flag         = "AutoQuest",
-    Callback     = function(Value)
-        autoQuest = Value
-        if autoQuest then
-            task.spawn(function()
-                notify("Auto Quest", "Enabled", 2, "rewind")
-                local questId = 1
-                while autoQuest do
-                    if RE_ClaimDailyQuest then RE_ClaimDailyQuest:FireServer(questId) end
-                    questId = (questId % 6) + 1
-                    task.wait(2)
-                end
-            end)
-        end
-    end
-})
-
--- Anti AFK
-local antiAFK = false
-local VU      = game:GetService("VirtualUser")
-local Player  = Players.LocalPlayer
-
-TabMisc:CreateToggle({
-    Name         = "Anti AFK",
-    CurrentValue = false,
-    Flag         = "AntiAFK",
-    Callback     = function(Value)
-        antiAFK = Value
-        if antiAFK then
-            task.spawn(function()
-                notify("Anti AFK", "Enabled", 2, "rewind")
-                while antiAFK do
-                    Player.Idled:Wait()
-                    if antiAFK then
-                        VU:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-                        task.wait(0.5)
-                        VU:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-                    end
-                end
-            end)
-        end
-    end
-})
-
---=============================================================
--- ASTRAL HUB – AUTO STORY (Merged UI + Overrides + Aliases)
--- • Chain difficulties: normal → medium → hard → extreme
--- • Countdown detection by TextLabel prefix ("Error: On cooldown, unlocks in ...")
--- • Deck selection is optional (no default) → keep current deck unless UI/override sets one
--- • Deck Overrides WITH UI: per boss and/or per difficulty
--- • Boss Aliases UI: show "name [id]" instead of only raw id
--- NOTE: Relies on your environment providing: FireSafe, notify, DisableOthers, TabAutoStory,
---       and RemoteEvents RE_SetPartySlot, RE_FightStory.
---=============================================================
-
-local Players = Players or game:GetService("Players")
-
---==================== React helpers ====================--
-local function AS_GetReact()
-    local pg = Players.LocalPlayer and Players.LocalPlayer:FindFirstChild("PlayerGui")
-    if not pg then return nil end
-    return pg:FindFirstChild("react")
-end
-
-local function AS_GetBattleEndLabel()
-    local react = AS_GetReact(); if not react then return nil end
-    local bes = react:FindFirstChild("battleEndScreen"); if not bes then return nil end
-    local f3 = bes:FindFirstChild("3"); if not f3 then return nil end
-    local lbl = f3:FindFirstChild("2"); if not lbl then return nil end
-    if lbl.ClassName == "TextLabel" or (typeof(lbl) == "Instance" and lbl:IsA("TextLabel")) then
-        return lbl
-    end
-    return nil
-end
-
-local function AS_IsWin()
-    local lbl = AS_GetBattleEndLabel()
-    if not lbl then return false end
-    local txt = tostring(lbl.Text or ""):gsub("^%s+", ""):gsub("%s+$", "")
-    return txt == "Victory"
-end
-
-local function AS_IsLost()
-    local lbl = AS_GetBattleEndLabel()
-    if not lbl then return false end
-    local txt = tostring(lbl.Text or ""):gsub("^%s+", ""):gsub("%s+$", "")
-    return txt == "Defeat"
-end
-
---==================== COUNTDOWN by TEXT ====================--
-local function AS_GetNotifications()
-    local react = AS_GetReact(); if not react then return nil end
-    return react:FindFirstChild("notifications")
-end
-
-local function AS_NormalizeText(s)
-    s = tostring(s or ""):gsub("%s+", " "):gsub("%s+,", ",")
-    return s
-end
-
-local function AS_GetLabelTextSafe(lbl)
-    if not lbl or typeof(lbl) ~= "Instance" then return nil end
-    local ok, txt = pcall(function() return lbl.ContentText end)
-    if not ok or not txt or txt == "" then
-        ok, txt = pcall(function() return lbl.Text end)
-    end
-    return txt
-end
-
-local AS_COOLDOWN_PREFIXES = {
-    "Error: On cooldown, unlocks in",
-    "Error: On cooldown , unlocks in",
-}
-
-local function AS_LabelHasCooldown(lbl)
-    local txt = AS_GetLabelTextSafe(lbl)
-    if not txt or txt == "" then return false end
-    txt = AS_NormalizeText(txt)
-    for _, pref in ipairs(AS_COOLDOWN_PREFIXES) do
-        if txt:sub(1, #pref) == pref then
-            return true
-        end
-    end
-    return false
-end
-
-local function AS_ScanNotificationsForCooldown()
-    local notifications = AS_GetNotifications()
-    if not notifications then return false end
-    local ok, nodes = pcall(function() return notifications:GetDescendants() end)
-    if not ok or not nodes then return false end
-    for _, d in ipairs(nodes) do
-        if d:IsA("TextLabel") or d:IsA("TextButton") or d:IsA("TextBox") then
-            if AS_LabelHasCooldown(d) then
-                return true
-            end
-        end
-    end
-    return false
-end
-
-local function AS_IsCountdownActive()
-    task.wait(AutoStory.countdownCheckDelay or 2.0)
-    return AS_ScanNotificationsForCooldown()
-end
-
---==================== STATE / SETTINGS ====================--
-AutoStory = AutoStory or {
-    enabled                 = false,
-
-    -- Optional deck selection from UI; if nil → keep current deck unless an override applies
-    deckSlot                = nil,
-
-    intervalBetweenPlays    = 1.0,
-    outcomeTimeout          = 120.0,
-    pollEvery               = 0.2,
-
-    chainNextOnCountdown    = true,
-    countdownCheckDelay     = 2.0,
-
-    retryDelayOnLost        = 1.0,
-
-    autoDismissAfterWin     = true,
-    autoDismissDelay        = 1.5,
-
-    -- Full boss pool and currently selected route (IDs)
-    allBossIds              = { 308, 376, 331, 358, 458, 349, 322, 300, 363, 338 },
-    bossIds                 = { 308, 376, 331, 363 },
-
-    -- Aliases (id → name). Fill as you like.
-    bossAliases             = {
-        [308] = "bijuu_beast",
-        [376] = "awakened_galactic_tyrant",
-        [331] = "king_of_curses",
-        [358] = "combat_giant",
-        [458] = "awakened_pale_demon_lord",
-        [349] = "soul_queen",
-        [322] = "awakened_shadow_monarch",
-        [300] = "lord_of_eminence",
-        [363] = "celestial_sovereign",
-        [338] = "undead_king",
-    },
-
-    diffOrder               = { "normal", "medium", "hard", "extreme" },
-
-    _bossIdx                = 1,
-    _diffIdx                = 1,
-
-    -- Deck overrides: bossId → number | { diff → number | all/*/default → number }
-    deckOverrides           = {
-        [363] = { hard = 1 }, -- example: boss 363 @ hard → slot 1
-    },
-
-    -- UI refs
-    toggleRef               = nil,
-    deckDropdownRef         = nil,
-    bossDropdownRef         = nil,
-    chainToggleRef          = nil,
-    countdownDelaySliderRef = nil,
-
-    ovBossRef               = nil,
-    ovDiffRef               = nil,
-    ovSlotRef               = nil,
-    ovRemoveRef             = nil,
-}
-
---==================== Boss alias helpers ====================--
-local function AS_GetBossName(id)
-    local n = AutoStory.bossAliases and AutoStory.bossAliases[id]
-    if typeof(n) == "string" and #n > 0 then return n end
-    return "unknown"
-end
-
-local function AS_BossLabel(id)
-    return ("%s [%d]"):format(AS_GetBossName(id), tonumber(id) or 0)
-end
-
-local function AS_BuildBossOptions(idList)
-    local labels, reverse = {}, {}
-    for _, id in ipairs(idList) do
-        local label = AS_BossLabel(id)
-        table.insert(labels, label)
-        reverse[label] = id
-    end
-    return labels, reverse
-end
-
-local _BossOptions, _BossReverse = AS_BuildBossOptions(AutoStory.allBossIds)
-
-local function AS_RefreshBossOptions()
-    _BossOptions, _BossReverse = AS_BuildBossOptions(AutoStory.allBossIds)
-    if AutoStory.bossDropdownRef and typeof(AutoStory.bossDropdownRef.SetOptions) == "function" then
-        AutoStory.bossDropdownRef:SetOptions(_BossOptions)
-    end
-    if AutoStory.ovBossRef and typeof(AutoStory.ovBossRef.SetOptions) == "function" then
-        AutoStory.ovBossRef:SetOptions(_BossOptions)
-    end
-end
-
-local function AS_NormalizeBossSelection(selection, reverseMap)
-    local function toId(x)
-        if typeof(x) == "number" then return x end
-        if typeof(x) == "string" then
-            return reverseMap[x] or tonumber(x)
-        end
-        return nil
-    end
-
-    if typeof(selection) == "table" then
-        local out = {}
-        for _, v in ipairs(selection) do
-            local id = toId(v)
-            if id then table.insert(out, id) end
-        end
-        return out
-    else
-        local id = toId(selection)
-        if id then return { id } end
-        return {}
-    end
-end
-
-local function AS_GetSelectedOverrideBossId()
-    local v = AutoStory.ovBossRef and AutoStory.ovBossRef.Value or nil
-    if typeof(v) == "table" then v = v[1] end
-    if not v then return nil end
-    -- v may be a label "name [id]" or a raw id string
-    local id = _BossReverse[v] or tonumber(v)
-    if not id then
-        -- try extract [id]
-        local s = tostring(v)
-        local cap = s:match("%[(%d+)%]")
-        if cap then id = tonumber(cap) end
-    end
-    return id
-end
-
---==================== Deck resolve ====================--
-local function AS_SanitizeSlot(n)
-    local x = tonumber(n)
-    if not x then return nil end
-    x = math.floor(x)
-    if x < 1 or x > 8 then return nil end
-    return x
-end
-
--- override only; no default here
-local function AS_ResolveDeckOverride(bossId, diff)
-    local o = AutoStory.deckOverrides and AutoStory.deckOverrides[bossId]
-    if typeof(o) == "number" then
-        return AS_SanitizeSlot(o)
-    elseif typeof(o) == "table" then
-        local v = o[diff] or o["all"] or o["*"] or o["default"]
-        return AS_SanitizeSlot(v)
-    end
-    return nil
-end
-
---==================== Progress helpers ====================--
-local function AS_NextDifficultyOrBoss()
-    AutoStory._diffIdx += 1
-    if AutoStory._diffIdx > #AutoStory.diffOrder then
-        AutoStory._diffIdx = 1
-        AutoStory._bossIdx += 1
-        if AutoStory._bossIdx > #AutoStory.bossIds then
-            AutoStory._bossIdx = 1
-        end
-    end
-end
-
-local function AS_CurrentBossAndDiff()
-    local bossId = AutoStory.bossIds[AutoStory._bossIdx]
-    local diff   = AutoStory.diffOrder[AutoStory._diffIdx]
-    return bossId, diff
-end
-
---==================== UI ====================--
-TabAutoStory:CreateSection("Auto Story – Chain Boss by Difficulties")
-
--- Deck (optional): "Keep current" hoặc chọn 1–8
-AutoStory.deckDropdownRef = TabAutoStory:CreateDropdown({
-    Name          = "Deck (optional)",
-    Options       = { "Keep current", "1", "2", "3", "4", "5", "6", "7", "8" },
-    CurrentOption = AutoStory.deckSlot and tostring(AutoStory.deckSlot) or "Keep current",
-    Flag          = "STORY_Deck",
-    Callback      = function(opt)
-        if typeof(opt) == "table" then opt = opt[1] end
-        if opt == "Keep current" then
-            AutoStory.deckSlot = nil
-        else
-            AutoStory.deckSlot = AS_SanitizeSlot(opt)
-        end
-    end
-})
-
--- Boss selection (multi) with alias labels
-AutoStory.bossDropdownRef = TabAutoStory:CreateDropdown({
-    Name = "Select Bosses (alias)",
-    Options = _BossOptions,
-    MultipleOptions = true,
-    CurrentOption = (function()
-        local labels = {}
-        for _, id in ipairs(AutoStory.bossIds or {}) do
-            table.insert(labels, AS_BossLabel(id))
-        end
-        return labels
-    end)(),
-    Flag = "STORY_BossSelectionAlias",
-    Callback = function(selected)
-        local ids = AS_NormalizeBossSelection(selected, _BossReverse)
-        if #ids == 0 then
-            notify("Auto Story", "No valid boss selected.", 3, "alert-octagon")
-            return
-        end
-        AutoStory.bossIds = ids
-        AutoStory._bossIdx = 1
-        AutoStory._diffIdx = 1
-
-        local labs = {}
-        for _, id in ipairs(ids) do table.insert(labs, AS_BossLabel(id)) end
-        notify("Auto Story", ("Selected bosses: %s"):format(table.concat(labs, ", ")), 4, "info")
-    end
-})
-
-TabAutoStory:CreateSection("Countdown Logic")
-AutoStory.chainToggleRef = TabAutoStory:CreateToggle({
-    Name         = "Chain next on COUNTDOWN (by text)",
-    CurrentValue = AutoStory.chainNextOnCountdown,
-    Flag         = "STORY_ChainOnCountdown",
-    Callback     = function(v) AutoStory.chainNextOnCountdown = v and true or false end
-})
-
-AutoStory.countdownDelaySliderRef = TabAutoStory:CreateSlider({
-    Name         = "COUNTDOWN Check Delay (s)",
-    Range        = { 0.5, 5 },
-    Increment    = 0.1,
-    Suffix       = "s",
-    CurrentValue = AutoStory.countdownCheckDelay,
-    Flag         = "STORY_CountdownDelay",
-    Callback     = function(v) AutoStory.countdownCheckDelay = v end
-})
-
--- ===== Deck Overrides (UI) =====
-TabAutoStory:CreateSection("Deck Overrides (UI)")
-
-AutoStory.ovBossRef = TabAutoStory:CreateDropdown({
-    Name = "Override Boss (alias)",
-    Options = _BossOptions,
-    CurrentOption = AS_BossLabel(AutoStory.bossIds[1] or AutoStory.allBossIds[1]),
-    Flag = "STORY_OV_Boss_Alias",
-    Callback = function(_) end
-})
-
-AutoStory.ovDiffRef = TabAutoStory:CreateDropdown({
-    Name = "Override Difficulty",
-    Options = { "all", "normal", "medium", "hard", "extreme" },
-    CurrentOption = "hard",
-    Flag = "STORY_OV_Diff",
-    Callback = function(_) end
-})
-
-AutoStory.ovSlotRef = TabAutoStory:CreateDropdown({
-    Name = "Override Deck Slot",
-    Options = { "1", "2", "3", "4", "5", "6", "7", "8" },
-    CurrentOption = "1",
-    Flag = "STORY_OV_Slot",
-    Callback = function(_) end
-})
-
-local function AS_SetDeckOverride(bossId, diff, slot)
-    local b = tonumber(bossId); if not b then return false, "Invalid boss" end
-    local s = AS_SanitizeSlot(slot); if not s then return false, "Invalid slot" end
-    diff = tostring(diff or "all")
-
-    AutoStory.deckOverrides = AutoStory.deckOverrides or {}
-    local cur = AutoStory.deckOverrides[b]
-
-    if diff == "all" then
-        -- one slot for all diffs
-        AutoStory.deckOverrides[b] = s
-    else
-        if typeof(cur) == "number" then
-            cur = { all = cur }
-        elseif typeof(cur) ~= "table" then
-            cur = {}
-        end
-        cur[diff] = s
-        AutoStory.deckOverrides[b] = cur
-    end
-    return true
-end
-
-local function AS_ListOverridesAsOptions()
-    local opts = {}
-    for b, v in pairs(AutoStory.deckOverrides or {}) do
-        if typeof(v) == "number" then
-            table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, "all"))
-        elseif typeof(v) == "table" then
-            for dk, _ in pairs(v) do
-                table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, tostring(dk)))
-            end
-        end
-    end
-    table.sort(opts)
-    if #opts == 0 then
-        opts = { "— (no overrides) —" }
-    end
-    return opts
-end
-
-local function AS_ExtractIdAndDiffFromLabel(label)
-    if not label or label == "— (no overrides) —" then return nil, nil end
-    -- pattern: "name [123]:diff"
-    local idStr, diff = tostring(label):match("%[(%d+)%]:(.+)$")
-    if not idStr then return nil, nil end
-    return tonumber(idStr), diff
-end
-
-local function AS_RemoveDeckOverrideKey(label)
-    local b, diff = AS_ExtractIdAndDiffFromLabel(label)
-    if not b then return false end
-
-    local cur = AutoStory.deckOverrides and AutoStory.deckOverrides[b]
-    if not cur then return false end
-
-    if diff == "all" and typeof(cur) == "number" then
-        AutoStory.deckOverrides[b] = nil
-        return true
-    end
-
-    if typeof(cur) == "table" then
-        if cur[diff] ~= nil then
-            cur[diff] = nil
-            local hasAny = false
-            for _k, _v in pairs(cur) do
-                hasAny = true
-                break
-            end
-            AutoStory.deckOverrides[b] = hasAny and cur or nil
-            return true
-        end
-        if diff == "all" and cur["all"] ~= nil then
-            cur["all"] = nil
-            local hasAny = false
-            for _k, _v in pairs(cur) do
-                hasAny = true
-                break
-            end
-            AutoStory.deckOverrides[b] = hasAny and cur or nil
-            return true
-        end
-    end
-    return false
-end
-
-local function AS_RefreshOverrideRemoveDropdown()
-    local opts = AS_ListOverridesAsOptions()
-    if AutoStory.ovRemoveRef and typeof(AutoStory.ovRemoveRef.SetOptions) == "function" then
-        AutoStory.ovRemoveRef:SetOptions(opts)
-    end
-end
-
-if typeof(TabAutoStory.CreateButton) == "function" then
-    TabAutoStory:CreateButton({
-        Name = "Add / Update Override",
-        Callback = function()
-            local bossId = AS_GetSelectedOverrideBossId() or AutoStory.allBossIds[1]
-            local diffOpt = AutoStory.ovDiffRef and AutoStory.ovDiffRef.Value or "all"
-            local slotOpt = AutoStory.ovSlotRef and AutoStory.ovSlotRef.Value or "1"
-            if typeof(diffOpt) == "table" then diffOpt = diffOpt[1] end
-            if typeof(slotOpt) == "table" then slotOpt = slotOpt[1] end
-
-            local ok, err = AS_SetDeckOverride(tonumber(bossId), tostring(diffOpt), tonumber(slotOpt))
-            if ok then
-                notify("Auto Story", ("Override saved: %s [%d] @ %s → slot %s"):format(
-                    AS_GetBossName(bossId), bossId, tostring(diffOpt), tostring(slotOpt)), 3, "layers")
-                AS_RefreshOverrideRemoveDropdown()
-            else
-                notify("Auto Story", ("Override failed: %s"):format(tostring(err or "unknown")), 3, "alert-octagon")
-            end
-        end
-    })
-
-    AutoStory.ovRemoveRef = TabAutoStory:CreateDropdown({
-        Name = "Remove Override",
-        Options = AS_ListOverridesAsOptions(),
-        CurrentOption = "— (no overrides) —",
-        Flag = "STORY_OV_Remove",
-        Callback = function(_) end
-    })
-
-    TabAutoStory:CreateButton({
-        Name = "Remove Selected Override",
-        Callback = function()
-            local key = AutoStory.ovRemoveRef and AutoStory.ovRemoveRef.Value
-            if typeof(key) == "table" then key = key[1] end
-            if AS_RemoveDeckOverrideKey(key) then
-                notify("Auto Story", ("Override removed: %s"):format(tostring(key)), 3, "trash-2")
-                AS_RefreshOverrideRemoveDropdown()
-            else
-                notify("Auto Story", "Nothing removed.", 2, "info")
-            end
-        end
-    })
-
-    TabAutoStory:CreateButton({
-        Name = "Clear All Overrides",
-        Callback = function()
-            AutoStory.deckOverrides = {}
-            notify("Auto Story", "All overrides cleared.", 3, "trash")
-            AS_RefreshOverrideRemoveDropdown()
-        end
-    })
-
-    TabAutoStory:CreateButton({
-        Name = "Refresh Boss Labels",
-        Callback = function()
-            AS_RefreshBossOptions()
-            notify("Auto Story", "Boss labels refreshed.", 2, "refresh-ccw")
-        end
-    })
-end
-
---==================== Runner ====================--
-AutoStory.toggleRef = TabAutoStory:CreateToggle({
-    Name         = "|📖| Auto Story",
-    CurrentValue = false,
-    Flag         = "STORY_Toggle",
-    Callback     = function(state)
-        AutoStory.enabled = state
-        if not state then return end
-
-        DisableOthers("STORY")
-
-        task.spawn(function()
-            notify("Auto Story", "Automation started.", 3, "book-open")
-            AutoStory._bossIdx = 1
-            AutoStory._diffIdx = 1
-
-            while AutoStory.enabled do
-                local bossId, diff = AS_CurrentBossAndDiff()
-                if not bossId then
-                    notify("Auto Story", "No boss selected! Enable at least one boss.", 3, "alert-octagon")
-                    break
-                end
-
-                -- Deck choose: override > optional deckSlot > keep current
-                local slot = AS_ResolveDeckOverride(bossId, diff)
-                if not slot then slot = AS_SanitizeSlot(AutoStory.deckSlot) end
-                if slot then
-                    FireSafe(RE_SetPartySlot, ("slot_%d"):format(slot))
-                    task.wait(0.25)
-                end
-
-                FireSafe(RE_FightStory, bossId, diff)
-                notify("Auto Story",
-                    ("FIGHT %s @ %s%s"):format(
-                        AS_BossLabel(bossId),
-                        tostring(diff),
-                        slot and (" (deck slot " .. slot .. ")") or " (keep current deck)"
-                    ),
-                    2, "swords"
-                )
-
-                local chainedByCountdown = false
-                if AutoStory.chainNextOnCountdown and AS_IsCountdownActive() then
-                    local curDiffIdx = AutoStory._diffIdx
-                    AS_NextDifficultyOrBoss()
-                    local _, nextDiff = AS_CurrentBossAndDiff()
-                    notify("Auto Story",
-                        ("COUNTDOWN detected → queued next: %s"):format(curDiffIdx == #AutoStory.diffOrder and
-                            "next boss" or nextDiff),
-                        2, "fast-forward")
-                    chainedByCountdown = true
-                end
-
-                if not chainedByCountdown then
-                    local t, outcome = 0, nil
-                    while AutoStory.enabled and t < (AutoStory.outcomeTimeout or 120) do
-                        if AS_IsWin() then
-                            outcome = "win"; break
-                        end
-                        if AS_IsLost() then
-                            outcome = "lost"; break
-                        end
-                        task.wait(AutoStory.pollEvery); t += AutoStory.pollEvery
-                    end
-
-                    if outcome == "win" then
-                        if AutoStory.autoDismissAfterWin then
-                            task.spawn(function()
-                                task.wait(AutoStory.autoDismissDelay or 1.5)
-                                if typeof(AS_ClickAnywhereCenter) == "function" then AS_ClickAnywhereCenter() end
-                            end)
-                        end
-                        task.wait(1)
-                        local lastWasExtreme = (AutoStory._diffIdx == #AutoStory.diffOrder)
-                        AS_NextDifficultyOrBoss()
-                        notify("Auto Story", lastWasExtreme and "WIN → next boss" or "WIN → next difficulty", 2, "trophy")
-                    elseif outcome == "lost" then
-                        notify("Auto Story", "LOST → retry same boss & difficulty", 2, "rotate-ccw")
-                        task.wait(AutoStory.retryDelayOnLost or 1.0)
-                    else
-                        AS_NextDifficultyOrBoss()
-                    end
-                end
-
-                local t2 = 0
-                while AutoStory.enabled and t2 < (AutoStory.intervalBetweenPlays or 1.0) do
-                    task.wait(0.1); t2 += 0.1
-                end
-            end
-        end)
-    end
-})
-
---=============================================================
--- END
---=============================================================
