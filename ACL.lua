@@ -29,7 +29,7 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window   = Rayfield:CreateWindow({
-    Name                   = "Astral HUB - Ver 1.0.6",
+    Name                   = "Astral HUB - Ver 1.0.7",
     Icon                   = 0,
     LoadingTitle           = "Rayfield Interface Suite",
     LoadingSubtitle        = "by AczTeam",
@@ -582,6 +582,66 @@ local function AS_BuildBossOptions(idList)
 end
 
 local _BossOptions, _BossReverse = AS_BuildBossOptions(AutoStory.allBossIds)
+
+--===========================================================================================
+-- ===== Combat UI detection (based on react["1"] ScreenGui) =====
+AutoStory                        = AutoStory or {}
+AutoStory.combatStableFor        = AutoStory.combatStableFor or 0.15 -- cần thấy combat UI ổn định ≥ 0.15s
+AutoStory.screenStableFor        = AutoStory.screenStableFor or 0.10 -- end-screen ổn định ≥ 0.10s
+AutoStory.winStableFor           = AutoStory.winStableFor or 0.15
+AutoStory.lostStableFor          = AutoStory.lostStableFor or 0.15
+
+-- Lấy ScreenGui combat theo path bạn cung cấp
+local function AS_GetCombatGui()
+    local plr   = game:GetService("Players").LocalPlayer
+    local pg    = plr and plr:FindFirstChild("PlayerGui")
+    local react = pg and pg:FindFirstChild("react")
+    return react and react:FindFirstChild("1") or nil -- ScreenGui
+end
+
+-- Có tối thiểu 1 GuiObject con đang Visible?
+local function AS_AnyVisibleDescendant(root)
+    if not (root and root.GetDescendants) then return false end
+    for _, d in ipairs(root:GetDescendants()) do
+        if typeof(d) == "Instance" and d:IsA("GuiObject") and d.Visible then
+            return true
+        end
+    end
+    return false
+end
+
+-- Combat UI hiện?
+local function AS_CombatGuiVisible()
+    local sg = AS_GetCombatGui()
+    if not (sg and typeof(sg) == "Instance" and sg:IsA("ScreenGui")) then return false end
+    -- ScreenGui không có .Visible; dùng .Enabled + con Visible
+    local enabled = (sg.Enabled ~= false) -- nếu nil coi như true
+    return enabled and AS_AnyVisibleDescendant(sg)
+end
+
+-- Stable flags
+local _combatSeenAt, _endSeenAt = nil, nil
+
+function AS_CombatVisibleStable()
+    if not AS_CombatGuiVisible() then
+        _combatSeenAt = nil
+        return false
+    end
+    _combatSeenAt = _combatSeenAt or os.clock()
+    return (os.clock() - _combatSeenAt) >= (AutoStory.combatStableFor or 0.15)
+end
+
+-- Dùng battleEndScreen bạn đã có sẵn (AS_GetBattleEndLabel)
+local function AS_BattleEndVisibleStable()
+    local lbl = AS_GetBattleEndLabel and AS_GetBattleEndLabel()
+    if not (lbl and lbl.Visible ~= false) then
+        _endSeenAt = nil
+        return false
+    end
+    _endSeenAt = _endSeenAt or os.clock()
+    return (os.clock() - _endSeenAt) >= (AutoStory.screenStableFor or 0.10)
+end
+--===========================================================================================
 
 
 -- ---- UI helpers (GLOBAL) ----
@@ -1565,6 +1625,16 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
                 end
 
                 FireSafe(RE_FightStory, bossId, diff)
+
+                -- 🔐 chỉ khóa đọc WIN/LOST trong ~1.2s sau khi vào trận
+                -- AutoStory._fightArmAt = os.clock() + (AutoStory.guardOutcomeAfterFight or 1.2)
+                AutoStory._fightArmAt = os.clock() + 1.0
+
+
+                -- (tuỳ chọn) epoch để hạ thread cũ
+                AutoStory._epoch = (AutoStory._epoch or 0) + 1
+                local myEpoch = AutoStory._epoch
+
                 notify("Auto Story",
                     ("FIGHT %s @ %s%s • deck source: %s"):format(
                         AS_BossLabel(bossId),
@@ -1590,22 +1660,87 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
 
                 if not chainedByCountdown then
                     -- Wait for outcome
-                    local t, outcome = 0, nil
-                    while AutoStory.enabled and t < (AutoStory.outcomeTimeout or 120) do
-                        if AS_IsWin() then
-                            outcome = "win"; break
+                    -- local t, outcome = 0, nil
+                    -- while AutoStory.enabled and t < (AutoStory.outcomeTimeout or 120) do
+                    --     if AS_IsWin() then
+                    --         outcome = "win"; break
+                    --     end
+                    --     if AS_IsLost() then
+                    --         outcome = "lost"; break
+                    --     end
+
+                    --     task.wait(AutoStory.pollEvery); t += AutoStory.pollEvery
+                    -- end
+
+                    -- ===== Wait for outcome (dựa vào combat UI react["1"]) =====
+                    local outcome = nil
+
+                    -- 1) chờ combat UI xuất hiện (tối đa 5s, bỏ qua nếu guard chưa hết)
+                    do
+                        local t = 0
+                        while AutoStory.enabled and t < 5 do
+                            if os.clock() >= (AutoStory._fightArmAt or 0) and AS_CombatVisibleStable() then break end
+                            task.wait(0.05); t += 0.05
                         end
-                        if AS_IsLost() then
-                            outcome = "lost"; break
+                    end
+
+                    -- 2) khi đang combat: đợi combat UI biến mất
+                    do
+                        local t = 0
+                        while AutoStory.enabled and t < (AutoStory.outcomeTimeout or 120) do
+                            if os.clock() < (AutoStory._fightArmAt or 0) then
+                                task.wait(0.05); t += 0.05
+                            elseif AS_CombatVisibleStable() then
+                                task.wait(0.10); t += 0.10
+                            else
+                                break -- combat UI đã biến mất
+                            end
                         end
-                        task.wait(AutoStory.pollEvery); t += AutoStory.pollEvery
+                    end
+
+                    -- 3) combat UI đã tắt → chờ end-screen ổn định rồi đọc Victory/Defeat
+                    do
+                        local t = 0; local ok = false
+                        while AutoStory.enabled and t < 8 do
+                            if AS_BattleEndVisibleStable() then
+                                ok = true; break
+                            end
+                            task.wait(0.05); t += 0.05
+                        end
+                        if ok then
+                            local t2 = 0; local winAt, lostAt
+                            while AutoStory.enabled and t2 < 4 do
+                                if AS_IsWin() then
+                                    winAt = winAt or os.clock()
+                                    if os.clock() - winAt >= (AutoStory.winStableFor or 0.15) then
+                                        outcome = "win"; break
+                                    end
+                                else
+                                    winAt = nil
+                                end
+                                if AS_IsLost() then
+                                    lostAt = lostAt or os.clock()
+                                    if os.clock() - lostAt >= (AutoStory.lostStableFor or 0.15) then
+                                        outcome = "lost"; break
+                                    end
+                                else
+                                    lostAt = nil
+                                end
+                                task.wait(0.05); t2 += 0.05
+                            end
+                        else
+                            outcome = nil -- timeout: không thấy end-screen
+                        end
                     end
 
                     if outcome == "win" then
                         if AutoStory.autoDismissAfterWin then
                             task.spawn(function()
                                 task.wait(AutoStory.autoDismissDelay or 1.5)
-                                if typeof(AS_ClickAnywhereBottom) == "function" then AS_ClickAnywhereBottom() end
+                                if typeof(AS_ClickAnywhereBottom) == "function" then
+                                    AS_ClickAnywhereBottom()
+                                    AS_ClickAnywhereBottom()
+                                end
                             end)
                         end
                         task.wait(1)
@@ -1613,6 +1748,16 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
                         AS_NextDifficultyOrBoss()
                         notify("Auto Story", lastWasExtreme and "WIN → next boss" or "WIN → next difficulty", 2, "trophy")
                     elseif outcome == "lost" then
+                        if AutoStory.autoDismissAfterWin then
+                            task.spawn(function()
+                                task.wait(AutoStory.autoDismissDelay or 1.5)
+                                if typeof(AS_ClickAnywhereBottom) == "function" then
+                                    AS_ClickAnywhereBottom()
+                                    AS_ClickAnywhereBottom()
+                                end
+                            end)
+                        end
+                        task.wait(1)
                         notify("Auto Story", "LOST → retry same boss & difficulty", 2, "rotate-ccw")
                         task.wait(AutoStory.retryDelayOnLost or 1.0)
                         -- do NOT advance; loop will retry same boss/diff
