@@ -29,12 +29,12 @@
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 local Window   = Rayfield:CreateWindow({
-    Name                   = "Astral HUB - Ver 1.0.7",
+    Name                   = "Astral HUB",
     Icon                   = 0,
     LoadingTitle           = "Rayfield Interface Suite",
     LoadingSubtitle        = "by AczTeam",
-    ShowText               = "Rayfield",
-    Theme                  = "Default",
+    ShowText               = "1.0.9",
+    Theme                  = "DarkBlue",
     ToggleUIKeybind        = "K",
 
     DisableRayfieldPrompts = false,
@@ -153,6 +153,26 @@ local function ForfeitSafe()
 end
 
 local TabMain            = Window:CreateTab("MAIN", "frame")
+
+--================= About this script (Paragraph) =================--
+local Label              = TabMain:CreateLabel("Label Example", 4483362458, Color3.fromRGB(255, 255, 255), false) -- Title, Icon, Color, IgnoreTheme
+local ScriptTitle        = "Astral HUB - Ver 1.0.7"
+local AboutFeatures      = table.concat({
+    "• Auto Story: chain by difficulty, deck overrides, skip on cooldown.",
+    "• Auto Raid: pick bosses, loop by interval.",
+    "• Auto Tower: spam/pause controls.",
+    "• Auto Exploration: run selected routes/difficulties.",
+    "• Auto Global Boss: auto join/return to server boss.",
+    "• Misc: anti-AFK, clear reward/end screens.",
+    "• Config: save/load settings, synced UI."
+}, "\n")
+
+local MainIntroParagraph = TabMain:CreateParagraph({
+    Title   = ScriptTitle,
+    Content = AboutFeatures
+})
+--===========================================================================
+
 local TabAutoRaid        = Window:CreateTab("AUTO RAID", "shield-alert")
 local TabAutoTower       = Window:CreateTab("AUTO TOWER", "tower-control")
 local TabAutoExploration = Window:CreateTab("AUTO EXPLORATION", "plane")
@@ -165,7 +185,8 @@ local BossAutos          = {}
 
 -- Exploration
 local RARITIES           = { "basic", "gold", "rainbow", "secret" }
-local DIFFICULTIES       = { "easy", "medium", "hard", "extreme", "nightmare", "celestial" }
+local DIFFICULTIES       = { "easy", "medium", "hard", "extreme", "nightmare", "celestial",
+    "mythical", "transcendent", "eternal", "abyss" }
 
 local AutoEX             = {
     enabled             = false,
@@ -217,7 +238,7 @@ local GlobalBoss = {
     deckSlot                  = 1,
     afterForfeitWait          = 0.25,
     interval                  = 2.0,
-    bossId                    = 446,
+    bossId                    = 447, --446
     toggleRef                 = nil,
     deckDropdownRef           = nil,
     intervalSliderRef         = nil,
@@ -514,25 +535,25 @@ AutoStory = AutoStory or {
 
     retryDelayOnLost        = 2.0,
 
-    autoDismissAfterWin     = true,
-    autoDismissDelay        = 1.5,
+    -- autoDismissAfterWin     = true,
+    -- autoDismissDelay        = 1.5,
 
     -- Full boss pool and currently selected route (IDs)
-    allBossIds              = { 308, 376, 331, 358, 458, 349, 322, 300, 363, 338 },
-    bossIds                 = { 308, 376, 331, 363 },
+    allBossIds              = { 308, 381, 330, 355, 458, 348, 322, 300, 366, 343 },
+    bossIds                 = {},
 
     -- Aliases (id → name). Fill as you like.
     bossAliases             = {
         [308] = "bijuu_beast",
-        [376] = "awakened_galactic_tyrant",
-        [331] = "king_of_curses",
-        [358] = "combat_giant",
+        [381] = "awakened_galactic_tyrant",
+        [330] = "king_of_curses",
+        [355] = "combat_giant",
         [458] = "awakened_pale_demon_lord",
-        [349] = "soul_queen",
+        [348] = "soul_queen",
         [322] = "awakened_shadow_monarch",
         [300] = "lord_of_eminence",
-        [363] = "celestial_sovereign",
-        [338] = "undead_king",
+        [366] = "celestial_sovereign",
+        [343] = "undead_king",
     },
 
     diffOrder               = { "normal", "medium", "hard", "extreme" },
@@ -542,7 +563,7 @@ AutoStory = AutoStory or {
 
     -- Deck overrides: bossId → number | { diff → number | all/*/default → number }
     deckOverrides           = {
-        [363] = { hard = 1 }, -- example: boss 363 @ hard → slot 1
+        -- [366] = { hard = 1 }, -- example: boss 366 @ hard → slot 1
     },
 
     -- UI refs
@@ -768,14 +789,34 @@ local function AS_SetDeckOverride(bossId, diff, slot)
     return true
 end
 
+-- local function AS_ListOverridesAsOptions()
+--     local opts = {}
+--     for b, v in pairs(AutoStory.deckOverrides or {}) do
+--         if typeof(v) == "number" then
+--             table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, "all"))
+--         elseif typeof(v) == "table" then
+--             for dk, _ in pairs(v) do
+--                 table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, tostring(dk)))
+--             end
+--         end
+--     end
+--     table.sort(opts)
+--     if #opts == 0 then
+--         opts = { "— (no overrides) —" }
+--     end
+--     return opts
+-- end
+
 local function AS_ListOverridesAsOptions()
     local opts = {}
     for b, v in pairs(AutoStory.deckOverrides or {}) do
         if typeof(v) == "number" then
-            table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, "all"))
+            table.insert(opts, ("Boss: %s, Diff: all, Deck: %d"):format(
+                AS_GetBossName(b), v))
         elseif typeof(v) == "table" then
-            for dk, _ in pairs(v) do
-                table.insert(opts, ("%s [%d]:%s"):format(AS_GetBossName(b), b, tostring(dk)))
+            for dk, slot in pairs(v) do
+                table.insert(opts, ("Boss: %s, Diff: %s, Deck: %d"):format(
+                    AS_GetBossName(b), tostring(dk), slot))
             end
         end
     end
@@ -785,6 +826,7 @@ local function AS_ListOverridesAsOptions()
     end
     return opts
 end
+
 
 local function AS_ExtractIdAndDiffFromLabel(label)
     if not label or label == "— (no overrides) —" then return nil, nil end
@@ -1505,6 +1547,7 @@ local function AS_RefreshOverrideRemoveDropdown()
     AS_DropdownSetOptions(AutoStory.ovRemoveRef, opts)
 end
 
+local Section = TabAutoStory:CreateSection("CRUD")
 if typeof(TabAutoStory.CreateButton) == "function" then
     TabAutoStory:CreateButton({
         Name = "Add / Update Override",
@@ -1734,29 +1777,29 @@ AutoStory.toggleRef = TabAutoStory:CreateToggle({
                     end
 
                     if outcome == "win" then
-                        if AutoStory.autoDismissAfterWin then
-                            task.spawn(function()
-                                task.wait(AutoStory.autoDismissDelay or 1.5)
-                                if typeof(AS_ClickAnywhereBottom) == "function" then
-                                    AS_ClickAnywhereBottom()
-                                    AS_ClickAnywhereBottom()
-                                end
-                            end)
-                        end
+                        -- if AutoStory.autoDismissAfterWin then
+                        --     task.spawn(function()
+                        --         task.wait(AutoStory.autoDismissDelay or 1.5)
+                        --         if typeof(AS_ClickAnywhereBottom) == "function" then
+                        --             AS_ClickAnywhereBottom()
+                        --             AS_ClickAnywhereBottom()
+                        --         end
+                        --     end)
+                        -- end
                         task.wait(1)
                         local lastWasExtreme = (AutoStory._diffIdx == #AutoStory.diffOrder)
                         AS_NextDifficultyOrBoss()
                         notify("Auto Story", lastWasExtreme and "WIN → next boss" or "WIN → next difficulty", 2, "trophy")
                     elseif outcome == "lost" then
-                        if AutoStory.autoDismissAfterWin then
-                            task.spawn(function()
-                                task.wait(AutoStory.autoDismissDelay or 1.5)
-                                if typeof(AS_ClickAnywhereBottom) == "function" then
-                                    AS_ClickAnywhereBottom()
-                                    AS_ClickAnywhereBottom()
-                                end
-                            end)
-                        end
+                        -- if AutoStory.autoDismissAfterWin then
+                        --     task.spawn(function()
+                        --         task.wait(AutoStory.autoDismissDelay or 1.5)
+                        --         if typeof(AS_ClickAnywhereBottom) == "function" then
+                        --             AS_ClickAnywhereBottom()
+                        --             AS_ClickAnywhereBottom()
+                        --         end
+                        --     end)
+                        -- end
                         task.wait(1)
                         notify("Auto Story", "LOST → retry same boss & difficulty", 2, "rotate-ccw")
                         task.wait(AutoStory.retryDelayOnLost or 1.0)
@@ -1888,6 +1931,50 @@ TabMisc:CreateToggle({
     end
 })
 
+-- ===== Auto Dismiss Reward =====
+local dismissReward = false
+
+-- Helper: đếm số child là Frame
+local function CountChildFrames(parent)
+    if not parent then return 0 end
+    local n = 0
+    for _, ch in ipairs(parent:GetChildren()) do
+        -- chỉ tính đúng class "Frame" (không tính ScrollingFrame, TextLabel, v.v.)
+        if ch.ClassName == "Frame" then
+            n += 1
+        end
+    end
+    return n
+end
+
+
+TabMisc:CreateToggle({
+    Name = "Auto Dismiss Reward",
+    CurrentValue = false,
+    Flag = "MISC_DismissReward",
+    Callback = function(state)
+        dismissReward = state
+        if dismissReward then
+            task.spawn(function()
+                notify("Auto Dismiss Reward", "Enabled", 2, "rewind")
+                while dismissReward do
+                    task.wait(1) -- kiểm tra mỗi 1 giây
+                    local pg = Players.LocalPlayer:FindFirstChild("PlayerGui")
+                    local react = pg and pg:FindFirstChild("react")
+                    local popup = react and react:FindFirstChild("rewardsPopup")
+                    local c1 = popup and popup:FindFirstChild("2")
+                    local c2 = c1 and c1:FindFirstChild("2")
+                    -- thay vì: if c2 and #c2:GetChildren() >= 1 then
+                    if c2 and CountChildFrames(c2) >= 1 then
+                        if typeof(AS_ClickAnywhereBottom) == "function" then
+                            AS_ClickAnywhereBottom()
+                        end
+                    end
+                end
+            end)
+        end
+    end
+})
 
 --============ Tab Config ============--
 
@@ -1988,8 +2075,8 @@ local function HH_CollectCurrentConfig()
         countdownCheckDelay     = AutoStory.countdownCheckDelay,
         countdownChildrenThresh = AutoStory.countdownChildrenThresh,
         retryDelayOnLost        = AutoStory.retryDelayOnLost,
-        autoDismissAfterWin     = AutoStory.autoDismissAfterWin,
-        autoDismissDelay        = AutoStory.autoDismissDelay,
+        -- autoDismissAfterWin     = AutoStory.autoDismissAfterWin,
+        -- autoDismissDelay        = AutoStory.autoDismissDelay,
         bossIds                 = AutoStory.bossIds,
         diffOrder               = AutoStory.diffOrder,
 
@@ -2169,18 +2256,18 @@ local function HH_ApplyConfig(tbl)
                 AutoStory.retryDelaySliderRef:Set(AutoStory.retryDelayOnLost)
             end
         end
-        if type(S.autoDismissAfterWin) == "boolean" then
-            AutoStory.autoDismissAfterWin = S.autoDismissAfterWin
-            if AutoStory.dismissAfterWinToggleRef and AutoStory.dismissAfterWinToggleRef.Set then
-                AutoStory.dismissAfterWinToggleRef:Set(AutoStory.autoDismissAfterWin and true or false)
-            end
-        end
-        if type(S.autoDismissDelay) == "number" then
-            AutoStory.autoDismissDelay = S.autoDismissDelay
-            if AutoStory.dismissDelaySliderRef and AutoStory.dismissDelaySliderRef.Set then
-                AutoStory.dismissDelaySliderRef:Set(AutoStory.autoDismissDelay)
-            end
-        end
+        -- if type(S.autoDismissAfterWin) == "boolean" then
+        --     AutoStory.autoDismissAfterWin = S.autoDismissAfterWin
+        --     if AutoStory.dismissAfterWinToggleRef and AutoStory.dismissAfterWinToggleRef.Set then
+        --         AutoStory.dismissAfterWinToggleRef:Set(AutoStory.autoDismissAfterWin and true or false)
+        --     end
+        -- end
+        -- if type(S.autoDismissDelay) == "number" then
+        --     AutoStory.autoDismissDelay = S.autoDismissDelay
+        --     if AutoStory.dismissDelaySliderRef and AutoStory.dismissDelaySliderRef.Set then
+        --         AutoStory.dismissDelaySliderRef:Set(AutoStory.autoDismissDelay)
+        --     end
+        -- end
         if type(S.bossIds) == "table" then
             -- Chỉ cần set lại danh sách + tick dropdown
             if tbl.AutoStory.bossIds then
@@ -2189,12 +2276,17 @@ local function HH_ApplyConfig(tbl)
                 AutoStory._diffIdx = 1
 
                 if AutoStory.bossDropdownRef and AutoStory.bossDropdownRef.Set then
-                    AutoStory.bossDropdownRef:Set(AutoStory.bossIds) -- tick lại theo danh sách load được
+                    local labels = {}
+                    for _, id in ipairs(AutoStory.bossIds or {}) do
+                        table.insert(labels, AS_BossLabel(id))
+                    end
+                    AutoStory.bossDropdownRef:Set(labels) -- dùng alias [id] thay vì số
                 end
-                -- (tuỳ bản Rayfield, có thể cần dòng dưới; nếu không có thì bỏ)
-                if AutoStory.bossDropdownRef and AutoStory.bossDropdownRef.Refresh and AutoStory.allBossIds then
-                    AutoStory.bossDropdownRef:Refresh(AutoStory.allBossIds, AutoStory.bossIds)
-                end
+
+                -- -- (tuỳ bản Rayfield, có thể cần dòng dưới; nếu không có thì bỏ)
+                -- if AutoStory.bossDropdownRef and AutoStory.bossDropdownRef.Refresh and AutoStory.allBossIds then
+                --     AutoStory.bossDropdownRef:Refresh(AutoStory.allBossIds, AutoStory.bossIds)
+                -- end
             end
         end
         if type(S.diffOrder) == "table" then
@@ -2213,7 +2305,7 @@ local function HH_ApplyConfig(tbl)
 
             local norm = {}
             for k, v in pairs(S.deckOverrides) do
-                local b = tonumber(k) or (type(v) == "table" and tonumber(v.bossId)) -- bossId key có thể là "363"
+                local b = tonumber(k) or (type(v) == "table" and tonumber(v.bossId)) -- bossId key có thể là "366"
                 if b then
                     if type(v) == "number" then
                         local s = sanitizeSlot(v)
@@ -2236,16 +2328,24 @@ local function HH_ApplyConfig(tbl)
             AutoStory.deckOverrides = norm
 
             -- Thử refresh ngay nếu UI đã tồn tại
-            local canRefreshNow = AutoStory.ovRemoveRef
-                and type(AutoStory.ovRemoveRef.SetOptions) == "function"
-                and type(AS_ListOverridesAsOptions) == "function"
+            -- local canRefreshNow = AutoStory.ovRemoveRef
+            --     and type(AutoStory.ovRemoveRef.SetOptions) == "function"
+            --     and type(AS_ListOverridesAsOptions) == "function"
 
-            if canRefreshNow then
-                pcall(function()
-                    AutoStory.ovRemoveRef:SetOptions(AS_ListOverridesAsOptions())
-                end)
+            -- if canRefreshNow then
+            --     pcall(function()
+            --         AutoStory.ovRemoveRef:SetOptions(AS_ListOverridesAsOptions())
+            --     end)
+            -- else
+            --     -- đánh dấu cần refresh UI sau khi UI khởi tạo xong
+            --     AutoStory._pendingUIRefresh = AutoStory._pendingUIRefresh or {}
+            --     AutoStory._pendingUIRefresh.overrides = true
+            -- end
+
+            -- (đoạn mới – dùng wrapper chuẩn)
+            if AutoStory.ovRemoveRef and type(AS_RefreshOverrideRemoveDropdown) == "function" then
+                AS_RefreshOverrideRemoveDropdown()
             else
-                -- đánh dấu cần refresh UI sau khi UI khởi tạo xong
                 AutoStory._pendingUIRefresh = AutoStory._pendingUIRefresh or {}
                 AutoStory._pendingUIRefresh.overrides = true
             end
