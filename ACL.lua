@@ -52,7 +52,7 @@ local Window   = Rayfield:CreateWindow({
         RememberJoins = true
     },
 
-    KeySystem              = true,
+    KeySystem              = false,
     KeySettings            = {
         Title           = "Untitled",
         Subtitle        = "Key System",
@@ -2495,3 +2495,4 @@ TabConfig:CreateButton({
         end
     end
 })
+
