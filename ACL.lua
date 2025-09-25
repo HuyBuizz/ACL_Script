@@ -69,30 +69,31 @@ local Window   = Rayfield:CreateWindow({
 
 -- ---- Services & Remotes (GLOBAL) ----
 --====================[ Services & Remotes ]====================--
-local RS                 = game:GetService("ReplicatedStorage")
-local WS                 = game:GetService("Workspace")
-local Players            = game:GetService("Players")
-local HttpService        = game:GetService("HttpService")
+local RS               = game:GetService("ReplicatedStorage")
+local WS               = game:GetService("Workspace")
+local Players          = game:GetService("Players")
+local HttpService      = game:GetService("HttpService")
 
-local Net                = RS:WaitForChild("shared/network@eventDefinitions")
+local Net              = RS:WaitForChild("shared/network@eventDefinitions")
 
 -- Shared
-local RE_Forfeit         = Net:WaitForChild("forfeitBattle")
-local RE_SetPartySlot    = Net:WaitForChild("setPartySlot")
+local RE_Forfeit       = Net:WaitForChild("forfeitBattle")
+local RE_SetPartySlot  = Net:WaitForChild("setPartySlot")
 
 -- Auto Raid
-local RE_Teleport        = Net:WaitForChild("teleport")
-local RE_FightRaidBoss   = Net:WaitForChild("fightRaidBoss")
-local RE_FightMinion     = Net:WaitForChild("fightRaidMinion")
+local RE_Teleport      = Net:WaitForChild("teleport")
+local RE_FightRaidBoss = Net:WaitForChild("fightRaidBoss")
+local RE_FightMinion   = Net:WaitForChild("fightRaidMinion")
 
 -- Exploration
-local RE_ClaimExpl       = Net:WaitForChild("claimExploration")
-local RE_StartExpl       = Net:WaitForChild("startExploration")
+local RE_ClaimExpl     = Net:WaitForChild("claimExploration")
+local RE_StartExpl     = Net:WaitForChild("startExploration")
 
 -- Tower (Infinite)
-local RE_ClaimInf        = Net:WaitForChild("claimInfinite")
-local RE_FightInf        = Net:WaitForChild("fightInfinite")
-local RE_PauseInf        = Net:WaitForChild("pauseInfinite")
+local RE_ClaimInf      = Net:WaitForChild("claimInfinite")
+local RE_FightInf      = Net:WaitForChild("fightInfinite")
+local RE_PauseInf      = Net:WaitForChild("pauseInfinite")
+
 
 -- Global Boss (Main)
 local RE_FightGlobal     = Net:WaitForChild("fightGlobalBoss")
@@ -1962,7 +1963,7 @@ TabMisc:CreateToggle({
                     local pg = Players.LocalPlayer:FindFirstChild("PlayerGui")
                     local react = pg and pg:FindFirstChild("react")
                     local popup = react and react:FindFirstChild("rewardsPopup")
-                    local c1 = popup and popup:FindFirstChild("2")
+                    local c1 = popup and popup:FindFirstChild("3")
                     local c2 = c1 and c1:FindFirstChild("2")
                     -- thay vì: if c2 and #c2:GetChildren() >= 1 then
                     if c2 and CountChildFrames(c2) >= 1 then
@@ -2495,4 +2496,3 @@ TabConfig:CreateButton({
         end
     end
 })
-
